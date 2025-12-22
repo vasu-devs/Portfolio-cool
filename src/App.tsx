@@ -1,3 +1,4 @@
+import GitHubCalendar from 'react-github-calendar';
 import { useState, useEffect } from 'react';
 import {
    Github,
@@ -299,39 +300,65 @@ function App() {
          </section>
 
          {/* 5. FOOTER */}
-         <footer id="contact" className="h-[80vh] flex flex-col justify-between py-24 relative">
+         <footer id="contact" className="min-h-[80vh] flex flex-col justify-between pt-24 relative">
             <Container>
-               <h2 className="font-display font-black text-[12vw] leading-[0.8] tracking-tighter uppercase mb-12">
-                  Let's<br />Talk.
-               </h2>
-               <div className="flex flex-wrap gap-4 items-center">
-                  <MagneticButton>
-                     <a href="mailto:siddhvasudev1402@gmail.com" className="bg-fg-primary text-bg-primary px-8 py-4 rounded-full font-bold font-mono text-sm uppercase hover:scale-105 transition-transform flex items-center gap-2">
-                        <Mail size={18} /> siddhvasudev1402@gmail.com
-                     </a>
-                  </MagneticButton>
+               <div className="flex flex-col gap-12 md:gap-20">
+                  {/* Top Row: Heading & Heatmap */}
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                    <div className="md:col-span-4">
+                      <h2 className="font-display font-black text-[22vw] md:text-[10vw] leading-[0.75] tracking-tighter uppercase">
+                        Let's<br />Talk.
+                      </h2>
+                    </div>
+                                 
+                    <div className="md:col-span-8 flex flex-col justify-between mt-12 h-full ml-12">
+                      <div className="bg-bg-secondary/50 p-8 rounded-2xl border border-border-primary backdrop-blur-sm overflow-visible">
+                        <GitHubCalendar
+                          username="vasu-devs"
+                          colorScheme={theme === 'dark' ? 'dark' : 'light'}
+                          blockSize={12}
+                          blockMargin={2}
+                          fontSize={14}
+                          style={{
+                            color: theme === 'dark' ? '#ffffff' : '#050505',
+                            width: '100%',
+                            height: 'auto'
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-                  <MagneticButton>
-                     <a href="https://cal.com/vasudev-siddh-bjemxn" target="_blank" className="border border-border-primary px-8 py-4 rounded-full font-bold font-mono text-sm uppercase hover:bg-bg-secondary transition-colors flex items-center gap-2">
-                        <Calendar size={18} /> Book a call
-                     </a>
-                  </MagneticButton>
+                  {/* Bottom Row: Actions (Single Line) */}
+                  <div className="flex flex-nowrap gap-4 items-center justify-center overflow-x-auto pb-2 w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                     <MagneticButton>
+                        <a href="mailto:siddhvasudev1402@gmail.com" className="bg-fg-primary text-bg-primary px-8 py-4 rounded-full font-bold font-mono text-sm uppercase hover:scale-105 transition-transform flex items-center gap-2 whitespace-nowrap">
+                           <Mail size={18} /> siddhvasudev1402@gmail.com
+                        </a>
+                     </MagneticButton>
 
-                  <MagneticButton>
-                     <a href="https://buymeacoffee.com/Vasu-DevS" target="_blank" className="bg-[#FFDD00] text-black px-8 py-4 rounded-full font-bold font-mono text-sm uppercase hover:scale-105 transition-transform flex items-center gap-2 border border-transparent hover:border-black">
-                        <Coffee size={18} /> Buy me a coffee
-                     </a>
-                  </MagneticButton>
+                     <MagneticButton>
+                        <a href="https://cal.com/vasudev-siddh-bjemxn" target="_blank" className="border border-border-primary px-8 py-4 rounded-full font-bold font-mono text-sm uppercase hover:bg-bg-secondary transition-colors flex items-center gap-2 whitespace-nowrap">
+                           <Calendar size={18} /> Book a call
+                        </a>
+                     </MagneticButton>
 
-                  <MagneticButton>
-                     <a href="/resume.pdf" className="border border-border-primary px-8 py-4 rounded-full font-bold font-mono text-sm uppercase hover:bg-bg-secondary transition-colors flex items-center gap-2">
-                        <Download size={18} /> Download CV
-                     </a>
-                  </MagneticButton>
+                     <MagneticButton>
+                        <a href="https://buymeacoffee.com/Vasu-DevS" target="_blank" className="bg-[#FFDD00] text-black px-8 py-4 rounded-full font-bold font-mono text-sm uppercase hover:scale-105 transition-transform flex items-center gap-2 border border-transparent hover:border-black whitespace-nowrap">
+                           <Coffee size={18} /> Buy me a coffee
+                        </a>
+                     </MagneticButton>
+
+                     <MagneticButton>
+                        <a href="/resume.pdf" className="border border-border-primary px-8 py-4 rounded-full font-bold font-mono text-sm uppercase hover:bg-bg-secondary transition-colors flex items-center gap-2 whitespace-nowrap">
+                           <Download size={18} /> Download CV
+                        </a>
+                     </MagneticButton>
+                  </div>
                </div>
             </Container>
 
-            <Container className="flex justify-between items-end text-xs font-mono uppercase text-fg-secondary">
+            <Container className="flex justify-between items-end text-xs pt-12 font-mono uppercase text-fg-secondary">
                <span>© 2025 Vasu-DevS</span>
                <div className="flex gap-6">
                   <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">GitHub</a>
@@ -339,6 +366,13 @@ function App() {
                   <a href="https://linkedin.com/in/vasu-devs" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">LinkedIn</a>
                </div>
             </Container>
+
+            {/* Bottom Watermark - Separate & Faded */}
+            <div className="w-full flex justify-center items-end mt-12 overflow-hidden pointer-events-none select-none">
+               <h1 className="font-display font-black text-[20.5vw] leading-[0.8] bg-gradient-to-b from-fg-primary to-transparent bg-clip-text text-transparent tracking-tighter uppercase whitespace-nowrap opacity-30 transform translate-y-4">
+                  Vasu-DevS
+               </h1>
+            </div>
          </footer>
 
          {/* VIDEO MODAL */}
