@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light Mode Default */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f5;
+  --fg-primary: #050505;
+  --fg-secondary: #52525b;
+  --border-primary: #e4e4e7;
+  --accent-glow: rgba(0, 0, 0, 0.08);
+  /* Dark glow for light mode */
+  --grid-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='dark'] {
+  --bg-primary: #050505;
+  --bg-secondary: #0A0A0A;
+  --fg-primary: #ffffff;
+  --fg-secondary: #a1a1aa;
+  --border-primary: #27272a;
+  --accent-glow: rgba(255, 255, 255, 0.15);
+  /* White glow for dark mode */
+  --grid-color: rgba(255, 255, 255, 0.04);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--fg-primary);
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.5s cubic-bezier(0.32, 0.72, 0, 1), color 0.5s ease;
+  overflow-x: hidden;
+}
+
+/* Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-primary);
+}
+
+[data-theme='dark'] .glass {
+  background: rgba(10, 10, 10, 0.7);
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
