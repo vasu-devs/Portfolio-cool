@@ -57,18 +57,14 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
                 whileTap={{ scale: 0.95 }}
                 className={`flex items-center gap-2 md:gap-3 px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border transition-all duration-500 pointer-events-auto cursor-pointer shadow-2xl
                     ${isOpen
-                        ? (isInverted ? 'bg-fg-primary text-bg-primary border-bg-primary ring-8 ring-bg-primary/5' : 'bg-fg-primary text-bg-primary border-fg-primary ring-8 ring-fg-primary/5')
+                        ? (isInverted ? 'bg-fg-primary text-bg-primary border-bg-primary ring-8 ring-emerald-500/10' : 'bg-fg-primary text-bg-primary border-fg-primary ring-8 ring-emerald-500/10')
                         : (isInverted
-                            ? 'bg-fg-primary/95 text-bg-primary border-bg-primary/30 backdrop-blur-3xl hover:bg-fg-primary'
-                            : 'bg-bg-primary/95 text-fg-primary border-border-primary/50 backdrop-blur-3xl hover:border-fg-primary/30')
+                            ? 'bg-fg-primary/95 text-bg-primary border-bg-primary/30 backdrop-blur-3xl hover:bg-fg-primary ring-emerald-500/5 hover:ring-8'
+                            : 'bg-bg-primary/95 text-fg-primary border-border-primary/50 backdrop-blur-3xl hover:border-fg-primary/30 ring-emerald-500/5 hover:ring-8')
                     }`}
             >
                 <span className="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
-                    <span className={`relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 shadow-[0_0_10px_rgba(255,255,255,0.3)] 
-                        ${isOpen
-                            ? (isInverted ? 'bg-bg-primary' : 'bg-bg-primary')
-                            : (isInverted ? 'bg-bg-primary' : 'bg-fg-primary')}`}
-                    ></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
                 </span>
                 <div className="flex flex-col items-start translate-y-[1px]">
                     <span className={`text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-black leading-none mb-0.5 md:mb-1 
@@ -88,7 +84,7 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
                 </div>
             </motion.button>
 
-            {/* Dropdown Menu (V2 High-Blur) */}
+            {/* Dropdown Menu */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -112,7 +108,7 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
                                     <span className={`text-[7px] md:text-[8px] font-mono opacity-20 font-bold ${isInverted ? 'text-bg-primary' : ''}`}>PROTO_77_STABLE</span>
                                 </div>
                                 <div className={`p-2 rounded-full border border-emerald-500/20 bg-emerald-500/10`}>
-                                    <div className={`w-1 h-1 rounded-full bg-emerald-500 animate-pulse`} />
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                 </div>
                             </div>
 
@@ -155,3 +151,4 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
         </div>
     );
 };
+village
