@@ -10,6 +10,7 @@ import { MagneticButton } from './components/ui/MagneticButton';
 import { ProjectModal } from './components/ui/ProjectModal';
 import { Preloader } from './components/ui/Preloader';
 import { SideBranding } from './components/ui/SideBranding';
+import { StatusBadge } from './components/ui/StatusBadge';
 import { AnimatePresence } from 'framer-motion';
 
 export default function App() {
@@ -143,6 +144,8 @@ export default function App() {
                </div>
             </div>
          </nav>
+
+         <StatusBadge isInverted={isNavInverted} />
 
          <Hero />
          <Work projects={projects} openModal={openModal} />
