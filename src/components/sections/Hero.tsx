@@ -11,9 +11,10 @@ interface HeroProps {
 export const Hero = ({ theme = 'dark' }: HeroProps) => {
     return (
         <section id="hero" className="min-h-[85vh] md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
-            {/* Background Grain & Gradients */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-500/10 via-bg-primary to-bg-primary opacity-50" />
+            {/* Split Background */}
+            <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
+                <div className={`h-[62%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                <div className="h-[38%] w-full transition-colors duration-700 bg-bg-primary" />
             </div>
 
             <Container className="relative z-10 h-full flex flex-col pt-10 md:pt-16 pb-4 md:pb-10 overflow-visible">
@@ -27,7 +28,7 @@ export const Hero = ({ theme = 'dark' }: HeroProps) => {
                     <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-6 md:pt-12 mix-blend-exclusion">
                         {/* Huge Heading */}
                         <div className="-translate-y-36 md:translate-y-0">
-                            <h1 className="font-display font-black text-[22vw] md:text-[10vw] leading-[0.75] md:leading-[0.85] tracking-tighter uppercase mb-4 md:mb-8 drop-shadow-2xl text-fg-primary">
+                            <h1 className={`font-display font-black text-[22vw] md:text-[10vw] leading-[0.75] md:leading-[0.85] tracking-tighter uppercase mb-4 md:mb-8 drop-shadow-2xl ${theme === 'dark' ? 'text-black' : 'text-white'}`}>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -60,7 +61,7 @@ export const Hero = ({ theme = 'dark' }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="pt-4 md:pt-8 md:bg-bg-primary/30 md:backdrop-blur-sm md:p-4 md:rounded-xl w-full pointer-events-auto -mt-16 md:mt-0"
+                            className="pt-4 md:pt-8 w-full pointer-events-auto -mt-16 md:mt-0"
                         >
                             <p className="max-w-xl text-sm md:text-2xl text-fg-secondary leading-relaxed font-light drop-shadow-md mb-4 md:mb-8">
                                 I am a <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in India.
@@ -69,17 +70,17 @@ export const Hero = ({ theme = 'dark' }: HeroProps) => {
 
                             <div className="flex flex-wrap gap-4 relative z-20">
                                 <MagneticButton>
-                                    <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-3 md:p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
+                                    <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
                                         <Github size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>
                                 <MagneticButton>
-                                    <a href="https://x.com/home" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile" className="p-3 md:p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
+                                    <a href="https://x.com/home" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
                                         <Twitter size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>
                                 <MagneticButton>
-                                    <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-3 md:p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
+                                    <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
                                         <Linkedin size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>

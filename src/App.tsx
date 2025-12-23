@@ -235,7 +235,7 @@ export default function App() {
             </div>
          </nav>
 
-         <StatusBadge isInverted={isNavInverted} />
+         <StatusBadge isInverted={isNavInverted} theme={theme} />
          <Hero theme={theme} />
          <Work projects={projects} openModal={openModal} />
          <Skills />

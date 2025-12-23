@@ -17,7 +17,7 @@ export const ResumeButton = ({ className = "", showLabel = true }: ResumeButtonP
                 initial="initial"
                 whileHover="hover"
                 animate="initial"
-                className={`flex items-center gap-3 px-8 py-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-all group font-mono text-xs uppercase tracking-widest relative overflow-hidden ${className}`}
+                className={`flex items-center gap-3 px-8 py-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-all group font-mono text-xs uppercase tracking-widest relative overflow-hidden ${className}`}
             >
                 <div className="relative flex items-center justify-center">
                     {/* The "Eye" - Closed lid by default, Opens on hover */}
