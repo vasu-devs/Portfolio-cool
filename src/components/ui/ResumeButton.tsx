@@ -10,24 +10,22 @@ interface ResumeButtonProps {
 export const ResumeButton = ({ className = "", showLabel = true }: ResumeButtonProps) => {
     return (
         <MagneticButton>
-            <a
+            <motion.a
                 href="https://drive.google.com/file/d/105PfA58-Eonq0lGmC0V8SnMOWsqlm-G6/view?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
+                initial="initial"
+                whileHover="hover"
+                animate="initial"
                 className={`flex items-center gap-3 px-8 py-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-all group font-mono text-xs uppercase tracking-widest relative overflow-hidden ${className}`}
             >
                 <div className="relative flex items-center justify-center">
-                    {/* The "Eye" - Closed by default, Opens on hover */}
-                    <motion.div
-                        className="relative z-10"
-                        initial="initial"
-                        whileHover="hover"
-                        animate="initial"
-                    >
+                    {/* The "Eye" - Closed lid by default, Opens on hover */}
+                    <div className="relative z-10">
                         {/* Eye Lids/Frame */}
                         <motion.div
                             variants={{
-                                initial: { scaleY: 0, opacity: 0.3 },
+                                initial: { scaleY: 0.35, opacity: 0.7 },
                                 hover: { scaleY: 1, opacity: 1 }
                             }}
                             transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
@@ -44,10 +42,10 @@ export const ResumeButton = ({ className = "", showLabel = true }: ResumeButtonP
                             }}
                             transition={{ duration: 0.4 }}
                         />
-                    </motion.div>
+                    </div>
                 </div>
                 {showLabel && <span className="relative z-10">Resume</span>}
-            </a>
+            </motion.a>
         </MagneticButton>
     );
 };
