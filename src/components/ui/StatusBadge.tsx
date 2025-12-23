@@ -56,10 +56,10 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center gap-2 md:gap-3 px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border transition-all duration-500 pointer-events-auto cursor-pointer shadow-2xl mix-blend-exclusion
+                className={`flex items-center gap-2 md:gap-3 px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border transition-all duration-500 pointer-events-auto cursor-pointer shadow-2xl
                     ${isOpen
-                        ? 'bg-white text-black border-white ring-8 ring-emerald-500/10'
-                        : 'bg-white text-black border-white ring-emerald-500/5 hover:ring-8'
+                        ? `${theme === 'dark' ? 'bg-black text-white border-white' : 'bg-white text-black border-white'} ring-8 ring-emerald-500/10`
+                        : `${theme === 'dark' ? 'bg-black text-white border-white' : 'bg-white text-black border-white'} ring-emerald-500/5 hover:ring-8`
                     }`}
             >
                 <span className="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
