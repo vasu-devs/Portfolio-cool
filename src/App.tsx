@@ -17,7 +17,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 export default function App() {
    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-   const [stats, setStats] = useState({ stars: 0, commits: 0, prs: 0 });
+   const [stats, setStats] = useState({ stars: 12, commits: 882, prs: 45 });
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
    const [selectedProject, setSelectedProject] = useState<any>(null);
@@ -56,22 +56,48 @@ export default function App() {
    useEffect(() => {
       const fetchStats = async () => {
          try {
-            const res = await fetch('https://api.github.com/users/vasu-devs/repos?per_page=100');
-            const repos = await res.json();
+            // 1. Fetch Repos for Star Count
+            const reposRes = await fetch('https://api.github.com/users/vasu-devs/repos?per_page=100');
+            const repos = await reposRes.json();
 
             if (Array.isArray(repos)) {
                const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
-               setStats({
-                  stars: totalStars,
-                  commits: 882,
-                  prs: 45
-               });
+               setStats(prev => ({ ...prev, stars: totalStars }));
             }
+
+            // 2. Fetch PR Count (Search API)
+            // Note: heavily rate limited for unauthenticated requests
+            try {
+               const prsRes = await fetch('https://api.github.com/search/issues?q=type:pr+author:vasu-devs');
+               if (prsRes.ok) {
+                  const prsData = await prsRes.json();
+                  setStats(prev => ({ ...prev, prs: prsData.total_count }));
+               }
+            } catch (e) {
+               console.warn("Failed to fetch PR stats, using fallback");
+            }
+
+            // 3. Fetch Commits Count (Search API)
+            try {
+               const commitsRes = await fetch('https://api.github.com/search/commits?q=author:vasu-devs', {
+                  headers: { 'Accept': 'application/vnd.github.cloak-preview' }
+               });
+               if (commitsRes.ok) {
+                  const commitsData = await commitsRes.json();
+                  setStats(prev => ({ ...prev, commits: commitsData.total_count }));
+               }
+            } catch (e) {
+               console.warn("Failed to fetch commit stats, using fallback");
+            }
+
          } catch (e) {
             console.error("Failed to fetch GH stats", e);
          }
       };
-      fetchStats();
+
+      // Delay fetch slightly to prioritize LCP
+      const timer = setTimeout(fetchStats, 1000);
+      return () => clearTimeout(timer);
    }, []);
 
    const toggleTheme = (e?: React.MouseEvent) => {
