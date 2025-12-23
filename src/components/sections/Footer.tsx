@@ -8,9 +8,10 @@ import { ResumeButton } from '../ui/ResumeButton';
 
 interface FooterProps {
     theme: 'light' | 'dark';
+    onResumeClick?: () => void;
 }
 
-export const Footer = ({ theme }: FooterProps) => {
+export const Footer = ({ theme, onResumeClick }: FooterProps) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -82,7 +83,10 @@ export const Footer = ({ theme }: FooterProps) => {
                                 </a>
                             </MagneticButton>
                         ))}
-                        <ResumeButton className="font-bold border border-border-primary hover:bg-bg-secondary" />
+                        <ResumeButton
+                            className="font-bold border border-border-primary hover:bg-bg-secondary"
+                            onClick={onResumeClick}
+                        />
                     </motion.div>
                 </div>
             </Container>

@@ -8,6 +8,7 @@ import { Footer } from './components/sections/Footer';
 import { Grain } from './components/ui/Grain';
 import { MagneticButton } from './components/ui/MagneticButton';
 import { ProjectModal } from './components/ui/ProjectModal';
+import { ResumeModal } from './components/ui/ResumeModal';
 import { Preloader } from './components/ui/Preloader';
 import { SideBranding } from './components/ui/SideBranding';
 import { StatusBadge } from './components/ui/StatusBadge';
@@ -18,12 +19,15 @@ export default function App() {
    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
    const [stats, setStats] = useState({ stars: 0, commits: 0, prs: 0 });
    const [isModalOpen, setIsModalOpen] = useState(false);
+   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
    const [selectedProject, setSelectedProject] = useState<any>(null);
    const [isNavInverted, setIsNavInverted] = useState(false);
    const [isLoading, setIsLoading] = useState(true);
    const [isTransitioning, setIsTransitioning] = useState(false);
    const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
    const toggleRef = useRef<HTMLDivElement>(null);
+
+   const resumeUrl = "https://drive.google.com/file/d/105PfA58-Eonq0lGmC0V8SnMOWsqlm-G6/view?usp=sharing";
 
    useEffect(() => {
       document.documentElement.setAttribute('data-theme', theme);
@@ -96,6 +100,10 @@ export default function App() {
    const openModal = (project: any) => {
       setSelectedProject(project);
       setIsModalOpen(true);
+   };
+
+   const openResumeModal = () => {
+      setIsResumeModalOpen(true);
    };
 
    const projects = [
@@ -236,16 +244,22 @@ export default function App() {
          </nav>
 
          <StatusBadge isInverted={isNavInverted} theme={theme} />
-         <Hero theme={theme} />
+         <Hero theme={theme} onResumeClick={openResumeModal} />
          <Work projects={projects} openModal={openModal} />
          <Skills />
          <OssImpact stats={stats} />
-         <Footer theme={theme} />
+         <Footer theme={theme} onResumeClick={openResumeModal} />
 
          <ProjectModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             project={selectedProject}
+         />
+
+         <ResumeModal
+            isOpen={isResumeModalOpen}
+            onClose={() => setIsResumeModalOpen(false)}
+            resumeUrl={resumeUrl}
          />
       </div>
    );

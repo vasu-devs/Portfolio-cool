@@ -5,15 +5,24 @@ import { MagneticButton } from './MagneticButton';
 interface ResumeButtonProps {
     className?: string;
     showLabel?: boolean;
+    onClick?: () => void;
 }
 
-export const ResumeButton = ({ className = "", showLabel = true }: ResumeButtonProps) => {
+export const ResumeButton = ({ className = "", showLabel = true, onClick }: ResumeButtonProps) => {
+    const handleClick = (e?: React.MouseEvent) => {
+        if (onClick) {
+            e?.preventDefault();
+            onClick();
+        }
+    };
+
     return (
-        <MagneticButton>
+        <MagneticButton onClick={onClick ? () => handleClick() : undefined}>
             <motion.a
-                href="https://drive.google.com/file/d/105PfA58-Eonq0lGmC0V8SnMOWsqlm-G6/view?usp=drive_link"
+                href="https://drive.google.com/file/d/105PfA58-Eonq0lGmC0V8SnMOWsqlm-G6/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleClick}
                 initial="initial"
                 whileHover="hover"
                 animate="initial"

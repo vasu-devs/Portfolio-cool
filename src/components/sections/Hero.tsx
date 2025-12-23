@@ -6,9 +6,10 @@ import { ResumeButton } from '../ui/ResumeButton';
 
 interface HeroProps {
     theme?: 'light' | 'dark';
+    onResumeClick?: () => void;
 }
 
-export const Hero = ({ theme = 'dark' }: HeroProps) => {
+export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
     return (
         <section id="hero" className="min-h-[85vh] md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
@@ -87,7 +88,7 @@ export const Hero = ({ theme = 'dark' }: HeroProps) => {
                                         <Linkedin size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>
-                                <ResumeButton />
+                                <ResumeButton onClick={onResumeClick} />
                             </div>
                         </motion.div>
                     </div>
