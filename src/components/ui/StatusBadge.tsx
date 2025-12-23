@@ -53,7 +53,7 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
     ];
 
     return (
-        <div className="fixed top-8 left-10 z-[70] hidden xl:block select-none font-mono" ref={containerRef}>
+        <div className="fixed top-8 right-10 z-[70] hidden xl:block select-none font-mono" ref={containerRef}>
             {/* Status Pill Trigger */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
@@ -89,7 +89,7 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 15, scale: 0.95 }}
                         transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-                        className={`absolute top-full left-0 mt-4 w-80 backdrop-blur-2xl border rounded-[2rem] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.4)] overflow-hidden z-[71]
+                        className={`absolute top-full right-0 mt-4 w-80 backdrop-blur-2xl border rounded-[2rem] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.4)] overflow-hidden z-[71]
                             ${isInverted ? 'bg-fg-primary/95 text-bg-primary border-bg-primary/20' : 'bg-bg-primary/98 text-fg-primary border-border-primary'}
                         `}
                     >

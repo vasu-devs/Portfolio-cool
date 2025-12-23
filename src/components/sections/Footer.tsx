@@ -95,7 +95,7 @@ export const Footer = ({ theme }: FooterProps) => {
                     whileInView={{ opacity: 0.3, y: 16 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
-                    className="font-display font-black text-[20.5vw] leading-[0.8] bg-gradient-to-b from-fg-primary to-transparent bg-clip-text text-transparent tracking-tighter uppercase whitespace-nowrap transform"
+                    className="font-display font-black text-[20.5vw] leading-[0.7] bg-gradient-to-b from-fg-primary to-transparent bg-clip-text text-transparent tracking-tighter uppercase whitespace-nowrap transform"
                 >
                     Vasu-DevS
                 </motion.h1>
