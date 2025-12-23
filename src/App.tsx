@@ -143,11 +143,9 @@ export default function App() {
             )}
          </AnimatePresence>
 
-         {/* Sunlight Transition Effect (Translucent Wave Reveal + Scattered Rays) */}
          <AnimatePresence mode="wait">
             {isTransitioning && (
                <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
-                  {/* The Main Translucent Wave */}
                   <motion.div
                      initial={{ opacity: 0, scale: 0 }}
                      animate={{
@@ -174,8 +172,6 @@ export default function App() {
                         filter: 'blur(10px)',
                      }}
                   />
-
-                  {/* Scattered Volumetric Rays */}
                   {[...Array(16)].map((_, i) => (
                      <motion.div
                         key={i}
@@ -207,7 +203,6 @@ export default function App() {
          <Grain />
          <SideBranding isInverted={isNavInverted} />
 
-         {/* Navigation - Now with SunToggle */}
          <nav className="fixed bottom-6 md:bottom-8 left-0 right-0 z-50 flex justify-center px-4">
             <div className={`
               backdrop-blur-xl border rounded-full px-5 md:px-6 py-2.5 md:py-3 shadow-lg flex items-center gap-4 md:gap-12 w-[90vw] md:w-auto md:min-w-[300px] justify-between transition-all duration-300
@@ -216,9 +211,7 @@ export default function App() {
                   : 'bg-bg-primary/70 border-border-primary text-fg-primary'}
             `}>
                <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest font-black shrink-0">Vasu-DevS</span>
-
                <div className="flex items-center gap-3 md:gap-4">
-                  {/* Mobile Quick Contacts */}
                   <div className="flex md:hidden items-center gap-3 pr-3 border-r border-current/10">
                      <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>
                         <Mail size={16} />
@@ -230,17 +223,12 @@ export default function App() {
                         <Twitter size={16} />
                      </a>
                   </div>
-
                   <a href="#projects" className={`hidden md:block text-xs font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Work</a>
                   <a href="#skills" className={`hidden md:block text-xs font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Skills</a>
                   <a href="#contact" className={`hidden md:block text-xs font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Contact</a>
-
                   <div ref={toggleRef}>
                      <MagneticButton onClick={toggleTheme}>
-                        <SunToggle
-                           theme={theme}
-                           isInverted={isNavInverted}
-                        />
+                        <SunToggle theme={theme} isInverted={isNavInverted} />
                      </MagneticButton>
                   </div>
                </div>
@@ -248,8 +236,7 @@ export default function App() {
          </nav>
 
          <StatusBadge isInverted={isNavInverted} />
-
-         <Hero />
+         <Hero theme={theme} />
          <Work projects={projects} openModal={openModal} />
          <Skills />
          <OssImpact stats={stats} />
@@ -260,6 +247,6 @@ export default function App() {
             onClose={() => setIsModalOpen(false)}
             project={selectedProject}
          />
-      </div >
+      </div>
    );
 }

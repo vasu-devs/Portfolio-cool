@@ -57,7 +57,7 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
                 whileTap={{ scale: 0.95 }}
                 className={`flex items-center gap-2 md:gap-3 px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border transition-all duration-500 pointer-events-auto cursor-pointer shadow-2xl
                     ${isOpen
-                        ? (isInverted ? 'bg-fg-primary text-bg-primary border-bg-primary ring-8 ring-emerald-500/10' : 'bg-fg-primary text-bg-primary border-fg-primary ring-8 ring-emerald-500/10')
+                        ? 'bg-fg-primary text-bg-primary border-fg-primary ring-8 ring-emerald-500/10'
                         : (isInverted
                             ? 'bg-fg-primary/95 text-bg-primary border-bg-primary/30 backdrop-blur-3xl hover:bg-fg-primary ring-emerald-500/5 hover:ring-8'
                             : 'bg-bg-primary/95 text-fg-primary border-border-primary/50 backdrop-blur-3xl hover:border-fg-primary/30 ring-emerald-500/5 hover:ring-8')
@@ -68,16 +68,12 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
                 </span>
                 <div className="flex flex-col items-start translate-y-[1px]">
                     <span className={`text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-black leading-none mb-0.5 md:mb-1 
-                        ${isOpen
-                            ? (isInverted ? 'text-bg-primary/60' : 'text-bg-primary/60')
-                            : (isInverted ? 'text-bg-primary/60' : 'text-fg-secondary/60')}`}
+                        ${isOpen ? '!text-bg-primary/60' : (isInverted ? 'text-bg-primary/60' : 'text-fg-secondary/60')}`}
                     >
                         Open To Work
                     </span>
                     <span className={`text-[9px] md:text-[14px] uppercase tracking-[0.1em] font-black leading-none 
-                        ${isOpen
-                            ? (isInverted ? 'text-bg-primary' : 'text-bg-primary')
-                            : (isInverted ? 'text-bg-primary' : 'text-fg-primary')}`}
+                        ${isOpen ? '!text-bg-primary' : (isInverted ? 'text-bg-primary' : 'text-fg-primary')}`}
                     >
                         Hire Me
                     </span>
@@ -151,4 +147,3 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
         </div>
     );
 };
-village

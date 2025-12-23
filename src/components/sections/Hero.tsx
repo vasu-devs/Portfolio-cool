@@ -4,7 +4,11 @@ import { Container } from '../ui/Container';
 import { MagneticButton } from '../ui/MagneticButton';
 import { ResumeButton } from '../ui/ResumeButton';
 
-export const Hero = () => {
+interface HeroProps {
+    theme?: 'light' | 'dark';
+}
+
+export const Hero = ({ theme = 'dark' }: HeroProps) => {
     return (
         <section id="hero" className="min-h-[85vh] md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Background Grain & Gradients */}
@@ -84,27 +88,32 @@ export const Hero = () => {
                         </motion.div>
                     </div>
 
-                    {/* Right Column: Image - NOW HYPER-SCALED ON MOBILE */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1.2, ease: "easeOut" }}
-                        className="order-1 md:order-2 absolute md:relative inset-0 md:inset-auto md:row-start-1 md:col-start-6 md:col-span-7 flex justify-center md:justify-end items-center md:items-start z-10 pointer-events-none overflow-visible"
-                    >
-                        {/* Profile Image with Glow - ALL OVERFLOW ALLOWED */}
-                        <div className="w-full h-full md:h-auto relative group md:opacity-100 transition-opacity duration-1000 overflow-visible">
+                    {/* Right Column: Image - THEME-AWARE, STATIC (Requested) */}
+                    <div className="order-1 md:order-2 absolute md:relative inset-0 md:inset-auto md:row-start-1 md:col-start-6 md:col-span-7 flex justify-center md:justify-end items-center md:items-start z-10 pointer-events-none overflow-visible">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 1.1 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 1.2, ease: "easeOut" }}
+                            className="w-full h-full md:h-auto relative md:opacity-100 transition-opacity duration-1000 overflow-visible"
+                        >
                             {/* Mobile Gradient Mask - Tuned for even higher image */}
                             <div className="absolute inset-x-0 bottom-0 top-[30%] bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent md:hidden z-20" />
-                            <div className="absolute inset-0 bg-accent-primary/10 blur-3xl rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 scale-75 translate-y-0" />
 
-                            {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED */}
-                            <img
+                            {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED, STATIC */}
+                            <motion.img
                                 src="/Pic/Hero.png"
                                 alt="Vasu - Applied AI Engineer"
-                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 grayscale-[5%] contrast-125 brightness-110 saturate-115 md:scale-110 md:-translate-y-24"
+                                initial={false}
+                                animate={{
+                                    filter: theme === 'dark'
+                                        ? 'grayscale(10%) contrast(125%) brightness(1.1) saturate(1.15)'
+                                        : 'grayscale(15%) contrast(110%) brightness(0.95) saturate(1.1)',
+                                }}
+                                transition={{ duration: 0.8 }}
+                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 md:scale-110 md:-translate-y-24"
                             />
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
                 </motion.div>
 
                 {/* Scroll Indicator */}
