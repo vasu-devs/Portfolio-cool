@@ -19,7 +19,7 @@ interface WorkProps {
 
 export const Work = ({ projects, openModal }: WorkProps) => {
     return (
-        <section id="projects" className="pt-32 pb-12">
+        <section id="projects" className="pt-4 pb-32 relative">
             <Container>
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}

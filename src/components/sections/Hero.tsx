@@ -6,73 +6,77 @@ import { ResumeButton } from '../ui/ResumeButton';
 
 export const Hero = () => {
     return (
-        <header className="h-screen flex flex-col justify-end pt-32 pb-24 relative overflow-hidden">
-            {/* Background Image - Simplified */}
+        <section id="hero" className="min-h-[85vh] md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
+            {/* Background Grain & Gradients */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-b from-bg-secondary/20 via-bg-primary to-bg-primary" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-500/10 via-bg-primary to-bg-primary opacity-50" />
             </div>
 
-            <Container className="relative z-10 h-full flex flex-col justify-end pt-20 pb-12 md:pb-10 overflow-visible">
+            <Container className="relative z-10 h-full flex flex-col pt-10 md:pt-16 pb-4 md:pb-10 overflow-visible">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1 }}
-                    className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end"
+                    className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
                 >
-                    {/* Left Column: Text */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none mix-blend-exclusion md:translate-y-8">
-                        <h1 className="font-display font-black text-[15vw] md:text-[10vw] leading-[0.8] tracking-tighter uppercase mb-6 md:mb-8 drop-shadow-2xl text-fg-primary">
-                            <motion.span
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                                className="block"
-                            >
-                                Code.
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.8, delay: 0.4 }}
-                                className="block"
-                            >
-                                Story.
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.8, delay: 0.6 }}
-                                className="block"
-                            >
-                                Impact.
-                            </motion.span>
-                        </h1>
+                    {/* Left Column: Text - Added pt to match image gap */}
+                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-6 md:pt-12 mix-blend-exclusion">
+                        {/* Huge Heading */}
+                        <div className="-translate-y-36 md:translate-y-0">
+                            <h1 className="font-display font-black text-[22vw] md:text-[10vw] leading-[0.75] md:leading-[0.85] tracking-tighter uppercase mb-4 md:mb-8 drop-shadow-2xl text-fg-primary">
+                                <motion.span
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    className="block"
+                                >
+                                    Code.
+                                </motion.span>
+                                <motion.span
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.4 }}
+                                    className="block"
+                                >
+                                    Story.
+                                </motion.span>
+                                <motion.span
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.6 }}
+                                    className="block"
+                                >
+                                    Impact.
+                                </motion.span>
+                            </h1>
+                        </div>
+
+                        {/* Description & Links - Now also in mix-blend-exclusion for reactive inversion */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="border-t border-border-primary pt-6 md:pt-8 bg-bg-primary/30 backdrop-blur-sm p-4 rounded-xl w-full pointer-events-auto"
+                            className="pt-4 md:pt-8 md:bg-bg-primary/30 md:backdrop-blur-sm md:p-4 md:rounded-xl w-full pointer-events-auto -mt-16 md:mt-0"
                         >
-                            <p className="max-w-xl text-lg md:text-2xl text-fg-secondary leading-relaxed font-light drop-shadow-md mb-8">
+                            <p className="max-w-xl text-sm md:text-2xl text-fg-secondary leading-relaxed font-light drop-shadow-md mb-4 md:mb-8">
                                 I am a <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in India.
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
 
-                            <div className="flex gap-4 relative z-20">
+                            <div className="flex flex-wrap gap-4 relative z-20">
                                 <MagneticButton>
-                                    <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
-                                        <Github size={20} />
+                                    <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-3 md:p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
+                                        <Github size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>
                                 <MagneticButton>
-                                    <a href="https://x.com/home" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile" className="p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
-                                        <Twitter size={20} />
+                                    <a href="https://x.com/home" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile" className="p-3 md:p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
+                                        <Twitter size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>
                                 <MagneticButton>
-                                    <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
-                                        <Linkedin size={20} />
+                                    <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-3 md:p-4 rounded-full border border-border-primary bg-bg-primary/50 backdrop-blur hover:bg-fg-primary hover:text-bg-primary transition-colors block">
+                                        <Linkedin size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>
                                 <ResumeButton />
@@ -80,22 +84,24 @@ export const Hero = () => {
                         </motion.div>
                     </div>
 
-                    {/* Right Column: Image */}
+                    {/* Right Column: Image - NOW HYPER-SCALED ON MOBILE */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, x: 20 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1.2, ease: "easeOut" }}
-                        className="order-1 md:order-2 md:row-start-1 md:col-start-6 md:col-span-7 flex justify-end items-end h-full relative z-10 pointer-events-none md:pt-12"
+                        className="order-1 md:order-2 absolute md:relative inset-0 md:inset-auto md:row-start-1 md:col-start-6 md:col-span-7 flex justify-center md:justify-end items-center md:items-start z-10 pointer-events-none overflow-visible"
                     >
-                        {/* Profile Image with Glow */}
-                        <div className="w-full aspect-square md:aspect-[4/5] relative group transform translate-y-[10%] scale-100 md:scale-110">
-                            <div className="absolute inset-0 bg-accent-primary/20 blur-3xl rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 scale-75 translate-y-10" />
+                        {/* Profile Image with Glow - ALL OVERFLOW ALLOWED */}
+                        <div className="w-full h-full md:h-auto relative group md:opacity-100 transition-opacity duration-1000 overflow-visible">
+                            {/* Mobile Gradient Mask - Tuned for even higher image */}
+                            <div className="absolute inset-x-0 bottom-0 top-[30%] bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent md:hidden z-20" />
+                            <div className="absolute inset-0 bg-accent-primary/10 blur-3xl rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 scale-75 translate-y-0" />
 
-                            {/* User's Hero Image */}
+                            {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED */}
                             <img
-                                src="/Hero.png"
+                                src="/Pic/Hero.png"
                                 alt="Vasu - Applied AI Engineer"
-                                className="relative w-full h-full object-contain object-bottom drop-shadow-2xl z-10 grayscale-[20%] contrast-125"
+                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 grayscale-[5%] contrast-125 brightness-110 saturate-115 md:scale-110 md:-translate-y-24"
                             />
                         </div>
                     </motion.div>
@@ -116,6 +122,6 @@ export const Hero = () => {
                     />
                 </motion.div>
             </Container>
-        </header>
+        </section>
     );
 };

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import GitHubCalendar from 'react-github-calendar';
 import { Mail, Calendar, Coffee } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { Container } from '../ui/Container';
 import { MagneticButton } from '../ui/MagneticButton';
 import { ResumeButton } from '../ui/ResumeButton';
@@ -10,19 +11,27 @@ interface FooterProps {
 }
 
 export const Footer = ({ theme }: FooterProps) => {
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (scrollContainerRef.current && window.innerWidth < 768) {
+            scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+        }
+    }, []);
+
     return (
         <footer id="contact" className="min-h-[80vh] flex flex-col justify-between pt-24 relative">
             <Container>
                 <div className="flex flex-col gap-12 md:gap-20">
                     {/* Top Row: Heading & Heatmap */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className="md:col-span-4"
+                            className="col-span-1 md:col-span-4"
                         >
-                            <h2 className="font-display font-black text-[22vw] md:text-[10vw] leading-[0.75] tracking-tighter uppercase">
+                            <h2 className="font-display font-black text-[16vw] md:text-[10vw] leading-[0.75] tracking-tighter uppercase text-center md:text-left">
                                 Let's<br />Talk.
                             </h2>
                         </motion.div>
@@ -32,21 +41,20 @@ export const Footer = ({ theme }: FooterProps) => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
-                            className="md:col-span-8 flex flex-col justify-between mt-12 h-full ml-12"
+                            className="col-span-1 md:col-span-8 flex flex-col justify-between mt-8 md:mt-12 h-full md:ml-12"
                         >
-                            <div className="bg-bg-secondary/50 p-8 rounded-2xl border border-border-primary backdrop-blur-sm overflow-visible">
-                                <GitHubCalendar
-                                    username="vasu-devs"
-                                    colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                                    blockSize={12}
-                                    blockMargin={2}
-                                    fontSize={14}
-                                    style={{
-                                        color: theme === 'dark' ? '#ffffff' : '#050505',
-                                        width: '100%',
-                                        height: 'auto'
-                                    }}
-                                />
+                            <div className="bg-bg-secondary/50 p-4 md:p-8 rounded-2xl border border-border-primary backdrop-blur-sm overflow-visible">
+                                <div className="overflow-x-auto pb-4 scroll-smooth" ref={scrollContainerRef}>
+                                    <div className="min-w-[800px] md:min-w-0">
+                                        <GitHubCalendar
+                                            username="vasu-devs"
+                                            colorScheme={theme === 'dark' ? 'dark' : 'light'}
+                                            blockSize={window.innerWidth < 768 ? 10 : 12}
+                                            blockMargin={4}
+                                            fontSize={window.innerWidth < 768 ? 10 : 12}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </motion.div>
                     </div>
@@ -57,7 +65,7 @@ export const Footer = ({ theme }: FooterProps) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="flex flex-nowrap gap-4 items-center justify-center overflow-x-auto pb-2 w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+                        className="flex flex-wrap md:flex-nowrap gap-3 md:gap-4 items-center justify-center w-full"
                     >
                         {[
                             { href: "mailto:siddhvasudev1402@gmail.com", icon: <Mail size={18} />, label: "siddhvasudev1402@gmail.com", className: "bg-fg-primary text-bg-primary" },
@@ -68,7 +76,7 @@ export const Footer = ({ theme }: FooterProps) => {
                                 <a
                                     href={btn.href}
                                     target={btn.href.startsWith('http') ? "_blank" : undefined}
-                                    className={`px-8 py-4 rounded-full font-bold font-mono text-sm uppercase transition-all flex items-center gap-2 whitespace-nowrap ${btn.className}`}
+                                    className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-bold font-mono text-[10px] md:text-sm uppercase transition-all flex items-center gap-2 whitespace-nowrap ${btn.className}`}
                                 >
                                     {btn.icon} {btn.label}
                                 </a>
@@ -95,7 +103,7 @@ export const Footer = ({ theme }: FooterProps) => {
                     whileInView={{ opacity: 0.3, y: 16 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
-                    className="font-display font-black text-[20.5vw] leading-[0.7] bg-gradient-to-b from-fg-primary to-transparent bg-clip-text text-transparent tracking-tighter uppercase whitespace-nowrap transform"
+                    className="font-display font-black text-[24vw] md:text-[20.5vw] leading-[0.7] bg-gradient-to-b from-fg-primary to-transparent bg-clip-text text-transparent tracking-tighter uppercase whitespace-nowrap transform"
                 >
                     Vasu-DevS
                 </motion.h1>

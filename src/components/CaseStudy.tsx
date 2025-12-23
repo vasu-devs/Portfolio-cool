@@ -30,7 +30,12 @@ export const CaseStudy = ({
     });
 
     const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0]);
+    const overallY = useTransform(scrollYProgress, [0, 1], [10, -10]); // Reduced parallax on mobile
+    const opacity = useTransform(
+        scrollYProgress,
+        [0, 0.1, 0.9, 1],
+        [0, 1, 1, 0] // Keep visible longer
+    );
 
     const handleMouseEnter = () => {
         if (videoRef.current) {
@@ -48,20 +53,38 @@ export const CaseStudy = ({
     return (
         <motion.div
             ref={ref}
-            style={{ opacity }}
-            className="min-h-[80vh] w-full flex flex-col md:flex-row items-center gap-12 py-24 border-t border-border-primary"
+            style={{ opacity, y: overallY }}
+            className="min-h-[50vh] md:min-h-[80vh] w-full flex flex-col md:flex-row items-center gap-8 md:gap-12 py-4 md:py-24 border-t border-border-primary"
         >
             {/* Text Side */}
-            <div className={`flex-1 ${index % 2 === 1 ? 'md:order-2' : ''}`}>
-                <span className="font-mono text-xs text-fg-secondary uppercase tracking-widest mb-4 block">
+            <div className={`flex-1 w-full ${index % 2 === 1 ? 'md:order-2' : ''}`}>
+                <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ margin: "-20%" }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="font-mono text-[10px] md:text-xs text-fg-secondary uppercase tracking-widest mb-3 md:mb-4 block"
+                >
                     0{index + 1} // {category}
-                </span>
-                <h2 className="font-display font-black text-4xl md:text-6xl mb-6 uppercase leading-[0.9]">
+                </motion.span>
+                <motion.h2
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ margin: "-20%" }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="font-display font-black text-3xl md:text-6xl mb-4 md:mb-6 uppercase leading-[0.95] md:leading-[0.9]"
+                >
                     {title}
-                </h2>
-                <p className="text-lg text-fg-secondary leading-relaxed mb-8 max-w-md">
+                </motion.h2>
+                <motion.p
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ margin: "-20%" }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="text-base md:text-lg text-fg-secondary leading-relaxed mb-6 md:mb-8 max-w-md"
+                >
                     {description}
-                </p>
+                </motion.p>
 
                 <div className="flex gap-4">
                     {liveUrl && (

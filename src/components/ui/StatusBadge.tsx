@@ -27,110 +27,124 @@ export const StatusBadge = ({ isInverted = false }: StatusBadgeProps) => {
             icon: <Mail size={14} />,
             detail: 'siddhvasudev1402@gmail.com',
             href: 'mailto:siddhvasudev1402@gmail.com',
-            color: 'hover:bg-fg-primary/10 hover:border-border-primary/50'
         },
         {
             name: 'LinkedIn',
             icon: <Linkedin size={14} />,
             detail: 'vasudev-siddh',
             href: 'https://www.linkedin.com/in/vasudev-siddh/',
-            color: 'hover:bg-fg-primary/10 hover:border-border-primary/50'
         },
         {
             name: 'X (Twitter)',
             icon: <Twitter size={14} />,
             detail: '@Vasu_DevS',
             href: 'https://twitter.com/Vasu_DevS',
-            color: 'hover:bg-fg-primary/10 hover:border-border-primary/50'
         },
         {
             name: 'Cal.com',
             icon: <Calendar size={14} />,
             detail: 'Book a session',
             href: 'https://cal.com/vasudev-siddh-bjemxn',
-            color: 'hover:bg-fg-primary/10 hover:border-border-primary/50'
         }
     ];
 
     return (
-        <div className="fixed top-8 right-10 z-[70] hidden xl:block select-none font-mono" ref={containerRef}>
+        <div className="fixed top-4 right-4 md:top-8 md:right-10 z-[70] select-none font-mono" ref={containerRef}>
             {/* Status Pill Trigger */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300 pointer-events-auto cursor-pointer shadow-lg
+                className={`flex items-center gap-2 md:gap-3 px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border transition-all duration-500 pointer-events-auto cursor-pointer shadow-2xl
                     ${isOpen
-                        ? (isInverted ? 'bg-fg-primary/90 text-bg-primary border-bg-primary ring-4 ring-bg-primary/20 backdrop-blur-xl' : 'bg-fg-primary text-bg-primary border-fg-primary ring-4 ring-fg-primary/10')
+                        ? (isInverted ? 'bg-fg-primary text-bg-primary border-bg-primary ring-8 ring-bg-primary/5' : 'bg-fg-primary text-bg-primary border-fg-primary ring-8 ring-fg-primary/5')
                         : (isInverted
-                            ? 'bg-fg-primary/80 text-bg-primary border-bg-primary/50 backdrop-blur-xl hover:bg-fg-primary/90'
-                            : 'bg-bg-primary/80 text-fg-primary border-border-primary backdrop-blur-xl hover:border-fg-primary/50')
+                            ? 'bg-fg-primary/95 text-bg-primary border-bg-primary/30 backdrop-blur-3xl hover:bg-fg-primary'
+                            : 'bg-bg-primary/95 text-fg-primary border-border-primary/50 backdrop-blur-3xl hover:border-fg-primary/30')
                     }`}
             >
-                <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]"></span>
+                <span className="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
+                    <span className={`relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 shadow-[0_0_10px_rgba(255,255,255,0.3)] 
+                        ${isOpen
+                            ? (isInverted ? 'bg-bg-primary' : 'bg-bg-primary')
+                            : (isInverted ? 'bg-bg-primary' : 'bg-fg-primary')}`}
+                    ></span>
                 </span>
                 <div className="flex flex-col items-start translate-y-[1px]">
-                    <span className={`text-[10px] uppercase tracking-[0.2em] font-bold leading-none ${isOpen ? (isInverted ? 'text-bg-primary/70' : 'text-bg-secondary/70') : (isInverted ? 'text-bg-primary/80' : 'text-fg-secondary')}`}>
-                        System_Status
+                    <span className={`text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-black leading-none mb-0.5 md:mb-1 
+                        ${isOpen
+                            ? (isInverted ? 'text-bg-primary/60' : 'text-bg-primary/60')
+                            : (isInverted ? 'text-bg-primary/60' : 'text-fg-secondary/60')}`}
+                    >
+                        Open To Work
                     </span>
-                    <span className={`text-xs uppercase tracking-[0.1em] font-black leading-none mt-1 ${isInverted ? 'text-bg-primary' : ''}`}>
-                        Open to work
+                    <span className={`text-[9px] md:text-[14px] uppercase tracking-[0.1em] font-black leading-none 
+                        ${isOpen
+                            ? (isInverted ? 'text-bg-primary' : 'text-bg-primary')
+                            : (isInverted ? 'text-bg-primary' : 'text-fg-primary')}`}
+                    >
+                        Hire Me
                     </span>
                 </div>
             </motion.button>
 
-            {/* Dropdown Menu */}
+            {/* Dropdown Menu (V2 High-Blur) */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                        transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-                        className={`absolute top-full right-0 mt-4 w-80 backdrop-blur-2xl border rounded-[2rem] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.4)] overflow-hidden z-[71]
-                            ${isInverted ? 'bg-fg-primary/95 text-bg-primary border-bg-primary/20' : 'bg-bg-primary/98 text-fg-primary border-border-primary'}
+                        initial={{ opacity: 0, y: 20, scale: 0.9, filter: 'blur(10px)' }}
+                        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, y: 20, scale: 0.9, filter: 'blur(10px)' }}
+                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                        className={`absolute top-full right-0 mt-4 w-[280px] md:w-[320px] max-w-[calc(100vw-2rem)] backdrop-blur-3xl border rounded-[2rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden z-[71]
+                            ${isInverted ? 'bg-fg-primary/90 text-bg-primary border-bg-primary/10' : 'bg-bg-primary/90 text-fg-primary border-white/10'}
                         `}
                     >
-                        {/* Subtle Top Edge Glow */}
-                        <div className={`absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent to-transparent ${isInverted ? 'via-bg-primary/10' : 'via-fg-primary/20'}`} />
+                        {/* Premium Inner Glow */}
+                        <div className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+                            <div className={`absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-current to-transparent opacity-10`} />
+                        </div>
 
-                        <div className="p-4 pt-6">
-                            <div className={`px-3 pb-3 border-b mb-3 flex items-center justify-between ${isInverted ? 'border-bg-primary/10' : 'border-border-primary/20'}`}>
-                                <span className={`text-[10px] uppercase tracking-[0.25em] font-black opacity-80 ${isInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>Initialize Connection</span>
-                                <span className={`text-[8px] font-mono opacity-50 font-bold ${isInverted ? 'text-bg-primary' : ''}`}>STABLE_V1</span>
+                        <div className="p-4 md:p-6">
+                            <div className={`px-2 pb-4 border-b mb-4 flex items-center justify-between transition-colors duration-500 ${isInverted ? 'border-bg-primary/5' : 'border-fg-primary/5'}`}>
+                                <div className="flex flex-col gap-1">
+                                    <span className={`text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-black opacity-40 ${isInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>Initialize Connection</span>
+                                    <span className={`text-[7px] md:text-[8px] font-mono opacity-20 font-bold ${isInverted ? 'text-bg-primary' : ''}`}>PROTO_77_STABLE</span>
+                                </div>
+                                <div className={`p-2 rounded-full border border-emerald-500/20 bg-emerald-500/10`}>
+                                    <div className={`w-1 h-1 rounded-full bg-emerald-500 animate-pulse`} />
+                                </div>
                             </div>
 
-                            <div className="flex flex-col gap-1.5">
+                            <div className="flex flex-col gap-2">
                                 {contactLinks.map((link, i) => (
                                     <motion.a
                                         key={i}
                                         href={link.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        initial={{ opacity: 0, x: -15 }}
+                                        initial={{ opacity: 0, x: -10 }}
                                         animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.08 }}
-                                        className={`flex items-center justify-between p-3.5 rounded-2xl transition-all group pointer-events-auto border border-transparent
+                                        transition={{ delay: i * 0.05 + 0.2 }}
+                                        className={`flex items-center justify-between p-3 md:p-4 rounded-2xl transition-all duration-300 group pointer-events-auto border border-transparent
                                             ${isInverted
-                                                ? 'hover:bg-bg-primary/10'
-                                                : 'hover:bg-fg-primary/5'}
+                                                ? 'hover:bg-bg-primary/5 hover:border-bg-primary/5'
+                                                : 'hover:bg-fg-primary/5 hover:border-fg-primary/5'}
                                         `}
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        <div className="flex items-center gap-4">
-                                            <div className={`p-2.5 rounded-xl group-hover:bg-transparent transition-all duration-300 ${isInverted ? 'bg-bg-primary/5 text-bg-primary' : 'bg-fg-primary/5 text-fg-primary'}`}>
-                                                {link.icon}
-                                            </div>
+                                        <div className="flex items-center gap-4 flex-1">
+                                            <ChevronRight size={14} className={`opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500 ${isInverted ? 'text-bg-primary' : 'text-fg-primary'}`} />
                                             <div className="flex flex-col">
-                                                <span className={`text-[11px] font-black uppercase tracking-wider ${isInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>{link.name}</span>
-                                                <span className={`text-[10px] transition-opacity truncate max-w-[180px] font-medium ${isInverted ? 'text-bg-primary/70 group-hover:text-bg-primary' : 'text-fg-primary/70 group-hover:text-fg-primary'}`}>
+                                                <span className={`text-[10px] md:text-[11px] font-black uppercase tracking-wider ${isInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>{link.name}</span>
+                                                <span className={`text-[9px] md:text-[10px] opacity-40 group-hover:opacity-100 transition-opacity truncate max-w-[150px] md:max-w-[200px] font-medium ${isInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>
                                                     {link.detail}
                                                 </span>
                                             </div>
                                         </div>
-                                        <ChevronRight size={16} className={`opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 ${isInverted ? 'text-bg-primary/40' : 'text-fg-primary/40'}`} />
+                                        <div className={`p-3 rounded-xl transition-all duration-500 group-hover:scale-110 ${isInverted ? 'bg-bg-primary/5 text-bg-primary group-hover:bg-bg-primary group-hover:text-fg-primary' : 'bg-fg-primary/5 text-fg-primary group-hover:bg-fg-primary group-hover:text-bg-primary'}`}>
+                                            {link.icon}
+                                        </div>
                                     </motion.a>
                                 ))}
                             </div>
