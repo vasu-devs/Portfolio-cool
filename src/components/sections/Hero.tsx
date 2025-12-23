@@ -55,8 +55,8 @@ export const Hero = () => {
                             className="border-t border-border-primary pt-6 md:pt-8 bg-bg-primary/30 backdrop-blur-sm p-4 rounded-xl w-full pointer-events-auto"
                         >
                             <p className="max-w-xl text-lg md:text-2xl text-fg-secondary leading-relaxed font-light drop-shadow-md mb-8">
-                                I am an <strong className="text-fg-primary font-bold">Applied AI Engineer</strong> based in India.
-                                Building <strong className="text-fg-primary">Voice Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
+                                I am a <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in India.
+                                Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
 
                             <div className="flex gap-4 relative z-20">

@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, Github, Play } from "lucide-react";
 import { MagneticButton } from "./ui/MagneticButton";
 
 export const CaseStudy = ({
@@ -106,6 +106,11 @@ export const CaseStudy = ({
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors pointer-events-none" />
+
+                {/* Watch Demo Hint - Only on Media Hover */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-fg-primary text-bg-primary px-4 py-2 rounded-full font-mono text-[10px] uppercase font-bold flex items-center gap-2 pointer-events-none transform scale-90 group-hover:scale-100 z-20 whitespace-nowrap shadow-2xl">
+                    <Play size={10} fill="currentColor" /> Watch Demo
+                </div>
             </div>
         </motion.div>
     );

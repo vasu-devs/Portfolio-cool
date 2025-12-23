@@ -9,6 +9,7 @@ import { Grain } from './components/ui/Grain';
 import { MagneticButton } from './components/ui/MagneticButton';
 import { ProjectModal } from './components/ui/ProjectModal';
 import { Preloader } from './components/ui/Preloader';
+import { SideBranding } from './components/ui/SideBranding';
 import { AnimatePresence } from 'framer-motion';
 
 export default function App() {
@@ -117,6 +118,7 @@ export default function App() {
          </AnimatePresence>
 
          <Grain />
+         <SideBranding isInverted={isNavInverted} />
 
          {/* Navigation - Glassmorphic Sticky Header */}
          <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">

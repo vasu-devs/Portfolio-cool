@@ -30,7 +30,7 @@ const skillCategories = [
 
 export const Skills = () => {
     return (
-        <section id="skills" className="py-32 relative overflow-hidden">
+        <section id="skills" className="pt-12 pb-32 relative overflow-hidden">
             <Container>
                 <h2 className="font-mono text-xs uppercase tracking-widest text-fg-secondary mb-16">Technical Expertise</h2>
 

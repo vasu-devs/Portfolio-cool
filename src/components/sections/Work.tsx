@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Play } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { CaseStudy } from '../CaseStudy';
 
@@ -20,7 +19,7 @@ interface WorkProps {
 
 export const Work = ({ projects, openModal }: WorkProps) => {
     return (
-        <section id="projects" className="py-32">
+        <section id="projects" className="pt-32 pb-12">
             <Container>
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}
@@ -51,10 +50,6 @@ export const Work = ({ projects, openModal }: WorkProps) => {
                             aria-label={`View details for ${project.title}`}
                         >
                             <CaseStudy index={i} {...project} />
-                            {/* Interactive Hint */}
-                            <div className="absolute top-1/2 right-0 md:right-32 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-fg-primary text-bg-primary px-4 py-2 rounded-full font-mono text-xs uppercase font-bold flex items-center gap-2 pointer-events-none transform translate-x-4 group-hover:translate-x-0 duration-300 shadow-xl z-20">
-                                <Play size={12} fill="currentColor" /> Watch Demo
-                            </div>
                         </motion.div>
                     ))}
                 </div>
