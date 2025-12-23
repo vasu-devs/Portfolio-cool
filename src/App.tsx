@@ -8,6 +8,8 @@ import { Footer } from './components/sections/Footer';
 import { Grain } from './components/ui/Grain';
 import { MagneticButton } from './components/ui/MagneticButton';
 import { ProjectModal } from './components/ui/ProjectModal';
+import { Preloader } from './components/ui/Preloader';
+import { AnimatePresence } from 'framer-motion';
 
 export default function App() {
    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -15,6 +17,7 @@ export default function App() {
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [selectedProject, setSelectedProject] = useState<any>(null);
    const [isNavInverted, setIsNavInverted] = useState(false);
+   const [isLoading, setIsLoading] = useState(true);
 
    useEffect(() => {
       document.documentElement.setAttribute('data-theme', theme);
@@ -73,8 +76,8 @@ export default function App() {
          title: 'Vaani',
          category: 'Voice AI / Fintech',
          description: 'An intelligent, voice-native debt collection platform powered by LiveKit, Groq, and Deepgram. Features sub-500ms latency, real-time negotiation, and FDCPA compliance guardrails.',
-         videoUrl: 'https://cdn.pixabay.com/video/2019/04/23/23011-332483109_large.mp4',
-         thumbnailUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop',
+         videoUrl: 'https://www.youtube.com/watch?v=VsEfOfwh8XM',
+         thumbnailUrl: 'https://img.youtube.com/vi/VsEfOfwh8XM/maxresdefault.jpg',
          repoUrl: 'https://github.com/vasu-devs/Vaani',
          liveUrl: undefined
       },
@@ -82,16 +85,16 @@ export default function App() {
          title: 'Odeon',
          category: 'Autonomous Agents',
          description: 'A framework for evolving voice agents through adversarial persona testing. It iteratively self-corrects based on simulation outcomes to improve agent performance.',
-         videoUrl: 'https://cdn.pixabay.com/video/2020/05/25/40131-424930030_large.mp4',
-         thumbnailUrl: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2565&auto=format&fit=crop',
+         videoUrl: 'https://youtu.be/GFdSe4-c_xQ',
+         thumbnailUrl: 'https://img.youtube.com/vi/GFdSe4-c_xQ/maxresdefault.jpg',
          repoUrl: 'https://github.com/vasu-devs/Odeon',
       },
       {
          title: 'MapMyRepo',
          category: 'Knowledge Graph / AI',
          description: 'Turns GitHub profiles into an interactive "Code Universe". Utilizes AI to map languages as planets and repositories as moons, creating a visual knowledge graph.',
-         videoUrl: 'https://cdn.pixabay.com/video/2023/10/22/186175-877660269_large.mp4',
-         thumbnailUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop',
+         videoUrl: 'https://youtu.be/EmTDrPzAo40',
+         thumbnailUrl: 'https://img.youtube.com/vi/EmTDrPzAo40/maxresdefault.jpg',
          repoUrl: 'https://github.com/vasu-devs/MapMyRepo',
          liveUrl: 'https://mapmyrepo.vasudev.live'
       },
@@ -99,14 +102,20 @@ export default function App() {
          title: 'PolySEE',
          category: 'NLP / Chatbot',
          description: 'A multilingual campus chatbot designed to handle FAQs in regional languages. Maintains conversational context and simplifies student support.',
-         videoUrl: 'https://cdn.pixabay.com/video/2023/04/21/160100-820542969_large.mp4',
-         thumbnailUrl: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=2506&auto=format&fit=crop',
+         videoUrl: 'https://youtu.be/6weynv_rblI',
+         thumbnailUrl: 'https://img.youtube.com/vi/6weynv_rblI/maxresdefault.jpg',
          repoUrl: 'https://github.com/vasu-devs/PolySEE',
       }
    ];
 
    return (
       <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary transition-colors duration-500 font-sans">
+         <AnimatePresence mode="wait">
+            {isLoading && (
+               <Preloader key="preloader" finishLoading={() => setIsLoading(false)} />
+            )}
+         </AnimatePresence>
+
          <Grain />
 
          {/* Navigation - Glassmorphic Sticky Header */}

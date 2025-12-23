@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import GitHubCalendar from 'react-github-calendar';
-import { Mail, Calendar, Coffee, Download } from 'lucide-react';
+import { Mail, Calendar, Coffee } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { MagneticButton } from '../ui/MagneticButton';
+import { ResumeButton } from '../ui/ResumeButton';
 
 interface FooterProps {
     theme: 'light' | 'dark';
@@ -61,8 +62,7 @@ export const Footer = ({ theme }: FooterProps) => {
                         {[
                             { href: "mailto:siddhvasudev1402@gmail.com", icon: <Mail size={18} />, label: "siddhvasudev1402@gmail.com", className: "bg-fg-primary text-bg-primary" },
                             { href: "https://cal.com/vasudev-siddh-bjemxn", icon: <Calendar size={18} />, label: "Book a call", className: "border border-border-primary hover:bg-bg-secondary" },
-                            { href: "https://buymeacoffee.com/Vasu-DevS", icon: <Coffee size={18} />, label: "Buy me a coffee", className: "bg-[#FFDD00] text-black border border-transparent hover:border-black" },
-                            { href: "/resume.pdf", icon: <Download size={18} />, label: "Download CV", className: "border border-border-primary hover:bg-bg-secondary" }
+                            { href: "https://buymeacoffee.com/Vasu-DevS", icon: <Coffee size={18} />, label: "Buy me a coffee", className: "bg-[#FFDD00] text-black border border-transparent hover:border-black" }
                         ].map((btn, i) => (
                             <MagneticButton key={i}>
                                 <a
@@ -74,6 +74,7 @@ export const Footer = ({ theme }: FooterProps) => {
                                 </a>
                             </MagneticButton>
                         ))}
+                        <ResumeButton className="font-bold border border-border-primary hover:bg-bg-secondary" />
                     </motion.div>
                 </div>
             </Container>

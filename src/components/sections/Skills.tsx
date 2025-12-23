@@ -3,20 +3,28 @@ import { Container } from '../ui/Container';
 
 const skillCategories = [
     {
-        title: "AI & Machine Learning",
-        skills: ["Voice Agents", "LLMs", "RAG", "Knowledge Graphs", "NLP", "Autonomous Agents"]
+        title: "Languages",
+        skills: ["Python", "JavaScript", "TypeScript", "C++"]
     },
     {
-        title: "Core Technologies",
-        skills: ["LiveKit", "Groq", "Deepgram", "OpenAI", "Anthropic", "LangChain"]
+        title: "Frontend",
+        skills: ["HTML", "CSS", "Tailwind", "React.js", "Vite", "Framer Motion", "D3.js"]
     },
     {
-        title: "Development",
-        skills: ["React", "TypeScript", "Python", "Vite", "TailwindCSS", "PostgreSQL"]
+        title: "Backend",
+        skills: ["Node.js", "Express", "FastAPI", "LangChain", "LiveKit", "Twilio"]
     },
     {
-        title: "Open Source",
-        skills: ["Algorithm Design", "Core Contributions", "API Design", "Tooling"]
+        title: "Databases",
+        skills: ["MySQL", "MongoDB", "PostgreSQL", "Chroma", "Qdrant", "PgVector"]
+    },
+    {
+        title: "AI/LLM Stack",
+        skills: ["OpenAI", "Deepgram", "Ollama", "DeepSeek", "Gemini", "RAG Pipelines"]
+    },
+    {
+        title: "Tools & DevOps",
+        skills: ["Git", "GitHub", "Linux", "Bash", "Docker", "Postman"]
     }
 ];
 
@@ -25,8 +33,8 @@ export const Skills = () => {
         <section id="skills" className="py-32 relative overflow-hidden">
             <Container>
                 <h2 className="font-mono text-xs uppercase tracking-widest text-fg-secondary mb-16">Technical Expertise</h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {skillCategories.map((category, idx) => (
                         <motion.div
                             key={idx}

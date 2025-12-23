@@ -17,6 +17,15 @@ interface ProjectModalProps {
     project: Project | null;
 }
 
+const getYouTubeEmbedUrl = (url: string) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    if (match && match[2].length === 11) {
+        return `https://www.youtube.com/embed/${match[2]}?autoplay=1`;
+    }
+    return null;
+};
+
 export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
     useEffect(() => {
         if (isOpen) {
@@ -70,12 +79,22 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                         {/* Video Container */}
                         <div className="relative aspect-video bg-black w-full overflow-hidden">
                             {project.videoUrl ? (
-                                <video
-                                    src={project.videoUrl}
-                                    controls
-                                    autoPlay
-                                    className="w-full h-full object-contain"
-                                />
+                                getYouTubeEmbedUrl(project.videoUrl) ? (
+                                    <iframe
+                                        src={getYouTubeEmbedUrl(project.videoUrl)!}
+                                        title={project.title}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="w-full h-full border-0 shadow-2xl"
+                                    />
+                                ) : (
+                                    <video
+                                        src={project.videoUrl}
+                                        controls
+                                        autoPlay
+                                        className="w-full h-full object-contain"
+                                    />
+                                )
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center bg-zinc-900">
                                     <p className="text-zinc-500 font-mono text-sm">No Video Available</p>

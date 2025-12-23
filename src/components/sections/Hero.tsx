@@ -2,17 +2,18 @@ import { motion } from 'framer-motion';
 import { Github, Twitter, Linkedin } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { MagneticButton } from '../ui/MagneticButton';
+import { ResumeButton } from '../ui/ResumeButton';
 
 export const Hero = () => {
     return (
-        <header className="h-screen flex flex-col justify-end pb-24 relative overflow-hidden">
+        <header className="h-screen flex flex-col justify-end pt-32 pb-24 relative overflow-hidden">
             {/* Background Image - Simplified */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-b from-bg-secondary/20 via-bg-primary to-bg-primary" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-500/10 via-bg-primary to-bg-primary opacity-50" />
             </div>
 
-            <Container className="relative z-10 h-full flex flex-col justify-end pb-12 md:pb-10 overflow-visible">
+            <Container className="relative z-10 h-full flex flex-col justify-end pt-20 pb-12 md:pb-10 overflow-visible">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -20,8 +21,8 @@ export const Hero = () => {
                     className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end"
                 >
                     {/* Left Column: Text */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none mix-blend-exclusion md:translate-y-16">
-                        <h1 className="font-display font-black text-[15vw] md:text-[11.5vw] leading-[0.8] tracking-tighter uppercase mb-6 md:mb-8 drop-shadow-2xl text-fg-primary">
+                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none mix-blend-exclusion md:translate-y-8">
+                        <h1 className="font-display font-black text-[15vw] md:text-[10vw] leading-[0.8] tracking-tighter uppercase mb-6 md:mb-8 drop-shadow-2xl text-fg-primary">
                             <motion.span
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -51,7 +52,7 @@ export const Hero = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="border-t border-border-primary pt-6 md:pt-8 bg-bg-primary/30 backdrop-blur-sm p-4 rounded-xl w-full md:w-[160%] pointer-events-auto"
+                            className="border-t border-border-primary pt-6 md:pt-8 bg-bg-primary/30 backdrop-blur-sm p-4 rounded-xl w-full pointer-events-auto"
                         >
                             <p className="max-w-xl text-lg md:text-2xl text-fg-secondary leading-relaxed font-light drop-shadow-md mb-8">
                                 I am an <strong className="text-fg-primary font-bold">Applied AI Engineer</strong> based in India.
@@ -74,19 +75,20 @@ export const Hero = () => {
                                         <Linkedin size={20} />
                                     </a>
                                 </MagneticButton>
+                                <ResumeButton />
                             </div>
                         </motion.div>
                     </div>
 
                     {/* Right Column: Image */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, scale: 0.9, x: 20 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ duration: 1.2, ease: "easeOut" }}
-                        className="order-1 md:order-2 md:row-start-1 md:col-end-15 md:col-span-12 flex justify-end items-end h-full relative z-10 pointer-events-none"
+                        className="order-1 md:order-2 md:row-start-1 md:col-start-6 md:col-span-7 flex justify-end items-end h-full relative z-10 pointer-events-none md:pt-12"
                     >
                         {/* Profile Image with Glow */}
-                        <div className="w-full aspect-square md:w-[500%] md:aspect-[4/5] relative group transform translate-y-[-5%] md:translate-x-[-5%] scale-110 md:scale-125">
+                        <div className="w-full aspect-square md:aspect-[4/5] relative group transform translate-y-[10%] scale-100 md:scale-110">
                             <div className="absolute inset-0 bg-accent-primary/20 blur-3xl rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 scale-75 translate-y-10" />
 
                             {/* User's Hero Image */}
