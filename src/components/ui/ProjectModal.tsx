@@ -77,24 +77,35 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                         </div>
 
                         {/* Video Container */}
-                        <div className="relative aspect-video bg-black w-full overflow-hidden">
+                        <div className="relative aspect-video bg-black w-full overflow-hidden flex items-center justify-center">
                             {project.videoUrl ? (
-                                getYouTubeEmbedUrl(project.videoUrl) ? (
-                                    <iframe
-                                        src={getYouTubeEmbedUrl(project.videoUrl)!}
-                                        title={project.title}
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                        className="w-full h-full border-0 shadow-2xl"
-                                    />
-                                ) : (
-                                    <video
-                                        src={project.videoUrl}
-                                        controls
-                                        autoPlay
-                                        className="w-full h-full object-contain"
-                                    />
-                                )
+                                <>
+                                    {getYouTubeEmbedUrl(project.videoUrl) ? (
+                                        <>
+                                            <div className="absolute inset-0 flex items-center justify-center bg-zinc-900 z-0">
+                                                <div className="w-8 h-8 border-4 border-fg-primary/20 border-t-fg-primary rounded-full animate-spin" />
+                                            </div>
+                                            <iframe
+                                                src={getYouTubeEmbedUrl(project.videoUrl)!}
+                                                title={project.title}
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                                className="w-full h-full border-0 shadow-2xl relative z-10"
+                                                onLoad={(e) => {
+                                                    const loader = e.currentTarget.previousElementSibling;
+                                                    if (loader) loader.classList.add('hidden');
+                                                }}
+                                            />
+                                        </>
+                                    ) : (
+                                        <video
+                                            src={project.videoUrl}
+                                            controls
+                                            autoPlay
+                                            className="w-full h-full object-contain"
+                                        />
+                                    )}
+                                </>
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center bg-zinc-900">
                                     <p className="text-zinc-500 font-mono text-[3.5vw] md:text-[0.9vw]">No Video Available</p>

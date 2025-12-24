@@ -56,42 +56,41 @@ export default function App() {
    useEffect(() => {
       const fetchStats = async () => {
          try {
-            // 1. Fetch Repos for Star Count
-            const reposRes = await fetch('https://api.github.com/users/vasu-devs/repos?per_page=100');
-            const repos = await reposRes.json();
+            // Helper to fetch and return JSON or null on error
+            const fetchJson = async (url: string, options?: RequestInit) => {
+               try {
+                  const res = await fetch(url, options);
+                  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                  return await res.json();
+               } catch (e) {
+                  console.warn(`Failed to fetch from ${url}:`, e);
+                  return null;
+               }
+            };
 
+            // 1. Fetch Repos for Star Count
+            const repos = await fetchJson('https://api.github.com/users/vasu-devs/repos?per_page=100');
             if (Array.isArray(repos)) {
-               const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
+               const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
                setStats(prev => ({ ...prev, stars: totalStars }));
             }
 
-            // 2. Fetch PR Count (Search API)
-            // Note: heavily rate limited for unauthenticated requests
-            try {
-               const prsRes = await fetch('https://api.github.com/search/issues?q=type:pr+author:vasu-devs');
-               if (prsRes.ok) {
-                  const prsData = await prsRes.json();
-                  setStats(prev => ({ ...prev, prs: prsData.total_count }));
-               }
-            } catch (e) {
-               console.warn("Failed to fetch PR stats, using fallback");
+            // 2. Fetch PR Count
+            const prsData = await fetchJson('https://api.github.com/search/issues?q=type:pr+author:vasu-devs');
+            if (prsData && typeof prsData.total_count === 'number') {
+               setStats(prev => ({ ...prev, prs: prsData.total_count }));
             }
 
-            // 3. Fetch Commits Count (Search API)
-            try {
-               const commitsRes = await fetch('https://api.github.com/search/commits?q=author:vasu-devs', {
-                  headers: { 'Accept': 'application/vnd.github.cloak-preview' }
-               });
-               if (commitsRes.ok) {
-                  const commitsData = await commitsRes.json();
-                  setStats(prev => ({ ...prev, commits: commitsData.total_count }));
-               }
-            } catch (e) {
-               console.warn("Failed to fetch commit stats, using fallback");
+            // 3. Fetch Commits Count
+            const commitsData = await fetchJson('https://api.github.com/search/commits?q=author:vasu-devs', {
+               headers: { 'Accept': 'application/vnd.github.cloak-preview' }
+            });
+            if (commitsData && typeof commitsData.total_count === 'number') {
+               setStats(prev => ({ ...prev, commits: commitsData.total_count }));
             }
 
          } catch (e) {
-            console.error("Failed to fetch GH stats", e);
+            console.error("Critical error fetching GH stats", e);
          }
       };
 
