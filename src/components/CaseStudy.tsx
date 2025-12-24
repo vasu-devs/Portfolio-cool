@@ -54,50 +54,50 @@ export const CaseStudy = ({
         <motion.div
             ref={ref}
             style={{ opacity, y: overallY }}
-            className="min-h-[50vh] md:min-h-[80vh] w-full flex flex-col md:flex-row items-center gap-8 md:gap-12 py-4 md:py-24 border-t border-border-primary"
+            className="min-h-[50vh] md:min-h-[80vh] w-full flex flex-col md:flex-row items-center gap-[8vw] md:gap-[3vw] py-[4vw] md:py-[6vw] border-t border-border-primary"
         >
             {/* Text Side */}
             <div className={`flex-1 w-full ${index % 2 === 1 ? 'md:order-2' : ''}`}>
                 <motion.span
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ margin: "-20%" }}
+                    viewport={{ once: true, margin: "-20%" }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="font-mono text-[10px] md:text-xs text-fg-secondary uppercase tracking-widest mb-3 md:mb-4 block"
+                    className="font-mono text-[2.5vw] md:text-[0.8vw] text-fg-secondary uppercase tracking-widest mb-[3vw] md:mb-[1vw] block"
                 >
                     0{index + 1} // {category}
                 </motion.span>
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ margin: "-20%" }}
+                    viewport={{ once: true, margin: "-20%" }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="font-display font-black text-3xl md:text-6xl mb-4 md:mb-6 uppercase leading-[0.95] md:leading-[0.9]"
+                    className="font-display font-black text-[8vw] md:text-[4vw] mb-[4vw] md:mb-[1.5vw] uppercase leading-[0.95] md:leading-[0.9]"
                 >
                     {title}
                 </motion.h2>
                 <motion.p
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ margin: "-20%" }}
+                    viewport={{ once: true, margin: "-20%" }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-base md:text-lg text-fg-secondary leading-relaxed mb-6 md:mb-8 max-w-md"
+                    className="text-[4vw] md:text-[1.2vw] text-fg-secondary leading-relaxed mb-[6vw] md:mb-[2vw] max-w-md"
                 >
                     {description}
                 </motion.p>
 
-                <div className="flex gap-4">
+                <div className="flex gap-[4vw] md:gap-[1vw]">
                     {liveUrl && (
                         <MagneticButton>
-                            <a href={liveUrl} target="_blank" className="flex items-center gap-2 px-6 py-3 bg-fg-primary text-bg-primary font-bold font-mono text-xs uppercase hover:scale-105 transition-transform">
-                                Live_Demo <ArrowUpRight size={16} />
+                            <a href={liveUrl} target="_blank" className="flex items-center gap-[2vw] md:gap-[0.5vw] px-[6vw] md:px-[1.5vw] py-[3vw] md:py-[0.75vw] bg-fg-primary text-bg-primary font-bold font-mono text-[2.5vw] md:text-[0.8vw] uppercase hover:scale-105 transition-transform">
+                                Live_Demo <ArrowUpRight className="w-[4vw] h-[4vw] md:w-[1vw] md:h-[1vw]" />
                             </a>
                         </MagneticButton>
                     )}
                     {repoUrl && (
                         <MagneticButton>
-                            <a href={repoUrl} target="_blank" className="flex items-center gap-2 px-6 py-3 border border-border-primary font-bold font-mono text-xs uppercase hover:bg-bg-secondary transition-colors">
-                                Source_Code <Github size={16} />
+                            <a href={repoUrl} target="_blank" className="flex items-center gap-[2vw] md:gap-[0.5vw] px-[6vw] md:px-[1.5vw] py-[3vw] md:py-[0.75vw] border border-border-primary font-bold font-mono text-[2.5vw] md:text-[0.8vw] uppercase hover:bg-bg-secondary transition-colors">
+                                Source_Code <Github className="w-[4vw] h-[4vw] md:w-[1vw] md:h-[1vw]" />
                             </a>
                         </MagneticButton>
                     )}
@@ -131,8 +131,8 @@ export const CaseStudy = ({
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors pointer-events-none" />
 
                 {/* Watch Demo Hint - Only on Media Hover */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-fg-primary text-bg-primary px-4 py-2 rounded-full font-mono text-[10px] uppercase font-bold flex items-center gap-2 pointer-events-none transform scale-90 group-hover:scale-100 z-20 whitespace-nowrap shadow-2xl">
-                    <Play size={10} fill="currentColor" /> Watch Demo
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-fg-primary text-bg-primary px-[4vw] md:px-[1vw] py-[2vw] md:py-[0.5vw] rounded-full font-mono text-[2.5vw] md:text-[0.6vw] uppercase font-bold flex items-center gap-[2vw] md:gap-[0.5vw] pointer-events-none transform scale-90 group-hover:scale-100 z-20 whitespace-nowrap shadow-2xl">
+                    <Play className="w-[2.5vw] h-[2.5vw] md:w-[0.6vw] md:h-[0.6vw]" fill="currentColor" /> Watch Demo
                 </div>
             </div>
         </motion.div>

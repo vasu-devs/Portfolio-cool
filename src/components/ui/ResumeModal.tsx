@@ -26,7 +26,7 @@ export const ResumeModal = ({ isOpen, onClose, resumeUrl }: ResumeModalProps) =>
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-[4vw] md:p-[2vw]">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -41,31 +41,31 @@ export const ResumeModal = ({ isOpen, onClose, resumeUrl }: ResumeModalProps) =>
                         initial={{ scale: 0.95, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                        className="relative w-full max-w-5xl bg-bg-secondary border border-border-primary rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[90vh]"
+                        className="relative w-full max-w-[90vw] md:max-w-[70vw] bg-bg-secondary border border-border-primary rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[90vh]"
                     >
                         {/* Header */}
-                        <div className="flex justify-between items-center p-4 md:p-6 border-b border-border-primary bg-bg-primary/50 backdrop-blur-md z-10">
+                        <div className="flex justify-between items-center p-[4vw] md:p-[1.5vw] border-b border-border-primary bg-bg-primary/50 backdrop-blur-md z-10">
                             <div>
-                                <span className="font-mono text-xs uppercase tracking-widest text-fg-secondary">
+                                <span className="font-mono text-[2.5vw] md:text-[0.8vw] uppercase tracking-widest text-fg-secondary">
                                     Curriculum Vitae
                                 </span>
-                                <h3 className="font-display font-bold text-xl md:text-2xl">My Resume</h3>
+                                <h3 className="font-display font-bold text-[5vw] md:text-[1.5vw]">My Resume</h3>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-[2vw] md:gap-[0.5vw]">
                                 <a
                                     href={resumeUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 rounded-full hover:bg-bg-primary transition-colors border border-transparent hover:border-border-primary text-fg-secondary hover:text-fg-primary"
+                                    className="p-[2vw] md:p-[0.5vw] rounded-full hover:bg-bg-primary transition-colors border border-transparent hover:border-border-primary text-fg-secondary hover:text-fg-primary"
                                     title="Open in new tab"
                                 >
-                                    <ExternalLink size={20} />
+                                    <ExternalLink className="w-[5vw] h-[5vw] md:w-[1.25vw] md:h-[1.25vw]" />
                                 </a>
                                 <button
                                     onClick={onClose}
-                                    className="p-2 rounded-full hover:bg-bg-primary transition-colors border border-transparent hover:border-border-primary"
+                                    className="p-[2vw] md:p-[0.5vw] rounded-full hover:bg-bg-primary transition-colors border border-transparent hover:border-border-primary"
                                 >
-                                    <X size={24} />
+                                    <X className="w-[6vw] h-[6vw] md:w-[1.5vw] md:h-[1.5vw]" />
                                 </button>
                             </div>
                         </div>
@@ -81,14 +81,14 @@ export const ResumeModal = ({ isOpen, onClose, resumeUrl }: ResumeModalProps) =>
                         </div>
 
                         {/* Footer (Optional) */}
-                        <div className="p-4 bg-bg-primary/50 backdrop-blur-md border-t border-border-primary flex justify-center md:hidden">
+                        <div className="p-[4vw] bg-bg-primary/50 backdrop-blur-md border-t border-border-primary flex justify-center md:hidden">
                             <a
                                 href={resumeUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 px-6 py-2 bg-fg-primary text-bg-primary font-bold font-mono text-xs uppercase rounded-full"
+                                className="flex items-center gap-[2vw] px-[6vw] py-[2vw] bg-fg-primary text-bg-primary font-bold font-mono text-[3vw] uppercase rounded-full"
                             >
-                                <Download size={16} /> Download PDF
+                                <Download className="w-[4vw] h-[4vw]" /> Download PDF
                             </a>
                         </div>
                     </motion.div>

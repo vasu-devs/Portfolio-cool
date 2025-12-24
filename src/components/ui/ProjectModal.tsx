@@ -43,7 +43,7 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-[4vw] md:p-[2vw]">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -58,21 +58,21 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                         initial={{ scale: 0.95, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                        className="relative w-full max-w-5xl bg-bg-secondary border border-border-primary rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
+                        className="relative w-full max-w-[90vw] md:max-w-[70vw] bg-bg-secondary border border-border-primary rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
                     >
                         {/* Header */}
-                        <div className="flex justify-between items-center p-6 border-b border-border-primary bg-bg-primary/50 backdrop-blur-md z-10">
+                        <div className="flex justify-between items-center p-[6vw] md:p-[1.5vw] border-b border-border-primary bg-bg-primary/50 backdrop-blur-md z-10">
                             <div>
-                                <span className="font-mono text-xs uppercase tracking-widest text-fg-secondary">
+                                <span className="font-mono text-[3vw] md:text-[0.8vw] uppercase tracking-widest text-fg-secondary">
                                     Project Demo
                                 </span>
-                                <h3 className="font-display font-bold text-2xl">{project.title}</h3>
+                                <h3 className="font-display font-bold text-[6vw] md:text-[1.6vw]">{project.title}</h3>
                             </div>
                             <button
                                 onClick={onClose}
-                                className="p-2 rounded-full hover:bg-bg-primary transition-colors border border-transparent hover:border-border-primary"
+                                className="p-[2vw] md:p-[0.5vw] rounded-full hover:bg-bg-primary transition-colors border border-transparent hover:border-border-primary"
                             >
-                                <X size={24} />
+                                <X className="w-[6vw] h-[6vw] md:w-[1.5vw] md:h-[1.5vw]" />
                             </button>
                         </div>
 
@@ -97,35 +97,35 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                 )
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center bg-zinc-900">
-                                    <p className="text-zinc-500 font-mono text-sm">No Video Available</p>
+                                    <p className="text-zinc-500 font-mono text-[3.5vw] md:text-[0.9vw]">No Video Available</p>
                                 </div>
                             )}
                         </div>
 
                         {/* Footer / Details */}
-                        <div className="p-8 bg-bg-primary overflow-y-auto">
-                            <div className="flex flex-col md:flex-row gap-8 justify-between items-start">
+                        <div className="p-[8vw] md:p-[2vw] bg-bg-primary overflow-y-auto">
+                            <div className="flex flex-col md:flex-row gap-[8vw] md:gap-[2vw] justify-between items-start">
                                 <div className="max-w-2xl">
-                                    <p className="text-fg-secondary leading-relaxed mb-6 text-lg">
+                                    <p className="text-fg-secondary leading-relaxed mb-[6vw] md:mb-[1.5vw] text-[4.5vw] md:text-[1.1vw]">
                                         {project.description}
                                     </p>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="px-3 py-1 rounded-full border border-border-primary text-xs font-mono bg-bg-secondary">
+                                    <div className="flex flex-wrap gap-[2vw] md:gap-[0.5vw]">
+                                        <span className="px-[3vw] py-[1vw] md:px-[0.75vw] md:py-[0.25vw] rounded-full border border-border-primary text-[3vw] md:text-[0.8vw] font-mono bg-bg-secondary">
                                             {project.category}
                                         </span>
                                         {/* Add tech stack tags here if available in data later */}
                                     </div>
                                 </div>
 
-                                <div className="flex gap-4 shrink-0">
+                                <div className="flex gap-[4vw] md:gap-[1vw] shrink-0">
                                     {project.liveUrl && (
                                         <a
                                             href={project.liveUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-6 py-3 bg-fg-primary text-bg-primary font-bold font-mono text-xs uppercase hover:scale-105 transition-transform rounded-full"
+                                            className="flex items-center gap-[2vw] md:gap-[0.5vw] px-[6vw] py-[3vw] md:px-[1.5vw] md:py-[0.75vw] bg-fg-primary text-bg-primary font-bold font-mono text-[3vw] md:text-[0.8vw] uppercase hover:scale-105 transition-transform rounded-full"
                                         >
-                                            <ExternalLink size={16} /> Live Demo
+                                            <ExternalLink className="w-[4vw] h-[4vw] md:w-[1vw] md:h-[1vw]" /> Live Demo
                                         </a>
                                     )}
                                     {project.repoUrl && (
@@ -133,9 +133,9 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                             href={project.repoUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-6 py-3 border border-border-primary font-bold font-mono text-xs uppercase hover:bg-bg-secondary transition-colors rounded-full"
+                                            className="flex items-center gap-[2vw] md:gap-[0.5vw] px-[6vw] py-[3vw] md:px-[1.5vw] md:py-[0.75vw] border border-border-primary font-bold font-mono text-[3vw] md:text-[0.8vw] uppercase hover:bg-bg-secondary transition-colors rounded-full"
                                         >
-                                            <Github size={16} /> Source
+                                            <Github className="w-[4vw] h-[4vw] md:w-[1vw] md:h-[1vw]" /> Source
                                         </a>
                                     )}
                                 </div>

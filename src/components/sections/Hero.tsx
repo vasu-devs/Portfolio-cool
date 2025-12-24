@@ -11,14 +11,14 @@ interface HeroProps {
 
 export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
     return (
-        <section id="hero" className="min-h-[85vh] md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
+        <section id="hero" className="min-h-auto md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
                 <div className={`h-[50%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
                 <div className="h-[50%] w-full transition-colors duration-700 bg-bg-primary" />
             </div>
 
-            <Container className="relative z-10 h-full flex flex-col pt-10 md:pt-16 pb-4 md:pb-10 overflow-visible">
+            <Container className="relative z-10 h-full flex flex-col pt-10 md:pt-16 pb-20 md:pb-10 overflow-visible">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -26,17 +26,17 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
                 >
                     {/* Left Column: Text - Added pt to match image gap */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-6 md:pt-12 mix-blend-exclusion">
+                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[25vw] md:pt-[12vw]">
                         {/* Huge Heading */}
-                        <div className="-translate-y-48 md:-translate-y-24 -mb-48 md:-mb-24">
-                            <h1 className={`font-display font-black text-[22vw] md:text-[10vw] leading-[0.75] md:leading-[0.85] tracking-tighter uppercase mb-4 md:mb-8 drop-shadow-2xl ${theme === 'dark' ? 'text-black' : 'text-white'}`}>
+                        <div className="-translate-y-[12vw] md:-translate-y-[6.5vw] -mb-[12vw] md:-mb-[6.5vw]">
+                            <h1 className="font-display font-black text-[13vw] md:text-[10vw] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-[2vw] mix-blend-difference text-black">
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.8, delay: 0.2 }}
                                     className="block"
                                 >
-                                    Code.
+                                    VASU-
                                 </motion.span>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
@@ -44,30 +44,20 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                     transition={{ duration: 0.8, delay: 0.4 }}
                                     className="block"
                                 >
-                                    Story.
-                                </motion.span>
-                                <motion.span
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.6 }}
-                                    className="block"
-                                >
-                                    Impact.
+                                    DEVS
                                 </motion.span>
                             </h1>
                         </div>
 
-                        {/* Description & Links - Now also in mix-blend-exclusion for reactive inversion */}
+                        {/* Description & Links */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="pt-4 md:pt-8 w-full pointer-events-auto mt-0"
+                            className="w-full pointer-events-auto mt-[45vw] md:mt-0"
                         >
-                            <h2 className="text-4xl md:text-7xl font-black font-display tracking-tighter text-fg-primary mb-4 md:mb-6 uppercase">
-                                Vasu-DevS
-                            </h2>
-                            <p className="max-w-xl text-sm md:text-2xl text-fg-secondary leading-relaxed font-light drop-shadow-md mb-4 md:mb-8">
+
+                            <p className="max-w-xl text-sm md:text-2xl text-fg-primary leading-relaxed font-medium drop-shadow-md mb-[16vw] md:mb-8">
                                 I am a <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in India.
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
@@ -115,26 +105,14 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                         : 'grayscale(15%) contrast(110%) brightness(0.95) saturate(1.1)',
                                 }}
                                 transition={{ duration: 0.8 }}
-                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 md:scale-110 md:-translate-y-24"
+                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 -translate-y-[30vw] md:scale-110 md:-translate-y-[6.5vw]"
                             />
                         </motion.div>
                     </div>
                 </motion.div>
 
                 {/* Scroll Indicator */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5, duration: 1 }}
-                    className="absolute bottom-8 left-0 flex flex-col items-center gap-2"
-                >
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-secondary">Scroll</span>
-                    <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        className="w-px h-12 bg-gradient-to-b from-fg-primary to-transparent"
-                    />
-                </motion.div>
+
             </Container>
         </section>
     );
