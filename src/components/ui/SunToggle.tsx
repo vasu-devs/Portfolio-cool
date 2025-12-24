@@ -39,8 +39,8 @@ export const SunToggle = ({ theme, isInverted }: SunToggleProps) => {
                         cy="12"
                         animate={theme === 'light' ? {
                             r: 5,
-                            fill: '#ffcc00',
-                            stroke: '#ffcc00'
+                            fill: '#000000',
+                            stroke: '#000000'
                         } : {
                             r: 9,
                             // In dark mode: if inverted (light bg), use dark color. Otherwise use light color.
@@ -68,7 +68,7 @@ export const SunToggle = ({ theme, isInverted }: SunToggleProps) => {
                                         y1="3"
                                         x2="12"
                                         y2="1"
-                                        stroke="#ffcc00"
+                                        stroke="#000000"
                                         strokeWidth="2.5"
                                         strokeLinecap="round"
                                         transform={`rotate(${i * 45} 12 12)`}
@@ -86,7 +86,7 @@ export const SunToggle = ({ theme, isInverted }: SunToggleProps) => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 0.4 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-[#ffcc00] blur-xl rounded-full -z-10"
+                            className="absolute inset-0 bg-black/20 blur-xl rounded-full -z-10"
                         />
                     )}
                 </AnimatePresence>

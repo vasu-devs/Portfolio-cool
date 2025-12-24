@@ -211,13 +211,13 @@ export default function App() {
                         marginLeft: '-50vw',
                         marginTop: '-50vw',
                         borderRadius: '50%',
-                        border: theme === 'dark' ? '8px solid rgba(255, 204, 0, 0.3)' : '8px solid rgba(255, 255, 255, 0.3)',
+                        border: theme === 'dark' ? '8px solid rgba(255, 255, 255, 0.3)' : '8px solid rgba(0, 0, 0, 0.3)',
                         boxShadow: theme === 'dark'
-                           ? '0 0 100px rgba(255, 204, 0, 0.4), inset 0 0 80px rgba(255, 204, 0, 0.2)'
-                           : '0 0 100px rgba(255, 255, 255, 0.4), inset 0 0 80px rgba(255, 255, 255, 0.2)',
+                           ? '0 0 100px rgba(255, 255, 255, 0.4), inset 0 0 80px rgba(255, 255, 255, 0.2)'
+                           : '0 0 100px rgba(0, 0, 0, 0.4), inset 0 0 80px rgba(0, 0, 0, 0.2)',
                         background: theme === 'dark'
-                           ? 'radial-gradient(circle, rgba(255, 204, 0, 0.1) 0%, transparent 70%)'
-                           : 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
+                           ? 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)'
+                           : 'radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, transparent 70%)',
                         filter: 'blur(10px)',
                      }}
                   />
@@ -240,8 +240,8 @@ export default function App() {
                            left: clickPos.x,
                            top: clickPos.y,
                            background: theme === 'dark'
-                              ? 'linear-gradient(to bottom, rgba(255, 204, 0, 0.6), transparent)'
-                              : 'linear-gradient(to bottom, rgba(255, 255, 255, 0.8), transparent)',
+                              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.6), transparent)'
+                              : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent)',
                         }}
                      />
                   ))}
