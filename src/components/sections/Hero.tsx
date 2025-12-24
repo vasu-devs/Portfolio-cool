@@ -54,7 +54,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full pointer-events-auto mt-[45vw] md:mt-0"
+                            className="w-full pointer-events-auto mt-[60vw] md:mt-16"
                         >
 
                             <p className="max-w-xl text-sm md:text-2xl text-fg-primary leading-relaxed font-medium drop-shadow-md mb-[16vw] md:mb-8">
