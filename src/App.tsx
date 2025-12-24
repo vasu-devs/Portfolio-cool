@@ -236,24 +236,24 @@ export default function App() {
          <Grain />
          <SideBranding isInverted={isNavInverted} />
 
-         <nav className="fixed bottom-[6vw] md:bottom-[2vw] left-0 right-0 z-50 flex justify-center px-4">
+         <nav className="fixed bottom-[4vw] md:bottom-[2vw] left-0 right-0 z-50 flex justify-center px-4">
             <div className={`
-              backdrop-blur-xl border rounded-full px-[5vw] md:px-[1.5vw] py-[2.5vw] md:py-[0.8vw] shadow-lg flex items-center gap-[4vw] md:gap-[3vw] w-[90vw] md:w-auto md:min-w-[20vw] justify-between transition-all duration-300
+              backdrop-blur-xl border rounded-full px-[4vw] md:px-[1.5vw] py-[2vw] md:py-[0.8vw] shadow-lg flex items-center gap-[3vw] md:gap-[3vw] w-auto max-w-[95vw] justify-between transition-all duration-300
               ${isNavInverted
                   ? 'bg-fg-primary/90 border-bg-primary text-bg-primary'
                   : 'bg-bg-primary/70 border-border-primary text-fg-primary'}
             `}>
-               <span className="font-mono text-[2.5vw] md:text-[0.8vw] uppercase tracking-widest font-black shrink-0">Vasu-DevS</span>
-               <div className="flex items-center gap-[3vw] md:gap-[1vw]">
-                  <div className="flex md:hidden items-center gap-[3vw] pr-[3vw] border-r border-current/10">
+               <span className="font-mono text-[1.8vw] md:text-[0.8vw] uppercase tracking-widest font-black shrink-0">Vasu-DevS</span>
+               <div className="flex items-center gap-[2vw] md:gap-[1vw]">
+                  <div className="flex md:hidden items-center gap-[2.5vw] pr-[2.5vw] border-r border-current/10">
                      <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>
-                        <Mail className="w-[4vw] h-[4vw]" />
+                        <Mail className="w-[3.5vw] h-[3.5vw]" />
                      </a>
                      <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>
-                        <Linkedin className="w-[4vw] h-[4vw]" />
+                        <Linkedin className="w-[3.5vw] h-[3.5vw]" />
                      </a>
                      <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>
-                        <Twitter className="w-[4vw] h-[4vw]" />
+                        <Twitter className="w-[3.5vw] h-[3.5vw]" />
                      </a>
                   </div>
                   <a href="#projects" className={`hidden md:block text-[0.8vw] font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Work</a>

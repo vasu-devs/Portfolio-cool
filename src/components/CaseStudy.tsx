@@ -7,7 +7,6 @@ export const CaseStudy = ({
     title,
     category,
     description,
-    videoUrl,
     thumbnailUrl,
     repoUrl,
     liveUrl,
@@ -23,32 +22,18 @@ export const CaseStudy = ({
     index: number;
 }) => {
     const ref = useRef(null);
-    const videoRef = useRef<HTMLVideoElement>(null);
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start end", "end start"]
     });
 
     const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-    const overallY = useTransform(scrollYProgress, [0, 1], [10, -10]); // Reduced parallax on mobile
+    const overallY = useTransform(scrollYProgress, [0, 1], [10, -10]);
     const opacity = useTransform(
         scrollYProgress,
         [0, 0.1, 0.9, 1],
-        [0, 1, 1, 0] // Keep visible longer
+        [0, 1, 1, 0]
     );
-
-    const handleMouseEnter = () => {
-        if (videoRef.current) {
-            videoRef.current.play().catch(e => console.log("Hover play prevented:", e));
-        }
-    };
-
-    const handleMouseLeave = () => {
-        if (videoRef.current) {
-            videoRef.current.pause();
-            videoRef.current.currentTime = 0;
-        }
-    };
 
     return (
         <motion.div
@@ -106,33 +91,39 @@ export const CaseStudy = ({
 
             {/* Visual Side */}
             <div
-                className="flex-1 w-full aspect-video md:aspect-[4/3] bg-bg-secondary relative overflow-hidden rounded-lg border border-border-primary group cursor-pointer"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
+                className="flex-1 w-full aspect-video md:aspect-[4/3] bg-bg-secondary relative overflow-hidden rounded-xl border border-border-primary group cursor-pointer"
+                onClick={() => {
+                    // Ensure it triggers parent's openModal if needed, 
+                    // but CaseStudy is already wrapped in a clickable div in Work.tsx.
+                }}
             >
                 <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%]">
-                    {videoUrl ? (
-                        <video
-                            ref={videoRef}
-                            src={videoUrl}
-                            poster={thumbnailUrl}
-                            muted
-                            loop
-                            playsInline
-                            preload="none"
-                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                    {thumbnailUrl ? (
+                        <img
+                            src={thumbnailUrl}
+                            alt={title}
+                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
                         />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-bg-secondary to-border-primary opacity-50" />
                     )}
                 </motion.div>
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors pointer-events-none" />
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Watch Demo Hint - Only on Media Hover */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-fg-primary text-bg-primary px-[4vw] md:px-[1vw] py-[2vw] md:py-[0.5vw] rounded-full font-mono text-[2.5vw] md:text-[0.6vw] uppercase font-bold flex items-center gap-[2vw] md:gap-[0.5vw] pointer-events-none transform scale-90 group-hover:scale-100 z-20 whitespace-nowrap shadow-2xl">
-                    <Play className="w-[2.5vw] h-[2.5vw] md:w-[0.6vw] md:h-[0.6vw]" fill="currentColor" /> Watch Demo
+                {/* Play Button Indicator */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-[15vw] h-[15vw] md:w-[4vw] md:h-[4vw] rounded-full bg-fg-primary/10 backdrop-blur-md border border-white/20 flex items-center justify-center transform scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 shadow-2xl">
+                        <Play className="w-[6vw] h-[6vw] md:w-[1.5vw] md:h-[1.5vw] text-white fill-white translate-x-0.5" />
+                    </div>
+                </div>
+
+                {/* Watch Demo Hint */}
+                <div className="absolute bottom-[4vw] left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                    <span className="bg-fg-primary text-bg-primary px-[4vw] md:px-[1.2vw] py-[2vw] md:py-[0.6vw] rounded-full font-mono text-[2.5vw] md:text-[0.65vw] uppercase font-black tracking-widest shadow-2xl">
+                        Watch_Demo
+                    </span>
                 </div>
             </div>
         </motion.div>

@@ -105,7 +105,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                         : 'grayscale(15%) contrast(110%) brightness(0.95) saturate(1.1)',
                                 }}
                                 transition={{ duration: 0.8 }}
-                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 scale-110 -translate-y-[45vw] md:scale-125 md:translate-y-8"
+                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 scale-[1.05] -translate-y-[35vw] md:scale-125 md:translate-y-8"
                             />
                         </motion.div>
                     </div>

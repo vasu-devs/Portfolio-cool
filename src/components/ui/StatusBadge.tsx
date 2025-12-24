@@ -65,11 +65,11 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
                 <span className="relative flex h-[1.5vw] w-[1.5vw] md:h-[0.5vw] md:w-[0.5vw]">
                     <span className="relative inline-flex rounded-full h-full w-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
                 </span>
-                <div className="flex flex-col items-start translate-y-[1px]">
-                    <span className={`text-[2vw] md:text-[0.7vw] uppercase tracking-[0.3em] font-black leading-none mb-[0.5vw] md:mb-[0.25vw] opacity-60`}>
+                <div className="flex flex-col items-start translate-y-[0.5px]">
+                    <span className={`text-[1.8vw] md:text-[0.7vw] uppercase tracking-[0.2em] font-black leading-tight mb-[0.25vw] opacity-60`}>
                         Open To Work
                     </span>
-                    <span className={`text-[2.25vw] md:text-[0.9vw] uppercase tracking-[0.1em] font-black leading-none`}>
+                    <span className={`text-[2.2vw] md:text-[0.9vw] uppercase tracking-[0.1em] font-black leading-tight`}>
                         Hire Me
                     </span>
                 </div>
