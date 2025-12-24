@@ -234,7 +234,7 @@ export default function App() {
          </AnimatePresence>
 
          <Grain />
-         <SideBranding isInverted={isNavInverted} />
+         <SideBranding />
 
          <nav className="fixed bottom-[4vw] md:bottom-[2vw] left-0 right-0 z-50 flex justify-center px-4">
             <div className={`
@@ -269,11 +269,22 @@ export default function App() {
          </nav>
 
          <StatusBadge isInverted={isNavInverted} theme={theme} />
-         <Hero theme={theme} onResumeClick={openResumeModal} />
-         <Work projects={projects} openModal={openModal} />
-         <Skills />
-         <OssImpact stats={stats} />
-         <Footer theme={theme} onResumeClick={openResumeModal} />
+
+         {/* Fixed Hero - stays in place */}
+         <div className="fixed top-0 left-0 right-0 h-screen z-0">
+            <Hero theme={theme} onResumeClick={openResumeModal} />
+         </div>
+
+         {/* Spacer to push content down initially */}
+         <div className="h-screen" />
+
+         {/* Content that overlaps the Hero */}
+         <div className="relative z-20 bg-bg-primary">
+            <Work projects={projects} openModal={openModal} />
+            <Skills />
+            <OssImpact stats={stats} />
+            <Footer theme={theme} onResumeClick={openResumeModal} />
+         </div>
 
          <ProjectModal
             isOpen={isModalOpen}
