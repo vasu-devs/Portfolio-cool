@@ -57,9 +57,9 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             className="w-full pointer-events-auto mt-[55vw] md:mt-48"
                         >
 
-                            <p className="max-w-2xl text-sm md:text-3xl text-fg-primary leading-relaxed font-medium drop-shadow-md mb-[16vw] md:mb-10">
-                                I am a <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in India.
-                                Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
+                            <p className="max-w-2xl text-sm md:text-3xl text-white/80 md:text-fg-secondary leading-relaxed font-medium drop-shadow-md mb-[16vw] md:mb-10">
+                                A <strong className="text-white md:text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-white md:text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-white md:text-fg-primary">India</span>.
+                                Building <strong className="text-white md:text-fg-primary">AI Agents</strong> and <strong className="text-white md:text-fg-primary">Intelligent Systems</strong>.
                             </p>
 
                             <div className="flex flex-wrap gap-4 relative z-20">
@@ -91,8 +91,8 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             transition={{ duration: 1.2, ease: "easeOut" }}
                             className="w-full h-full md:h-auto relative md:opacity-100 transition-opacity duration-1000 overflow-visible"
                         >
-                            {/* Mobile Gradient Mask - Tuned for even higher image */}
-                            <div className="absolute inset-x-0 bottom-0 top-[20%] bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent md:hidden z-20" />
+                            {/* Mobile Gradient Mask - Only visible in dark mode */}
+                            <div className="absolute inset-x-0 bottom-0 top-[20%] bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent md:hidden z-20 dark:block hidden dark:md:hidden" />
 
                             {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED, STATIC */}
                             <motion.img
