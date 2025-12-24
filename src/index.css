@@ -50,6 +50,13 @@ body {
   /* IE and Edge */
   scrollbar-width: none;
   /* Firefox */
+  box-sizing: border-box;
+}
+
+/* Prevent flex children from overflowing */
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 /* Utilities */

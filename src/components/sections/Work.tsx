@@ -19,17 +19,17 @@ interface WorkProps {
 
 export const Work = ({ projects, openModal }: WorkProps) => {
     return (
-        <section id="projects" className="pt-[1vw] pb-[20vw] relative">
+        <section id="projects" className="pt-[1vw] pb-[20vw] md:pt-4 md:pb-24 relative">
             <Container>
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="font-mono text-[2.5vw] md:text-[0.8vw] uppercase tracking-widest text-fg-secondary mb-[6vw] md:mb-[4vw]"
+                    className="font-mono text-[2.5vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[6vw] md:mb-16"
                 >
                     Selected Works
                 </motion.h2>
-                <div className="flex flex-col gap-[10vw] md:gap-[5vw]">
+                <div className="flex flex-col gap-[10vw] md:gap-16">
                     {projects.map((project, i) => (
                         <motion.div
                             key={i}

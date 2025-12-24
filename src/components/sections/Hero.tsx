@@ -26,10 +26,10 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
                 >
                     {/* Left Column: Text - Added pt to match image gap */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[25vw] md:pt-[12vw]">
+                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[25vw] md:pt-40">
                         {/* Huge Heading */}
-                        <div className="-translate-y-[18vw] md:-translate-y-[6.5vw] -mb-[12vw] md:-mb-[6.5vw]">
-                            <h1 className={`font-display font-black text-[13vw] md:text-[10vw] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-[2vw] mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
+                        <div className="-translate-y-[18vw] md:-translate-y-24 -mb-[12vw] md:-mb-24">
+                            <h1 className={`font-display font-black text-[13vw] md:text-9xl lg:text-[10rem] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-6 mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -57,7 +57,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             className="w-full pointer-events-auto mt-[55vw] md:mt-48"
                         >
 
-                            <p className="max-w-xl text-sm md:text-2xl text-fg-primary leading-relaxed font-medium drop-shadow-md mb-[16vw] md:mb-8">
+                            <p className="max-w-2xl text-sm md:text-3xl text-fg-primary leading-relaxed font-medium drop-shadow-md mb-[16vw] md:mb-10">
                                 I am a <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in India.
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>

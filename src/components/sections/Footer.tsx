@@ -21,18 +21,18 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
     }, []);
 
     return (
-        <footer id="contact" className="min-h-[80vh] flex flex-col justify-between pt-[12vw] md:pt-[6vw] relative">
+        <footer id="contact" className="min-h-[80vh] flex flex-col justify-between pt-[12vw] md:pt-16 relative">
             <Container>
-                <div className="flex flex-col gap-[12vw] md:gap-[5vw]">
+                <div className="flex flex-col gap-[12vw] md:gap-12">
                     {/* Top Row: Heading & Heatmap */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-[8vw] md:gap-[3vw] items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-[8vw] md:gap-8 items-center">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             className="col-span-1 md:col-span-4"
                         >
-                            <h2 className="font-display font-black text-[16vw] md:text-[10vw] leading-[0.75] tracking-tighter uppercase text-center md:text-left">
+                            <h2 className="font-display font-black text-[16vw] md:text-8xl lg:text-9xl leading-[0.75] tracking-tighter uppercase text-center md:text-left">
                                 Let's<br />Talk.
                             </h2>
                         </motion.div>
@@ -42,11 +42,11 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
-                            className="col-span-1 md:col-span-8 flex flex-col justify-between mt-[8vw] md:mt-[3vw] h-full md:ml-[3vw]"
+                            className="col-span-1 md:col-span-8 flex flex-col justify-between mt-[8vw] md:mt-8 h-full md:ml-8"
                         >
-                            <div className="bg-bg-secondary/50 p-[4vw] md:p-[2vw] rounded-2xl border border-border-primary backdrop-blur-sm overflow-visible">
+                            <div className="bg-bg-secondary/50 p-[4vw] md:p-6 rounded-2xl border border-border-primary backdrop-blur-sm overflow-visible">
                                 <div className="overflow-x-auto pb-4 scroll-smooth" ref={scrollContainerRef}>
-                                    <div className="min-w-[800px] md:min-w-0">
+                                    <div className="min-w-0 md:min-w-0">
                                         <GitHubCalendar
                                             username="vasu-devs"
                                             colorScheme={theme === 'dark' ? 'dark' : 'light'}
@@ -66,18 +66,18 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="flex flex-wrap md:flex-nowrap gap-[3vw] md:gap-[1vw] items-center justify-center w-full"
+                        className="flex flex-wrap md:flex-nowrap gap-[3vw] md:gap-3 items-center justify-center w-full"
                     >
                         {[
-                            { href: "mailto:siddhvasudev1402@gmail.com", icon: <Mail className="w-[4.5vw] h-[4.5vw] md:w-[1.2vw] md:h-[1.2vw]" />, label: "siddhvasudev1402@gmail.com", className: "bg-fg-primary text-bg-primary" },
-                            { href: "https://cal.com/vasudev-siddh-bjemxn", icon: <Calendar className="w-[4.5vw] h-[4.5vw] md:w-[1.2vw] md:h-[1.2vw]" />, label: "Book a call", className: "border border-border-primary hover:bg-bg-secondary" },
-                            { href: "https://buymeacoffee.com/vasu.devs", icon: <Coffee className="w-[4.5vw] h-[4.5vw] md:w-[1.2vw] md:h-[1.2vw]" />, label: "Buy me a coffee", className: "bg-[#FFDD00] text-black border border-transparent hover:border-black" }
+                            { href: "mailto:siddhvasudev1402@gmail.com", icon: <Mail className="w-[4.5vw] h-[4.5vw] md:w-5 md:h-5" />, label: "siddhvasudev1402@gmail.com", className: "bg-fg-primary text-bg-primary" },
+                            { href: "https://cal.com/vasudev-siddh-bjemxn", icon: <Calendar className="w-[4.5vw] h-[4.5vw] md:w-5 md:h-5" />, label: "Book a call", className: "border border-border-primary hover:bg-bg-secondary" },
+                            { href: "https://buymeacoffee.com/vasu.devs", icon: <Coffee className="w-[4.5vw] h-[4.5vw] md:w-5 md:h-5" />, label: "Buy me a coffee", className: "bg-[#FFDD00] text-black border border-transparent hover:border-black" }
                         ].map((btn, i) => (
                             <MagneticButton key={i}>
                                 <a
                                     href={btn.href}
                                     target={btn.href.startsWith('http') ? "_blank" : undefined}
-                                    className={`px-[6vw] md:px-[2vw] py-[3vw] md:py-[1vw] rounded-full font-bold font-mono text-[2.5vw] md:text-[0.9vw] uppercase transition-all flex items-center gap-[2vw] md:gap-[0.5vw] whitespace-nowrap ${btn.className}`}
+                                    className={`px-[6vw] md:px-8 py-[3vw] md:py-4 rounded-full font-bold font-mono text-[2.5vw] md:text-base uppercase transition-all flex items-center gap-[2vw] md:gap-3 whitespace-nowrap ${btn.className}`}
                                 >
                                     {btn.icon} {btn.label}
                                 </a>
@@ -91,17 +91,17 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                 </div>
             </Container>
 
-            <Container className="flex justify-between items-end text-[3vw] md:text-[0.8vw] pt-[3vw] font-mono uppercase text-fg-secondary">
+            <Container className="flex justify-between items-end text-[3vw] md:text-sm pt-[3vw] md:pt-6 font-mono uppercase text-fg-secondary">
                 <span>© 2025 Vasu-DevS</span>
-                <div className="flex gap-[6vw] md:gap-[1.5vw]">
+                <div className="flex gap-[6vw] md:gap-4">
                     <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">GitHub</a>
                     <a href="https://twitter.com/Vasu_DevS" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">Twitter</a>
                     <a href="https://linkedin.com/in/vasudev-siddh/" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">LinkedIn</a>
                 </div>
             </Container>
 
-            {/* Bottom Watermark - Separate & Faded */}
-            <div className="w-full flex justify-center items-end mt-[3vw] overflow-hidden pointer-events-none select-none">
+            {/* Bottom Watermark - Separate & Faded - keeping vw for decorative scaling */}
+            <div className="w-full flex justify-center items-end mt-[3vw] md:mt-4 overflow-hidden pointer-events-none select-none">
                 <motion.h1
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 0.3, y: 16 }}

@@ -54,22 +54,22 @@ const AnimatedCounter = ({ value, duration = 2000, suffix = '' }: { value: numbe
 
 // Loading skeleton for stats
 const StatSkeleton = () => (
-    <div className="flex flex-col items-center justify-center p-[8vw] md:p-[3vw] border border-bg-primary/20 rounded-2xl bg-bg-primary/5 backdrop-blur-sm animate-pulse">
-        <div className="mb-[4vw] md:mb-[1.5vw] w-[8vw] h-[8vw] md:w-[3vw] md:h-[3vw] bg-bg-primary/20 rounded-full" />
-        <div className="w-[15vw] md:w-[6vw] h-[9vw] md:h-[4vw] bg-bg-primary/20 rounded mb-[1vw] md:mb-[0.5vw]" />
-        <div className="w-[20vw] md:w-[8vw] h-[2.5vw] md:h-[0.8vw] bg-bg-primary/20 rounded" />
+    <div className="flex flex-col items-center justify-center p-[8vw] md:p-8 border border-bg-primary/20 rounded-2xl bg-bg-primary/5 backdrop-blur-sm animate-pulse">
+        <div className="mb-[4vw] md:mb-4 w-[8vw] h-[8vw] md:w-10 md:h-10 bg-bg-primary/20 rounded-full" />
+        <div className="w-[15vw] md:w-24 h-[9vw] md:h-12 bg-bg-primary/20 rounded mb-[1vw] md:mb-2" />
+        <div className="w-[20vw] md:w-28 h-[2.5vw] md:h-3 bg-bg-primary/20 rounded" />
     </div>
 );
 
 export const OssImpact = ({ stats, isLoading = false }: OssImpactProps) => {
     return (
-        <section id="oss-impact" className="py-[16vw] md:py-[8vw] bg-fg-primary text-bg-primary relative overflow-hidden">
+        <section id="oss-impact" className="py-[16vw] md:py-24 bg-fg-primary text-bg-primary relative overflow-hidden">
             <Container className="relative z-10">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="font-display font-black text-[10vw] md:text-[6vw] mb-[12vw] md:mb-[6vw] text-center uppercase leading-[0.9] md:leading-none"
+                    className="font-display font-black text-[10vw] md:text-7xl lg:text-8xl mb-[12vw] md:mb-20 text-center uppercase leading-[0.9] md:leading-none"
                 >
                     Open Source<br />Impact
                 </motion.h2>
@@ -79,16 +79,16 @@ export const OssImpact = ({ stats, isLoading = false }: OssImpactProps) => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="mb-[16vw] md:mb-[6vw] p-[6vw] md:p-[2vw] border border-bg-primary/20 rounded-3xl bg-bg-primary/5 backdrop-blur-sm max-w-4xl mx-auto"
+                    className="mb-[16vw] md:mb-16 p-[6vw] md:p-8 border border-bg-primary/20 rounded-3xl bg-bg-primary/5 backdrop-blur-sm max-w-4xl mx-auto"
                 >
-                    <div className="flex flex-col md:flex-row gap-[6vw] md:gap-[2vw] items-center text-center md:text-left">
-                        <div className="p-[4vw] md:p-[1vw] bg-bg-primary text-fg-primary rounded-xl shrink-0">
-                            <GitPullRequest className="w-[8vw] h-[8vw] md:w-[2vw] md:h-[2vw]" />
+                    <div className="flex flex-col md:flex-row gap-[6vw] md:gap-6 items-center text-center md:text-left">
+                        <div className="p-[4vw] md:p-4 bg-bg-primary text-fg-primary rounded-xl shrink-0">
+                            <GitPullRequest className="w-[8vw] h-[8vw] md:w-8 md:h-8" />
                         </div>
                         <div>
-                            <h3 className="font-display font-bold text-[6vw] md:text-[2vw] mb-[2vw] md:mb-[0.5vw]">auto-timetable</h3>
-                            <p className="font-mono text-[2.5vw] md:text-[0.9vw] opacity-60 mb-[3vw] md:mb-[1vw] uppercase tracking-wider">Significant Contribution • Core Logic Implementation</p>
-                            <p className="text-[4vw] md:text-[1.2vw] leading-relaxed opacity-90">
+                            <h3 className="font-display font-bold text-[6vw] md:text-3xl mb-[2vw] md:mb-3">auto-timetable</h3>
+                            <p className="font-mono text-[2.5vw] md:text-base opacity-60 mb-[3vw] md:mb-4 uppercase tracking-wider">Significant Contribution • Core Logic Implementation</p>
+                            <p className="text-[4vw] md:text-xl leading-relaxed opacity-90">
                                 Architected the core scheduling algorithm for SAYOUNCDR's auto-timetable. Optimized constraint satisfaction logic to generate conflict-free schedules efficiently.
                             </p>
                         </div>
@@ -96,7 +96,7 @@ export const OssImpact = ({ stats, isLoading = false }: OssImpactProps) => {
                 </motion.div>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-[6vw] md:gap-[2vw]">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-[6vw] md:gap-6">
                     {isLoading ? (
                         <>
                             <StatSkeleton />
@@ -115,15 +115,15 @@ export const OssImpact = ({ stats, isLoading = false }: OssImpactProps) => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: stat.delay }}
-                                className="flex flex-col items-center justify-center p-[8vw] md:p-[3vw] border border-bg-primary/20 rounded-2xl bg-bg-primary/5 backdrop-blur-sm group hover:bg-bg-primary/10 transition-colors"
+                                className="flex flex-col items-center justify-center p-[8vw] md:p-8 border border-bg-primary/20 rounded-2xl bg-bg-primary/5 backdrop-blur-sm group hover:bg-bg-primary/10 transition-colors"
                             >
-                                <div className="mb-[4vw] md:mb-[1.5vw] opacity-80 group-hover:opacity-100 transition-opacity">
-                                    <stat.icon className="w-[8vw] h-[8vw] md:w-[3vw] md:h-[3vw]" />
+                                <div className="mb-[4vw] md:mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                                    <stat.icon className="w-[8vw] h-[8vw] md:w-10 md:h-10" />
                                 </div>
-                                <span className="font-display font-bold text-[9vw] md:text-[4vw] mb-[1vw] md:mb-[0.5vw]">
+                                <span className="font-display font-bold text-[9vw] md:text-6xl lg:text-7xl mb-[1vw] md:mb-3">
                                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                                 </span>
-                                <span className="font-mono text-[2.5vw] md:text-[0.8vw] uppercase tracking-widest opacity-60">{stat.label}</span>
+                                <span className="font-mono text-[2.5vw] md:text-sm uppercase tracking-widest opacity-60">{stat.label}</span>
                             </motion.div>
                         ))
                     )}
@@ -131,9 +131,9 @@ export const OssImpact = ({ stats, isLoading = false }: OssImpactProps) => {
 
                 {/* Loading indicator */}
                 {isLoading && (
-                    <div className="flex justify-center items-center gap-2 mt-[4vw] md:mt-[2vw] text-bg-primary/60">
+                    <div className="flex justify-center items-center gap-2 mt-[4vw] md:mt-6 text-bg-primary/60">
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span className="font-mono text-[2.5vw] md:text-[0.7vw] uppercase tracking-widest">Fetching live data...</span>
+                        <span className="font-mono text-[2.5vw] md:text-sm uppercase tracking-widest">Fetching live data...</span>
                     </div>
                 )}
             </Container>
