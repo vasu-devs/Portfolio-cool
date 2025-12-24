@@ -14,8 +14,8 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
         <section id="hero" className="min-h-auto md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                <div className={`h-[50%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                <div className="h-[50%] w-full transition-colors duration-700 bg-bg-primary" />
+                <div className={`h-[60%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                <div className="h-[40%] w-full transition-colors duration-700 bg-bg-primary" />
             </div>
 
             <Container className="relative z-10 h-full flex flex-col pt-10 md:pt-16 pb-20 md:pb-10 overflow-visible">
@@ -28,8 +28,8 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     {/* Left Column: Text - Added pt to match image gap */}
                     <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[25vw] md:pt-[12vw]">
                         {/* Huge Heading */}
-                        <div className="-translate-y-[12vw] md:-translate-y-[6.5vw] -mb-[12vw] md:-mb-[6.5vw]">
-                            <h1 className="font-display font-black text-[13vw] md:text-[10vw] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-[2vw] mix-blend-difference text-black">
+                        <div className="-translate-y-[18vw] md:-translate-y-[6.5vw] -mb-[12vw] md:-mb-[6.5vw]">
+                            <h1 className={`font-display font-black text-[13vw] md:text-[10vw] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-[2vw] mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -54,7 +54,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full pointer-events-auto mt-[60vw] md:mt-16"
+                            className="w-full pointer-events-auto mt-[55vw] md:mt-48"
                         >
 
                             <p className="max-w-xl text-sm md:text-2xl text-fg-primary leading-relaxed font-medium drop-shadow-md mb-[16vw] md:mb-8">
@@ -92,7 +92,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             className="w-full h-full md:h-auto relative md:opacity-100 transition-opacity duration-1000 overflow-visible"
                         >
                             {/* Mobile Gradient Mask - Tuned for even higher image */}
-                            <div className="absolute inset-x-0 bottom-0 top-[30%] bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent md:hidden z-20" />
+                            <div className="absolute inset-x-0 bottom-0 top-[20%] bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent md:hidden z-20" />
 
                             {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED, STATIC */}
                             <motion.img
@@ -105,7 +105,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                         : 'grayscale(15%) contrast(110%) brightness(0.95) saturate(1.1)',
                                 }}
                                 transition={{ duration: 0.8 }}
-                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 -translate-y-[30vw] md:scale-110 md:-translate-y-[6.5vw]"
+                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 scale-110 -translate-y-[45vw] md:scale-125 md:translate-y-8"
                             />
                         </motion.div>
                     </div>
