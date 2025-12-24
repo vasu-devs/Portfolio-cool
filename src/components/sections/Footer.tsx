@@ -15,13 +15,33 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (scrollContainerRef.current && window.innerWidth < 768) {
-            scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+        // Scroll to December when the calendar container becomes visible
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && scrollContainerRef.current) {
+                        // Small delay to ensure calendar has rendered
+                        setTimeout(() => {
+                            if (scrollContainerRef.current) {
+                                scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+                            }
+                        }, 300);
+                        observer.disconnect();
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        if (scrollContainerRef.current) {
+            observer.observe(scrollContainerRef.current);
         }
+
+        return () => observer.disconnect();
     }, []);
 
     return (
-        <footer id="contact" className="min-h-[80vh] flex flex-col justify-between pt-[12vw] md:pt-16 relative">
+        <footer id="contact" className="min-h-[80vh] flex flex-col justify-between pt-[2vw] md:pt-4 relative">
             <Container>
                 <div className="flex flex-col gap-[12vw] md:gap-12">
                     {/* Top Row: Heading & Heatmap */}
@@ -32,7 +52,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             viewport={{ once: true }}
                             className="col-span-1 md:col-span-4"
                         >
-                            <h2 className="font-display font-black text-[16vw] md:text-8xl lg:text-9xl leading-[0.75] tracking-tighter uppercase text-center md:text-left">
+                            <h2 className="font-display font-black text-[16vw] md:text-9xl lg:text-[12rem] leading-[0.75] tracking-tighter uppercase text-center md:text-left">
                                 Let's<br />Talk.
                             </h2>
                         </motion.div>
@@ -45,14 +65,14 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             className="col-span-1 md:col-span-8 flex flex-col justify-between mt-[8vw] md:mt-8 h-full md:ml-8"
                         >
                             <div className="bg-bg-secondary/50 p-[4vw] md:p-6 rounded-2xl border border-border-primary backdrop-blur-sm overflow-visible">
-                                <div className="overflow-x-auto pb-4 scroll-smooth" ref={scrollContainerRef}>
-                                    <div className="min-w-0 md:min-w-0">
+                                <div className="overflow-x-auto pb-4" ref={scrollContainerRef}>
+                                    <div className="min-w-0 md:min-w-0 flex flex-row-reverse">
                                         <GitHubCalendar
                                             username="vasu-devs"
                                             colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                                            blockSize={window.innerWidth < 768 ? 10 : 12}
-                                            blockMargin={4}
-                                            fontSize={window.innerWidth < 768 ? 10 : 12}
+                                            blockSize={window.innerWidth < 768 ? 15 : 18}
+                                            blockMargin={6}
+                                            fontSize={window.innerWidth < 768 ? 14 : 16}
                                         />
                                     </div>
                                 </div>
