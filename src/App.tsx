@@ -235,7 +235,7 @@ export default function App() {
          </AnimatePresence>
 
          <Grain />
-         <SideBranding />
+         <SideBranding isInverted={isNavInverted} />
 
          <nav className="fixed bottom-[6vw] md:bottom-[2vw] left-0 right-0 z-50 flex justify-center px-4">
             <div className={`
