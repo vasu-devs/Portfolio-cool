@@ -14,8 +14,8 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
         <section id="hero" className="min-h-auto md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                <div className={`h-[50%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                <div className="h-[50%] w-full transition-colors duration-700 bg-bg-primary" />
+                <div className={`h-[60%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                <div className="h-[20%] w-full transition-colors duration-700 bg-bg-primary" />
             </div>
 
             <Container className="relative z-10 h-full flex flex-col pt-10 md:pt-16 pb-20 md:pb-10 overflow-visible">
@@ -26,10 +26,10 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
                 >
                     {/* Left Column: Text - Added pt to match image gap */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[25vw] md:pt-[12vw]">
+                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[40vw] md:pt-[28vw]">
                         {/* Huge Heading */}
-                        <div className="-translate-y-[12vw] md:-translate-y-[6.5vw] -mb-[12vw] md:-mb-[6.5vw]">
-                            <h1 className="font-display font-black text-[13vw] md:text-[10vw] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-[2vw] mix-blend-difference text-black">
+                        <div className="-translate-y-[30vw] md:-translate-y-[18vw] -mb-[22vw] md:-mb-[18vw]">
+                            <h1 className={`font-display font-black text-[13vw] md:text-[10vw] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-[2vw] mix-blend-difference ${theme === 'dark' ? 'text-black' : 'text-white'}`}>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
