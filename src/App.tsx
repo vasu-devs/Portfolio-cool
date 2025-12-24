@@ -17,7 +17,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 export default function App() {
    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-   const [stats, setStats] = useState({ stars: 12, commits: 882, prs: 45 });
+   const [stats, setStats] = useState({ stars: 0, commits: 0, prs: 0 });
+   const [isStatsLoading, setIsStatsLoading] = useState(true);
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
    const [selectedProject, setSelectedProject] = useState<any>(null);
@@ -55,12 +56,17 @@ export default function App() {
 
    useEffect(() => {
       const fetchStats = async () => {
+         setIsStatsLoading(true);
+         
          try {
             // Helper to fetch and return JSON or null on error
-            const fetchJson = async (url: string, options?: RequestInit) => {
+            const fetchJson = async (url: string) => {
                try {
-                  const res = await fetch(url, options);
-                  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                  const res = await fetch(url);
+                  if (!res.ok) {
+                     console.warn(`API returned ${res.status} for ${url}`);
+                     return null;
+                  }
                   return await res.json();
                } catch (e) {
                   console.warn(`Failed to fetch from ${url}:`, e);
@@ -68,36 +74,46 @@ export default function App() {
                }
             };
 
-            // 1. Fetch Repos for Star Count
+            // 1. Use the same API as react-github-calendar for accurate contribution data
+            const contributionsData = await fetchJson('https://github-contributions-api.jogruber.de/v4/vasu-devs');
+            if (contributionsData && contributionsData.total) {
+               // Sum up all yearly contributions
+               const totalContributions = Object.values(contributionsData.total).reduce((acc: number, val) => acc + (val as number), 0);
+               setStats(prev => ({ ...prev, commits: totalContributions as number }));
+            }
+
+            // 2. Fetch Repos for Star Count
             const repos = await fetchJson('https://api.github.com/users/vasu-devs/repos?per_page=100');
-            if (Array.isArray(repos)) {
+            if (Array.isArray(repos) && repos.length > 0) {
                const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
                setStats(prev => ({ ...prev, stars: totalStars }));
             }
 
-            // 2. Fetch PR Count
+            // 3. Fetch PR Count from GitHub API
             const prsData = await fetchJson('https://api.github.com/search/issues?q=type:pr+author:vasu-devs');
             if (prsData && typeof prsData.total_count === 'number') {
                setStats(prev => ({ ...prev, prs: prsData.total_count }));
             }
 
-            // 3. Fetch Commits Count
-            const commitsData = await fetchJson('https://api.github.com/search/commits?q=author:vasu-devs', {
-               headers: { 'Accept': 'application/vnd.github.cloak-preview' }
-            });
-            if (commitsData && typeof commitsData.total_count === 'number') {
-               setStats(prev => ({ ...prev, commits: commitsData.total_count }));
-            }
-
          } catch (e) {
-            console.error("Critical error fetching GH stats", e);
+            console.error("Critical error fetching GH stats:", e);
+         } finally {
+            setIsStatsLoading(false);
          }
       };
 
-      // Delay fetch slightly to prioritize LCP
-      const timer = setTimeout(fetchStats, 1000);
-      return () => clearTimeout(timer);
+      // Initial fetch with slight delay to prioritize LCP
+      const initialTimer = setTimeout(fetchStats, 1000);
+
+      // Periodic refresh every 5 minutes (300000ms)
+      const refreshInterval = setInterval(fetchStats, 300000);
+
+      return () => {
+         clearTimeout(initialTimer);
+         clearInterval(refreshInterval);
+      };
    }, []);
+
 
    const toggleTheme = (e?: React.MouseEvent) => {
       if (isTransitioning) return;
@@ -270,19 +286,21 @@ export default function App() {
 
          <StatusBadge isInverted={isNavInverted} theme={theme} />
 
-         {/* Fixed Hero - stays in place */}
+         {/* Stacked Sticky Sections - Each overlaps the previous */}
+
+         {/* Hero Section - Fixed behind everything */}
          <div className="fixed top-0 left-0 right-0 h-screen z-0">
             <Hero theme={theme} onResumeClick={openResumeModal} />
          </div>
 
-         {/* Spacer to push content down initially */}
+         {/* Spacer to push content below the Hero */}
          <div className="h-screen" />
 
-         {/* Content that overlaps the Hero */}
+         {/* All scrollable content - overlaps the fixed Hero */}
          <div className="relative z-20 bg-bg-primary">
             <Work projects={projects} openModal={openModal} />
             <Skills />
-            <OssImpact stats={stats} />
+            <OssImpact stats={stats} isLoading={isStatsLoading} />
             <Footer theme={theme} onResumeClick={openResumeModal} />
          </div>
 
