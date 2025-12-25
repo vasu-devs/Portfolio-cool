@@ -55,11 +55,14 @@ export function CustomCursor({ theme }: CustomCursorProps) {
     const [isVisible, setIsVisible] = useState(false);
     const [paintDots, setPaintDots] = useState<PaintDot[]>([]);
     const [isPainting, setIsPainting] = useState(false);
+    const [velocityScale, setVelocityScale] = useState(1);
     const cursorRef = useRef<HTMLDivElement>(null);
     const paintIdRef = useRef(0);
     const lastPaintPos = useRef({ x: 0, y: 0 });
+    const lastMovePos = useRef({ x: 0, y: 0, time: Date.now() });
     const isMouseDownRef = useRef(false);
     const currentStrokeDots = useRef<number[]>([]);
+    const velocityDecayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Use motion values for smooth animation
     const cursorX = useMotionValue(0);
@@ -90,6 +93,33 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         if (!isVisible) {
             setIsVisible(true);
         }
+
+        // Calculate velocity for shake detection
+        const now = Date.now();
+        const dt = now - lastMovePos.current.time;
+        if (dt > 0) {
+            const dx = e.clientX - lastMovePos.current.x;
+            const dy = e.clientY - lastMovePos.current.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const velocity = distance / dt; // pixels per ms
+
+            // Scale up when moving fast (shaking)
+            const newScale = Math.min(1 + velocity * 0.5, 3); // Max 3x scale
+            if (newScale > velocityScale) {
+                setVelocityScale(newScale);
+
+                // Clear existing decay timeout
+                if (velocityDecayRef.current) {
+                    clearTimeout(velocityDecayRef.current);
+                }
+
+                // Decay back to normal after stopping
+                velocityDecayRef.current = setTimeout(() => {
+                    setVelocityScale(1);
+                }, 150);
+            }
+        }
+        lastMovePos.current = { x: e.clientX, y: e.clientY, time: now };
 
         // Paint while clicking and moving
         if (isMouseDownRef.current) {
@@ -294,7 +324,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                     translateY: '-50%',
                 }}
                 animate={{
-                    scale: isClicking ? 0.8 : isHovering ? 0.5 : 1,
+                    scale: isClicking ? 0.8 * velocityScale : isHovering ? 0.5 : velocityScale,
                     opacity: isVisible ? 1 : 0,
                 }}
                 transition={{ duration: 0.15 }}
@@ -302,8 +332,8 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                 <div
                     className="rounded-full"
                     style={{
-                        width: '8px',
-                        height: '8px',
+                        width: '16px',
+                        height: '16px',
                         backgroundColor: 'white',
                     }}
                 />
@@ -319,7 +349,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                     translateY: '-50%',
                 }}
                 animate={{
-                    scale: isClicking ? 0.9 : isHovering ? 1.5 : 1,
+                    scale: isClicking ? 0.9 * velocityScale : isHovering ? 1.5 : velocityScale,
                     opacity: isVisible ? 1 : 0,
                 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
@@ -327,8 +357,8 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                 <div
                     className="rounded-full"
                     style={{
-                        width: '40px',
-                        height: '40px',
+                        width: '60px',
+                        height: '60px',
                         border: `1px solid ${cursorBorderColor}`,
                         backgroundColor: isHovering ? `${cursorColor}` : 'transparent',
                         opacity: isHovering ? 0.1 : 1,
