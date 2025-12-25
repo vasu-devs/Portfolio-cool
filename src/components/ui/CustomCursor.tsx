@@ -56,12 +56,18 @@ export function CustomCursor({ theme }: CustomCursorProps) {
     const [paintDots, setPaintDots] = useState<PaintDot[]>([]);
     const [isPainting, setIsPainting] = useState(false);
     const [velocityScale, setVelocityScale] = useState(1);
+
+    // Robot Eater State
+    const [eaterVisible, setEaterVisible] = useState(false);
+    const [eaterPos, setEaterPos] = useState({ x: 0, y: 0, rotate: 0 });
+
     const cursorRef = useRef<HTMLDivElement>(null);
     const paintIdRef = useRef(0);
     const lastPaintPos = useRef({ x: 0, y: 0 });
     const lastMovePos = useRef({ x: 0, y: 0, time: Date.now() });
     const isMouseDownRef = useRef(false);
-    const currentStrokeDots = useRef<number[]>([]);
+    // Store full dot info for the eater to follow
+    const currentStrokeDots = useRef<PaintDot[]>([]);
     const velocityDecayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Use motion values for smooth animation
@@ -73,21 +79,46 @@ export function CustomCursor({ theme }: CustomCursorProps) {
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
 
-    // Function to fade out all dots from current stroke - one by one
+    // Function to spawn eater and consume the stroke
     const fadeOutCurrentStroke = useCallback(() => {
-        const dotsToFade = [...currentStrokeDots.current];
+        const dotsToConsume = [...currentStrokeDots.current];
         currentStrokeDots.current = [];
 
-        // Fade dots one by one, starting slow and accelerating dramatically
+        if (dotsToConsume.length === 0) return;
+
+        setEaterVisible(true);
+        // Start at first dot
+        setEaterPos({ x: dotsToConsume[0].x, y: dotsToConsume[0].y, rotate: 0 });
+
         let cumulativeDelay = 0;
-        dotsToFade.forEach((dotId, index) => {
-            // Start at 50ms, use cubic acceleration for rapid speedup
-            const progress = index / Math.max(dotsToFade.length - 1, 1);
-            const delay = 50 * Math.pow(1 - progress, 3) + 2; // Cubic acceleration, min 2ms
+
+        dotsToConsume.forEach((dot, index) => {
+            // Calculate acceleration
+            const progress = index / Math.max(dotsToConsume.length - 1, 1);
+            // Faster consumption: start at 70ms, accelerate gently
+            const delay = 70 * Math.pow(1 - progress, 2) + 15;
             cumulativeDelay += delay;
 
             setTimeout(() => {
-                setPaintDots(prev => prev.filter(dot => dot.id !== dotId));
+                // Move eater to dot position
+                setEaterPos((prev) => {
+                    // Calculate rotation if there's a next dot or using previous angle
+                    let rotate = prev.rotate;
+                    if (index < dotsToConsume.length - 1) {
+                        const nextDot = dotsToConsume[index + 1];
+                        const angle = Math.atan2(nextDot.y - dot.y, nextDot.x - dot.x) * (180 / Math.PI);
+                        rotate = angle;
+                    }
+                    return { x: dot.x, y: dot.y, rotate };
+                });
+
+                // Remove the dot ("eat" it)
+                setPaintDots(prev => prev.filter(p => p.id !== dot.id));
+
+                // If this is the last dot, hide eater shortly after
+                if (index === dotsToConsume.length - 1) {
+                    setTimeout(() => setEaterVisible(false), 100);
+                }
             }, cumulativeDelay);
         });
     }, []);
@@ -147,11 +178,12 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                 };
 
                 setPaintDots(prev => [...prev, newDot]);
-                currentStrokeDots.current.push(newDot.id);
+                // Store full dot info
+                currentStrokeDots.current.push(newDot);
                 lastPaintPos.current = { x: e.clientX, y: e.clientY };
             }
         }
-    }, [cursorX, cursorY, isVisible]);
+    }, [cursorX, cursorY, isVisible, velocityScale]);
 
     const handleMouseDown = useCallback((e: MouseEvent) => {
         // Prevent text selection
@@ -175,7 +207,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
             size: 6,
         };
         setPaintDots(prev => [...prev, newDot]);
-        currentStrokeDots.current.push(newDot.id);
+        currentStrokeDots.current.push(newDot);
     }, []);
 
     const handleMouseUp = useCallback(() => {
@@ -183,7 +215,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         setIsPainting(false);
         isMouseDownRef.current = false;
 
-        // Trigger fade out for current stroke
+        // Trigger robot eater
         fadeOutCurrentStroke();
     }, [fadeOutCurrentStroke]);
 
@@ -196,7 +228,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         }
     }, []);
 
-    const handleMouseLeaveInteractive = useCallback(() => {
+    const handleMouseLeaveInteractive = useCallback((e: Event) => {
         setIsHovering(false);
         setHoverText(null);
     }, []);
@@ -309,15 +341,44 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                             }}
                             initial={{ scale: 0, opacity: 1 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.5, opacity: 0 }}
+                            exit={{ scale: 0, opacity: 0 }}
                             transition={{
                                 duration: 0.1,
-                                exit: { duration: 0.8, ease: 'easeOut' }
+                                exit: { duration: 0.1 } // Instant vanish when eaten
                             }}
                         />
                     ))}
                 </AnimatePresence>
             </div>
+
+            {/* Robot Eater */}
+            <AnimatePresence>
+                {eaterVisible && (
+                    <motion.div
+                        className="fixed pointer-events-none z-[9995] text-2xl mix-blend-difference"
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{
+                            opacity: 1,
+                            scale: 1,
+                            left: eaterPos.x,
+                            top: eaterPos.y,
+                            rotate: eaterPos.rotate
+                        }}
+                        exit={{ opacity: 0, scale: 0 }}
+                        transition={{
+                            duration: 0.1, // Smooth movement
+                            rotate: { duration: 0.2 } // Smooth rotation
+                        }}
+                        style={{
+                            transform: 'translate(-50%, -50%)',
+                            marginLeft: '-12px', // Center offset
+                            marginTop: '-12px'
+                        }}
+                    >
+                        🤖
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Main cursor dot */}
             <motion.div
