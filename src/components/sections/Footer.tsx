@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import GitHubCalendar from 'react-github-calendar';
 import { Mail, Calendar, Coffee } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Container } from '../ui/Container';
 import { MagneticButton } from '../ui/MagneticButton';
 import { ResumeButton } from '../ui/ResumeButton';
@@ -13,9 +13,57 @@ interface FooterProps {
 
 export const Footer = ({ theme, onResumeClick }: FooterProps) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const [contributionCount, setContributionCount] = useState(0);
+
+    // Fetch contribution count from the same API as react-github-calendar
+    useEffect(() => {
+        const fetchContributions = async () => {
+            try {
+                const res = await fetch('https://github-contributions-api.jogruber.de/v4/vasu-devs?y=last');
+                const data = await res.json();
+                if (data && data.total && data.total.lastYear !== undefined) {
+                    setContributionCount(data.total.lastYear);
+                } else if (data && data.contributions) {
+                    // Fallback: sum all contributions in the data
+                    const total = data.contributions.reduce((acc: number, day: any) => acc + (day.count || 0), 0);
+                    setContributionCount(total);
+                }
+            } catch (e) {
+                console.warn('Failed to fetch contribution count:', e);
+            }
+        };
+        fetchContributions();
+    }, []);
+
+    // Drag to scroll handlers
+    const handleMouseDown = (e: React.MouseEvent) => {
+        if (!scrollContainerRef.current) return;
+        setIsDragging(true);
+        setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+        setScrollLeft(scrollContainerRef.current.scrollLeft);
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging || !scrollContainerRef.current) return;
+        e.preventDefault();
+        const x = e.pageX - scrollContainerRef.current.offsetLeft;
+        const walk = (x - startX) * 2; // Scroll speed multiplier
+        scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+    };
+
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+    };
 
     useEffect(() => {
-        // Scroll to December when the calendar container becomes visible
+        // Scroll to current month when the calendar container becomes visible
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -23,9 +71,16 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                         // Small delay to ensure calendar has rendered
                         setTimeout(() => {
                             if (scrollContainerRef.current) {
-                                scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+                                const container = scrollContainerRef.current;
+                                // Calculate scroll position to show current month (end of calendar)
+                                const scrollWidth = container.scrollWidth - container.clientWidth;
+                                // Scroll to show current month (December = end of calendar)
+                                container.scrollTo({
+                                    left: Math.max(0, scrollWidth - 50), // Scroll near the end to show current month
+                                    behavior: 'smooth'
+                                });
                             }
-                        }, 300);
+                        }, 500);
                         observer.disconnect();
                     }
                 });
@@ -64,16 +119,60 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             transition={{ duration: 0.6 }}
                             className="col-span-1 md:col-span-8 flex flex-col justify-between mt-[8vw] md:mt-8 h-full md:ml-8"
                         >
-                            <div className="bg-bg-secondary/50 p-[4vw] md:p-6 rounded-2xl border border-border-primary backdrop-blur-sm overflow-visible">
-                                <div className="overflow-x-auto pb-4" ref={scrollContainerRef}>
-                                    <div className="min-w-0 md:min-w-0 flex flex-row-reverse">
+                            <div className="bg-bg-secondary/50 p-[4vw] md:p-6 rounded-2xl border border-border-primary backdrop-blur-sm">
+                                {/* Scrollable Heatmap Grid */}
+                                <div
+                                    className={`overflow-x-scroll select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+                                    ref={scrollContainerRef}
+                                    onMouseDown={handleMouseDown}
+                                    onMouseUp={handleMouseUp}
+                                    onMouseMove={handleMouseMove}
+                                    onMouseLeave={handleMouseLeave}
+                                    style={{
+                                        scrollbarWidth: 'none',
+                                        msOverflowStyle: 'none',
+                                        WebkitOverflowScrolling: 'touch'
+                                    }}
+                                >
+                                    <div style={{ minWidth: '900px', pointerEvents: isDragging ? 'none' : 'auto' }}>
                                         <GitHubCalendar
                                             username="vasu-devs"
                                             colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                                            blockSize={window.innerWidth < 768 ? 15 : 18}
-                                            blockMargin={6}
-                                            fontSize={window.innerWidth < 768 ? 14 : 16}
+                                            blockSize={window.innerWidth < 768 ? 12 : 14}
+                                            blockMargin={4}
+                                            fontSize={window.innerWidth < 768 ? 12 : 14}
+                                            hideColorLegend
+                                            hideTotalCount
                                         />
+                                    </div>
+                                </div>
+
+                                {/* Static Footer: Total Count & Color Legend */}
+                                <div className="flex items-center justify-between mt-4 pt-3 border-t border-border-primary/30">
+                                    {/* Contribution Count */}
+                                    <span className="text-[2.5vw] md:text-sm font-mono text-fg-secondary">
+                                        {contributionCount.toLocaleString()} contributions in the last year
+                                    </span>
+
+                                    {/* Color Legend */}
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[2.5vw] md:text-xs font-mono text-fg-secondary">Less</span>
+                                        <div className="flex gap-1">
+                                            {[
+                                                theme === 'dark' ? '#161b22' : '#ebedf0',
+                                                theme === 'dark' ? '#0e4429' : '#9be9a8',
+                                                theme === 'dark' ? '#006d32' : '#40c463',
+                                                theme === 'dark' ? '#26a641' : '#30a14e',
+                                                theme === 'dark' ? '#39d353' : '#216e39'
+                                            ].map((color, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="w-[2.5vw] h-[2.5vw] md:w-3 md:h-3 rounded-sm"
+                                                    style={{ backgroundColor: color }}
+                                                />
+                                            ))}
+                                        </div>
+                                        <span className="text-[2.5vw] md:text-xs font-mono text-fg-secondary">More</span>
                                     </div>
                                 </div>
                             </div>

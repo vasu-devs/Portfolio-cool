@@ -74,3 +74,32 @@ body {
 .font-mono {
   font-family: 'JetBrains Mono', monospace;
 }
+
+/* Custom scrollbar for GitHub calendar */
+.scrollbar-thin::-webkit-scrollbar {
+  display: block !important;
+  height: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  margin: 0 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--fg-secondary), var(--fg-primary));
+  border-radius: 10px;
+  border: 2px solid var(--bg-secondary);
+  transition: all 0.3s ease;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, var(--fg-primary), var(--fg-secondary));
+  border: 1px solid var(--bg-secondary);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--fg-secondary) var(--bg-secondary);
+}

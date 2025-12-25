@@ -57,7 +57,7 @@ export default function App() {
    useEffect(() => {
       const fetchStats = async () => {
          setIsStatsLoading(true);
-         
+
          try {
             // Helper to fetch and return JSON or null on error
             const fetchJson = async (url: string) => {
@@ -74,12 +74,17 @@ export default function App() {
                }
             };
 
-            // 1. Use the same API as react-github-calendar for accurate contribution data
-            const contributionsData = await fetchJson('https://github-contributions-api.jogruber.de/v4/vasu-devs');
+            // 1. Use the same API as react-github-calendar for accurate contribution data (last year only)
+            const contributionsData = await fetchJson('https://github-contributions-api.jogruber.de/v4/vasu-devs?y=last');
             if (contributionsData && contributionsData.total) {
-               // Sum up all yearly contributions
-               const totalContributions = Object.values(contributionsData.total).reduce((acc: number, val) => acc + (val as number), 0);
-               setStats(prev => ({ ...prev, commits: totalContributions as number }));
+               // Get last year's contributions (matches the heatmap)
+               if (contributionsData.total.lastYear !== undefined) {
+                  setStats(prev => ({ ...prev, commits: contributionsData.total.lastYear }));
+               } else {
+                  // Fallback: sum contributions from the data
+                  const total = contributionsData.contributions?.reduce((acc: number, day: any) => acc + (day.count || 0), 0) || 0;
+                  setStats(prev => ({ ...prev, commits: total }));
+               }
             }
 
             // 2. Fetch Repos for Star Count
