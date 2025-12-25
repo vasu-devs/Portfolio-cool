@@ -40,16 +40,17 @@ export const SunToggle = ({ theme, isInverted }: SunToggleProps) => {
                         animate={theme === 'light' ? {
                             r: 5,
                             fill: '#000000',
-                            stroke: '#000000'
+                            stroke: '#ffffff',
+                            strokeWidth: 2
                         } : {
                             r: 9,
                             // In dark mode: if inverted (light bg), use dark color. Otherwise use light color.
                             fill: isInverted ? '#050505' : 'currentColor',
-                            stroke: isInverted ? '#050505' : 'currentColor'
+                            stroke: isInverted ? '#050505' : 'currentColor',
+                            strokeWidth: 0
                         }}
                         transition={{ type: "spring", stiffness: 200, damping: 20 }}
                         mask="url(#moon-mask)"
-                        strokeWidth="2"
                     />
 
                     {/* Sun Rays */}
@@ -61,15 +62,30 @@ export const SunToggle = ({ theme, isInverted }: SunToggleProps) => {
                                 exit={{ opacity: 0, scale: 0, rotate: 45 }}
                                 transition={{ duration: 0.4, ease: "backOut" }}
                             >
+                                {/* White outline for rays */}
+                                {[...Array(8)].map((_, i) => (
+                                    <motion.line
+                                        key={`outline-${i}`}
+                                        x1="12"
+                                        y1="3.5"
+                                        x2="12"
+                                        y2="0.5"
+                                        stroke="#ffffff"
+                                        strokeWidth="4"
+                                        strokeLinecap="round"
+                                        transform={`rotate(${i * 45} 12 12)`}
+                                    />
+                                ))}
+                                {/* Black rays on top */}
                                 {[...Array(8)].map((_, i) => (
                                     <motion.line
                                         key={i}
                                         x1="12"
-                                        y1="3"
+                                        y1="3.5"
                                         x2="12"
-                                        y2="1"
+                                        y2="0.5"
                                         stroke="#000000"
-                                        strokeWidth="2.5"
+                                        strokeWidth="2"
                                         strokeLinecap="round"
                                         transform={`rotate(${i * 45} 12 12)`}
                                     />
