@@ -14,6 +14,7 @@ import { SideBranding } from './components/ui/SideBranding';
 import { StatusBadge } from './components/ui/StatusBadge';
 import { SunToggle } from './components/ui/SunToggle';
 import { AnimatePresence, motion } from 'framer-motion';
+import { CustomCursor } from './components/ui/CustomCursor';
 
 export default function App() {
    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -191,6 +192,7 @@ export default function App() {
 
    return (
       <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary transition-colors duration-700 font-sans relative">
+         <CustomCursor theme={theme} />
          <AnimatePresence mode="wait">
             {isLoading && (
                <Preloader key="preloader" theme={theme} finishLoading={() => setIsLoading(false)} />
@@ -303,8 +305,8 @@ export default function App() {
 
          {/* All scrollable content - overlaps the fixed Hero */}
          <div className="relative z-20 bg-bg-primary">
-            <Work projects={projects} openModal={openModal} />
             <Skills />
+            <Work projects={projects} openModal={openModal} />
             <OssImpact stats={stats} isLoading={isStatsLoading} />
             <Footer theme={theme} onResumeClick={openResumeModal} />
          </div>
