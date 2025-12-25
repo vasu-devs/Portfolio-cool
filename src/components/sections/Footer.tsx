@@ -72,15 +72,10 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                         setTimeout(() => {
                             if (scrollContainerRef.current) {
                                 const container = scrollContainerRef.current;
-                                // Calculate scroll position to show current month (end of calendar)
-                                const scrollWidth = container.scrollWidth - container.clientWidth;
-                                // Scroll to show current month (December = end of calendar)
-                                container.scrollTo({
-                                    left: Math.max(0, scrollWidth - 50), // Scroll near the end to show current month
-                                    behavior: 'smooth'
-                                });
+                                // Scroll completely to the end to show December
+                                container.scrollLeft = container.scrollWidth;
                             }
-                        }, 500);
+                        }, 1000);
                         observer.disconnect();
                     }
                 });
