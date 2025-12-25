@@ -129,7 +129,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                                         WebkitOverflowScrolling: 'touch'
                                     }}
                                 >
-                                    <div style={{ minWidth: '900px', pointerEvents: isDragging ? 'none' : 'auto' }}>
+                                    <div style={{ minWidth: '1000px', paddingRight: '40px', pointerEvents: isDragging ? 'none' : 'auto' }}>
                                         <GitHubCalendar
                                             username="vasu-devs"
                                             colorScheme={theme === 'dark' ? 'dark' : 'light'}
@@ -138,6 +138,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                                             fontSize={window.innerWidth < 768 ? 12 : 14}
                                             hideColorLegend
                                             hideTotalCount
+                                            year="last"
                                         />
                                     </div>
                                 </div>
