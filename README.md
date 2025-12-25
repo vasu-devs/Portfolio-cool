@@ -2,8 +2,6 @@
 
 My personal portfolio website built to showcase my projects in Voice AI, autonomous agents, and web development. It features a clean design with dark/light mode support and smooth interactions.
 
-![Portfolio Preview](https://github.com/vasu-devs/portfolio-assets/blob/main/preview.png)
-<!-- *(Note: Replace the image URL above with an actual screenshot of your portfolio)* -->
 
 ## ✨ Features
 
