@@ -193,7 +193,7 @@ export default function App() {
       <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary transition-colors duration-700 font-sans relative">
          <AnimatePresence mode="wait">
             {isLoading && (
-               <Preloader key="preloader" finishLoading={() => setIsLoading(false)} />
+               <Preloader key="preloader" theme={theme} finishLoading={() => setIsLoading(false)} />
             )}
          </AnimatePresence>
 

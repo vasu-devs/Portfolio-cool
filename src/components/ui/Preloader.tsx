@@ -10,20 +10,17 @@ const words = [
     "Impact. Code. Story."
 ];
 
-export const Preloader = ({ finishLoading }: { finishLoading: () => void }) => {
+interface PreloaderProps {
+    finishLoading: () => void;
+    theme?: 'light' | 'dark';
+}
+
+export const Preloader = ({ finishLoading }: PreloaderProps) => {
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
-        // Check if preloader has already been shown in this session
-        const hasShown = sessionStorage.getItem('preloaderShown');
-        if (hasShown) {
-            finishLoading();
-            return;
-        }
-
         if (index === words.length - 1) {
             setTimeout(() => {
-                sessionStorage.setItem('preloaderShown', 'true');
                 finishLoading();
             }, 400);
             return;
@@ -60,7 +57,7 @@ export const Preloader = ({ finishLoading }: { finishLoading: () => void }) => {
                 {/* Glow behind capsule */}
                 <div className="absolute inset-0 bg-accent-primary/20 blur-[100px] rounded-full scale-150" />
 
-                <div className="bg-bg-primary/50 border border-border-primary/50 backdrop-blur-xl rounded-full px-12 py-8 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] flex flex-col items-center gap-6 relative overflow-hidden">
+                <div className="bg-bg-primary/80 border border-border-primary/50 backdrop-blur-xl rounded-full px-12 py-8 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] flex flex-col items-center gap-6 relative overflow-hidden">
                     <div className="h-[40px] overflow-hidden flex items-center">
                         <AnimatePresence mode="wait">
                             <motion.p
@@ -69,7 +66,7 @@ export const Preloader = ({ finishLoading }: { finishLoading: () => void }) => {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
                                 transition={{ duration: 0.3 }}
-                                className="text-xl md:text-2xl font-mono font-bold text-fg-primary tracking-[0.2em] whitespace-nowrap"
+                                className="text-xl md:text-2xl font-mono font-bold tracking-[0.2em] whitespace-nowrap text-fg-primary drop-shadow-[0_0_8px_var(--bg-primary)]"
                             >
                                 {words[index]}
                             </motion.p>
@@ -81,7 +78,7 @@ export const Preloader = ({ finishLoading }: { finishLoading: () => void }) => {
                         {words.map((_, i) => (
                             <motion.div
                                 key={i}
-                                className={`h-1 rounded-full transition-all duration-300 ${i <= index ? 'w-4 bg-fg-primary' : 'w-1 bg-border-primary'}`}
+                                className={`h-1 rounded-full transition-all duration-300 ${i <= index ? 'w-4 bg-fg-primary' : 'w-1 bg-fg-primary/30'}`}
                             />
                         ))}
                     </div>
@@ -91,7 +88,7 @@ export const Preloader = ({ finishLoading }: { finishLoading: () => void }) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-8 font-mono text-[10px] uppercase tracking-[0.4em] text-fg-secondary animate-pulse"
+                    className="mt-8 font-mono text-[10px] uppercase tracking-[0.4em] animate-pulse text-fg-secondary drop-shadow-[0_0_8px_var(--bg-primary)]"
                 >
                     Establishing Connection...
                 </motion.div>
