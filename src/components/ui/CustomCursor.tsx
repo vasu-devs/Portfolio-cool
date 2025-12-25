@@ -444,7 +444,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        className={`fixed top-8 left-8 z-[50] flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-md border shadow-sm pointer-events-none select-none transition-colors duration-300 cursor-element
+                        className={`fixed top-8 left-8 z-[50] hidden md:flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-md border shadow-sm pointer-events-none select-none transition-colors duration-300 cursor-element
                        ${botContrast === 'dark'
                                 ? 'bg-white/10 border-white/20'
                                 : 'bg-white/40 border-black/5'}`}
