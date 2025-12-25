@@ -30,12 +30,18 @@ function getColorAtPoint(x: number, y: number): string {
 
         // If element has a non-transparent background
         if (bgColor && bgColor !== 'transparent' && bgColor !== 'rgba(0, 0, 0, 0)') {
-            // Parse the color to determine if it's light or dark
-            const match = bgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-            if (match) {
-                const r = parseInt(match[1]);
-                const g = parseInt(match[2]);
-                const b = parseInt(match[3]);
+            // Parse alpha if present
+            const alphaMatch = bgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
+            if (alphaMatch) {
+                const alpha = alphaMatch[4] ? parseFloat(alphaMatch[4]) : 1;
+
+                // Ignore effectively transparent backgrounds
+                if (alpha < 0.1) continue;
+
+                const r = parseInt(alphaMatch[1]);
+                const g = parseInt(alphaMatch[2]);
+                const b = parseInt(alphaMatch[3]);
+
                 // Calculate luminance
                 const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
                 // Return white for dark backgrounds, black for light backgrounds
@@ -79,6 +85,61 @@ export function CustomCursor({ theme }: CustomCursorProps) {
     const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
+
+    // State for dynamic bot contrast
+    const [botContrast, setBotContrast] = useState<'light' | 'dark'>('light');
+
+    // Check background at Bot position
+    useEffect(() => {
+        const checkContrast = () => {
+            let mode: 'light' | 'dark' = 'light';
+
+            // 1. Check if we are visually over the Hero section
+            // Hero is fixed at z-0. Content (z-20) starts at 100vh.
+            // So if scrollY < 100vh - (Bot Position + Buffer), the Bot is over Hero.
+            // Bot Top is 32px (top-8). Let's use 100px buffer. or window.innerHeight - 80
+            const isHeroVisible = window.scrollY < (window.innerHeight - 80);
+
+            if (isHeroVisible) {
+                // Hero Logic: Inverted
+                // Dark Theme -> White Top BG -> Needs Black Text (light mode)
+                // Light Theme -> Black Top BG -> Needs White Text (dark mode)
+                if (theme === 'dark') {
+                    mode = 'light';
+                } else {
+                    mode = 'dark';
+                }
+            } else {
+                // 2. Standard Logic for rest of page
+                const color = getColorAtPoint(48, 48);
+                // getColorAtPoint returns the CONTRAST color (White for Dark BG, Black for Light BG)
+
+                if (color.startsWith('rgba(255')) {
+                    // Returns White -> BG is Dark -> Needs White Text
+                    mode = 'dark';
+                } else {
+                    // Returns Black -> BG is Light -> Needs Black Text
+                    mode = 'light';
+                }
+            }
+
+            setBotContrast(mode);
+        };
+
+        // Check initially
+        checkContrast();
+
+        // Check on scroll
+        window.addEventListener('scroll', checkContrast, { passive: true });
+
+        // Interval for dynamic content
+        const interval = setInterval(checkContrast, 500);
+
+        return () => {
+            window.removeEventListener('scroll', checkContrast);
+            clearInterval(interval);
+        };
+    }, [theme]); // Add theme dependency so it updates when theme toggles
 
     // State for animation duration control
     const [moveDuration, setMoveDuration] = useState(0.1);
@@ -380,25 +441,28 @@ export function CustomCursor({ theme }: CustomCursorProps) {
             <AnimatePresence>
                 {!eaterVisible && !isPainting && ( // Hide when eater is active OR when user is painting
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className={`fixed top-8 left-8 z-[50] flex items-center gap-3 pointer-events-none select-none mix-blend-difference`}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        className={`fixed top-8 left-8 z-[50] flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-md border shadow-sm pointer-events-none select-none transition-colors duration-300 cursor-element
+                       ${botContrast === 'dark'
+                                ? 'bg-white/10 border-white/20'
+                                : 'bg-white/40 border-black/5'}`}
                     >
                         <motion.div
-                            animate={{ y: [0, -4, 0] }}
+                            animate={{ y: [0, -3, 0] }}
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className={`relative z-10 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+                            className={`relative z-10 transition-colors duration-300 ${botContrast === 'dark' ? 'text-white' : 'text-black'}`}
                         >
                             <Bot size={20} strokeWidth={2} />
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="origin-left"
+                            initial={{ opacity: 0, width: 0 }}
+                            animate={{ opacity: 1, width: 'auto' }}
+                            className="overflow-hidden"
                         >
-                            <span className={`text-[10px] font-mono uppercase tracking-widest font-bold whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                            <span className={`text-[10px] font-mono uppercase tracking-widest font-bold whitespace-nowrap pl-1 transition-colors duration-300 ${botContrast === 'dark' ? 'text-white' : 'text-black'}`}>
                                 Hold & Move
                             </span>
                         </motion.div>
