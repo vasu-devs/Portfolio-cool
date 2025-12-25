@@ -1,27 +1,27 @@
 # ⚡ Vasu-DevS Portfolio
 
-A high-performance, interactive, and aesthetically detailed portfolio website built with modern web technologies. This project showcases my work as a creative developer, featuring smooth animations, a custom design system, and a seamless dark/light mode experience.
+My personal portfolio website built to showcase my projects in Voice AI, autonomous agents, and web development. It features a clean design with dark/light mode support and smooth interactions.
 
 ![Portfolio Preview](https://github.com/vasu-devs/portfolio-assets/blob/main/preview.png)
 <!-- *(Note: Replace the image URL above with an actual screenshot of your portfolio)* -->
 
 ## ✨ Features
 
-- **Dynamic Theme System**: A unique, radial-transition dark/light mode toggle that inversely colors the navigation bar based on scroll position.
+- **Theme System**: A radial-transition dark/light mode toggle that adjusts the navigation bar based on scroll position.
 - **Interactive UI**:
   - Custom cursor with context-aware interactions.
   - Magnetic buttons and hover effects.
-  - "Grain" texture overlay for a film-like aesthetic.
+  - "Grain" texture overlay.
   - Sticky hero section with parallax-like scrolling effects.
-- **Performance First**: Optimized with Vite for lightning-fast HMR and production builds.
+- **Performance**: Optimized with Vite for fast HMR and production builds.
 - **Data Integration**:
-  - Live GitHub stats (Stars, Commits, PRs) powered by GitHub APIs.
-  - Dynamic project modals with video previews.
-- **Responsive Design**: Fully responsive layout that adapts gracefully from mobile devices to large desktop screens.
+  - GitHub stats (Stars, Commits, PRs) powered by GitHub APIs.
+  - various project modals with video previews.
+- **Responsive Design**: Responsive layout that adapts to mobile and desktop screens.
 
 ## 🛠️ Tech Stack
 
-This project is engineered using the following technologies:
+This project is built using the following technologies:
 
 - **Core**: [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
 - **Build Tool**: [Vite](https://vitejs.dev/)
