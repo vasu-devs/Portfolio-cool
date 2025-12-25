@@ -129,7 +129,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                                         WebkitOverflowScrolling: 'touch'
                                     }}
                                 >
-                                    <div style={{ minWidth: '1000px', paddingRight: '40px', pointerEvents: isDragging ? 'none' : 'auto' }}>
+                                    <div style={{ width: 'fit-content', pointerEvents: isDragging ? 'none' : 'auto' }}>
                                         <GitHubCalendar
                                             username="vasu-devs"
                                             colorScheme={theme === 'dark' ? 'dark' : 'light'}
