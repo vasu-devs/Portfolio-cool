@@ -6,8 +6,6 @@ interface CustomCursorProps {
     theme: 'light' | 'dark';
 }
 
-
-
 interface PaintDot {
     id: number;
     x: number;
@@ -82,6 +80,9 @@ export function CustomCursor({ theme }: CustomCursorProps) {
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
 
+    // State for animation duration control
+    const [moveDuration, setMoveDuration] = useState(0.1);
+
     // Function to spawn eater and consume the stroke
     const fadeOutCurrentStroke = useCallback(() => {
         const dotsToConsume = [...currentStrokeDots.current];
@@ -90,40 +91,61 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         if (dotsToConsume.length === 0) return;
 
         setEaterVisible(true);
-        // Start at first dot
-        setEaterPos({ x: dotsToConsume[0].x, y: dotsToConsume[0].y, rotate: 0 });
+        setMoveDuration(0); // Instant placement
+        setEaterPos({ x: 48, y: 48, rotate: 0 }); // Home position (top-left)
 
-        let cumulativeDelay = 0;
+        // Wait for instant placement to render
+        setTimeout(() => {
+            // Phase 1: Fly In
+            setMoveDuration(0.8);
+            const firstDot = dotsToConsume[0];
+            setEaterPos({ x: firstDot.x, y: firstDot.y, rotate: 0 });
 
-        dotsToConsume.forEach((dot, index) => {
-            // Calculate acceleration
-            const progress = index / Math.max(dotsToConsume.length - 1, 1);
-            // Faster consumption: start at 70ms, accelerate gently
-            const delay = 70 * Math.pow(1 - progress, 2) + 15;
-            cumulativeDelay += delay;
-
+            // Wait for Fly In
             setTimeout(() => {
-                // Move eater to dot position
-                setEaterPos((prev) => {
-                    // Calculate rotation if there's a next dot or using previous angle
-                    let rotate = prev.rotate;
-                    if (index < dotsToConsume.length - 1) {
-                        const nextDot = dotsToConsume[index + 1];
-                        const angle = Math.atan2(nextDot.y - dot.y, nextDot.x - dot.x) * (180 / Math.PI);
-                        rotate = angle;
-                    }
-                    return { x: dot.x, y: dot.y, rotate };
+                // Phase 2: Start Eating
+                setMoveDuration(0.1); // Fast for eating
+                let cumulativeDelay = 0;
+
+                dotsToConsume.forEach((dot, index) => {
+                    const progress = index / Math.max(dotsToConsume.length - 1, 1);
+                    const delay = 70 * Math.pow(1 - progress, 2) + 15;
+                    cumulativeDelay += delay;
+
+                    setTimeout(() => {
+                        setEaterPos((prev) => {
+                            let rotate = prev.rotate;
+                            if (index < dotsToConsume.length - 1) {
+                                const nextDot = dotsToConsume[index + 1];
+                                const angle = Math.atan2(nextDot.y - dot.y, nextDot.x - dot.x) * (180 / Math.PI);
+                                rotate = angle;
+                            }
+                            return { x: dot.x, y: dot.y, rotate };
+                        });
+                        // Eat the dot
+                        setPaintDots(prev => prev.filter(p => p.id !== dot.id));
+
+                        // If last dot
+                        if (index === dotsToConsume.length - 1) {
+                            setTimeout(() => {
+                                // Phase 3: Fly Out
+                                setMoveDuration(0.8);
+                                const homeX = 48;
+                                const homeY = 48;
+                                const angleToHome = Math.atan2(homeY - dot.y, homeX - dot.x) * (180 / Math.PI);
+                                setEaterPos({ x: homeX, y: homeY, rotate: angleToHome });
+
+                                // Phase 4: Reset
+                                setTimeout(() => {
+                                    setEaterVisible(false);
+                                    setMoveDuration(0.1); // Reset duration
+                                }, 800);
+                            }, 100);
+                        }
+                    }, cumulativeDelay);
                 });
-
-                // Remove the dot ("eat" it)
-                setPaintDots(prev => prev.filter(p => p.id !== dot.id));
-
-                // If this is the last dot, hide eater shortly after
-                if (index === dotsToConsume.length - 1) {
-                    setTimeout(() => setEaterVisible(false), 100);
-                }
-            }, cumulativeDelay);
-        });
+            }, 800); // 800ms for Fly In
+        }, 50);
     }, []);
 
     const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -231,7 +253,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         }
     }, []);
 
-    const handleMouseLeaveInteractive = useCallback(() => {
+    const handleMouseLeaveInteractive = useCallback((e: Event) => {
         setIsHovering(false);
         setHoverText(null);
     }, []);
@@ -354,7 +376,37 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                 </AnimatePresence>
             </div>
 
-            {/* Robot Eater */}
+            {/* Resting Bot (Top-Left) */}
+            <AnimatePresence>
+                {!eaterVisible && !isPainting && ( // Hide when eater is active OR when user is painting
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className={`fixed top-8 left-8 z-[50] flex items-center gap-3 pointer-events-none select-none mix-blend-difference`}
+                    >
+                        <motion.div
+                            animate={{ y: [0, -4, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                            className={`relative z-10 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+                        >
+                            <Bot size={20} strokeWidth={2} />
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="origin-left"
+                        >
+                            <span className={`text-[10px] font-mono uppercase tracking-widest font-bold whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                                Hold & Move
+                            </span>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Robot Eater (Active) */}
             <AnimatePresence>
                 {eaterVisible && (
                     <motion.div
@@ -369,7 +421,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                         }}
                         exit={{ opacity: 0, scale: 0 }}
                         transition={{
-                            duration: 0.1, // Smooth movement
+                            duration: moveDuration, // Dynamic duration
                             rotate: { duration: 0.2 } // Smooth rotation
                         }}
                         style={{
@@ -472,6 +524,12 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                         -webkit-user-select: none !important;
                         -moz-user-select: none !important;
                         -ms-user-select: none !important;
+                        touch-action: none !important; /* Prevent scroll on touch if supported later */
+                    }
+                    /* Ensure body doesn't scroll while painting */
+                    body {
+                        overflow: hidden !important;
+                        touch-action: none;
                     }
                 ` : ''}
             `}</style>
