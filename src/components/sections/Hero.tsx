@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, Twitter, Linkedin } from 'lucide-react';
+import { Github, Twitter, Linkedin, Calendar } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { MagneticButton } from '../ui/MagneticButton';
 import { ResumeButton } from '../ui/ResumeButton';
@@ -76,6 +76,11 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                 <MagneticButton>
                                     <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
                                         <Linkedin size={18} className="md:w-5 md:h-5" />
+                                    </a>
+                                </MagneticButton>
+                                <MagneticButton>
+                                    <a href="https://cal.com/vasu-devs" target="_blank" rel="noopener noreferrer" aria-label="Book a Call" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
+                                        <Calendar size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>
                                 <ResumeButton onClick={onResumeClick} />
