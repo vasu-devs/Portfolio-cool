@@ -314,7 +314,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         }
     }, []);
 
-    const handleMouseLeaveInteractive = useCallback((e: Event) => {
+    const handleMouseLeaveInteractive = useCallback(() => {
         setIsHovering(false);
         setHoverText(null);
     }, []);
