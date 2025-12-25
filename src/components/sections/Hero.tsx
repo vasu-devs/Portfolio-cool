@@ -98,6 +98,8 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             <motion.img
                                 src="/Pic/Hero.png"
                                 alt="Vasu - Applied AI Engineer"
+                                loading="eager"
+                                fetchPriority="high"
                                 initial={false}
                                 animate={{
                                     filter: theme === 'dark'

@@ -112,7 +112,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
-                            className="col-span-1 md:col-span-8 flex flex-col justify-between mt-[8vw] md:mt-8 h-full md:ml-8"
+                            className="col-span-1 md:col-span-8 flex flex-col justify-between mt-[8vw] md:mt-16 h-full md:ml-8"
                         >
                             <div className="bg-bg-secondary/50 p-[4vw] md:p-6 rounded-2xl border border-border-primary backdrop-blur-sm">
                                 {/* Scrollable Heatmap Grid */}
