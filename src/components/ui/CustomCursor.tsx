@@ -1,9 +1,12 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
+import { Bot } from 'lucide-react';
 
 interface CustomCursorProps {
     theme: 'light' | 'dark';
 }
+
+
 
 interface PaintDot {
     id: number;
@@ -355,7 +358,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
             <AnimatePresence>
                 {eaterVisible && (
                     <motion.div
-                        className="fixed pointer-events-none z-[9995] text-2xl mix-blend-difference"
+                        className="fixed pointer-events-none z-[9995] text-white mix-blend-difference"
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{
                             opacity: 1,
@@ -375,7 +378,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                             marginTop: '-12px'
                         }}
                     >
-                        🤖
+                        <Bot size={24} strokeWidth={2.5} />
                     </motion.div>
                 )}
             </AnimatePresence>
