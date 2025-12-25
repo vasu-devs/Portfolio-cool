@@ -45,7 +45,7 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
             name: 'Cal.com',
             icon: <Calendar size={14} />,
             detail: 'Book a session',
-            href: 'https://cal.com/vasudev-siddh-bjemxn',
+            href: 'https://cal.com/vasu-devs',
         }
     ];
 

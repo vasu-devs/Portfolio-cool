@@ -185,7 +185,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                     >
                         {[
                             { href: "mailto:siddhvasudev1402@gmail.com", icon: <Mail className="w-[4.5vw] h-[4.5vw] md:w-5 md:h-5" />, label: "siddhvasudev1402@gmail.com", className: "bg-fg-primary text-bg-primary" },
-                            { href: "https://cal.com/vasudev-siddh-bjemxn", icon: <Calendar className="w-[4.5vw] h-[4.5vw] md:w-5 md:h-5" />, label: "Book a call", className: "border border-border-primary hover:bg-bg-secondary" },
+                            { href: "https://cal.com/vasu-devs", icon: <Calendar className="w-[4.5vw] h-[4.5vw] md:w-5 md:h-5" />, label: "Book a call", className: "border border-border-primary hover:bg-bg-secondary" },
                             { href: "https://buymeacoffee.com/vasu.devs", icon: <Coffee className="w-[4.5vw] h-[4.5vw] md:w-5 md:h-5" />, label: "Buy me a coffee", className: "bg-[#FFDD00] text-black border border-transparent hover:border-black" }
                         ].map((btn, i) => (
                             <MagneticButton key={i}>
