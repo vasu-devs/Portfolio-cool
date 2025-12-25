@@ -14,11 +14,11 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
         <section id="hero" className="min-h-auto md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                <div className={`h-[55%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                <div className={`h-[52%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
                 <div className="h-[45%] w-full transition-colors duration-700 bg-bg-primary" />
             </div>
 
-            <Container className="relative z-10 h-full flex flex-col pt-10 md:pt-16 pb-20 md:pb-10 overflow-visible">
+            <Container className="relative z-10 h-full flex flex-col pt-4 md:pt-8 pb-20 md:pb-10 overflow-visible">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -26,7 +26,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
                 >
                     {/* Left Column: Text */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[25vw] md:pt-20">
+                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[15vw] md:pt-10">
                         {/* Huge Heading */}
                         <div className="-translate-y-[18vw] md:translate-y-0 -mb-[12vw] md:-mb-0">
                             <h1 className={`font-display font-black text-[13vw] md:text-9xl lg:text-[10rem] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-6 mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
