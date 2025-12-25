@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Mail, Linkedin, Twitter } from 'lucide-react';
 import { Hero } from './components/sections/Hero';
 import { Work } from './components/sections/Work';
@@ -322,6 +323,7 @@ export default function App() {
             onClose={() => setIsResumeModalOpen(false)}
             resumeUrl={resumeUrl}
          />
+         <Analytics />
       </div>
    );
 }
