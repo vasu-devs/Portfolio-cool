@@ -81,9 +81,9 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         // Fade dots one by one, starting slow and accelerating dramatically
         let cumulativeDelay = 0;
         dotsToFade.forEach((dotId, index) => {
-            // Start with 100ms delay, accelerate to nearly instant at the end
+            // Start at 50ms, use cubic acceleration for rapid speedup
             const progress = index / Math.max(dotsToFade.length - 1, 1);
-            const delay = 100 * Math.pow(1 - progress, 2) + 5; // Quadratic acceleration, min 5ms
+            const delay = 50 * Math.pow(1 - progress, 3) + 2; // Cubic acceleration, min 2ms
             cumulativeDelay += delay;
 
             setTimeout(() => {
