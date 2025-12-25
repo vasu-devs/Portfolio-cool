@@ -216,7 +216,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
             </Container>
 
             {/* Bottom Watermark - Separate & Faded - keeping vw for decorative scaling */}
-            <div className="w-full flex justify-center items-end mt-[3vw] md:mt-4 overflow-hidden pointer-events-none select-none">
+            <div className="w-full flex justify-center items-end mt-[12vw] md:mt-4 overflow-hidden pointer-events-none select-none">
                 <motion.h1
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 0.3, y: 16 }}

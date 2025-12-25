@@ -69,7 +69,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                     </a>
                                 </MagneticButton>
                                 <MagneticButton>
-                                    <a href="https://x.com/home" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
+                                    <a href="https://x.com/vasu_devs" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
                                         <Twitter size={18} className="md:w-5 md:h-5" />
                                     </a>
                                 </MagneticButton>
