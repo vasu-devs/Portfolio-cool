@@ -11,6 +11,7 @@ import { StatusBadge } from './components/ui/StatusBadge';
 import { SunToggle } from './components/ui/SunToggle';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CustomCursor } from './components/ui/CustomCursor';
+import { useLenis } from './hooks/useLenis';
 
 // Lazy load sections and modals
 const Work = lazy(() => import('./components/sections/Work').then(m => ({ default: m.Work })));
@@ -33,6 +34,9 @@ export default function App() {
    const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
    const [isPending, startTransition] = useTransition();
    const toggleRef = useRef<HTMLDivElement>(null);
+
+   // Initialize Lenis smooth scrolling
+   useLenis();
 
    const resumeUrl = "https://drive.google.com/file/d/105PfA58-Eonq0lGmC0V8SnMOWsqlm-G6/view?usp=sharing";
 
@@ -269,22 +273,39 @@ export default function App() {
          <SideBranding />
 
          <nav className="fixed bottom-[4vw] md:bottom-6 left-0 right-0 z-50 flex justify-center px-2 md:px-4">
-            <div className={`
-              backdrop-blur-xl border rounded-full px-[4vw] md:px-5 py-[3vw] md:py-2.5 shadow-lg flex items-center gap-[3vw] md:gap-6 w-full md:w-auto max-w-none md:max-w-none justify-between transition-all duration-300
-              ${isNavInverted
-                  ? 'bg-fg-primary/95 border-bg-primary text-bg-primary'
-                  : 'bg-bg-primary/90 border-border-primary text-fg-primary'}
-            `}>
-               <span className="font-mono text-[3vw] md:text-sm uppercase tracking-widest font-black shrink-0 dark:text-fg-secondary">Vasu-DevS</span>
+            <div
+               className={`
+                  backdrop-blur-xl border rounded-full px-[4vw] md:px-5 py-[3vw] md:py-2.5 shadow-lg flex items-center gap-[3vw] md:gap-6 w-full md:w-auto max-w-none md:max-w-none justify-between transition-all duration-300
+                  ${isNavInverted
+                     ? 'bg-fg-primary/95 border-bg-primary text-bg-primary'
+                     : 'bg-bg-primary/95 border-border-primary text-fg-primary'}
+               `}
+               style={{
+                  textShadow: !isNavInverted && theme === 'dark'
+                     ? '0 0 3px rgba(0,0,0,0.5), 0 0 6px rgba(0,0,0,0.3)'
+                     : 'none'
+               }}
+            >
+               <span className="font-mono text-[3vw] md:text-sm uppercase tracking-widest font-black shrink-0"
+                  style={{
+                     WebkitTextStroke: !isNavInverted && theme === 'dark' ? '0.5px rgba(0,0,0,0.3)' : 'none'
+                  }}
+               >Vasu-DevS</span>
                <div className="flex items-center gap-[3vw] md:gap-4">
                   <div className="flex md:hidden items-center gap-[4vw] pr-[3vw] border-r border-current/10">
-                     <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary dark:text-fg-secondary'}`}>
+                     <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
+                        style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
+                     >
                         <Mail className="w-[5vw] h-[5vw]" />
                      </a>
-                     <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary dark:text-fg-secondary'}`}>
+                     <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
+                        style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
+                     >
                         <Linkedin className="w-[5vw] h-[5vw]" />
                      </a>
-                     <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary dark:text-fg-secondary'}`}>
+                     <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
+                        style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
+                     >
                         <Twitter className="w-[5vw] h-[5vw]" />
                      </a>
                   </div>
@@ -298,7 +319,7 @@ export default function App() {
                   </div>
                </div>
             </div>
-         </nav>
+         </nav >
 
          <StatusBadge isInverted={isNavInverted} theme={theme} />
 
@@ -309,8 +330,8 @@ export default function App() {
             <Hero theme={theme} onResumeClick={openResumeModal} />
          </div>
 
-         {/* Spacer to push content below the Hero */}
-         <div className="h-screen" />
+         {/* Spacer to push content below the Hero - pointer-events-none to allow interaction with hero */}
+         <div className="h-screen pointer-events-none" />
 
          {/* All scrollable content - overlaps the fixed Hero */}
          <div className="relative z-20 bg-bg-primary">
@@ -337,6 +358,6 @@ export default function App() {
          </Suspense>
          <Analytics />
          <SpeedInsights />
-      </div>
+      </div >
    );
 }

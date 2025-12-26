@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Github, Twitter, Linkedin, Calendar } from 'lucide-react';
 import { Container } from '../ui/Container';
-import { MagneticButton } from '../ui/MagneticButton';
+import { SocialButton } from '../ui/SocialButton';
 import { ResumeButton } from '../ui/ResumeButton';
 
 interface HeroProps {
@@ -62,26 +62,10 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             </p>
 
                             <div className="flex flex-wrap gap-4 relative z-20">
-                                <MagneticButton>
-                                    <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
-                                        <Github size={18} className="md:w-5 md:h-5" />
-                                    </a>
-                                </MagneticButton>
-                                <MagneticButton>
-                                    <a href="https://x.com/vasu_devs" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
-                                        <Twitter size={18} className="md:w-5 md:h-5" />
-                                    </a>
-                                </MagneticButton>
-                                <MagneticButton>
-                                    <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
-                                        <Linkedin size={18} className="md:w-5 md:h-5" />
-                                    </a>
-                                </MagneticButton>
-                                <MagneticButton>
-                                    <a href="https://cal.com/vasu-devs" target="_blank" rel="noopener noreferrer" aria-label="Book a Call" className="p-3 md:p-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-colors block">
-                                        <Calendar size={18} className="md:w-5 md:h-5" />
-                                    </a>
-                                </MagneticButton>
+                                <SocialButton href="https://github.com/vasu-devs" icon={Github} label="GitHub Profile" />
+                                <SocialButton href="https://x.com/vasu_devs" icon={Twitter} label="Twitter Profile" />
+                                <SocialButton href="https://www.linkedin.com/in/vasu-devs/" icon={Linkedin} label="LinkedIn Profile" />
+                                <SocialButton href="https://cal.com/vasu-devs" icon={Calendar} label="Book a Call" />
                                 <ResumeButton onClick={onResumeClick} />
                             </div>
                         </motion.div>
@@ -96,9 +80,9 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             className="w-full h-full md:h-auto relative md:opacity-100 transition-opacity duration-1000 overflow-visible"
                         >
                             {/* Gradient overlay for better text readability */}
-                            <div className={`absolute inset-x-0 bottom-0 top-[40%] md:hidden z-20 ${theme === 'dark'
-                                    ? 'bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent'
-                                    : 'bg-gradient-to-t from-white via-white/70 to-transparent'
+                            <div className={`absolute inset-x-0 bottom-0 top-[50%] md:hidden z-20 pointer-events-none ${theme === 'dark'
+                                    ? 'bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent'
+                                    : 'bg-gradient-to-t from-white via-white/40 to-transparent'
                                 }`} />
 
                             {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED, STATIC */}
