@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
-import { Bot } from 'lucide-react';
+import { Bot, Pointer } from 'lucide-react';
 
 interface CustomCursorProps {
     theme: 'light' | 'dark';
@@ -319,7 +319,12 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
         setHoverText(null);
     }, []);
 
-    const handleMouseLeave = useCallback(() => {
+    const handleMouseLeave = useCallback((e: MouseEvent) => {
+        // If moving into an iframe, don't hide the cursor
+        if (e.relatedTarget instanceof HTMLIFrameElement) {
+            return;
+        }
+
         setIsVisible(false);
         if (isMouseDownRef.current) {
             fadeOutCurrentStroke();
@@ -410,7 +415,7 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
 
     return (
         <>
-            {/* Paint dots canvas - uses mix-blend-difference for auto color inversion */}
+            {/* Paint dots canvas */}
             <div className="fixed inset-0 pointer-events-none z-[9990] mix-blend-difference">
                 <AnimatePresence>
                     {paintDots.map((dot) => (
@@ -428,49 +433,31 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
                             initial={{ scale: 0, opacity: 1 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0, opacity: 0 }}
-                            transition={{
-                                duration: 0.1,
-                                exit: { duration: 0.1 } // Instant vanish when eaten
-                            }}
+                            transition={{ duration: 0.1 }}
                         />
                     ))}
                 </AnimatePresence>
             </div>
 
-            {/* Resting Bot (Top-Left) */}
+            {/* Resting Bot */}
             <AnimatePresence>
-                {!eaterVisible && !isPainting && ( // Hide when eater is active OR when user is painting
+                {!eaterVisible && !isPainting && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         className={`fixed top-8 left-8 z-[50] hidden md:flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-md border shadow-sm pointer-events-none select-none transition-colors duration-300 cursor-element
-                       ${botContrast === 'dark'
-                                ? 'bg-white/10 border-white/20'
-                                : 'bg-white/40 border-black/5'}`}
+                       ${botContrast === 'dark' ? 'bg-white/10 border-white/20' : 'bg-white/40 border-black/5'}`}
                     >
-                        <motion.div
-                            animate={{ y: [0, -3, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className={`relative z-10 transition-colors duration-300 ${botContrast === 'dark' ? 'text-white' : 'text-black'}`}
-                        >
-                            <Bot size={20} strokeWidth={2} />
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, width: 0 }}
-                            animate={{ opacity: 1, width: 'auto' }}
-                            className="overflow-hidden"
-                        >
-                            <span className={`text-[10px] font-mono uppercase tracking-widest font-bold whitespace-nowrap pl-1 transition-colors duration-300 ${botContrast === 'dark' ? 'text-white' : 'text-black'}`}>
-                                Hold & Move
-                            </span>
-                        </motion.div>
+                        <Bot size={18} className={botContrast === 'dark' ? 'text-white' : 'text-black'} />
+                        <span className={`text-xs font-mono font-medium tracking-tight ${botContrast === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                            AI Powered
+                        </span>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {/* Robot Eater (Active) */}
+            {/* Eater Bot */}
             <AnimatePresence>
                 {eaterVisible && (
                     <motion.div
@@ -484,48 +471,52 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
                             rotate: eaterPos.rotate
                         }}
                         exit={{ opacity: 0, scale: 0 }}
-                        transition={{
-                            duration: moveDuration, // Dynamic duration
-                            rotate: { duration: 0.2 } // Smooth rotation
-                        }}
-                        style={{
-                            transform: 'translate(-50%, -50%)',
-                            marginLeft: '-12px', // Center offset
-                            marginTop: '-12px'
-                        }}
+                        transition={{ duration: moveDuration }}
+                        style={{ transform: 'translate(-50%, -50%)', marginLeft: '-12px', marginTop: '-12px' }}
                     >
                         <Bot size={24} strokeWidth={2.5} />
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {/* Main cursor dot */}
+            {/* Main Cursor Dot & Hand Morph */}
             <motion.div
                 ref={cursorRef}
-                className="fixed pointer-events-none z-[9999] mix-blend-difference cursor-element"
+                className="fixed pointer-events-none z-[9999] mix-blend-difference cursor-element flex items-center justify-center overflow-visible"
                 style={{
-                    x: cursorX, // Use raw motion value for zero-lag center dot
+                    x: cursorX,
                     y: cursorY,
                     translateX: '-50%',
                     translateY: '-50%',
+                    width: isHovering ? 32 : 12,
+                    height: isHovering ? 32 : 12,
                 }}
-                animate={{
-                    scale: isClicking ? 0.8 * velocityScale : isHovering ? 0.5 : velocityScale,
-                    opacity: isVisible ? 1 : 0,
-                }}
-                transition={{ duration: 0.15 }}
             >
-                <div
-                    className="rounded-full"
-                    style={{
-                        width: '16px',
-                        height: '16px',
-                        backgroundColor: 'white',
-                    }}
-                />
+                <AnimatePresence mode="wait">
+                    {isHovering ? (
+                        <motion.div
+                            key="hand"
+                            initial={{ scale: 0, opacity: 0, rotate: -20 }}
+                            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                            exit={{ scale: 0, opacity: 0, rotate: -20 }}
+                            transition={{ duration: 0.15 }}
+                        >
+                            <Pointer size={24} fill="white" color="white" className="drop-shadow-sm" />
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="dot"
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0, opacity: 0 }}
+                            transition={{ duration: 0.15 }}
+                            className="w-full h-full bg-white rounded-full"
+                        />
+                    )}
+                </AnimatePresence>
             </motion.div>
 
-            {/* Cursor ring */}
+            {/* Cursor Ring */}
             <motion.div
                 className="fixed pointer-events-none z-[9998] cursor-element"
                 style={{
@@ -553,29 +544,24 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
                 />
             </motion.div>
 
-            {/* Hover text */}
-            {hoverText && (
-                <motion.div
-                    className="fixed pointer-events-none z-[9999] cursor-element"
-                    style={{
-                        x: cursorXSpring,
-                        y: cursorYSpring,
-                    }}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                >
-                    <div
-                        className="ml-6 mt-6 px-3 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider whitespace-nowrap"
-                        style={{
-                            backgroundColor: cursorColor,
-                            color: theme === 'dark' ? 'black' : 'white',
-                        }}
+            {/* Hover Text */}
+            <AnimatePresence>
+                {hoverText && (
+                    <motion.div
+                        className="fixed pointer-events-none z-[9999] cursor-element"
+                        style={{ x: cursorXSpring, y: cursorYSpring }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
                     >
-                        {hoverText}
-                    </div>
-                </motion.div>
-            )}
+                        <div className="ml-10 bg-bg-primary/90 backdrop-blur-md border border-border-primary px-3 py-1.5 rounded-lg shadow-xl shrink-0">
+                            <span className="text-[10px] uppercase tracking-wider font-mono font-bold text-fg-primary whitespace-nowrap">
+                                {hoverText}
+                            </span>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Global styles to hide cursor and prevent selection while painting */}
             <style>{`
@@ -588,9 +574,8 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
                         -webkit-user-select: none !important;
                         -moz-user-select: none !important;
                         -ms-user-select: none !important;
-                        touch-action: none !important; /* Prevent scroll on touch if supported later */
+                        touch-action: none !important;
                     }
-                    /* Ensure body doesn't scroll while painting */
                     body {
                         overflow: hidden !important;
                         touch-action: none;

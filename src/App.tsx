@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useTransition, lazy, Suspense } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Mail, Linkedin, Twitter } from 'lucide-react';
 import { Hero } from './components/sections/Hero';
 import { Grain } from './components/ui/Grain';
@@ -335,6 +336,7 @@ export default function App() {
             />
          </Suspense>
          <Analytics />
+         <SpeedInsights />
       </div>
    );
 }
