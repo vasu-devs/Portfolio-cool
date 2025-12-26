@@ -4,6 +4,7 @@ import { Bot } from 'lucide-react';
 
 interface CustomCursorProps {
     theme: 'light' | 'dark';
+    isAppTransitioning?: boolean;
 }
 
 interface PaintDot {
@@ -55,7 +56,7 @@ function getColorAtPoint(x: number, y: number): string {
     return theme === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)';
 }
 
-export function CustomCursor({ theme }: CustomCursorProps) {
+export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
     const [isHovering, setIsHovering] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
     const [hoverText, setHoverText] = useState<string | null>(null);
@@ -92,6 +93,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
     // Check background at Bot position
     useEffect(() => {
         const checkContrast = () => {
+            if (isAppTransitioning) return; // Skip checks during theme toggle
             let mode: 'light' | 'dark' = 'light';
 
             // 1. Check if we are visually over the Hero section
@@ -149,7 +151,11 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         const dotsToConsume = [...currentStrokeDots.current];
         currentStrokeDots.current = [];
 
-        if (dotsToConsume.length === 0) return;
+        if (dotsToConsume.length <= 1) {
+            // If it's just a single tap, just clear the dots silently without spawning the bot
+            setPaintDots(prev => prev.filter(dot => !dotsToConsume.some(d => d.id === dot.id)));
+            return;
+        }
 
         setEaterVisible(true);
         setMoveDuration(0); // Instant placement

@@ -56,7 +56,7 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center gap-[2vw] md:gap-[0.75vw] px-[3vw] py-[1.5vw] md:px-[1.25vw] md:py-[0.6vw] rounded-full border transition-all duration-500 pointer-events-auto cursor-pointer shadow-2xl
+                className={`flex items-center gap-[2vw] md:gap-[0.75vw] px-[3vw] py-[1.5vw] md:px-[1.25vw] md:py-[0.6vw] rounded-full border transition-all duration-300 pointer-events-auto cursor-pointer shadow-2xl
                     ${isOpen
                         ? `${theme === 'dark' ? 'bg-black text-white border-white' : 'bg-white text-black border-white'} ring-8 ring-emerald-500/10`
                         : `${theme === 'dark' ? 'bg-black text-white border-white' : 'bg-white text-black border-white'} ring-emerald-500/5 hover:ring-8`
@@ -90,7 +90,7 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
                         `}
                     >
                         <div className="p-[4vw] md:p-[1.5vw] relative z-10">
-                            <div className={`px-[2vw] md:px-[0.5vw] pb-[4vw] md:pb-[1vw] border-b mb-[4vw] md:mb-[1vw] flex items-center justify-between transition-colors duration-500 ${(isInverted || theme === 'light') ? 'border-black/5' : 'border-white/5'}`}>
+                            <div className={`px-[2vw] md:px-[0.5vw] pb-[4vw] md:pb-[1vw] border-b mb-[4vw] md:mb-[1vw] flex items-center justify-between transition-colors duration-300 ${(isInverted || theme === 'light') ? 'border-black/5' : 'border-white/5'}`}>
                                 <div className="flex flex-col gap-1">
                                     <span className={`text-[2.25vw] md:text-[0.7vw] uppercase tracking-[0.3em] font-black opacity-40 ${(isInverted || theme === 'light') ? 'text-black' : 'text-white'}`}>Initialize Connection</span>
                                     <span className={`text-[1.75vw] md:text-[0.6vw] font-mono opacity-20 font-bold ${(isInverted || theme === 'light') ? 'text-black' : 'text-white'}`}>PROTO_77_STABLE</span>

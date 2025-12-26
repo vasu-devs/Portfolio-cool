@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useTransition } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { Mail, Linkedin, Twitter } from 'lucide-react';
 import { Hero } from './components/sections/Hero';
@@ -28,6 +28,7 @@ export default function App() {
    const [isLoading, setIsLoading] = useState(true);
    const [isTransitioning, setIsTransitioning] = useState(false);
    const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
+   const [isPending, startTransition] = useTransition();
    const toggleRef = useRef<HTMLDivElement>(null);
 
    const resumeUrl = "https://drive.google.com/file/d/105PfA58-Eonq0lGmC0V8SnMOWsqlm-G6/view?usp=sharing";
@@ -123,7 +124,7 @@ export default function App() {
 
 
    const toggleTheme = (e?: React.MouseEvent) => {
-      if (isTransitioning) return;
+      if (isTransitioning || isPending) return;
 
       if (e) {
          setClickPos({ x: e.clientX, y: e.clientY });
@@ -134,15 +135,17 @@ export default function App() {
 
       setIsTransitioning(true);
 
-      // Delay theme change to middle of expansion
+      // Delay theme change to middle of expansion, use startTransition to avoid blocking
       setTimeout(() => {
-         setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-      }, 400);
+         startTransition(() => {
+            setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+         });
+      }, 300);
 
-      // Reset transition
+      // Reset transition state
       setTimeout(() => {
          setIsTransitioning(false);
-      }, 1000);
+      }, 1200);
    };
 
    const openModal = (project: any) => {
@@ -193,7 +196,7 @@ export default function App() {
 
    return (
       <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary font-sans relative">
-         <CustomCursor theme={theme} />
+         <CustomCursor theme={theme} isAppTransitioning={isTransitioning} />
          <AnimatePresence mode="wait">
             {isLoading && (
                <Preloader key="preloader" theme={theme} finishLoading={() => setIsLoading(false)} />
@@ -209,7 +212,7 @@ export default function App() {
                         opacity: [0, 1, 0.5, 0],
                         scale: [0, 1, 5],
                      }}
-                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                      className="absolute"
                      style={{
                         left: clickPos.x,
@@ -219,14 +222,15 @@ export default function App() {
                         marginLeft: '-50vw',
                         marginTop: '-50vw',
                         borderRadius: '50%',
-                        border: theme === 'dark' ? '8px solid rgba(255, 255, 255, 0.3)' : '8px solid rgba(0, 0, 0, 0.3)',
-                        boxShadow: theme === 'dark'
-                           ? '0 0 100px rgba(255, 255, 255, 0.4), inset 0 0 80px rgba(255, 255, 255, 0.2)'
-                           : '0 0 100px rgba(0, 0, 0, 0.4), inset 0 0 80px rgba(0, 0, 0, 0.2)',
+                        border: theme === 'dark' ? '2px solid rgba(255, 255, 255, 0.1)' : '2px solid rgba(0, 0, 0, 0.1)',
                         background: theme === 'dark'
-                           ? 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)'
-                           : 'radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, transparent 70%)',
-                        filter: 'blur(10px)',
+                           ? 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 70%)'
+                           : 'radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.05) 50%, transparent 70%)',
+                        boxShadow: theme === 'dark'
+                           ? '0 0 60px rgba(255, 255, 255, 0.1)'
+                           : '0 0 60px rgba(0, 0, 0, 0.1)',
+                        transform: 'translateZ(0)',
+                        willChange: 'transform, opacity',
                      }}
                   />
                   {[...Array(8)].map((_, i) => (
@@ -250,6 +254,7 @@ export default function App() {
                            background: theme === 'dark'
                               ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent)'
                               : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent)',
+                           transform: 'translateZ(0)', // Force GPU
                         }}
                      />
                   ))}
