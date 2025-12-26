@@ -451,7 +451,7 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
                     >
                         <Bot size={18} className={botContrast === 'dark' ? 'text-white' : 'text-black'} />
                         <span className={`text-xs font-mono font-medium tracking-tight ${botContrast === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                            AI Powered
+                            Hold and move
                         </span>
                     </motion.div>
                 )}

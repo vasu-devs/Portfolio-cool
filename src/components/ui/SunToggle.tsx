@@ -22,6 +22,11 @@ export const SunToggle = ({ theme, isInverted }: SunToggleProps) => {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-5 h-5"
+                    style={{
+                        filter: theme === 'dark' && !isInverted
+                            ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5)) drop-shadow(0 0 4px rgba(0,0,0,0.3))'
+                            : 'none'
+                    }}
                 >
                     <mask id="moon-mask">
                         <rect x="0" y="0" width="100%" height="100%" fill="white" />
