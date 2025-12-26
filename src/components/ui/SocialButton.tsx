@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { MagneticButton } from './MagneticButton';
 import { LucideIcon } from 'lucide-react';
 
