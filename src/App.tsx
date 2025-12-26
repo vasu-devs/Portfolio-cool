@@ -192,7 +192,7 @@ export default function App() {
    ];
 
    return (
-      <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary transition-colors duration-700 font-sans relative">
+      <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary font-sans relative">
          <CustomCursor theme={theme} />
          <AnimatePresence mode="wait">
             {isLoading && (
@@ -229,27 +229,27 @@ export default function App() {
                         filter: 'blur(10px)',
                      }}
                   />
-                  {[...Array(16)].map((_, i) => (
+                  {[...Array(8)].map((_, i) => (
                      <motion.div
                         key={i}
-                        initial={{ opacity: 0, height: 0, rotate: i * 22.5, width: 2 }}
+                        initial={{ opacity: 0, height: 0, rotate: i * 45, width: 2 }}
                         animate={{
-                           opacity: [0, 0.8, 0],
-                           height: ['0px', `${200 + Math.random() * 800}px`],
-                           width: [2, 4, 1],
+                           opacity: [0, 0.6, 0],
+                           height: ['0px', `${150 + Math.random() * 400}px`],
+                           width: [2, 3, 1],
                         }}
                         transition={{
-                           duration: 1.2,
+                           duration: 1.0,
                            ease: "easeOut",
-                           delay: Math.random() * 0.2
+                           delay: Math.random() * 0.1
                         }}
-                        className="absolute origin-top blur-md"
+                        className="absolute origin-top"
                         style={{
                            left: clickPos.x,
                            top: clickPos.y,
                            background: theme === 'dark'
-                              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.6), transparent)'
-                              : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent)',
+                              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent)'
+                              : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent)',
                         }}
                      />
                   ))}

@@ -98,7 +98,7 @@ const SkillBadge = ({ skill }: { skill: string }) => {
 
     return (
         <span
-            className="inline-flex items-center gap-[1.5vw] md:gap-2 px-[3vw] py-[1.5vw] md:px-4 md:py-2 rounded-full bg-fg-primary/5 border border-fg-primary/10 text-[3vw] md:text-sm font-mono text-fg-secondary transition-all duration-300 cursor-default hover:scale-105 hover:border-fg-primary/30"
+            className="inline-flex items-center gap-[1.5vw] md:gap-2 px-[3vw] py-[1.5vw] md:px-4 md:py-2 rounded-full bg-fg-primary/5 border border-fg-primary/10 text-[3vw] md:text-sm font-mono text-fg-secondary cursor-default hover:scale-105 hover:border-fg-primary/30"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -139,7 +139,7 @@ export const Skills = () => {
                                 delay: idx * 0.1,
                                 ease: [0.16, 1, 0.3, 1]
                             }}
-                            className="p-[6vw] md:p-6 rounded-2xl border border-border-primary bg-bg-secondary/30 backdrop-blur-sm group hover:border-fg-primary/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                            className="p-[6vw] md:p-6 rounded-2xl border border-border-primary bg-bg-secondary/30 backdrop-blur-sm group hover:border-fg-primary/20 hover:-translate-y-2 hover:shadow-2xl"
                         >
                             <h3 className="font-display font-bold text-[5vw] md:text-2xl mb-[6vw] md:mb-5 text-fg-primary group-hover:text-fg-primary transition-colors">{category.title}</h3>
                             <div className="flex flex-wrap gap-[2vw] md:gap-2">

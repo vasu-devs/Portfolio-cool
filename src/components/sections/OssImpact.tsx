@@ -115,7 +115,7 @@ export const OssImpact = ({ stats, isLoading = false }: OssImpactProps) => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: stat.delay }}
-                                className="flex flex-col items-center justify-center p-[8vw] md:p-8 border border-bg-primary/20 rounded-2xl bg-bg-primary/5 backdrop-blur-sm group hover:bg-bg-primary/10 transition-colors"
+                                className="flex flex-col items-center justify-center p-[8vw] md:p-8 border border-bg-primary/20 rounded-2xl bg-bg-primary/5 backdrop-blur-sm group hover:bg-bg-primary/10"
                             >
                                 <div className="mb-[4vw] md:mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
                                     <stat.icon className="w-[8vw] h-[8vw] md:w-10 md:h-10" />

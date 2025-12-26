@@ -14,8 +14,8 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
         <section id="hero" className="min-h-auto md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                <div className={`h-[52%] w-full transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                <div className="h-[45%] w-full transition-colors duration-700 bg-bg-primary" />
+                <div className={`h-[52%] w-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                <div className="h-[45%] w-full bg-bg-primary" />
             </div>
 
             <Container className="relative z-10 h-full flex flex-col pt-4 md:pt-8 pb-20 md:pb-10 overflow-visible">
