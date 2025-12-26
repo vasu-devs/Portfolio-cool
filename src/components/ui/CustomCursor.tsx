@@ -81,8 +81,8 @@ export function CustomCursor({ theme }: CustomCursorProps) {
     const cursorX = useMotionValue(0);
     const cursorY = useMotionValue(0);
 
-    // Spring animation for smooth following
-    const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
+    // Spring animation for smooth following (for the outer ring)
+    const springConfig = { damping: 30, stiffness: 600, mass: 0.4 };
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
 
@@ -252,18 +252,15 @@ export function CustomCursor({ theme }: CustomCursorProps) {
 
             // Only paint if moved enough distance
             if (distance > 6) {
-                // Get the color based on what's behind the cursor
-                const paintColor = getColorAtPoint(e.clientX, e.clientY);
-
                 const newDot: PaintDot = {
                     id: paintIdRef.current++,
                     x: e.clientX,
                     y: e.clientY,
-                    color: paintColor,
+                    color: 'white', // Color inversion handled by mix-blend-difference
                     size: 5 + Math.random() * 3,
                 };
 
-                setPaintDots(prev => [...prev, newDot]);
+                setPaintDots(prev => [...prev.slice(-100), newDot]); // Cap dots for performance
                 // Store full dot info
                 currentStrokeDots.current.push(newDot);
                 lastPaintPos.current = { x: e.clientX, y: e.clientY };
@@ -281,18 +278,15 @@ export function CustomCursor({ theme }: CustomCursorProps) {
         lastPaintPos.current = { x: e.clientX, y: e.clientY };
         currentStrokeDots.current = [];
 
-        // Get the color based on what's behind the cursor
-        const paintColor = getColorAtPoint(e.clientX, e.clientY);
-
         // Add initial dot on click
         const newDot: PaintDot = {
             id: paintIdRef.current++,
             x: e.clientX,
             y: e.clientY,
-            color: paintColor,
+            color: 'white',
             size: 6,
         };
-        setPaintDots(prev => [...prev, newDot]);
+        setPaintDots(prev => [...prev.slice(-100), newDot]);
         currentStrokeDots.current.push(newDot);
     }, []);
 
@@ -504,8 +498,8 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                 ref={cursorRef}
                 className="fixed pointer-events-none z-[9999] mix-blend-difference cursor-element"
                 style={{
-                    x: cursorXSpring,
-                    y: cursorYSpring,
+                    x: cursorX, // Use raw motion value for zero-lag center dot
+                    y: cursorY,
                     translateX: '-50%',
                     translateY: '-50%',
                 }}
