@@ -260,7 +260,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
                     size: 5 + Math.random() * 3,
                 };
 
-                setPaintDots(prev => [...prev.slice(-100), newDot]); // Cap dots for performance
+                setPaintDots(prev => [...prev, newDot]);
                 // Store full dot info
                 currentStrokeDots.current.push(newDot);
                 lastPaintPos.current = { x: e.clientX, y: e.clientY };
@@ -286,7 +286,7 @@ export function CustomCursor({ theme }: CustomCursorProps) {
             color: 'white',
             size: 6,
         };
-        setPaintDots(prev => [...prev.slice(-100), newDot]);
+        setPaintDots(prev => [...prev, newDot]);
         currentStrokeDots.current.push(newDot);
     }, []);
 
