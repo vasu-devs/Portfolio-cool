@@ -1,21 +1,23 @@
-import { useState, useEffect, useRef, useTransition } from 'react';
+import { useState, useEffect, useRef, useTransition, lazy, Suspense } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { Mail, Linkedin, Twitter } from 'lucide-react';
 import { Hero } from './components/sections/Hero';
-import { Work } from './components/sections/Work';
-import { Skills } from './components/sections/Skills';
-import { OssImpact } from './components/sections/OssImpact';
-import { Footer } from './components/sections/Footer';
 import { Grain } from './components/ui/Grain';
 import { MagneticButton } from './components/ui/MagneticButton';
-import { ProjectModal } from './components/ui/ProjectModal';
-import { ResumeModal } from './components/ui/ResumeModal';
 import { Preloader } from './components/ui/Preloader';
 import { SideBranding } from './components/ui/SideBranding';
 import { StatusBadge } from './components/ui/StatusBadge';
 import { SunToggle } from './components/ui/SunToggle';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CustomCursor } from './components/ui/CustomCursor';
+
+// Lazy load sections and modals
+const Work = lazy(() => import('./components/sections/Work').then(m => ({ default: m.Work })));
+const Skills = lazy(() => import('./components/sections/Skills').then(m => ({ default: m.Skills })));
+const OssImpact = lazy(() => import('./components/sections/OssImpact').then(m => ({ default: m.OssImpact })));
+const Footer = lazy(() => import('./components/sections/Footer').then(m => ({ default: m.Footer })));
+const ProjectModal = lazy(() => import('./components/ui/ProjectModal').then(m => ({ default: m.ProjectModal })));
+const ResumeModal = lazy(() => import('./components/ui/ResumeModal').then(m => ({ default: m.ResumeModal })));
 
 export default function App() {
    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -311,23 +313,27 @@ export default function App() {
 
          {/* All scrollable content - overlaps the fixed Hero */}
          <div className="relative z-20 bg-bg-primary">
-            <Skills />
-            <Work projects={projects} openModal={openModal} />
-            <OssImpact stats={stats} isLoading={isStatsLoading} />
-            <Footer theme={theme} onResumeClick={openResumeModal} />
+            <Suspense fallback={<div className="h-96" />}>
+               <Skills />
+               <Work projects={projects} openModal={openModal} />
+               <OssImpact stats={stats} isLoading={isStatsLoading} />
+               <Footer theme={theme} onResumeClick={openResumeModal} />
+            </Suspense>
          </div>
 
-         <ProjectModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            project={selectedProject}
-         />
+         <Suspense fallback={null}>
+            <ProjectModal
+               isOpen={isModalOpen}
+               onClose={() => setIsModalOpen(false)}
+               project={selectedProject}
+            />
 
-         <ResumeModal
-            isOpen={isResumeModalOpen}
-            onClose={() => setIsResumeModalOpen(false)}
-            resumeUrl={resumeUrl}
-         />
+            <ResumeModal
+               isOpen={isResumeModalOpen}
+               onClose={() => setIsResumeModalOpen(false)}
+               resumeUrl={resumeUrl}
+            />
+         </Suspense>
          <Analytics />
       </div>
    );

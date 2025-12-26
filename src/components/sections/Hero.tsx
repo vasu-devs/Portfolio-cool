@@ -101,7 +101,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
 
                             {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED, STATIC */}
                             <motion.img
-                                src="/Pic/Hero.png"
+                                src="/Pic/Hero.webp"
                                 alt="Vasu - Applied AI Engineer"
                                 loading="eager"
                                 fetchPriority="high"
