@@ -272,19 +272,19 @@ export default function App() {
             <div className={`
               backdrop-blur-xl border rounded-full px-[4vw] md:px-5 py-[3vw] md:py-2.5 shadow-lg flex items-center gap-[3vw] md:gap-6 w-full md:w-auto max-w-none md:max-w-none justify-between transition-all duration-300
               ${isNavInverted
-                  ? 'bg-fg-primary/90 border-bg-primary text-bg-primary'
-                  : 'bg-bg-primary/70 border-border-primary text-fg-primary'}
+                  ? 'bg-fg-primary/95 border-bg-primary text-bg-primary'
+                  : 'bg-bg-primary/90 border-border-primary text-fg-primary'}
             `}>
-               <span className="font-mono text-[3vw] md:text-sm uppercase tracking-widest font-black shrink-0">Vasu-DevS</span>
+               <span className="font-mono text-[3vw] md:text-sm uppercase tracking-widest font-black shrink-0 dark:text-fg-secondary">Vasu-DevS</span>
                <div className="flex items-center gap-[3vw] md:gap-4">
                   <div className="flex md:hidden items-center gap-[4vw] pr-[3vw] border-r border-current/10">
-                     <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>
+                     <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary dark:text-fg-secondary'}`}>
                         <Mail className="w-[5vw] h-[5vw]" />
                      </a>
-                     <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>
+                     <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary dark:text-fg-secondary'}`}>
                         <Linkedin className="w-[5vw] h-[5vw]" />
                      </a>
-                     <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}>
+                     <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary dark:text-fg-secondary'}`}>
                         <Twitter className="w-[5vw] h-[5vw]" />
                      </a>
                   </div>
