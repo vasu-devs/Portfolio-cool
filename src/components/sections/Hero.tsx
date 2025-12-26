@@ -29,7 +29,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[15vw] md:pt-10">
                         {/* Huge Heading */}
                         <div className="-translate-y-[18vw] md:translate-y-0 -mb-[12vw] md:-mb-0">
-                            <h1 className={`font-display font-black text-[13vw] md:text-9xl lg:text-[10rem] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-6 mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
+                            <h1 className={`font-display font-black text-[13vw] md:text-9xl lg:text-[10rem] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-6 md:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -56,10 +56,9 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             transition={{ duration: 0.8, delay: 0.8 }}
                             className="w-full pointer-events-auto mt-[55vw] md:mt-48"
                         >
-
-                            <p className="max-w-2xl text-sm md:text-3xl text-white/80 md:text-fg-secondary leading-relaxed font-medium drop-shadow-md mb-[16vw] md:mb-10">
-                                A <strong className="text-white md:text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-white md:text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-white md:text-fg-primary">India</span>.
-                                Building <strong className="text-white md:text-fg-primary">AI Agents</strong> and <strong className="text-white md:text-fg-primary">Intelligent Systems</strong>.
+                            <p className="max-w-2xl text-sm md:text-3xl text-fg-secondary leading-relaxed font-medium mb-[16vw] md:mb-10">
+                                A <strong className="text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-fg-primary">India</span>.
+                                Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
 
                             <div className="flex flex-wrap gap-4 relative z-20">
@@ -88,7 +87,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                         </motion.div>
                     </div>
 
-                    {/* Right Column: Image - THEME-AWARE, STATIC (Requested) */}
+                    {/* Right Column: Image - THEME-AWARE, STATIC */}
                     <div className="order-1 md:order-2 absolute md:relative inset-0 md:inset-auto md:row-start-1 md:col-start-6 md:col-span-7 flex justify-center md:justify-end items-center md:items-start z-10 pointer-events-none overflow-visible">
                         <motion.div
                             initial={{ opacity: 0, scale: 1.1 }}
@@ -96,8 +95,11 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             transition={{ duration: 1.2, ease: "easeOut" }}
                             className="w-full h-full md:h-auto relative md:opacity-100 transition-opacity duration-1000 overflow-visible"
                         >
-                            {/* Mobile Gradient Mask - Only visible in dark mode */}
-                            <div className="absolute inset-x-0 bottom-0 top-[20%] bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent md:hidden z-20 dark:block hidden dark:md:hidden" />
+                            {/* Gradient overlay for better text readability */}
+                            <div className={`absolute inset-x-0 bottom-0 top-[40%] md:hidden z-20 ${theme === 'dark'
+                                    ? 'bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent'
+                                    : 'bg-gradient-to-t from-white via-white/70 to-transparent'
+                                }`} />
 
                             {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED, STATIC */}
                             <motion.img
