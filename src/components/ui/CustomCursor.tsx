@@ -401,14 +401,156 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
         return () => observer.disconnect();
     }, [handleMouseEnterInteractive, handleMouseLeaveInteractive]);
 
-    // Don't show on touch devices
+    // Detect touch device for conditional rendering
     const [isTouchDevice, setIsTouchDevice] = useState(false);
 
     useEffect(() => {
         setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
     }, []);
 
-    if (isTouchDevice) return null;
+    // Touch event handlers for mobile drawing
+    const handleTouchStart = useCallback((e: TouchEvent) => {
+        if (e.touches.length !== 1) return; // Only single touch for drawing
+        
+        const touch = e.touches[0];
+        setIsPainting(true);
+        isMouseDownRef.current = true;
+        lastPaintPos.current = { x: touch.clientX, y: touch.clientY };
+        currentStrokeDots.current = [];
+
+        // Add initial dot on touch
+        const newDot: PaintDot = {
+            id: paintIdRef.current++,
+            x: touch.clientX,
+            y: touch.clientY,
+            color: 'white',
+            size: 6,
+        };
+        setPaintDots(prev => [...prev, newDot]);
+        currentStrokeDots.current.push(newDot);
+    }, []);
+
+    const handleTouchMove = useCallback((e: TouchEvent) => {
+        if (!isMouseDownRef.current || e.touches.length !== 1) return;
+        
+        // Prevent scrolling while drawing
+        e.preventDefault();
+        
+        const touch = e.touches[0];
+        const dx = touch.clientX - lastPaintPos.current.x;
+        const dy = touch.clientY - lastPaintPos.current.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Only paint if moved enough distance
+        if (distance > 6) {
+            const newDot: PaintDot = {
+                id: paintIdRef.current++,
+                x: touch.clientX,
+                y: touch.clientY,
+                color: 'white',
+                size: 5 + Math.random() * 3,
+            };
+
+            setPaintDots(prev => [...prev, newDot]);
+            currentStrokeDots.current.push(newDot);
+            lastPaintPos.current = { x: touch.clientX, y: touch.clientY };
+        }
+    }, []);
+
+    const handleTouchEnd = useCallback(() => {
+        setIsPainting(false);
+        isMouseDownRef.current = false;
+
+        // Trigger robot eater
+        fadeOutCurrentStroke();
+    }, [fadeOutCurrentStroke]);
+
+    // Add touch event listeners for mobile drawing
+    useEffect(() => {
+        if (!isTouchDevice) return;
+
+        // Use passive: false to allow preventDefault in touchmove
+        window.addEventListener('touchstart', handleTouchStart, { passive: true });
+        window.addEventListener('touchmove', handleTouchMove, { passive: false });
+        window.addEventListener('touchend', handleTouchEnd);
+        window.addEventListener('touchcancel', handleTouchEnd);
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('touchend', handleTouchEnd);
+            window.removeEventListener('touchcancel', handleTouchEnd);
+        };
+    }, [isTouchDevice, handleTouchStart, handleTouchMove, handleTouchEnd]);
+
+    // On touch devices, only render the paint canvas and eater bot (no cursor)
+    if (isTouchDevice) {
+        return (
+            <>
+                {/* Paint dots canvas - works on mobile */}
+                <div className="fixed inset-0 pointer-events-none z-[9990] mix-blend-difference">
+                    <AnimatePresence>
+                        {paintDots.map((dot) => (
+                            <motion.div
+                                key={dot.id}
+                                className="absolute rounded-full paint-dot"
+                                style={{
+                                    left: dot.x,
+                                    top: dot.y,
+                                    width: dot.size,
+                                    height: dot.size,
+                                    backgroundColor: 'white',
+                                    transform: 'translate(-50%, -50%)',
+                                }}
+                                initial={{ scale: 0, opacity: 1 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0, opacity: 0 }}
+                                transition={{ duration: 0.1 }}
+                            />
+                        ))}
+                    </AnimatePresence>
+                </div>
+
+                {/* Eater Bot for mobile */}
+                <AnimatePresence>
+                    {eaterVisible && (
+                        <motion.div
+                            className="fixed pointer-events-none z-[9995] text-white mix-blend-difference"
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{
+                                opacity: 1,
+                                scale: 1,
+                                left: eaterPos.x,
+                                top: eaterPos.y,
+                                rotate: eaterPos.rotate
+                            }}
+                            exit={{ opacity: 0, scale: 0 }}
+                            transition={{ duration: moveDuration }}
+                            style={{ transform: 'translate(-50%, -50%)', marginLeft: '-12px', marginTop: '-12px' }}
+                        >
+                            <Bot size={24} strokeWidth={2.5} />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Global styles for touch drawing */}
+                <style>{`
+                    ${isPainting ? `
+                        * {
+                            user-select: none !important;
+                            -webkit-user-select: none !important;
+                            -moz-user-select: none !important;
+                            -ms-user-select: none !important;
+                        }
+                        body {
+                            overflow: hidden !important;
+                            touch-action: none;
+                        }
+                    ` : ''}
+                `}</style>
+            </>
+        );
+    }
 
     const cursorColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.9)';
     const cursorBorderColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)';
