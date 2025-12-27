@@ -408,35 +408,62 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
         setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
     }, []);
 
-    // Touch event handlers for mobile drawing
+    // Refs for long-press detection
+    const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const isLongPressActiveRef = useRef(false);
+    const touchStartPosRef = useRef({ x: 0, y: 0 });
+
+    // Touch event handlers for mobile drawing (long-press to draw)
     const handleTouchStart = useCallback((e: TouchEvent) => {
         if (e.touches.length !== 1) return; // Only single touch for drawing
-        
-        const touch = e.touches[0];
-        setIsPainting(true);
-        isMouseDownRef.current = true;
-        lastPaintPos.current = { x: touch.clientX, y: touch.clientY };
-        currentStrokeDots.current = [];
 
-        // Add initial dot on touch
-        const newDot: PaintDot = {
-            id: paintIdRef.current++,
-            x: touch.clientX,
-            y: touch.clientY,
-            color: 'white',
-            size: 6,
-        };
-        setPaintDots(prev => [...prev, newDot]);
-        currentStrokeDots.current.push(newDot);
+        const touch = e.touches[0];
+        touchStartPosRef.current = { x: touch.clientX, y: touch.clientY };
+        isLongPressActiveRef.current = false;
+
+        // Start long-press timer (300ms hold to activate drawing)
+        longPressTimerRef.current = setTimeout(() => {
+            isLongPressActiveRef.current = true;
+            setIsPainting(true);
+            isMouseDownRef.current = true;
+            lastPaintPos.current = { x: touch.clientX, y: touch.clientY };
+            currentStrokeDots.current = [];
+
+            // Add initial dot on long press
+            const newDot: PaintDot = {
+                id: paintIdRef.current++,
+                x: touch.clientX,
+                y: touch.clientY,
+                color: 'white',
+                size: 6,
+            };
+            setPaintDots(prev => [...prev, newDot]);
+            currentStrokeDots.current.push(newDot);
+        }, 300);
     }, []);
 
     const handleTouchMove = useCallback((e: TouchEvent) => {
-        if (!isMouseDownRef.current || e.touches.length !== 1) return;
-        
-        // Prevent scrolling while drawing
-        e.preventDefault();
-        
+        if (e.touches.length !== 1) return;
+
         const touch = e.touches[0];
+
+        // If we haven't activated long-press yet, check if user moved too much (scrolling)
+        if (!isLongPressActiveRef.current) {
+            const dx = touch.clientX - touchStartPosRef.current.x;
+            const dy = touch.clientY - touchStartPosRef.current.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // If moved more than 10px before long-press activated, cancel drawing and allow scroll
+            if (distance > 10 && longPressTimerRef.current) {
+                clearTimeout(longPressTimerRef.current);
+                longPressTimerRef.current = null;
+            }
+            return; // Allow normal scrolling
+        }
+
+        // Drawing is active - prevent scrolling and paint
+        e.preventDefault();
+
         const dx = touch.clientX - lastPaintPos.current.x;
         const dy = touch.clientY - lastPaintPos.current.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -458,11 +485,20 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
     }, []);
 
     const handleTouchEnd = useCallback(() => {
-        setIsPainting(false);
-        isMouseDownRef.current = false;
+        // Clear long-press timer
+        if (longPressTimerRef.current) {
+            clearTimeout(longPressTimerRef.current);
+            longPressTimerRef.current = null;
+        }
 
-        // Trigger robot eater
-        fadeOutCurrentStroke();
+        // Only trigger eater if we were actually drawing
+        if (isLongPressActiveRef.current) {
+            setIsPainting(false);
+            isMouseDownRef.current = false;
+            fadeOutCurrentStroke();
+        }
+
+        isLongPressActiveRef.current = false;
     }, [fadeOutCurrentStroke]);
 
     // Add touch event listeners for mobile drawing
