@@ -81,8 +81,8 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                         >
                             {/* Gradient overlay for better text readability */}
                             <div className={`absolute inset-x-0 bottom-0 top-[50%] md:hidden z-20 pointer-events-none ${theme === 'dark'
-                                    ? 'bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent'
-                                    : 'bg-gradient-to-t from-white via-white/40 to-transparent'
+                                ? 'bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent'
+                                : 'bg-gradient-to-t from-white via-white/40 to-transparent'
                                 }`} />
 
                             {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED, STATIC */}
