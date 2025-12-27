@@ -125,3 +125,18 @@ body {
   scrollbar-width: thin !important;
   scrollbar-color: var(--fg-secondary) var(--bg-secondary);
 }
+
+/* Hero intro text - black text-stroke on mobile only */
+@media (max-width: 768px) {
+  .hero-intro-text {
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000,
+      -1px 0 0 #000,
+      1px 0 0 #000,
+      0 -1px 0 #000,
+      0 1px 0 #000;
+  }
+}

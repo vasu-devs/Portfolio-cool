@@ -56,7 +56,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             transition={{ duration: 0.8, delay: 0.8 }}
                             className="w-full pointer-events-auto mt-[55vw] md:mt-48"
                         >
-                            <p className="max-w-2xl text-sm md:text-3xl text-fg-secondary leading-relaxed font-medium mb-[16vw] md:mb-10">
+                            <p className="hero-intro-text max-w-2xl text-sm md:text-3xl text-fg-secondary leading-relaxed font-medium mb-[16vw] md:mb-10">
                                 A <strong className="text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-fg-primary">India</span>.
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
