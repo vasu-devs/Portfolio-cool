@@ -39,7 +39,7 @@ export const Preloader = ({ finishLoading }: PreloaderProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-bg-primary/40 backdrop-blur-2xl"
+            className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
         >
             {/* Floating Capsule */}
             <motion.div
