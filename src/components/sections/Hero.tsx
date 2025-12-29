@@ -11,25 +11,25 @@ interface HeroProps {
 
 export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
     return (
-        <section id="hero" className="min-h-[100dvh] md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
+        <section id="hero" className="min-h-[100dvh] lg:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                <div className={`h-[58%] md:h-[52%] w-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                <div className="h-[42%] md:h-[45%] w-full bg-bg-primary" />
+                <div className={`h-[58%] lg:h-[52%] w-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                <div className="h-[42%] lg:h-[45%] w-full bg-bg-primary" />
             </div>
 
-            <Container className="relative z-10 min-h-[100dvh] md:h-full flex flex-col pt-4 md:pt-8 pb-24 md:pb-10 overflow-visible">
+            <Container className="relative z-10 min-h-[100dvh] lg:h-full flex flex-col pt-4 lg:pt-8 pb-24 lg:pb-10 overflow-visible">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1 }}
-                    className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
+                    className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-end lg:items-start overflow-visible"
                 >
                     {/* Left Column: Text */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[15vw] md:pt-24 h-full flex flex-col">
+                    <div className="order-2 lg:order-1 lg:row-start-1 lg:col-start-1 lg:col-span-7 relative z-30 pointer-events-none pt-12 md:pt-24 h-full flex flex-col">
                         {/* Huge Heading */}
-                        <div className="-translate-y-[18vw] md:translate-y-0 -mb-[12vw] md:-mb-0">
-                            <h1 className={`font-display font-black text-[13vw] md:text-9xl lg:text-[10rem] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-6 md:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
+                        <div className="-translate-y-[10%] lg:translate-y-0 -mb-24 lg:-mb-0">
+                            <h1 className={`font-display font-black text-[13vw] md:text-[11vw] lg:text-9xl xl:text-[10rem] leading-[0.8] lg:leading-[0.85] tracking-tighter uppercase mb-4 lg:mb-6 lg:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -54,9 +54,9 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full pointer-events-auto mt-auto mb-[2vw] md:mb-0 md:mt-32"
+                            className="w-full pointer-events-auto mt-auto mb-2 lg:mb-0 lg:mt-32"
                         >
-                            <p className="hero-intro-text max-w-2xl text-sm md:text-3xl text-fg-secondary leading-relaxed font-medium mb-[3vw] md:mb-10">
+                            <p className="hero-intro-text max-w-2xl text-sm md:text-xl lg:text-3xl text-fg-secondary leading-relaxed font-medium mb-4 lg:mb-10">
                                 A <strong className="text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-fg-primary">India</span>.
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
@@ -72,15 +72,15 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     </div>
 
                     {/* Right Column: Image - THEME-AWARE, STATIC */}
-                    <div className="order-1 md:order-2 absolute md:relative inset-0 md:inset-auto md:row-start-1 md:col-start-6 md:col-span-7 flex justify-center md:justify-end items-center md:items-start z-10 pointer-events-none overflow-visible">
+                    <div className="order-1 lg:order-2 absolute lg:relative inset-0 lg:inset-auto lg:row-start-1 lg:col-start-6 lg:col-span-12 flex justify-center lg:justify-end items-center lg:items-start z-10 pointer-events-none overflow-visible">
                         <motion.div
                             initial={{ opacity: 0, scale: 1.1 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="w-full h-full md:h-auto relative md:opacity-100 transition-opacity duration-1000 overflow-visible"
+                            className="w-full h-full lg:h-auto relative md:opacity-100 transition-opacity duration-1000 overflow-visible"
                         >
                             {/* Gradient overlay for better text readability */}
-                            <div className={`absolute inset-x-0 bottom-0 top-[50%] md:hidden z-20 pointer-events-none ${theme === 'dark'
+                            <div className={`absolute inset-x-0 bottom-0 top-[40%] lg:hidden z-20 pointer-events-none ${theme === 'dark'
                                 ? 'bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent'
                                 : 'bg-gradient-to-t from-white via-white/40 to-transparent'
                                 }`} />
@@ -103,7 +103,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                     WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)',
                                     maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)'
                                 }}
-                                className="relative w-full h-[110%] md:h-full object-contain object-bottom drop-shadow-2xl z-10 scale-[1.45] -translate-y-[80vw] md:scale-125 md:-translate-y-4"
+                                className="relative w-full h-[110%] lg:h-full object-contain object-bottom drop-shadow-2xl z-10 scale-[1.45] md:scale-[1.3] lg:scale-125 -translate-y-[45%] md:translate-y-[-25%] lg:-translate-y-4"
                             />
                         </motion.div>
                     </div>

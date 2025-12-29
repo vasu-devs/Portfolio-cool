@@ -272,46 +272,46 @@ export default function App() {
          <Grain />
          <SideBranding />
 
-         <nav className="fixed bottom-[4vw] md:bottom-6 left-0 right-0 z-50 flex justify-center px-2 md:px-4">
+         <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4">
             <div
                className={`
-                  backdrop-blur-xl border rounded-full px-[4vw] md:px-5 py-[3vw] md:py-2.5 shadow-lg flex items-center gap-[3vw] md:gap-6 w-full md:w-auto max-w-none md:max-w-none justify-between transition-all duration-300
+                  backdrop-blur-xl border rounded-full px-5 md:px-6 py-2.5 md:py-3 shadow-lg flex items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-center transition-all duration-300
                   ${isNavInverted
                      ? 'bg-fg-primary/95 border-bg-primary text-bg-primary'
                      : 'bg-bg-primary/95 border-border-primary text-fg-primary'}
                `}
                style={{
                   textShadow: !isNavInverted && theme === 'dark'
-                     ? '0 0 3px rgba(0,0,0,0.5), 0 0 6px rgba(0,0,0,0.3)'
+                     ? '0 0-3px rgba(0,0,0,0.5), 0 0 6px rgba(0,0,0,0.3)'
                      : 'none'
                }}
             >
-               <span className="font-mono text-[3vw] md:text-sm uppercase tracking-widest font-black shrink-0"
+               <span className="font-mono text-xs md:text-sm uppercase tracking-widest font-black shrink-0"
                   style={{
                      WebkitTextStroke: !isNavInverted && theme === 'dark' ? '0.5px rgba(0,0,0,0.3)' : 'none'
                   }}
                >Vasu-DevS</span>
-               <div className="flex items-center gap-[3vw] md:gap-4">
-                  <div className="flex md:hidden items-center gap-[4vw] pr-[3vw] border-r border-current/10">
+               <div className="flex items-center gap-4 md:gap-6">
+                  <div className="flex lg:hidden items-center gap-4 pr-4 border-r border-current/10">
                      <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
                         style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
                      >
-                        <Mail className="w-[5vw] h-[5vw]" />
+                        <Mail className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
                      <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
                         style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
                      >
-                        <Linkedin className="w-[5vw] h-[5vw]" />
+                        <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
                      <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
                         style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
                      >
-                        <Twitter className="w-[5vw] h-[5vw]" />
+                        <Twitter className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
                   </div>
-                  <a href="#projects" className={`hidden md:block text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Work</a>
-                  <a href="#skills" className={`hidden md:block text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Skills</a>
-                  <a href="#contact" className={`hidden md:block text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Contact</a>
+                  <a href="#projects" className={`hidden lg:block text-xs md:text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Work</a>
+                  <a href="#skills" className={`hidden lg:block text-xs md:text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Skills</a>
+                  <a href="#contact" className={`hidden lg:block text-xs md:text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Contact</a>
                   <div ref={toggleRef}>
                      <MagneticButton onClick={toggleTheme}>
                         <SunToggle theme={theme} isInverted={isNavInverted} />
