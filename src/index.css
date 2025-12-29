@@ -129,6 +129,8 @@ body {
 /* Hero intro text - black text-stroke on mobile only */
 @media (max-width: 768px) {
   .hero-intro-text {
+    color: #a1a1aa;
+    /* Force dark mode secondary color */
     text-shadow:
       -1px -1px 0 #000,
       1px -1px 0 #000,
@@ -138,5 +140,11 @@ body {
       1px 0 0 #000,
       0 -1px 0 #000,
       0 1px 0 #000;
+  }
+
+  /* Force dark mode primary color for highlighted text */
+  .hero-intro-text strong,
+  .hero-intro-text span {
+    color: #ffffff;
   }
 }
