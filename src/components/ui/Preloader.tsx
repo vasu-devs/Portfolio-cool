@@ -41,12 +41,10 @@ export const Preloader = ({ finishLoading }: PreloaderProps) => {
                         initial={{ y: "100%" }}
                         animate={{
                             y: phase === 'exit' ? "50%" : 0, // Moves slightly down while container moves up (Parallax)
-                            opacity: phase === 'exit' ? 0 : 1
                         }}
                         transition={{
                             duration: 1.5,
                             ease: [0.87, 0, 0.13, 1],
-                            opacity: { duration: 0.8, delay: 0.2 }
                         }}
                         className="text-[15vw] leading-none font-black tracking-tighter text-bg-primary font-display translate-y-[50%]"
                     >
@@ -68,12 +66,10 @@ export const Preloader = ({ finishLoading }: PreloaderProps) => {
                         initial={{ y: "-100%" }}
                         animate={{
                             y: phase === 'exit' ? "-50%" : 0, // Moves slightly up while container moves down (Parallax)
-                            opacity: phase === 'exit' ? 0 : 1
                         }}
                         transition={{
                             duration: 1.5,
                             ease: [0.87, 0, 0.13, 1],
-                            opacity: { duration: 0.8, delay: 0.2 }
                         }}
                         className="text-[15vw] leading-none font-black tracking-tighter text-white font-display -translate-y-[50%]"
                     >
