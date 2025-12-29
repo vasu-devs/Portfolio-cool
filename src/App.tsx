@@ -272,10 +272,10 @@ export default function App() {
          <Grain />
          <SideBranding />
 
-         <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4">
+         <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
             <div
                className={`
-                  backdrop-blur-xl border rounded-full px-5 md:px-6 py-2.5 md:py-3 shadow-lg flex items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-center transition-all duration-300
+                  backdrop-blur-xl border rounded-full px-5 md:px-6 py-2.5 md:py-3 shadow-lg flex items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-center transition-all duration-300 pointer-events-auto
                   ${isNavInverted
                      ? 'bg-fg-primary/95 border-bg-primary text-bg-primary'
                      : 'bg-bg-primary/95 border-border-primary text-fg-primary'}
@@ -326,12 +326,12 @@ export default function App() {
          {/* Stacked Sticky Sections - Each overlaps the previous */}
 
          {/* Hero Section - Fixed behind everything */}
-         <div className="fixed top-0 left-0 right-0 h-screen z-0">
+         <div className="fixed top-0 left-0 right-0 h-screen z-10">
             <Hero theme={theme} onResumeClick={openResumeModal} />
          </div>
 
          {/* Spacer to push content below the Hero - pointer-events-none to allow interaction with hero */}
-         <div className="h-screen pointer-events-none" />
+         <div className="h-screen pointer-events-none relative z-0" />
 
          {/* All scrollable content - overlaps the fixed Hero */}
          <div className="relative z-20 bg-bg-primary">

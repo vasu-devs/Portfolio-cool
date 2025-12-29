@@ -116,18 +116,20 @@ export const ResumeButton = ({ className = "", showLabel = true, onClick }: Resu
     };
 
     return (
-        <MagneticButton onClick={onClick ? () => handleClick() : undefined}>
+        <MagneticButton onClick={handleClick}>
             <motion.a
                 href="https://drive.google.com/file/d/105PfA58-Eonq0lGmC0V8SnMOWsqlm-G6/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={handleClick}
                 initial="initial"
                 whileHover="hover"
                 animate="initial"
-                className={`flex items-center gap-2 px-4 py-3 md:gap-3 md:px-8 md:py-4 rounded-full border border-border-primary hover:bg-fg-primary hover:text-bg-primary transition-all group font-mono text-xs uppercase tracking-widest relative overflow-hidden ${className}`}
+                className={`group relative flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border border-fg-primary/10 bg-fg-primary/[0.03] backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-fg-primary/30 font-mono text-xs uppercase tracking-widest ${className}`}
             >
-                <div className="relative flex items-center justify-center">
+                {/* Hover Background Expansion */}
+                <div className="absolute inset-0 bg-fg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.76, 0, 0.24, 1]" />
+
+                <div className="relative flex items-center justify-center z-10 group-hover:text-bg-primary transition-colors duration-500">
                     <AnimatedEye />
                     {/* Glow effect on hover */}
                     <motion.div
@@ -139,7 +141,11 @@ export const ResumeButton = ({ className = "", showLabel = true, onClick }: Resu
                         transition={{ duration: 0.4 }}
                     />
                 </div>
-                {showLabel && <span className="relative z-10">Resume</span>}
+                {showLabel && (
+                    <span className="relative z-10 group-hover:text-bg-primary transition-colors duration-500">
+                        Resume
+                    </span>
+                )}
             </motion.a>
         </MagneticButton>
     );

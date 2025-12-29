@@ -26,7 +26,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-end lg:items-start overflow-visible"
                 >
                     {/* Left Column: Text */}
-                    <div className="order-2 lg:order-1 lg:row-start-1 lg:col-start-1 lg:col-span-7 relative z-30 pointer-events-none pt-12 md:pt-24 h-full flex flex-col">
+                    <div className="order-2 lg:order-1 lg:row-start-1 lg:col-start-1 lg:col-span-7 relative z-30 pt-12 md:pt-24 h-full flex flex-col pointer-events-none">
                         {/* Huge Heading */}
                         <div className="-translate-y-[10%] lg:translate-y-0 -mb-24 lg:-mb-0">
                             <h1 className={`font-display font-black text-[13vw] md:text-[11vw] lg:text-9xl xl:text-[10rem] leading-[0.8] lg:leading-[0.85] tracking-tighter uppercase mb-4 lg:mb-6 lg:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
@@ -54,14 +54,14 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full pointer-events-auto mt-auto mb-2 lg:mb-0 lg:mt-32"
+                            className="w-full mt-auto mb-16 lg:mb-0 lg:mt-32 pointer-events-auto"
                         >
                             <p className="hero-intro-text max-w-2xl text-sm md:text-xl lg:text-3xl text-fg-secondary leading-relaxed font-medium mb-4 lg:mb-10">
                                 A <strong className="text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-fg-primary">India</span>.
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
 
-                            <div className="flex flex-wrap gap-4 relative z-20">
+                            <div className="flex flex-wrap items-center gap-3 md:gap-4 relative z-50">
                                 <SocialButton href="https://github.com/vasu-devs" icon={Github} label="GitHub Profile" />
                                 <SocialButton href="https://x.com/vasu_devs" icon={Twitter} label="Twitter Profile" />
                                 <SocialButton href="https://www.linkedin.com/in/vasu-devs/" icon={Linkedin} label="LinkedIn Profile" />

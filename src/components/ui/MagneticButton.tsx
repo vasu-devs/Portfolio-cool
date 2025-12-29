@@ -37,7 +37,8 @@ export const MagneticButton = ({
 
   return (
     <motion.div
-      className={`${className} cursor-pointer`}
+      className={`${className} cursor-pointer relative`}
+      style={{ isolation: 'isolate' }}
       ref={ref}
       onMouseMove={handleMouse}
       onMouseEnter={handleEnter}
