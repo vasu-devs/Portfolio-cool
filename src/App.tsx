@@ -331,7 +331,7 @@ export default function App() {
          </div>
 
          {/* Spacer to push content below the Hero - pointer-events-none to allow interaction with hero */}
-         <div className="h-screen pointer-events-none" />
+         <div className="h-[75vh] md:h-screen pointer-events-none" />
 
          {/* All scrollable content - overlaps the fixed Hero */}
          <div className="relative z-20 bg-bg-primary">
