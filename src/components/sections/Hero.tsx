@@ -28,7 +28,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     {/* Left Column: Text */}
                     <div className="order-2 lg:order-1 lg:row-start-1 lg:col-start-1 lg:col-span-7 relative z-30 pt-12 md:pt-24 h-full flex flex-col pointer-events-none">
                         {/* Huge Heading */}
-                        <div className="-translate-y-[10%] lg:translate-y-0 -mb-24 lg:-mb-0">
+                        <div className="-translate-y-[25%] lg:translate-y-0 -mb-24 lg:-mb-0">
                             <h1 className={`font-display font-black text-[13vw] md:text-[11vw] lg:text-9xl xl:text-[10rem] leading-[0.8] lg:leading-[0.85] tracking-tighter uppercase mb-4 lg:mb-6 lg:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
@@ -61,7 +61,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
 
-                            <div className="flex flex-wrap items-center gap-2 md:gap-4 relative z-50">
+                            <div className="flex flex-wrap items-center gap-3 md:gap-4 relative z-50">
                                 <SocialButton href="https://github.com/vasu-devs" icon={Github} label="GitHub Profile" />
                                 <SocialButton href="https://x.com/vasu_devs" icon={Twitter} label="Twitter Profile" />
                                 <SocialButton href="https://www.linkedin.com/in/vasu-devs/" icon={Linkedin} label="LinkedIn Profile" />

@@ -336,8 +336,8 @@ export default function App() {
          {/* All scrollable content - overlaps the fixed Hero */}
          <div className="relative z-20 bg-bg-primary">
             <Suspense fallback={<div className="h-96" />}>
-               <Skills />
                <Work projects={projects} openModal={openModal} />
+               <Skills />
                <OssImpact stats={stats} isLoading={isStatsLoading} />
                <Footer theme={theme} onResumeClick={openResumeModal} />
             </Suspense>
