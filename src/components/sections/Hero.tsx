@@ -11,22 +11,22 @@ interface HeroProps {
 
 export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
     return (
-        <section id="hero" className="min-h-auto md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
+        <section id="hero" className="min-h-[100dvh] md:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                <div className={`h-[52%] w-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                <div className="h-[45%] w-full bg-bg-primary" />
+                <div className={`h-[58%] md:h-[52%] w-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                <div className="h-[42%] md:h-[45%] w-full bg-bg-primary" />
             </div>
 
-            <Container className="relative z-10 h-full flex flex-col pt-4 md:pt-8 pb-20 md:pb-10 overflow-visible">
+            <Container className="relative z-10 min-h-[100dvh] md:h-full flex flex-col pt-4 md:pt-8 pb-24 md:pb-10 overflow-visible">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1 }}
-                    className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
+                    className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
                 >
                     {/* Left Column: Text */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[15vw] md:pt-24">
+                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[15vw] md:pt-24 h-full flex flex-col">
                         {/* Huge Heading */}
                         <div className="-translate-y-[18vw] md:translate-y-0 -mb-[12vw] md:-mb-0">
                             <h1 className={`font-display font-black text-[13vw] md:text-9xl lg:text-[10rem] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-6 md:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
@@ -54,9 +54,9 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full pointer-events-auto mt-[55vw] md:mt-32"
+                            className="w-full pointer-events-auto mt-auto mb-[2vw] md:mb-0 md:mt-32"
                         >
-                            <p className="hero-intro-text max-w-2xl text-sm md:text-3xl text-fg-secondary leading-relaxed font-medium mb-[16vw] md:mb-10">
+                            <p className="hero-intro-text max-w-2xl text-sm md:text-3xl text-fg-secondary leading-relaxed font-medium mb-[3vw] md:mb-10">
                                 A <strong className="text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-fg-primary">India</span>.
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
@@ -98,8 +98,12 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                         : 'grayscale(15%) contrast(110%) brightness(0.95) saturate(1.1)',
                                 }}
                                 transition={{ duration: 0.8 }}
-                                style={{ willChange: 'transform, filter' }}
-                                className="relative w-full h-[95%] md:h-full object-contain object-bottom md:object-top drop-shadow-2xl z-10 scale-[1.05] -translate-y-[35vw] md:scale-125 md:-translate-y-4"
+                                style={{
+                                    willChange: 'transform, filter',
+                                    WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)',
+                                    maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)'
+                                }}
+                                className="relative w-full h-[110%] md:h-full object-contain object-bottom drop-shadow-2xl z-10 scale-[1.45] -translate-y-[80vw] md:scale-125 md:-translate-y-4"
                             />
                         </motion.div>
                     </div>
