@@ -26,9 +26,9 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end md:items-start overflow-visible"
                 >
                     {/* Left Column: Text */}
-                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[15vw] md:pt-10">
+                    <div className="order-2 md:order-1 md:row-start-1 md:col-start-1 md:col-span-7 relative z-30 pointer-events-none pt-[35vw] md:pt-10">
                         {/* Huge Heading */}
-                        <div className="-translate-y-[18vw] md:translate-y-0 -mb-[12vw] md:-mb-0">
+                        <div className="translate-y-0 md:translate-y-0 -mb-[12vw] md:-mb-0 mt-[3vw] md:mt-4">
                             <h1 className={`font-display font-black text-[13vw] md:text-9xl lg:text-[10rem] leading-[0.8] md:leading-[0.85] tracking-tighter uppercase mb-[4vw] md:mb-6 md:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
@@ -36,7 +36,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                     transition={{ duration: 0.8, delay: 0.2 }}
                                     className="block"
                                 >
-                                    VASU-
+                                    VASU
                                 </motion.span>
                                 <motion.span
                                     initial={{ opacity: 0, x: -20 }}
@@ -54,7 +54,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full pointer-events-auto mt-[55vw] md:mt-48"
+                            className="w-full pointer-events-auto mt-[20vw] md:mt-48"
                         >
                             <p className="hero-intro-text max-w-2xl text-sm md:text-3xl text-fg-secondary leading-relaxed font-medium mb-[16vw] md:mb-10">
                                 A <strong className="text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-fg-primary">India</span>.
