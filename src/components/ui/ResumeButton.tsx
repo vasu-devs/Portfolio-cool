@@ -124,7 +124,7 @@ export const ResumeButton = ({ className = "", showLabel = true, onClick }: Resu
                 initial="initial"
                 whileHover="hover"
                 animate="initial"
-                className={`group relative flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border border-fg-primary/10 bg-fg-primary/[0.03] backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-fg-primary/30 font-mono text-xs uppercase tracking-widest ${className}`}
+                className={`group relative flex items-center gap-3 px-4 py-3 md:px-8 md:py-4 rounded-full border border-fg-primary/10 bg-fg-primary/[0.03] backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-fg-primary/30 font-mono text-xs uppercase tracking-widest ${className}`}
             >
                 {/* Hover Background Expansion */}
                 <div className="absolute inset-0 bg-fg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.76, 0, 0.24, 1]" />

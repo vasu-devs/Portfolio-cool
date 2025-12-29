@@ -54,14 +54,14 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full mt-auto mb-16 lg:mb-0 lg:mt-32 pointer-events-auto"
+                            className="w-full mt-auto mb-2 lg:mb-0 lg:mt-32 pointer-events-auto"
                         >
                             <p className="hero-intro-text max-w-2xl text-sm md:text-xl lg:text-3xl text-fg-secondary leading-relaxed font-medium mb-4 lg:mb-10">
                                 A <strong className="text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-fg-primary">India</span>.
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
 
-                            <div className="flex flex-wrap items-center gap-3 md:gap-4 relative z-50">
+                            <div className="flex flex-wrap items-center gap-4 relative z-50">
                                 <SocialButton href="https://github.com/vasu-devs" icon={Github} label="GitHub Profile" />
                                 <SocialButton href="https://x.com/vasu_devs" icon={Twitter} label="Twitter Profile" />
                                 <SocialButton href="https://www.linkedin.com/in/vasu-devs/" icon={Linkedin} label="LinkedIn Profile" />
