@@ -61,7 +61,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                 Building <strong className="text-fg-primary">AI Agents</strong> and <strong className="text-fg-primary">Intelligent Systems</strong>.
                             </p>
 
-                            <div className="flex flex-wrap items-center gap-4 relative z-50">
+                            <div className="flex flex-wrap items-center gap-2 md:gap-4 relative z-50">
                                 <SocialButton href="https://github.com/vasu-devs" icon={Github} label="GitHub Profile" />
                                 <SocialButton href="https://x.com/vasu_devs" icon={Twitter} label="Twitter Profile" />
                                 <SocialButton href="https://www.linkedin.com/in/vasu-devs/" icon={Linkedin} label="LinkedIn Profile" />
