@@ -92,6 +92,7 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
 
     // Check background at Bot position
     useEffect(() => {
+        let lastRun = 0;
         const checkContrast = () => {
             if (isAppTransitioning) return; // Skip checks during theme toggle
             let mode: 'light' | 'dark' = 'light';
@@ -128,20 +129,28 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
             setBotContrast(mode);
         };
 
+        const throttledCheck = () => {
+            const now = Date.now();
+            if (now - lastRun >= 100) {
+                checkContrast();
+                lastRun = now;
+            }
+        };
+
         // Check initially
         checkContrast();
 
-        // Check on scroll
-        window.addEventListener('scroll', checkContrast, { passive: true });
+        // Check on scroll (throttled)
+        window.addEventListener('scroll', throttledCheck, { passive: true });
 
-        // Interval for dynamic content
+        // Interval for dynamic content (keep at 500ms)
         const interval = setInterval(checkContrast, 500);
 
         return () => {
-            window.removeEventListener('scroll', checkContrast);
+            window.removeEventListener('scroll', throttledCheck);
             clearInterval(interval);
         };
-    }, [theme]); // Add theme dependency so it updates when theme toggles
+    }, [theme, isAppTransitioning]); // Add dependencies
 
     // State for animation duration control
     const [moveDuration, setMoveDuration] = useState(0.1);
