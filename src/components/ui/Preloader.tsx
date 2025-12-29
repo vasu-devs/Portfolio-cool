@@ -1,14 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-
-const words = [
-    "Hello World",
-    "console.log('Welcome')",
-    "system.init()",
-    "01001000 01100101",
-    "Vasu-DevS.exe",
-    "Impact. Code. Story."
-];
 
 interface PreloaderProps {
     finishLoading: () => void;
@@ -16,83 +7,72 @@ interface PreloaderProps {
 }
 
 export const Preloader = ({ finishLoading }: PreloaderProps) => {
-    const [index, setIndex] = useState(0);
+    const [phase, setPhase] = useState<'text' | 'exit'>('text');
 
     useEffect(() => {
-        if (index === words.length - 1) {
-            setTimeout(() => {
-                finishLoading();
-            }, 400);
-            return;
-        }
+        // Reduced duration: Text visible for 1.2s (including entry)
+        const timer = setTimeout(() => {
+            setPhase('exit');
+        }, 1200);
 
-        const timeout = setTimeout(() => {
-            setIndex((prev) => prev + 1);
-        }, index === 0 ? 400 : 80);
+        // Cleanup after exit animation (0.8s exit)
+        const cleanup = setTimeout(() => {
+            finishLoading();
+        }, 2100);
 
-        return () => clearTimeout(timeout);
-    }, [index, finishLoading]);
+        return () => {
+            clearTimeout(timer);
+            clearTimeout(cleanup);
+        };
+    }, [finishLoading]);
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
-        >
-            {/* Floating Capsule */}
+        <div className="fixed inset-0 z-[100] flex flex-col pointer-events-none">
+            {/* Top Shutter - Slides UP */}
             <motion.div
-                initial={{ y: 20 }}
-                animate={{
-                    y: [0, -15, 0],
-                }}
-                transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                }}
-                className="relative flex flex-col items-center"
+                initial={{ y: 0 }}
+                animate={{ y: phase === 'exit' ? "-100%" : 0 }}
+                transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                className="h-[50vh] w-full bg-fg-primary relative z-20 flex items-end justify-center overflow-hidden border-b border-bg-primary/10"
             >
-                {/* Glow behind capsule */}
-                <div className="absolute inset-0 bg-accent-primary/20 blur-[100px] rounded-full scale-150" />
-
-                <div className="bg-bg-primary/80 border border-border-primary/50 backdrop-blur-xl rounded-full px-12 py-8 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] flex flex-col items-center gap-6 relative overflow-hidden">
-                    <div className="h-[40px] overflow-hidden flex items-center">
-                        <AnimatePresence mode="wait">
-                            <motion.p
-                                key={words[index]}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.3 }}
-                                className="text-xl md:text-2xl font-mono font-bold tracking-[0.2em] whitespace-nowrap text-fg-primary drop-shadow-[0_0_8px_var(--bg-primary)]"
-                            >
-                                {words[index]}
-                            </motion.p>
-                        </AnimatePresence>
-                    </div>
-
-                    {/* Minimalist Progress dots */}
-                    <div className="flex gap-2">
-                        {words.map((_, i) => (
-                            <motion.div
-                                key={i}
-                                className={`h-1 rounded-full transition-all duration-300 ${i <= index ? 'w-4 bg-fg-primary' : 'w-1 bg-fg-primary/30'}`}
-                            />
-                        ))}
-                    </div>
+                {/* Text Container Top */}
+                <div className="overflow-hidden mb-[-0.5vw] md:mb-[-1vw] pb-2">
+                    <motion.h1
+                        initial={{ y: "100%" }}
+                        animate={{ y: 0 }} // Keep at 0 so it stays visible until panel moves
+                        transition={{
+                            y: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
+                            delay: 0.1
+                        }}
+                        className="text-[15vw] leading-none font-black tracking-tighter text-bg-primary font-display translate-y-[50%]"
+                    >
+                        VASU
+                    </motion.h1>
                 </div>
-
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="mt-8 font-mono text-[10px] uppercase tracking-[0.4em] animate-pulse text-fg-secondary drop-shadow-[0_0_8px_var(--bg-primary)]"
-                >
-                    Establishing Connection...
-                </motion.div>
             </motion.div>
-        </motion.div>
+
+            {/* Bottom Shutter - Slides DOWN */}
+            <motion.div
+                initial={{ y: 0 }}
+                animate={{ y: phase === 'exit' ? "100%" : 0 }}
+                transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                className="h-[50vh] w-full bg-black relative z-20 flex items-start justify-center overflow-hidden border-t border-white/10"
+            >
+                {/* Text Container Bottom */}
+                <div className="overflow-hidden mt-[-0.5vw] md:mt-[-1vw] pt-2">
+                    <motion.h1
+                        initial={{ y: "-100%" }}
+                        animate={{ y: 0 }}
+                        transition={{
+                            y: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
+                            delay: 0.1
+                        }}
+                        className="text-[15vw] leading-none font-black tracking-tighter text-white font-display -translate-y-[50%]"
+                    >
+                        DEVS
+                    </motion.h1>
+                </div>
+            </motion.div>
+        </div>
     );
 };
