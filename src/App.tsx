@@ -280,38 +280,25 @@ export default function App() {
                      ? 'bg-fg-primary/95 border-bg-primary text-bg-primary'
                      : 'bg-bg-primary/95 border-border-primary text-fg-primary'}
                `}
-               style={{
-                  textShadow: !isNavInverted && theme === 'dark'
-                     ? '0 0-3px rgba(0,0,0,0.5), 0 0 6px rgba(0,0,0,0.3)'
-                     : 'none'
-               }}
             >
-               <span className="font-mono text-xs md:text-sm uppercase tracking-widest font-black shrink-0"
-                  style={{
-                     WebkitTextStroke: !isNavInverted && theme === 'dark' ? '0.5px rgba(0,0,0,0.3)' : 'none'
-                  }}
-               >Vasu-DevS</span>
+               <span className={`font-mono text-sm md:text-base uppercase tracking-widest font-black shrink-0 ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
+                  Vasu-DevS
+               </span>
                <div className="flex items-center gap-4 md:gap-6">
                   <div className="flex lg:hidden items-center gap-4 pr-4 border-r border-current/10">
-                     <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
-                        style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
-                     >
+                     <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
                         <Mail className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
-                     <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
-                        style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
-                     >
+                     <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
                         <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
-                     <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'}`}
-                        style={{ filter: !isNavInverted && theme === 'dark' ? 'drop-shadow(0 0 2px rgba(0,0,0,0.5))' : 'none' }}
-                     >
+                     <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
                         <Twitter className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
                   </div>
-                  <a href="#projects" className={`hidden lg:block text-xs md:text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Work</a>
-                  <a href="#skills" className={`hidden lg:block text-xs md:text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Skills</a>
-                  <a href="#contact" className={`hidden lg:block text-xs md:text-sm font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'}`}>Contact</a>
+                  <a href="#projects" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Work</a>
+                  <a href="#skills" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Skills</a>
+                  <a href="#contact" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Contact</a>
                   <div ref={toggleRef}>
                      <MagneticButton onClick={toggleTheme}>
                         <SunToggle theme={theme} isInverted={isNavInverted} />

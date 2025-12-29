@@ -97,6 +97,18 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
+.text-outline {
+  text-shadow:
+    -1px -1px 0 rgba(0, 0, 0, 0.4),
+    1px -1px 0 rgba(0, 0, 0, 0.4),
+    -1px 1px 0 rgba(0, 0, 0, 0.4),
+    1px 1px 0 rgba(0, 0, 0, 0.4),
+    -1px 0 0 rgba(0, 0, 0, 0.4),
+    1px 0 0 rgba(0, 0, 0, 0.4),
+    0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
 /* Custom scrollbar for GitHub calendar */
 .scrollbar-thin::-webkit-scrollbar {
   display: block !important;
