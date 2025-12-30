@@ -14,8 +14,8 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
         <section id="hero" className="min-h-[100dvh] lg:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
             {/* Split Background */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                <div className={`h-[58%] lg:h-[52%] w-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                <div className="h-[42%] lg:h-[45%] w-full bg-bg-primary" />
+                <div className={`h-[58%] lg:h-[44%] w-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                <div className="h-[42%] lg:h-[56%] w-full bg-bg-primary" />
             </div>
 
             <Container className="relative z-10 min-h-[100dvh] lg:h-full flex flex-col pt-4 lg:pt-8 pb-24 lg:pb-10 overflow-visible">
@@ -54,7 +54,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full mt-auto mb-2 lg:mb-0 lg:mt-32 pointer-events-auto"
+                            className="w-full mt-auto mb-2 lg:mb-28 lg:mt-12 pointer-events-auto"
                         >
                             <p className="hero-intro-text max-w-2xl text-sm md:text-xl lg:text-3xl text-fg-secondary leading-relaxed font-medium mb-4 lg:mb-10">
                                 A <strong className="text-fg-primary font-bold">20-year-old self-taught</strong> <strong className="text-fg-primary font-bold">Full Stack AI Engineer</strong> based in <span className="text-fg-primary">India</span>.
@@ -103,7 +103,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                                     WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)',
                                     maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)'
                                 }}
-                                className="relative w-full h-[110%] lg:h-full object-contain object-bottom drop-shadow-2xl z-10 scale-[1.45] md:scale-[1.3] lg:scale-125 -translate-y-[45%] md:translate-y-[-25%] lg:-translate-y-4"
+                                className="relative w-full h-[110%] lg:h-full object-contain object-bottom drop-shadow-2xl z-10 scale-[1.45] md:scale-[1.3] lg:scale-125 -translate-y-[45%] md:translate-y-[-25%] lg:-translate-y-12"
                             />
                         </motion.div>
                     </div>
