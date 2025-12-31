@@ -8,7 +8,7 @@ interface Project {
     description: string;
     videoUrl: string;
     thumbnailUrl: string;
-    repoUrl: string;
+    repoUrl?: string;
     liveUrl?: string;
 }
 

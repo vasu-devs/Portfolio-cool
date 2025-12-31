@@ -166,12 +166,19 @@ export default function App() {
 
    const projects = [
       {
+         title: 'BranchGPT',
+         category: 'Context Optimization / AI',
+         description: 'A Git-like chat interface that treats conversations as a Directed Acyclic Graph (DAG) for context garbage collection. Features include forking branches and merging insights back to keep AI context clean.',
+         videoUrl: 'https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM',
+         thumbnailUrl: 'https://img.youtube.com/vi/RB3zvAXbpL0/maxresdefault.jpg',
+         liveUrl: 'https://branchgpt.vasudev.live/'
+      },
+      {
          title: 'Vaani',
          category: 'Voice AI / Fintech',
          description: 'An intelligent, voice-native debt collection platform powered by LiveKit, Groq, and Deepgram. Features sub-500ms latency, real-time negotiation, and FDCPA compliance guardrails.',
          videoUrl: 'https://www.youtube.com/watch?v=VsEfOfwh8XM',
          thumbnailUrl: 'https://img.youtube.com/vi/VsEfOfwh8XM/maxresdefault.jpg',
-         repoUrl: 'https://github.com/vasu-devs/Vaani',
          liveUrl: undefined
       },
       {
