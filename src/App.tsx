@@ -296,7 +296,7 @@ export default function App() {
                      <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
                         <Mail className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
-                     <a href="https://www.linkedin.com/in/vasudev-siddh/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
+                     <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
                         <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
                      <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>

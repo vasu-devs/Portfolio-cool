@@ -32,8 +32,8 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
         {
             name: 'LinkedIn',
             icon: <Linkedin size={14} />,
-            detail: 'vasudev-siddh',
-            href: 'https://www.linkedin.com/in/vasudev-siddh/',
+            detail: 'vasu-devs',
+            href: 'https://www.linkedin.com/in/vasu-devs/',
         },
         {
             name: 'X (Twitter)',

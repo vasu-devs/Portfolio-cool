@@ -211,7 +211,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                 <div className="flex gap-[6vw] md:gap-4">
                     <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">GitHub</a>
                     <a href="https://twitter.com/Vasu_DevS" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">Twitter</a>
-                    <a href="https://linkedin.com/in/vasudev-siddh/" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">LinkedIn</a>
                 </div>
             </Container>
 

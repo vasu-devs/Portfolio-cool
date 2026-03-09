@@ -87,7 +87,7 @@ The portfolio highlights several key projects, including:
 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
 
 - **Email**: [siddhvasudev1402@gmail.com](mailto:siddhvasudev1402@gmail.com)
-- **LinkedIn**: [Vasu-DevS](https://www.linkedin.com/in/vasudev-siddh/)
+- **LinkedIn**: [Vasu-DevS](https://www.linkedin.com/in/vasu-devs/)
 - **Twitter**: [@Vasu_DevS](https://twitter.com/Vasu_DevS)
 
 ---
