@@ -12,9 +12,12 @@ import { SunToggle } from './components/ui/SunToggle';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { useLenis } from './hooks/useLenis';
+import type { Project } from './components/sections/Work';
 
 // Lazy load sections and modals
+const Experience = lazy(() => import('./components/sections/Experience').then(m => ({ default: m.Experience })));
 const Work = lazy(() => import('./components/sections/Work').then(m => ({ default: m.Work })));
+const MoreProjects = lazy(() => import('./components/sections/MoreProjects').then(m => ({ default: m.MoreProjects })));
 const Skills = lazy(() => import('./components/sections/Skills').then(m => ({ default: m.Skills })));
 const OssImpact = lazy(() => import('./components/sections/OssImpact').then(m => ({ default: m.OssImpact })));
 const Footer = lazy(() => import('./components/sections/Footer').then(m => ({ default: m.Footer })));
@@ -27,7 +30,7 @@ export default function App() {
    const [isStatsLoading, setIsStatsLoading] = useState(true);
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
-   const [selectedProject, setSelectedProject] = useState<any>(null);
+   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
    const [isNavInverted, setIsNavInverted] = useState(false);
    const [isLoading, setIsLoading] = useState(true);
    const [isTransitioning, setIsTransitioning] = useState(false);
@@ -92,16 +95,18 @@ export default function App() {
                   setStats(prev => ({ ...prev, commits: contributionsData.total.lastYear }));
                } else {
                   // Fallback: sum contributions from the data
-                  const total = contributionsData.contributions?.reduce((acc: number, day: any) => acc + (day.count || 0), 0) || 0;
+                  const total = contributionsData.contributions?.reduce((acc: number, day: { count?: number }) => acc + (day.count || 0), 0) || 0;
                   setStats(prev => ({ ...prev, commits: total }));
                }
             }
 
-            // 2. Fetch Repos for Star Count
-            const repos = await fetchJson('https://api.github.com/users/vasu-devs/repos?per_page=100');
-            if (Array.isArray(repos) && repos.length > 0) {
-               const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
-               setStats(prev => ({ ...prev, stars: totalStars }));
+            // 2. Fetch total stars from a cached counter service.
+            // GitHub's unauthenticated API is capped at 60 req/hr per IP — visitors
+            // on shared NATs/mobile carriers routinely hit the limit and stars fall
+            // back to 0. This worker caches globally and has no practical limit.
+            const starsData = await fetchJson('https://api.github-star-counter.workers.dev/user/vasu-devs');
+            if (starsData && typeof starsData.stars === 'number') {
+               setStats(prev => ({ ...prev, stars: starsData.stars }));
             }
 
             // 3. Fetch PR Count from GitHub API
@@ -155,7 +160,7 @@ export default function App() {
       }, 1200);
    };
 
-   const openModal = (project: any) => {
+   const openModal = (project: Project) => {
       setSelectedProject(project);
       setIsModalOpen(true);
    };
@@ -164,27 +169,161 @@ export default function App() {
       setIsResumeModalOpen(true);
    };
 
-   const projects = [
+   const projects: Project[] = [
       {
          title: 'BranchGPT',
          category: 'Context Optimization / AI',
          description: 'A Git-like chat interface that treats conversations as a Directed Acyclic Graph (DAG) for context garbage collection. Features include forking branches and merging insights back to keep AI context clean.',
+         summary:
+            'Conversations are trees, not lists. BranchGPT reimplements chat as a DAG — fork any message into a parallel reality, explore tangents without polluting the main thread, and smart-merge branches back as LLM-generated summaries.',
+         details: [
+            {
+               title: 'The idea',
+               body:
+                  "Long chat sessions bloat LLM context. Every tangent and dead-end stays in history, burning tokens and diluting relevance. BranchGPT models the conversation as a Git-style DAG — every message is a node, forking spawns a parallel branch that inherits history up to that point, and merging is explicit.",
+            },
+            {
+               title: 'Smart merging',
+               bullets: [
+                  "Llama 3.3 summarizes branches before merging, so the parent only absorbs new insight — not the full branch transcript",
+                  'Merge logic filters out shared history, appending only what\'s new',
+                  'Merges recorded as distinct system events in the chat stream',
+                  'The branch stays intact post-merge — you can keep exploring it',
+               ],
+            },
+            {
+               title: 'Tree navigation',
+               body:
+                  "A visual Git-tree sidebar renders the whole conversation graph. Click any node to jump. Each branch preserves its own history up to the fork point, so context switching is clean and unambiguous.",
+            },
+            {
+               title: 'Stack',
+               bullets: [
+                  'Next.js 16 — App Router + Server Actions',
+                  'Neon Postgres via Drizzle ORM for tree storage',
+                  'Vercel AI SDK wiring to Groq (Llama 3.3) for inference',
+                  'Tailwind 4 + glassmorphic UI, full Markdown + LaTeX support',
+               ],
+            },
+         ],
+         highlights: [
+            'Conversations as DAGs — fork, branch, merge, prune',
+            'LLM-summarized merges retain insight without transcript bloat',
+            'Git-tree sidebar for instant branch navigation',
+         ],
+         tech: ['Next.js 16', 'TypeScript', 'Drizzle ORM', 'Neon Postgres', 'Vercel AI SDK', 'Groq', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM',
          thumbnailUrl: 'https://img.youtube.com/vi/RB3zvAXbpL0/maxresdefault.jpg',
+         repoUrl: 'https://github.com/vasu-devs/BranchGPT',
          liveUrl: 'https://branchgpt.vasudev.live/'
       },
       {
          title: 'Vaani',
          category: 'Voice AI / Fintech',
          description: 'An intelligent, voice-native debt collection platform powered by LiveKit, Groq, and Deepgram. Features sub-500ms latency, real-time negotiation, and FDCPA compliance guardrails.',
+         summary:
+            "Voice-native debt-recovery command center. LiveKit handles real-time transport, Groq runs the LLM, Deepgram does both STT and TTS. Two personas — empathetic Rachel and firm Orion — pick up the phone. A 'Sherlock' risk engine watches every second for compliance and intent.",
+         details: [
+            {
+               title: 'Voice pipeline',
+               bullets: [
+                  'LiveKit Agents for WebRTC transport + SIP outbound calls',
+                  'Deepgram Nova-2 for real-time speech-to-text',
+                  'Groq Llama 3 for low-latency LLM inference',
+                  'Deepgram TTS for natural synthesized speech',
+                  'Sub-500 ms end-to-end latency; full-duplex — debtors can interrupt mid-sentence',
+               ],
+            },
+            {
+               title: 'Two personas',
+               bullets: [
+                  'Rachel — empathetic and patient, tuned for hardship cases',
+                  'Orion — firm and direct, tuned for strategic defaulters',
+               ],
+            },
+            {
+               title: 'Sherlock risk engine',
+               body:
+                  "Every second of every call is analyzed live for compliance and intent. FDCPA guardrails instantly flag Bankruptcy, Attorney Representation and Cease & Desist triggers. Matrix profiling classifies debtors into quadrants (Hardship Case vs Strategic Defaulter). Outcomes are auto-tagged as Promise to Pay, Refusal, or Dispute.",
+            },
+            {
+               title: 'Command Center',
+               body:
+                  'A dark-mode React dashboard streams the live transcript in a hacker-style terminal with risk badges popping in as the AI detects intent. Recovery rates and risk scores aggregate across thousands of calls.',
+            },
+            {
+               title: 'Architecture',
+               bullets: [
+                  'Frontend: React 18 + Vite + Tailwind',
+                  'API: Python + FastAPI — orchestrates calls and SIP handler',
+                  'Agent Worker: LiveKit Agents, runs as a separate process',
+                  'Dockerfiles for DigitalOcean App Platform deployment (API + Worker + Frontend)',
+               ],
+            },
+         ],
+         highlights: [
+            'Sub-500 ms voice latency with full-duplex interruption handling',
+            "Sherlock engine: FDCPA guardrails + debtor-matrix profiling + live PTP/Refusal/Dispute tagging",
+            'Two tuned personas (Rachel / Orion) — dispatch by debtor archetype',
+         ],
+         tech: ['Python', 'FastAPI', 'LiveKit Agents', 'Groq', 'Deepgram', 'React 18', 'Vite', 'Tailwind', 'SIP', 'Docker'],
          videoUrl: 'https://www.youtube.com/watch?v=VsEfOfwh8XM',
          thumbnailUrl: 'https://img.youtube.com/vi/VsEfOfwh8XM/maxresdefault.jpg',
-         liveUrl: undefined
+         repoUrl: 'https://github.com/vasu-devs/Vaani',
       },
       {
          title: 'Odeon',
          category: 'Autonomous Agents',
          description: 'A framework for evolving voice agents through adversarial persona testing. It iteratively self-corrects based on simulation outcomes to improve agent performance.',
+         summary:
+            "AI agent optimization platform. Generate adversarial personas, run high-fidelity simulations, score each conversation against strict KPIs, and let a meta-agent rewrite the prompt automatically when targets are missed — a self-improving loop that converges on the optimal persona.",
+         details: [
+            {
+               title: 'The problem',
+               body:
+                  "Prompt tuning is a black box. You tweak, you hope, you ship. Odeon replaces that with a measurable loop: simulate realistic users, score the agent against numerical KPIs, and auto-rewrite the prompt when it fails.",
+            },
+            {
+               title: 'Personas generated on the fly',
+               body:
+                  "Odeon spawns diverse user personas per scenario — \"The Lawyer,\" \"The Crying Student,\" \"The Stubborn Defaulter,\" etc. Each persona drives the user-side of the simulation, giving the agent genuinely hard traffic to handle.",
+            },
+            {
+               title: 'Strict metric thresholds',
+               bullets: [
+                  'Empathy (1–10)',
+                  'Negotiation (1–10)',
+                  'Repetition (1–10)',
+                  'Agents must meet ALL criteria to pass a scenario — no cherry-picking',
+               ],
+            },
+            {
+               title: 'Self-improving loop',
+               body:
+                  "When the agent fails a threshold, the Optimizer meta-agent reads the failure logs and rewrites the system prompt. The Neural Visual Diffing view renders the prompt change as a Git-style red/green diff — so you can see exactly which words changed to improve empathy or compliance.",
+            },
+            {
+               title: 'Live stream',
+               body:
+                  "A bi-directional WebSocket streams every simulation character-by-character to the frontend. SQLite archives every run for replay, analysis, and forking.",
+            },
+            {
+               title: 'Stack',
+               bullets: [
+                  'FastAPI + WebSockets backend',
+                  'Groq Cloud for ultra-fast LLM inference (Llama 3.1 8B / 70B)',
+                  'LangChain for chain management and structured output parsing',
+                  'SQLite for history & replay',
+                  'React 19 + Vite + TypeScript + Tailwind 4 frontend (neo-brutalist / glassmorphism)',
+               ],
+            },
+         ],
+         highlights: [
+            'Adversarial persona generation for synthetic stress testing',
+            'Meta-agent auto-rewrites prompts when thresholds fail — self-improving loop',
+            'Git-style red/green diff view shows exactly which words changed',
+         ],
+         tech: ['Python', 'FastAPI', 'WebSockets', 'Groq', 'LangChain', 'SQLite', 'React 19', 'Vite', 'TypeScript', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/GFdSe4-c_xQ',
          thumbnailUrl: 'https://img.youtube.com/vi/GFdSe4-c_xQ/maxresdefault.jpg',
          repoUrl: 'https://github.com/vasu-devs/Odeon',
@@ -192,7 +331,57 @@ export default function App() {
       {
          title: 'MapMyRepo',
          category: 'Knowledge Graph / AI',
-         description: 'Turns GitHub profiles into an interactive "Code Universe". Utilizes AI to map languages as planets and repositories as moons, creating a visual knowledge graph.',
+         description: 'Turns any codebase into an interactive knowledge graph. Files and folders become interconnected nodes; Gemini summarizes each, and you can chat with the graph to explore architecture.',
+         summary:
+            "Transforms any codebase — uploaded locally or fetched from a public GitHub URL — into an interactive D3.js force-directed node graph. Every file and folder is a node, Gemini summarizes each one, and a per-node chat panel lets you ask architectural questions directly.",
+         details: [
+            {
+               title: 'What it does',
+               body:
+                  "Point it at a GitHub URL or drag a folder in. MapMyRepo parses the tree, filters out noise (node_modules, .git, build artifacts), and renders it as a force-directed graph you can orbit, zoom, and drill into. The goal: understand complex architectures or onboard into unfamiliar codebases in minutes instead of hours.",
+            },
+            {
+               title: 'Graph interactions',
+               bullets: [
+                  'Scroll to zoom, drag to pan, click a node to select',
+                  'Double-click a folder to expand or collapse its contents',
+                  'Hover highlights connected nodes',
+                  'Distinct icons and colors per file type + folder',
+               ],
+            },
+            {
+               title: 'AI layer (Gemini)',
+               bullets: [
+                  'Per-node architectural summary generated on demand',
+                  'Chat tab per node — "what does this file do?", "where is auth handled?", "explain the routing structure"',
+                  'Contextual answers: Gemini sees the file / folder metadata + related nodes',
+                  'Markdown-rendered responses via Marked',
+               ],
+            },
+            {
+               title: 'Import paths',
+               bullets: [
+                  'Local upload: drag and drop any folder',
+                  'GitHub URL: paste a public repo URL to visualize instantly',
+                  "Optional GitHub PAT raises the 60/hr rate limit ceiling for private repos",
+               ],
+            },
+            {
+               title: 'Stack',
+               bullets: [
+                  'React 19 + TypeScript + Vite 6',
+                  'D3.js 7 for the force-directed graph',
+                  'Google Gemini for per-node summaries and chat',
+                  'Tailwind with glassmorphic sidebar + dark/light theming',
+               ],
+            },
+         ],
+         highlights: [
+            'Interactive force-directed node graph of any codebase',
+            'Gemini-powered per-node summaries + contextual chat',
+            'Load any public GitHub repo by URL — no auth required',
+         ],
+         tech: ['React 19', 'TypeScript', 'Vite 6', 'D3.js 7', 'Google Gemini', 'Tailwind'],
          videoUrl: 'https://youtu.be/EmTDrPzAo40',
          thumbnailUrl: 'https://img.youtube.com/vi/EmTDrPzAo40/maxresdefault.jpg',
          repoUrl: 'https://github.com/vasu-devs/MapMyRepo',
@@ -202,6 +391,54 @@ export default function App() {
          title: 'PolySEE',
          category: 'NLP / Chatbot',
          description: 'A multilingual campus chatbot designed to handle FAQs in regional languages. Maintains conversational context and simplifies student support.',
+         summary:
+            "Multilingual campus FAQ chatbot supporting Hindi, English and 3+ regional languages. RAG over institutional circulars and notices; admin-approval workflow before responses go live; deployable across web, WhatsApp and Telegram.",
+         details: [
+            {
+               title: 'The problem',
+               body:
+                  "Campus offices field the same questions — fee deadlines, scholarship forms, timetable changes — every single day, often in Hindi or regional languages. Staff burn hours on repetition; answers already exist in circulars and PDFs but students want conversation, not search.",
+            },
+            {
+               title: 'RAG pipeline',
+               bullets: [
+                  'Query embedded via local Ollama models',
+                  'Semantic search over institutional documents in ChromaDB',
+                  'Retrieved context + user query sent to Gemini Flash 2.0',
+                  'Response returned with confidence score and source context',
+               ],
+            },
+            {
+               title: 'Admin-approval workflow',
+               body:
+                  "New responses don\u2019t go live unconfirmed. In staging mode, each response shows its confidence score and the retrieved context. Admins approve or reject; only approved responses get promoted into the production dataset. This gives the bot a fact-checked update loop that student volunteers can maintain.",
+            },
+            {
+               title: 'Multi-channel + multi-language',
+               bullets: [
+                  'Embeddable chat widget on the college website',
+                  'WhatsApp + Telegram integrations for wider reach',
+                  'Hindi + English + 3 additional regional languages',
+                  'Confidence-based human fallback when the bot is unsure',
+               ],
+            },
+            {
+               title: 'Stack',
+               bullets: [
+                  'Frontend: React + Tailwind (student chat UI + admin dashboard)',
+                  'Backend: FastAPI (Python) — chat, validation, logging',
+                  'LLM: Gemini Flash 2.0',
+                  'Embeddings: Ollama (local)',
+                  'Vector DB: ChromaDB',
+               ],
+            },
+         ],
+         highlights: [
+            'Hindi + English + 3 regional languages via RAG',
+            'Admin-approval workflow — only validated answers reach production',
+            'Embeddable on web + WhatsApp + Telegram',
+         ],
+         tech: ['React', 'Tailwind', 'FastAPI', 'Python', 'Gemini Flash 2.0', 'Ollama', 'ChromaDB'],
          videoUrl: 'https://youtu.be/6weynv_rblI',
          thumbnailUrl: 'https://img.youtube.com/vi/6weynv_rblI/maxresdefault.jpg',
          repoUrl: 'https://github.com/vasu-devs/PolySEE',
@@ -296,13 +533,14 @@ export default function App() {
                      <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
                         <Mail className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
-                     <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
+                     <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
                         <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
-                     <a href="https://twitter.com/Vasu_DevS" target="_blank" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
+                     <a href="https://twitter.com/Vasu_DevS" target="_blank" rel="noopener noreferrer" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
                         <Twitter className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
                   </div>
+                  <a href="#experience" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Experience</a>
                   <a href="#projects" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Work</a>
                   <a href="#skills" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Skills</a>
                   <a href="#contact" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Contact</a>
@@ -330,7 +568,9 @@ export default function App() {
          {/* All scrollable content - overlaps the fixed Hero */}
          <div className="relative z-20 bg-bg-primary">
             <Suspense fallback={<div className="h-96" />}>
+               <Experience />
                <Work projects={projects} openModal={openModal} />
+               <MoreProjects />
                <Skills />
                <OssImpact stats={stats} isLoading={isStatsLoading} />
                <Footer theme={theme} onResumeClick={openResumeModal} />

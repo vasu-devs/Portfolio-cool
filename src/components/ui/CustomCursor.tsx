@@ -140,17 +140,24 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
         // Check initially
         checkContrast();
 
-        // Check on scroll (throttled)
+        // Re-check on scroll (throttled) and when DOM/theme mutates
         window.addEventListener('scroll', throttledCheck, { passive: true });
 
-        // Interval for dynamic content (keep at 500ms)
-        const interval = setInterval(checkContrast, 500);
+        const mutationObserver = new MutationObserver(throttledCheck);
+        mutationObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme', 'class', 'style'],
+        });
+        mutationObserver.observe(document.body, {
+            childList: true,
+            subtree: true,
+        });
 
         return () => {
             window.removeEventListener('scroll', throttledCheck);
-            clearInterval(interval);
+            mutationObserver.disconnect();
         };
-    }, [theme, isAppTransitioning]); // Add dependencies
+    }, [theme, isAppTransitioning]);
 
     // State for animation duration control
     const [moveDuration, setMoveDuration] = useState(0.1);

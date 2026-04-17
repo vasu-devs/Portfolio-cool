@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { Container } from '../ui/Container';
 import { CaseStudy } from '../CaseStudy';
+import { DetailSection } from '../ui/DetailSections';
 
-interface Project {
+export interface Project {
     title: string;
     category: string;
     description: string;
@@ -10,6 +11,11 @@ interface Project {
     thumbnailUrl: string;
     repoUrl?: string;
     liveUrl?: string;
+    // Rich case-study content rendered below the video in ProjectModal
+    summary?: string;
+    details?: DetailSection[];
+    highlights?: string[];
+    tech?: string[];
 }
 
 interface WorkProps {
@@ -27,12 +33,12 @@ export const Work = ({ projects, openModal }: WorkProps) => {
                     viewport={{ once: true }}
                     className="font-mono text-[2.5vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[6vw] md:mb-16"
                 >
-                    Selected Works
+                    <span className="text-fg-primary/30">02 /</span> Selected Works
                 </motion.h2>
                 <div className="flex flex-col gap-[10vw] md:gap-16">
                     {projects.map((project, i) => (
                         <motion.div
-                            key={i}
+                            key={project.title}
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-10%" }}

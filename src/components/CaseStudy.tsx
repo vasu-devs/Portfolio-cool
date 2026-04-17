@@ -74,14 +74,14 @@ export const CaseStudy = ({
                 <div className="flex gap-[4vw] md:gap-3">
                     {liveUrl && (
                         <MagneticButton>
-                            <a href={liveUrl} target="_blank" className="flex items-center gap-[2vw] md:gap-2 px-[6vw] md:px-6 py-[3vw] md:py-3.5 bg-fg-primary text-bg-primary font-bold font-mono text-[2.5vw] md:text-sm uppercase hover:scale-105 transition-transform">
+                            <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-[2vw] md:gap-2 px-[6vw] md:px-6 py-[3vw] md:py-3.5 bg-fg-primary text-bg-primary font-bold font-mono text-[2.5vw] md:text-sm uppercase hover:scale-105 transition-transform">
                                 Live_Demo <ArrowUpRight className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
                             </a>
                         </MagneticButton>
                     )}
                     {repoUrl && (
                         <MagneticButton>
-                            <a href={repoUrl} target="_blank" className="flex items-center gap-[2vw] md:gap-2 px-[6vw] md:px-6 py-[3vw] md:py-3.5 border border-border-primary font-bold font-mono text-[2.5vw] md:text-sm uppercase hover:bg-bg-secondary transition-colors">
+                            <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-[2vw] md:gap-2 px-[6vw] md:px-6 py-[3vw] md:py-3.5 border border-border-primary font-bold font-mono text-[2.5vw] md:text-sm uppercase hover:bg-bg-secondary transition-colors">
                                 Source_Code <Github className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
                             </a>
                         </MagneticButton>
@@ -90,18 +90,13 @@ export const CaseStudy = ({
             </div>
 
             {/* Visual Side */}
-            <div
-                className="flex-1 w-full aspect-video md:aspect-[4/3] bg-bg-secondary relative overflow-hidden rounded-xl border border-border-primary group cursor-pointer"
-                onClick={() => {
-                    // Ensure it triggers parent's openModal if needed, 
-                    // but CaseStudy is already wrapped in a clickable div in Work.tsx.
-                }}
-            >
+            <div className="flex-1 w-full aspect-video md:aspect-[4/3] bg-bg-secondary relative overflow-hidden rounded-xl border border-border-primary group cursor-pointer">
                 <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%]">
                     {thumbnailUrl ? (
                         <img
                             src={thumbnailUrl}
-                            alt={title}
+                            alt={`${title} — ${category} project preview`}
+                            loading="lazy"
                             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
                         />
                     ) : (

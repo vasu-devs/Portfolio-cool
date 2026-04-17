@@ -1,0 +1,94 @@
+{
+  "fetchedAt": "2026-04-17T19:41:45.431Z",
+  "user": "vasu-devs",
+  "totalPrs": 8,
+  "byRepo": {
+    "SAYOUNCDR/auto-timetable": 1,
+    "lingdojo/kana-dojo": 4,
+    "pqoqubbw/icons": 1,
+    "SAYOUNCDR/NyaySaathi": 1,
+    "EbookFoundation/free-programming-books": 1
+  },
+  "contributions": [
+    {
+      "title": "Added Timetable Scheduler Core logic",
+      "repo": "SAYOUNCDR/auto-timetable",
+      "number": 1,
+      "url": "https://github.com/SAYOUNCDR/auto-timetable/pull/1",
+      "state": "closed",
+      "mergedAt": "2025-12-08T08:33:10Z",
+      "createdAt": "2025-12-08T08:28:06Z",
+      "labels": []
+    },
+    {
+      "title": "[FEATURE] Moonlit Waterfall Theme #144",
+      "repo": "lingdojo/kana-dojo",
+      "number": 197,
+      "url": "https://github.com/lingdojo/kana-dojo/pull/197",
+      "state": "closed",
+      "mergedAt": "2025-11-17T04:59:34Z",
+      "createdAt": "2025-11-16T18:39:46Z",
+      "labels": []
+    },
+    {
+      "title": "[FEATURE] Add Mirage Solis (Stellar Mirage) Theme #143",
+      "repo": "lingdojo/kana-dojo",
+      "number": 196,
+      "url": "https://github.com/lingdojo/kana-dojo/pull/196",
+      "state": "closed",
+      "mergedAt": "2025-11-16T17:42:49Z",
+      "createdAt": "2025-11-16T17:10:36Z",
+      "labels": []
+    },
+    {
+      "title": "[FEATURE] Add Wasabi Garden Theme #155",
+      "repo": "lingdojo/kana-dojo",
+      "number": 195,
+      "url": "https://github.com/lingdojo/kana-dojo/pull/195",
+      "state": "closed",
+      "mergedAt": "2025-11-16T16:54:13Z",
+      "createdAt": "2025-11-16T16:50:22Z",
+      "labels": []
+    },
+    {
+      "title": "Add Wabi dark theme + design documentation",
+      "repo": "lingdojo/kana-dojo",
+      "number": 191,
+      "url": "https://github.com/lingdojo/kana-dojo/pull/191",
+      "state": "closed",
+      "mergedAt": "2025-11-15T19:09:28Z",
+      "createdAt": "2025-11-15T18:04:32Z",
+      "labels": []
+    },
+    {
+      "title": "feat(icon): add animated corner-down-left icon (path draw animation)",
+      "repo": "pqoqubbw/icons",
+      "number": 176,
+      "url": "https://github.com/pqoqubbw/icons/pull/176",
+      "state": "closed",
+      "mergedAt": "2025-11-14T21:53:11Z",
+      "createdAt": "2025-11-08T19:35:49Z",
+      "labels": []
+    },
+    {
+      "title": "Added Backend and restuctured the file structure",
+      "repo": "SAYOUNCDR/NyaySaathi",
+      "number": 1,
+      "url": "https://github.com/SAYOUNCDR/NyaySaathi/pull/1",
+      "state": "closed",
+      "mergedAt": "2025-11-04T05:25:26Z",
+      "createdAt": "2025-11-04T05:22:26Z",
+      "labels": []
+    },
+    {
+      "title": "Add FastAPI to programming cheatsheets",
+      "repo": "EbookFoundation/free-programming-books",
+      "number": 12219,
+      "url": "https://github.com/EbookFoundation/free-programming-books/pull/12219",
+      "state": "closed",
+      "mergedAt": "2025-10-06T15:39:29Z",
+      "createdAt": "2025-10-05T10:11:12Z",
+      "labels": []
+    }
+  ]
+}

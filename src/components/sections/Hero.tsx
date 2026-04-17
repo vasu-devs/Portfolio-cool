@@ -108,9 +108,6 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                         </motion.div>
                     </div>
                 </motion.div>
-
-                {/* Scroll Indicator */}
-
             </Container>
         </section>
     );

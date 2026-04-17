@@ -28,7 +28,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                     setContributionCount(data.total.lastYear);
                 } else if (data && data.contributions) {
                     // Fallback: sum all contributions in the data
-                    const total = data.contributions.reduce((acc: number, day: any) => acc + (day.count || 0), 0);
+                    const total = data.contributions.reduce((acc: number, day: { count?: number }) => acc + (day.count || 0), 0);
                     setContributionCount(total);
                 }
             } catch (e) {
@@ -64,15 +64,15 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
 
     useEffect(() => {
         // Scroll to current month when the calendar container becomes visible
+        let scrollTimer: ReturnType<typeof setTimeout> | null = null;
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting && scrollContainerRef.current) {
-                        // Small delay to ensure calendar has rendered
-                        setTimeout(() => {
-                            if (scrollContainerRef.current) {
-                                const container = scrollContainerRef.current;
-                                // Scroll completely to the end to show December
+                        scrollTimer = setTimeout(() => {
+                            const container = scrollContainerRef.current;
+                            if (container) {
                                 container.scrollLeft = container.scrollWidth;
                             }
                         }, 1000);
@@ -87,7 +87,10 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
             observer.observe(scrollContainerRef.current);
         }
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            if (scrollTimer) clearTimeout(scrollTimer);
+        };
     }, []);
 
     return (
@@ -102,6 +105,9 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             viewport={{ once: true }}
                             className="col-span-1 md:col-span-4"
                         >
+                            <span className="font-mono text-[2.5vw] md:text-base uppercase tracking-widest text-fg-secondary block mb-[3vw] md:mb-4 text-center md:text-left">
+                                <span className="text-fg-primary/30">06 /</span> Contact
+                            </span>
                             <h2 className="font-display font-black text-[16vw] md:text-9xl lg:text-[12rem] leading-[0.75] tracking-tighter uppercase text-center md:text-left">
                                 Let's<br />Talk.
                             </h2>
@@ -192,6 +198,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                                 <a
                                     href={btn.href}
                                     target={btn.href.startsWith('http') ? "_blank" : undefined}
+                                    rel={btn.href.startsWith('http') ? "noopener noreferrer" : undefined}
                                     className={`px-[6vw] md:px-8 py-[3vw] md:py-4 rounded-full font-bold font-mono text-[2.5vw] md:text-base uppercase transition-all flex items-center gap-[2vw] md:gap-3 whitespace-nowrap ${btn.className}`}
                                 >
                                     {btn.icon} {btn.label}

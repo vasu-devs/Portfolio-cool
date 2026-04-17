@@ -1,0 +1,1656 @@
+{
+  "fetchedAt": "2026-04-17T18:41:01.567Z",
+  "user": "vasu-devs",
+  "projects": [
+    {
+      "name": "HireMe",
+      "description": "Automating Hiring Processs",
+      "url": "https://github.com/vasu-devs/HireMe",
+      "homepage": null,
+      "language": null,
+      "stars": 6,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:34Z",
+      "summary": "Experiment in automating the hiring loop end-to-end — job-description parsing, candidate screening and shortlisting via LLMs.",
+      "highlights": [],
+      "tech": [],
+      "details": [],
+      "rank": 5
+    },
+    {
+      "name": "Socratis",
+      "description": "Voice AI Agent-powered technical interview platform with real-time voice interaction, live code feedback, and intelligent assessment using LiveKit, Deepgram, and Groq.",
+      "url": "https://github.com/vasu-devs/Socratis",
+      "homepage": null,
+      "language": "TypeScript",
+      "stars": 2,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:50Z",
+      "summary": "Real-time AI interviewer that runs live coding interviews over WebRTC voice. Candidates code in Monaco while a Python agent watches every keystroke via chat-context injection, asks Socratic hints only when needed, and writes a forensic post-interview report.",
+      "highlights": [
+        "Real-time code awareness — agent sees every edit via chat-context injection",
+        "Socratic method — only speaks when detecting bugs, approach changes or stalls",
+        "Forensic report with exact-quote communication analysis and hallucination cross-checks"
+      ],
+      "tech": [
+        "Next.js 14",
+        "Python",
+        "LiveKit",
+        "Deepgram",
+        "Groq",
+        "MongoDB",
+        "TypeScript",
+        "Express"
+      ],
+      "details": [
+        {
+          "title": "The setup",
+          "body": "Candidate codes in Monaco. A Python voice agent drives the interview over WebRTC with LiveKit for transport, Deepgram for STT and aura-helios TTS, and Silero for voice-activity detection. The model is Groq's Llama-3.3 70B. Frontend is Next.js 14; an Express + MongoDB backend holds sessions."
+        },
+        {
+          "title": "Real-time code awareness",
+          "body": "Earlier versions hallucinated about the candidate's code. V3's fix was Chat Context Injection: every edit in the Monaco editor pushes an explicit system message into the agent's context, so the model literally sees every diff instead of guessing."
+        },
+        {
+          "title": "Behavior rules",
+          "bullets": [
+            "Socratic — hint, don't solve",
+            "Speaks only when detecting bugs, approach changes or stalls",
+            "Adapts to any coding problem; asks for a description when missing",
+            "Cross-references verbal claims against the code to catch overclaims"
+          ]
+        },
+        {
+          "title": "Post-interview forensics",
+          "body": "The same agent runs a second pass after the call ends. Strict Big-O on time and space. Line-by-line bug fixes in \"Line X: [Issue] → [Fix]\" format. Communication analysis citing exact transcript quotes. A hallucination check cross-references the candidate's claims against their actual code. Output renders on a radar-chart result page."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "name": "Waldo",
+      "description": "A production-grade Retrieval-Augmented Generation system with multimodal support for PDFs containing text, images, tables, and charts.",
+      "url": "https://github.com/vasu-devs/Waldo",
+      "homepage": null,
+      "language": "Python",
+      "stars": 2,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-02-17T11:01:00Z",
+      "summary": "Production-grade agentic RAG pipeline that ingests complex PDFs with text, tables, charts and diagrams. Figures are transcribed by Gemini VLM, and a LangGraph agent routes, grades and rewrites queries with strict anti-hallucination guardrails.",
+      "highlights": [
+        "Multimodal ingestion — text + tables + figures in a single pipeline",
+        "LangGraph agent with query rewriting, relevance grading and retry logic",
+        "Refuses out-of-scope questions instead of hallucinating"
+      ],
+      "tech": [
+        "Python",
+        "FastAPI",
+        "React",
+        "Vite",
+        "Qdrant",
+        "LangGraph",
+        "Gemini",
+        "Groq",
+        "Docling"
+      ],
+      "details": [
+        {
+          "title": "The problem",
+          "body": "Most RAG systems only handle text. Waldo is built for real-world docs where the answer might live in a table, bar chart or figure caption — research papers, medical reports, technical spec sheets."
+        },
+        {
+          "title": "Ingestion pipeline",
+          "bullets": [
+            "IBM Docling extracts document structure with high fidelity",
+            "RapidOCR falls back for scanned pages",
+            "Gemini VLM transcribes figures to searchable semantic text",
+            "Sentence Transformers (all-MiniLM-L6-v2) embed chunks into Qdrant"
+          ]
+        },
+        {
+          "title": "Agentic retrieval",
+          "bullets": [
+            "LangGraph routes between direct response and retrieval",
+            "Every retrieved doc gets LLM-graded for relevance",
+            "Failed queries are rewritten (max 2 retries)",
+            "Visual-query detection auto-includes figure transcriptions",
+            "Groq serves the final generation for low latency"
+          ]
+        },
+        {
+          "title": "Guardrails",
+          "body": "Out-of-scope questions are refused, not fabricated. When Gemini quota runs out, the system falls back to Docling's own captions rather than making something up."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "name": "MoltBattles",
+      "description": "",
+      "url": "https://github.com/vasu-devs/MoltBattles",
+      "homepage": null,
+      "language": null,
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:45Z",
+      "summary": "",
+      "highlights": [],
+      "tech": [],
+      "rank": 5
+    },
+    {
+      "name": "Rehab",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Rehab",
+      "homepage": null,
+      "language": null,
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:44Z",
+      "summary": "",
+      "highlights": [],
+      "tech": [],
+      "rank": 5
+    },
+    {
+      "name": "SSS",
+      "description": "Screen Shot Sorter",
+      "url": "https://github.com/vasu-devs/SSS",
+      "homepage": null,
+      "language": "Python",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:37Z",
+      "summary": "Local AI-powered screenshot organizer. Qwen2-VL-2B runs on your GPU, classifying images into nine semantic buckets, extracting URLs, cleaning text and generating per-image markdown logs.",
+      "highlights": [
+        "Fully local inference — no cloud API calls",
+        "Qwen2-VL vision pipeline + URL extraction + text cleaning",
+        "GPU-memory managed: cache clear every 5 images, bfloat16 weights"
+      ],
+      "tech": [
+        "Python",
+        "PyTorch",
+        "Qwen2-VL",
+        "Transformers"
+      ],
+      "details": [
+        {
+          "title": "The problem",
+          "body": "4,000-file screenshot folders with zero structure. Manual sorting is unrealistic."
+        },
+        {
+          "title": "Pipeline",
+          "bullets": [
+            "Vision model (Qwen2-VL-2B via Transformers/PyTorch) ingests each image → structured understanding",
+            "Classifier routes to one of nine categories — anime, tech, hiring, finance, learning, health, news, memes, misc",
+            "Link extractor pulls every URL in the image",
+            "Text cleaner strips hashtags, emojis, formatting noise",
+            "Per-image .txt log in `./output/extracted/` + master `links.md` index"
+          ]
+        },
+        {
+          "title": "Performance tuning",
+          "bullets": [
+            "Model loads once at startup, images process one at a time",
+            "GPU cache clears every 5 images",
+            "Uses `bfloat16` for reduced VRAM footprint",
+            "~5–10 sec per image on RTX 4060 (8 GB VRAM target)",
+            "No cloud API calls — fully local inference"
+          ]
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "DryRunVisualised",
+      "description": "",
+      "url": "https://github.com/vasu-devs/DryRunVisualised",
+      "homepage": "https://visualdsa.vasudev.live",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:35Z",
+      "summary": "Real-time algorithm visualizer that renders data-structure operations in both 2D (SVG) and 3D (WebGL via Three.js). Write Python or C++ in Monaco, hit Run, watch each line execute with full variable inspection.",
+      "highlights": [
+        "Dual 2D / 3D view toggle with draggable nodes in the 3D scene",
+        "50+ pre-built algorithms across searching, sorting, graphs, DP, backtracking",
+        "Per-line trace replay with step forward/backward and speed slider"
+      ],
+      "tech": [
+        "Next.js 16",
+        "React 19",
+        "Three.js",
+        "TypeScript",
+        "Pyodide",
+        "Monaco Editor",
+        "Zustand",
+        "Tailwind"
+      ],
+      "details": [
+        {
+          "title": "What it does",
+          "body": "Write an algorithm, step through its execution, and watch arrays sort, graphs traverse, linked lists re-wire and matrices transform — step by step, with every variable's current state rendered live. Toggle between an interactive 2D view (SVG/DOM) and an immersive 3D scene (Three.js + React Three Fiber) with orbit controls and draggable nodes."
+        },
+        {
+          "title": "Execution pipeline",
+          "bullets": [
+            "Python runs client-side in Pyodide (WebAssembly)",
+            "C++ compiles remotely via Godbolt Compiler Explorer API (GCC 14.1)",
+            "Instrumentation injects `sys.settrace` (Python) and stderr macros (C++)",
+            "Each line emits a JSON snapshot: `{ line, stack, heap, stdout }`",
+            "`vizDetector.ts` classifies variables (array/grid/graph/linked-list/tree/scalar) and routes them"
+          ]
+        },
+        {
+          "title": "Experience details",
+          "bullets": [
+            "50+ pre-built algorithms across searching, sorting, graphs, DP, backtracking",
+            "Resizable panels — editor, variables, visualization",
+            "Amber glow on modified cells, strikethrough on previous values",
+            "Force-directed graph layouts for adjacency-list graphs",
+            "SVG linked-list nodes with data | next compartments and curved arrow connectors"
+          ]
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "name": "Kritrim",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Kritrim",
+      "homepage": null,
+      "language": "Python",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:30Z",
+      "summary": "",
+      "highlights": [],
+      "tech": [],
+      "rank": 5
+    },
+    {
+      "name": "A18-INFINION-",
+      "description": "",
+      "url": "https://github.com/vasu-devs/A18-INFINION-",
+      "homepage": null,
+      "language": "Python",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:29Z",
+      "summary": "Multi-agent static bug detector for specialized C++ (Infineon RDI API). A central Orchestrator dispatches Code Parser, MCP Lookup, Bug Detector and Bug Describer agents through a two-layer detection strategy that boosts confidence when pattern matching and LLM reasoning agree.",
+      "highlights": [
+        "Context-first — pulls API docs via MCP before inspecting the code",
+        "Two-layer detection (pattern + LLM) with consensus-based confidence",
+        "Multi-bug support, per-snippet isolation, CSV in / CSV out"
+      ],
+      "tech": [
+        "Python",
+        "Gemini",
+        "OpenAI",
+        "DeepSeek",
+        "FastMCP"
+      ],
+      "details": [
+        {
+          "title": "The task",
+          "body": "Generic linters miss domain-specific mistakes in specialized C++ because they don't know the API's rules. The Infineon A18 Challenge was to build a reviewer that does."
+        },
+        {
+          "title": "Context-first design",
+          "body": "Before any LLM sees the code, the MCP Lookup Agent queries an MCP server (FastMCP + BGE embeddings) against the RDI API documentation and pulls the relevant rules. Only then does the Bug Detector run — with the API manual already in context."
+        },
+        {
+          "title": "Pipeline",
+          "bullets": [
+            "Orchestrator dispatches agents per snippet",
+            "Code Parser classifies each line (code/comment/preprocessor) + 1-indexed numbering",
+            "MCP Lookup queries the docs server with caching",
+            "Bug Detector runs pattern-match + LLM-reasoning layers; boosts confidence on consensus",
+            "Bug Describer produces human-readable explanations citing the manual"
+          ]
+        },
+        {
+          "title": "Multi-provider",
+          "body": "Gemini 2.0, DeepSeek V3 and GPT-4o are interchangeable. Detections below 70% confidence are dropped. CSV in → CSV out for batch evaluation."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "name": "Portfolio-cool",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Portfolio-cool",
+      "homepage": "https://www.vasudev.live/",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:26Z",
+      "summary": "This portfolio site. Vite + React + TypeScript with Tailwind and Framer Motion. Radial theme toggle, context-aware custom cursor with paint trails, magnetic buttons, live GitHub stats.",
+      "highlights": [
+        "Radial theme transition tied to click coordinates",
+        "Custom cursor with contrast-aware color + paint trails",
+        "Sticky-hero stacked-section scroll pattern powered by Lenis"
+      ],
+      "tech": [
+        "Vite",
+        "React",
+        "TypeScript",
+        "Tailwind",
+        "Framer Motion",
+        "Lenis",
+        "Vercel"
+      ],
+      "details": [
+        {
+          "title": "Signature interactions",
+          "bullets": [
+            "Radial theme transition — click-coordinate-anchored circle expansion",
+            "Custom cursor with contrast-aware color + paint trails + eater bot",
+            "Magnetic buttons that pull toward the cursor",
+            "Film-grain SVG overlay at 3% opacity for analog texture",
+            "Sticky-hero stacked-section scroll pattern via Lenis"
+          ]
+        },
+        {
+          "title": "Live data",
+          "bullets": [
+            "Stars via Cloudflare Workers counter (bypasses GitHub rate limits)",
+            "Commits via the jogruber contributions proxy",
+            "PRs via GitHub's search endpoint"
+          ]
+        },
+        {
+          "title": "Build",
+          "body": "Lazy-loaded sections via React.lazy + Suspense. TypeScript strict mode throughout. 100dvh mobile layouts, AA-contrast foreground colors. Deployed to Vercel."
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "name": "Portfolio-min",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Portfolio-min",
+      "homepage": null,
+      "language": null,
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-04T22:36:22Z",
+      "summary": "",
+      "highlights": [],
+      "tech": [],
+      "rank": 5
+    },
+    {
+      "name": "RupeeRoast",
+      "description": "The AI-powered financial forensic tool that turns messy bank PDFs into actionable insights—and roasts your spending habits",
+      "url": "https://github.com/vasu-devs/RupeeRoast",
+      "homepage": null,
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-01-07T18:06:31Z",
+      "summary": "AI financial forensic tool that parses messy Indian bank PDFs (including UPI), categorizes every transaction via an LLM, and produces both a dashboard and a Groq-powered 'Indian Dad / Gen-Z' roast of your impulsive purchases.",
+      "highlights": [
+        "Universal PDF extraction for messy bank statements incl. UPI transactions",
+        "Roaster persona critiques impulsive spending with data-backed sass",
+        "Interactive charts: category breakdowns, monthly trends, impulsive vs necessary"
+      ],
+      "tech": [
+        "Next.js 15",
+        "React 19",
+        "Tailwind",
+        "Framer Motion",
+        "Recharts",
+        "FastAPI",
+        "Python",
+        "Groq",
+        "Gemini"
+      ],
+      "details": [
+        {
+          "title": "What it does",
+          "body": "Hand it a bank statement PDF (Kotak, HDFC, SBI, whatever). It extracts every transaction including UPI, classifies into categories, and produces two artifacts: an interactive dashboard and a roast of your impulsive spending."
+        },
+        {
+          "title": "Extraction",
+          "bullets": [
+            "PyMuPDF4LLM as the primary parser — much better than plain PyPDF for complex layouts",
+            "PyPDF as fallback for edge cases",
+            "Pydantic-validated schemas throughout"
+          ]
+        },
+        {
+          "title": "AI layer",
+          "bullets": [
+            "Groq Llama-3 for fast categorization",
+            "Gemini generates the 'Indian Dad / Gen-Z' persona roast"
+          ]
+        },
+        {
+          "title": "Frontend",
+          "body": "Next.js 15 App Router + React 19 + Tailwind 4 + Framer Motion. Recharts for the dashboard, Plotly for the complex interactive views. The featured chart is impulsive-vs-necessary. One `python run_delulu.py` boots both services."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "Roadmap-Walkthrough-2025",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Roadmap-Walkthrough-2025",
+      "homepage": null,
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-01-01T05:34:50Z",
+      "summary": "",
+      "highlights": [],
+      "tech": [],
+      "rank": 5
+    },
+    {
+      "name": "Ocular",
+      "description": "Demo Recording software ",
+      "url": "https://github.com/vasu-devs/Ocular",
+      "homepage": null,
+      "language": null,
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-29T18:04:10Z",
+      "summary": "Early-stage demo / screen-recording software.",
+      "highlights": [],
+      "tech": [],
+      "details": [],
+      "rank": 5
+    },
+    {
+      "name": "EmailDrafter",
+      "description": "AI-assisted email drafting app with a Python backend and a modern React + Vite + Tailwind frontend.",
+      "url": "https://github.com/vasu-devs/EmailDrafter",
+      "homepage": "https://email-drafter-three.vercel.app",
+      "language": "JavaScript",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-18T00:11:50Z",
+      "summary": "AI-assisted email drafting app — FastAPI backend, React + Vite + Tailwind frontend. Users enter context and tone/length preferences; the backend calls an LLM to draft or refine; the UI shows live previews.",
+      "highlights": [
+        "Separate /draft and /refine endpoints with prompt-level control",
+        "Hot-reload dev loop via Vite + uvicorn --reload",
+        "Swappable backend — frontend only talks to a thin api.js wrapper"
+      ],
+      "tech": [
+        "React",
+        "Vite",
+        "Tailwind",
+        "Python",
+        "FastAPI"
+      ],
+      "details": [
+        {
+          "title": "What it does",
+          "body": "Two modes: draft from scratch (prompt + optional tone/length hints) and refine (existing draft + instructions). Live preview in the UI before you copy or send."
+        },
+        {
+          "title": "API surface",
+          "bullets": [
+            "POST /api/draft — { prompt, tone?, length? } → { draft }",
+            "POST /api/refine — { draft, instructions } → { draft }"
+          ]
+        },
+        {
+          "title": "Architecture",
+          "body": "Monorepo with `backend/` (Python + venv + requirements.txt) and `frontend/my-app/` (Vite). All API calls funneled through `src/api.js` so the base URL is environment-swappable. Hot reload on both sides."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "Korosuke",
+      "description": "A personal AI sidebar assistant built with PyQt5 and Ollama. It provides a sliding sidebar interface, chat-like conversation, and lightweight integration with LLaMA models.",
+      "url": "https://github.com/vasu-devs/Korosuke",
+      "homepage": null,
+      "language": "Python",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-18T00:10:41Z",
+      "summary": "PyQt5 sliding-sidebar desktop assistant. Chat with a local LLaMA via Ollama, toggle with a hotkey, runs inference on a background thread so the UI never blocks.",
+      "highlights": [
+        "Sliding sidebar UI with non-blocking background worker",
+        "Local Ollama inference — no cloud round-trips",
+        "ESC to hide, re-run to toggle behavior"
+      ],
+      "tech": [
+        "Python",
+        "PyQt5",
+        "Ollama",
+        "LLaMA"
+      ],
+      "details": [
+        {
+          "title": "What it does",
+          "body": "A sidebar that slides in from the screen edge for AI chat, and slides away when dismissed. All inference runs against local Ollama (default `llama3.2:1b`) so it works offline with zero API keys."
+        },
+        {
+          "title": "Details",
+          "bullets": [
+            "PyQt5 with smooth slide animations and styled chat bubbles",
+            "Background QThread worker — UI never freezes during generation",
+            "PID-based hotkey toggle: re-running the script flips visibility",
+            "ESC hides the sidebar"
+          ]
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "LEETCODE",
+      "description": "here i share my leetcode solution, i try to be regular, but lets see how it goes!!!! HOPE IT HELPS!",
+      "url": "https://github.com/vasu-devs/LEETCODE",
+      "homepage": null,
+      "language": "C++",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-10T08:59:26Z",
+      "summary": "Personal archive of LeetCode solutions in C++. Updated as I solve problems — a reference for my own review, not a product.",
+      "highlights": [],
+      "tech": [
+        "C++"
+      ],
+      "details": [],
+      "rank": 5
+    },
+    {
+      "name": "NyaySaathi",
+      "description": "Legal Help assistant prototype for AIU",
+      "url": "https://github.com/vasu-devs/NyaySaathi",
+      "homepage": null,
+      "language": "Python",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-10T08:59:20Z",
+      "summary": "RAG-based legal assistant for Indian law. Admins upload PDFs/DOCX through a portal; the backend chunks, embeds and stores locally in Qdrant. Citizens chat with citation-backed answers in English or Indian languages. Zero Docker — runs natively.",
+      "highlights": [
+        "Local Qdrant — zero-infra RAG setup",
+        "Document-scoped NyayLens mode for deep-diving a single uploaded file",
+        "SSE-streamed typewriter-style responses"
+      ],
+      "tech": [
+        "FastAPI",
+        "Python",
+        "React 19",
+        "Vite",
+        "Tailwind",
+        "Qdrant",
+        "Gemini",
+        "Sentence Transformers"
+      ],
+      "details": [
+        {
+          "title": "What it is",
+          "body": "Upload legal PDFs (Constitution of India, bare acts, case summaries), chat with citation-backed answers. Designed to be stood up by someone non-technical on a single machine."
+        },
+        {
+          "title": "Architecture — local everything",
+          "bullets": [
+            "Qdrant in local mode (no server, no Docker)",
+            "Sentence Transformers (all-MiniLM-L6-v2 or bge-m3) for embeddings",
+            "PyMuPDF / python-docx for extraction; background tasks keep the UI responsive",
+            "Gemini 2.0 Flash or OpenAI GPT-4o for generation",
+            "FastAPI + React 19 + Vite + Tailwind 4"
+          ]
+        },
+        {
+          "title": "Modes",
+          "bullets": [
+            "Main chat — query the whole corpus",
+            "NyayLens — scope the query to a single uploaded document",
+            "NyayShala — daily curated legal snippets to improve legal literacy"
+          ]
+        },
+        {
+          "title": "Delivery",
+          "body": "SSE-streamed typewriter responses. Default admin login out of the box. Resetting the index is as simple as deleting the `.qdrant_data` folder."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "ASCIIRealTime",
+      "description": "Real Time ASCII video streaming using user camera",
+      "url": "https://github.com/vasu-devs/ASCIIRealTime",
+      "homepage": "https://ascii-real-time.vercel.app",
+      "language": "HTML",
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-03T15:29:22Z",
+      "summary": "Browser demo that turns your webcam feed into real-time ASCII or emoji art. Optional MediaPipe Selfie Segmentation masks the background. Zero build — vanilla JS + Tailwind via CDN.",
+      "highlights": [
+        "ASCII text mode + emoji-canvas mode with per-glyph caching",
+        "MediaPipe Selfie Segmentation for optional background removal",
+        "Privacy — all processing in-browser, video never leaves your device"
+      ],
+      "tech": [
+        "JavaScript",
+        "Tailwind",
+        "MediaPipe"
+      ],
+      "details": [
+        {
+          "title": "How it works",
+          "bullets": [
+            "Samples camera frames to an offscreen canvas at a dynamic grid size",
+            "Per-cell luminance via perceptual luma: `0.2126R + 0.7152G + 0.0722B`",
+            "Maps brightness → character from active palette (light → dark)",
+            "Image smoothing disabled everywhere for pixel-crisp edges"
+          ]
+        },
+        {
+          "title": "Modes",
+          "bullets": [
+            "ASCII text — `<pre>` with dynamically-sized font",
+            "Emoji — `<canvas>` grid with per-glyph bitmap caching for alignment",
+            "Palettes: Basic, Extended, Blocks, Emoji, Custom"
+          ]
+        },
+        {
+          "title": "Privacy",
+          "body": "All processing in-browser. Video never leaves the device. External libraries load from CDNs."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "Health-os",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Health-os",
+      "homepage": null,
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-15T10:05:38Z",
+      "summary": "Mobile-first PWA dashboard for workouts and meals. Next.js 14 App Router with a viewport-locked layout where only internal panes scroll — the page itself never grows a scrollbar.",
+      "highlights": [
+        "Installable PWA with offline-ready service worker",
+        "Viewport-locked (100dvh) layout with internal scroll panes only",
+        "Mobile-first responsive design"
+      ],
+      "tech": [
+        "Next.js 14",
+        "TypeScript",
+        "Tailwind",
+        "next-pwa"
+      ],
+      "details": [
+        {
+          "title": "What it is",
+          "body": "A progressive web app. Add to home screen on mobile and it runs like a native app. Service worker is only generated in production build (next-pwa is disabled in dev by design)."
+        },
+        {
+          "title": "The layout trick",
+          "body": "Whole page is locked to `h-[100dvh]` with `overflow-hidden` on the outer body. Only the workout list and meal list scroll internally. On mobile, `100dvh` handles the browser chrome properly so the app uses the full available screen at all times."
+        },
+        {
+          "title": "Stack",
+          "bullets": [
+            "Next.js 14 App Router",
+            "TypeScript",
+            "Tailwind",
+            "next-pwa for the service worker generation"
+          ]
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "GitArt",
+      "description": "",
+      "url": "https://github.com/vasu-devs/GitArt",
+      "homepage": "https://git-art-iota.vercel.app",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-04-14T19:03:48Z",
+      "summary": "Browser-based tool that lets you paint your GitHub contribution graph like a canvas. Design a 52×7 heatmap, the app builds a real Git repository — in-browser via isomorphic-git on memfs, zipped with JSZip — whose commit timestamps reproduce that design when pushed.",
+      "highlights": [
+        "Runs entirely in-browser — no server, no GitHub API, no fake identities",
+        "30+ built-in templates (Pac-Man, QR code, Christmas tree, Nyan trail…)",
+        "Image drop-in with 5-band quantization + text-to-pixels bitmap font"
+      ],
+      "tech": [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "Tailwind",
+        "isomorphic-git",
+        "memfs",
+        "JSZip"
+      ],
+      "details": [
+        {
+          "title": "The concept",
+          "body": "GitHub's profile page renders your commit activity as a 52-week × 7-day heatmap. GitArt treats that grid as a painter's canvas: pick colors, draw a design, and the app builds a real Git repo whose commit timestamps reproduce the design when pushed to a fresh empty repo."
+        },
+        {
+          "title": "Everything runs in the browser",
+          "bullets": [
+            "isomorphic-git on a memfs virtual filesystem",
+            "JSZip packages .git/ + files into a single zip",
+            "No server writes, no GitHub API calls, no fake identities"
+          ]
+        },
+        {
+          "title": "Intensity mapping",
+          "body": "Cells have intensity 0–4 mapping to 0 / 1 / 5 / 10 / 20 commits per day. The brightest cell (20 commits) stays within GitHub's \"active user\" bucket so the graph looks dramatic without looking synthetic."
+        },
+        {
+          "title": "Design tools",
+          "bullets": [
+            "Brush (levels 0–4) + eraser",
+            "Drop-in images quantized to 5 intensity bands",
+            "Text-to-pixels via bitmap font",
+            "30+ templates — Pac-Man Chase, QR Code, Matrix Rain, Nyan Trail, Christmas Tree, Fireworks…",
+            "Time Machine — target any year 2022–2027, anchors to the first Sunday of that year"
+          ]
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "name": "GhostSyncWeb",
+      "description": "",
+      "url": "https://github.com/vasu-devs/GhostSyncWeb",
+      "homepage": "https://ghost-sync-web.vercel.app",
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-01-31T15:44:44Z",
+      "summary": "Web companion for the GhostSync desktop app — landing page and setup walkthrough for the Telegram-controlled Antigravity IDE bridge.",
+      "highlights": [],
+      "tech": [
+        "HTML",
+        "CSS"
+      ],
+      "details": [],
+      "rank": 5
+    },
+    {
+      "name": "GhostSync",
+      "description": "Control Antigravity IDE remotely via Telegram - from anywhere in the world.",
+      "url": "https://github.com/vasu-devs/GhostSync",
+      "homepage": null,
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-01-31T15:42:54Z",
+      "summary": "Windows app that exposes Antigravity IDE to a private Telegram bot over a Cloudflare Tunnel, so you can trigger AI prompts and receive live IDE screenshots from anywhere — with a strict user whitelist and rate limiting.",
+      "highlights": [
+        "Auto-generated Cloudflare tunnel — no port-forwarding required",
+        "Live IDE screenshots streamed back over Telegram",
+        "User-ID whitelist, rate limits, auto-deleted screenshots"
+      ],
+      "tech": [
+        "Python",
+        "python-telegram-bot",
+        "CustomTkinter",
+        "Cloudflared",
+        "PyAutoGUI"
+      ],
+      "details": [
+        {
+          "title": "What it does",
+          "body": "Run Antigravity on your PC, configure GhostSync with your Telegram bot token and user ID, click Connect. From any Telegram client you can now send a folder path to open, fire AI prompts, and receive live screenshots of your IDE."
+        },
+        {
+          "title": "How the bridge works",
+          "bullets": [
+            "Auto-downloads `cloudflared.exe` and spawns a Cloudflare Tunnel",
+            "python-telegram-bot listens for authorized commands",
+            "PyAutoGUI automates IDE input (window detection via %LOCALAPPDATA%)",
+            "CustomTkinter GUI; single PyInstaller .exe for non-Python users"
+          ]
+        },
+        {
+          "title": "Security",
+          "bullets": [
+            "User-ID whitelist — only your Telegram account can issue commands",
+            "10 req/min rate limit",
+            "Screenshots auto-deleted after sending",
+            "Logs sanitize sensitive data",
+            "Credentials in %USERPROFILE%\\.ghostsync\\.env — never uploaded"
+          ]
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "Aura-Portfolio",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Aura-Portfolio",
+      "homepage": null,
+      "language": null,
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-01-12T21:18:28Z",
+      "summary": "",
+      "highlights": [],
+      "tech": [],
+      "rank": 5
+    },
+    {
+      "name": "InfoVis",
+      "description": "",
+      "url": "https://github.com/vasu-devs/InfoVis",
+      "homepage": "https://info-vis-ten.vercel.app",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-01-08T13:45:36Z",
+      "summary": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+      "highlights": [],
+      "tech": [
+        "React",
+        "Vite",
+        "TypeScript"
+      ],
+      "rank": 5
+    },
+    {
+      "name": "Kyoka",
+      "description": "Kyoka: Elite behavioral intelligence unit that transforms raw OSINT into deep psychological dossiers and actionable negotiation strategies using multi-agent AI.",
+      "url": "https://github.com/vasu-devs/Kyoka",
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-01-07T18:11:42Z",
+      "summary": "OSINT-driven behavioral intelligence app. A tri-agent LangChain pipeline reads a target's digital footprint, synthesizes DISC and Big-Five traits, then produces actionable 'Battle Cards' with DOs, DON'Ts and opening lines.",
+      "highlights": [
+        "Tri-agent pipeline: researcher → analyst → tactician",
+        "DISC + Big-Five + ego-hook detection from LinkedIn / GitHub / Twitter content",
+        "Luxury-tool UI with radar charts, magnetic hovers, chat simulator"
+      ],
+      "tech": [
+        "React",
+        "Vite",
+        "Tailwind",
+        "Framer Motion",
+        "FastAPI",
+        "Python",
+        "LangChain",
+        "Gemini",
+        "DeepSeek",
+        "Tavily"
+      ],
+      "details": [
+        {
+          "title": "The premise",
+          "body": "In most high-stakes meetings you know someone's title but not their core drivers, shadow traits or preferred communication protocol. Kyoka closes that gap."
+        },
+        {
+          "title": "Tri-agent pipeline",
+          "bullets": [
+            "Deep Diver (Tavily Search) — OSINT across LinkedIn, GitHub, X, YouTube",
+            "PsychProfiler (DeepSeek-V3 / Gemini) — DISC, Big-Five, archetypes, ego hooks",
+            "Strategist (GPT-4o / Gemini) — Battle Card with DOs, DON'Ts, opening lines"
+          ]
+        },
+        {
+          "title": "Backend",
+          "body": "FastAPI + LangChain. A unified `run.py` creates the venv, installs both Python and Node deps, and launches backend + frontend in parallel."
+        },
+        {
+          "title": "Frontend",
+          "body": "\"Charcoal & Gold\" luxury-concierge aesthetic — Playfair Display for headings, Inter for data. Radar charts visualize personality skew. Reveal cards, magnetic hovers, and a chat simulator let you rehearse the conversation before it happens."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "name": "BranchGPT-Extension",
+      "description": "",
+      "url": "https://github.com/vasu-devs/BranchGPT-Extension",
+      "homepage": null,
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-31T11:58:33Z",
+      "summary": "Chrome extension that turns ChatGPT into a DAG-based chat tool. Fork any message into a parallel branch, visualize the tree in a side panel, and keep context clean. All data stored locally via IndexedDB.",
+      "highlights": [
+        "True branching — fork any message into a parallel reality",
+        "Conversation tree rendered in a sleek side panel",
+        "Local-only IndexedDB storage; injects directly into the ChatGPT UI"
+      ],
+      "tech": [
+        "Vite",
+        "React",
+        "TypeScript",
+        "Tailwind",
+        "Dexie.js",
+        "CRXJS"
+      ],
+      "details": [
+        {
+          "title": "What it does",
+          "body": "Injects directly into the ChatGPT UI — no new surface to learn. Adds a Fork button to every message. Clicking it spawns a parallel branch from that point; the parent chat stays intact. A side panel visualizes the whole conversation tree so you can flip between branches or prune the ones that didn't pan out."
+        },
+        {
+          "title": "Tech",
+          "bullets": [
+            "Vite + CRXJS — Manifest V3 native build",
+            "React + TypeScript + Tailwind",
+            "Dexie.js over IndexedDB for local storage"
+          ]
+        },
+        {
+          "title": "Privacy",
+          "body": "Everything local. No external servers, no analytics, no telemetry. Every branch, every message, every tree structure stays on your machine."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "PixelForge",
+      "description": "PixelForge Studio is a high-performance, aesthetically pleasing image-to-ASCII art converter built with JavaFX. It transforms your images into detailed ASCII representations with a sleek \"Matrix-style\" dark interface.",
+      "url": "https://github.com/vasu-devs/PixelForge",
+      "homepage": null,
+      "language": "Java",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-24T08:50:37Z",
+      "summary": "JavaFX image-to-ASCII converter with a multi-threaded rendering engine. Real-time preview with debounced slider, full-color per-character mode, and HD PNG export at original image dimensions.",
+      "highlights": [
+        "Multi-threaded canvas engine — UI stays smooth while rendering",
+        "Full-color per-character mode based on original image data",
+        "Ultra-HD PNG export at source image dimensions"
+      ],
+      "tech": [
+        "Java 17",
+        "JavaFX",
+        "Maven"
+      ],
+      "details": [
+        {
+          "title": "Engine",
+          "bullets": [
+            "Multi-threaded background rendering — UI thread never blocks",
+            "Smart slider debouncing — one render fires when you stop dragging",
+            "Adaptive viewport — art scales to window dimensions",
+            "Dark-theme UI with smooth animations"
+          ]
+        },
+        {
+          "title": "Output",
+          "body": "Full-color mode samples the original image's pixel colors and applies them per-character, creating the illusion of the original image through typography. Download triggers a dedicated HD render pass at the source image's original resolution — so a 4K input gives you a 4K ASCII PNG, not a screenshot."
+        },
+        {
+          "title": "Build",
+          "body": "Java 17 + JavaFX 17, packaged with Maven. Run via `mvn javafx:run`."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "Maze-Pathfinder-Visualizer",
+      "description": "An interactive Pygame-based maze pathfinding visualizer that demonstrates four classic pathfinding algorithms: BFS, DFS, Dijkstra, and A*. Watch in real-time as different algorithms explore a randomly generated maze to find the shortest path from start to finish!",
+      "url": "https://github.com/vasu-devs/Maze-Pathfinder-Visualizer",
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-18T00:12:57Z",
+      "summary": "Pygame-based pathfinding visualizer comparing BFS, DFS, Dijkstra and A* side-by-side on procedurally generated mazes. Per-algorithm color coding, 60 FPS step-by-step exploration.",
+      "highlights": [
+        "4 classic algorithms: BFS, DFS, Dijkstra, A* with Manhattan heuristic",
+        "Procedural maze generation via recursive backtracking",
+        "60 FPS visualization with per-algorithm metrics"
+      ],
+      "tech": [
+        "Python",
+        "Pygame"
+      ],
+      "details": [
+        {
+          "title": "How it works",
+          "bullets": [
+            "Mazes generated via recursive backtracking (stack-based DFS → one solution)",
+            "45×45 cell grid at 15 px/cell (675×675 window) — 60 FPS animation",
+            "Path reconstruction via parent pointers stored in `visited: {cell: parent}`",
+            "A* uses Manhattan distance as its admissible heuristic"
+          ]
+        },
+        {
+          "title": "Color coding",
+          "bullets": [
+            "Blue — BFS explored cells",
+            "Red — DFS explored cells",
+            "Green — Dijkstra explored cells",
+            "Yellow — A* explored cells",
+            "Orange — final shortest path"
+          ]
+        },
+        {
+          "title": "Controls",
+          "body": "Press 1–4 to select algorithm, SPACE to run, R to generate a new maze, ESC to quit. Each run displays path length and wall-clock execution time."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "weather-dashboard-ai",
+      "description": "An AI-powered weather dashboard combining real-time weather data from OpenWeatherMap with lifestyle suggestions generated via the OpenRouter API (DeepSeek model). The project consists of a FastAPI backend and a React + Vite + TailwindCSS frontend.",
+      "url": "https://github.com/vasu-devs/weather-dashboard-ai",
+      "homepage": "https://weather-dashboard-ai.vercel.app",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-12-18T00:11:00Z",
+      "summary": "React + FastAPI weather dashboard combining OpenWeatherMap data with AI-generated lifestyle suggestions (clothing, activity, precaution) from OpenRouter's DeepSeek model.",
+      "highlights": [
+        "Fused weather data + AI-generated daily suggestions",
+        "JSON-only LLM prompt for reliable structured output",
+        "CORS-ready split frontend/backend, Heroku-style Procfile included"
+      ],
+      "tech": [
+        "React 19",
+        "Vite",
+        "Tailwind",
+        "Axios",
+        "FastAPI",
+        "Python",
+        "DeepSeek",
+        "OpenWeatherMap"
+      ],
+      "details": [
+        {
+          "title": "Flow",
+          "bullets": [
+            "User enters a city in the frontend",
+            "Frontend hits GET `/weather/{city}`",
+            "Backend fetches current weather from OpenWeatherMap",
+            "Backend passes weather JSON to OpenRouter DeepSeek with a JSON-only prompt",
+            "AI returns structured JSON (activity/precaution/clothing) → merged with weather data"
+          ]
+        },
+        {
+          "title": "Reliability",
+          "body": "Constrained JSON-only prompting means the LLM can't free-form — parsing the response into typed fields is deterministic."
+        },
+        {
+          "title": "Stack",
+          "body": "Frontend: React 19 + Vite 7 + Axios + Tailwind. Backend: FastAPI + Uvicorn + Requests + Pydantic. Procfile included for Heroku-style deploy."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "HoleEmAll",
+      "description": "a simple python 2d game",
+      "url": "https://github.com/vasu-devs/HoleEmAll",
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-11-07T14:05:55Z",
+      "summary": "Casual mouse-driven Pygame arcade. Grow a black hole by absorbing red fruits scattered on the field; each catch grows the hole by 1 pixel, creating a natural difficulty curve.",
+      "highlights": [
+        "Dynamic difficulty — hole grows 1px per fruit absorbed",
+        "Randomized fruit placement each round",
+        "Win/lose overlay with instant restart"
+      ],
+      "tech": [
+        "Python",
+        "Pygame"
+      ],
+      "details": [
+        {
+          "title": "The loop",
+          "body": "Thirty fruits are randomly scattered on an 800×600 field. Your hole follows the cursor. Absorb them all before time runs out; each absorption grows the hole and increases your score."
+        },
+        {
+          "title": "Under the hood",
+          "bullets": [
+            "Euclidean distance check between cursor center and each fruit",
+            "Hole grows 1 px per fruit absorbed",
+            "Win: all fruits absorbed before timer expires",
+            "Lose: timer expires with fruits remaining",
+            "SPACE restarts from either end state"
+          ]
+        }
+      ],
+      "rank": 4
+    },
+    {
+      "name": "MaintMaster",
+      "description": "A chatbot which integrates Gemini API to have a chatbot helping in house maintainance and tracking",
+      "url": "https://github.com/vasu-devs/MaintMaster",
+      "homepage": null,
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-11-07T14:05:40Z",
+      "summary": "Single-page front-end seed for maintenance scheduling and task tracking. Plain HTML/CSS/JS with zero build step — drop onto any static host and it serves.",
+      "highlights": [
+        "Zero build pipeline — pure static HTML/CSS/JS",
+        "Deployable to GitHub Pages / Netlify / S3 out of the box",
+        "Starting point for small-team maintenance workflows"
+      ],
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "details": [
+        {
+          "title": "What it is",
+          "body": "Deliberately minimal: one `index.html` with supporting styles, optimized for quick deployment of a maintenance-tracking UI. No framework, no build tool, no package.json."
+        },
+        {
+          "title": "Deploy",
+          "bullets": [
+            "Drop onto GitHub Pages, Netlify, or S3",
+            "Or preview locally with `python -m http.server 8000`"
+          ]
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "name": "RealTimeMemoryAllocationSimulator",
+      "description": "Real Time Memory Allocation Simulator",
+      "url": "https://github.com/vasu-devs/RealTimeMemoryAllocationSimulator",
+      "homepage": null,
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-11-07T14:02:26Z",
+      "summary": "Browser-based memory-allocation simulator running from a single index.html. A concrete, visual way to explore OS concepts like fragmentation and allocation strategies.",
+      "highlights": [
+        "Single-file HTML — runs anywhere",
+        "No build pipeline, no dependencies",
+        "Refresh-to-see-changes dev loop"
+      ],
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "details": [
+        {
+          "title": "What it is",
+          "body": "One HTML file that opens in a browser and lets you visualize allocation/deallocation behavior in real time. Pairs well with an OS course."
+        },
+        {
+          "title": "Setup",
+          "bullets": [
+            "Open `index.html` directly or serve over HTTP",
+            "`python -m http.server 8000` for a local server",
+            "No build step, no dependencies"
+          ]
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "name": "CultureCompass",
+      "description": "A chatbot which integrates Gemini API to have a chatbot that teaches about etiquettes and customs around the world ",
+      "url": "https://github.com/vasu-devs/CultureCompass",
+      "homepage": null,
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-11-07T13:49:06Z",
+      "summary": "Minimal static-site seed built around a single index.html — a starting point for cultural storytelling, interactive exhibits, or portfolio microsites.",
+      "highlights": [
+        "Minimal single-file scaffold, opinion-free",
+        "Accessibility-focused semantic HTML",
+        "Ready to be extended with any static-site toolchain"
+      ],
+      "tech": [
+        "HTML",
+        "CSS"
+      ],
+      "details": [
+        {
+          "title": "Philosophy",
+          "body": "Simple, fast, and accessible by default. Opinion-free — extend with JavaScript, a CSS framework, or wrap in a static-site generator when the project outgrows a single HTML file."
+        },
+        {
+          "title": "Workflow",
+          "bullets": [
+            "Open in VS Code",
+            "Live Server for auto-reload",
+            "Edit index.html, refresh",
+            "No dependencies, no build step"
+          ]
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "name": "travel-Vlog",
+      "description": "",
+      "url": "https://github.com/vasu-devs/travel-Vlog",
+      "homepage": null,
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-11-07T13:41:31Z",
+      "summary": "Static travel site documenting trips across India. One HTML page per destination (Goa, Hampi, Munnar, Ziro Valley, Amritsar, and more). Deployable to GitHub Pages with no build step.",
+      "highlights": [
+        "One HTML page per destination with shared styling",
+        "Deployable to GitHub Pages out of the box",
+        "Optional login scaffold via login.js"
+      ],
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "details": [
+        {
+          "title": "Structure",
+          "bullets": [
+            "Home page (`index.html`)",
+            "One HTML page per destination",
+            "Optional login UI (login.html + login.js)",
+            "`image/` and `video/` directories for media"
+          ]
+        },
+        {
+          "title": "Styling",
+          "body": "Split across multiple CSS files by region — `south india.css`, `north india.css`, `north east.css` — plus page-specific files. Known cleanup: some filenames contain spaces which work locally but aren't URL-portable."
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "name": "sidz-cafe",
+      "description": "",
+      "url": "https://github.com/vasu-devs/sidz-cafe",
+      "homepage": null,
+      "language": "CSS",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-11-07T13:40:36Z",
+      "summary": "Static restaurant website with home + 8 category pages, driven by a single dishes.json with 700+ items. Client-side cart panel, embedded Google Map. No build.",
+      "highlights": [
+        "Menu driven entirely by dishes.json — no build step",
+        "Eight category pages with dedicated styling",
+        "Horizontal-scroll dish carousels with next/prev navigation"
+      ],
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "details": [
+        {
+          "title": "Content model",
+          "body": "All menu items live in `dishes.json` (id, name, price, category) — adding items is a JSON edit, no HTML changes needed. `shoppingcartjs.js` fetches it on page load."
+        },
+        {
+          "title": "Pages",
+          "bullets": [
+            "Home — hero + category tiles + embedded Google Map",
+            "Eight category pages — Italian, Chinese, American, Indian, Breakfast, Lunch, Shakes, Mocktails",
+            "Each category has its own CSS file for distinct styling"
+          ]
+        },
+        {
+          "title": "UI details",
+          "body": "Horizontal-scroll dish carousels with next/prev buttons. Cart UI toggles a `showcart` class on the body. Preview locally via `python -m http.server 8000` (the JSON fetch needs HTTP, not `file://`)."
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "name": "password-generator-and-validator",
+      "description": "",
+      "url": "https://github.com/vasu-devs/password-generator-and-validator",
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-11-07T13:36:13Z",
+      "summary": "Interactive Python CLI: validate password strength against composition rules, or generate random passwords of length 6–10 that satisfy those rules. Standard library only.",
+      "highlights": [
+        "Validation returns targeted hints when specific rules fail",
+        "Generator seeds upper + lower + digit + special before filling",
+        "Pure stdlib — zero external dependencies"
+      ],
+      "tech": [
+        "Python"
+      ],
+      "details": [
+        {
+          "title": "Rules",
+          "bullets": [
+            "At least one uppercase A–Z",
+            "At least one lowercase a–z",
+            "At least one digit 0–9",
+            "At least one special character from !@#$%^&*",
+            "No whitespace"
+          ]
+        },
+        {
+          "title": "Generator",
+          "body": "Seeds the first four characters — one of each required class — then fills the remaining characters from a mixed pool. Length 6 passwords always have all four required classes covered."
+        },
+        {
+          "title": "Caveats",
+          "body": "Uses Python's `random` module which is not cryptographically secure — for high-security use cases, swap in `secrets` from the stdlib."
+        }
+      ],
+      "rank": 4
+    },
+    {
+      "name": "air-aware-website",
+      "description": "a website that explains air pollution , its solutions , various blogs on air pollution , also tells the stories of the most disastrous events that occurred due to air pollution, also provides latest AQI , CO2 levels etc of almost all cities, using external links",
+      "url": "https://github.com/vasu-devs/air-aware-website",
+      "homepage": null,
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-11-07T08:14:56Z",
+      "summary": "Educational static landing page about air quality awareness. Curated sections on pollution disasters, WHO/EPA/NRDC resources, and actionable guidance. Plain HTML/CSS.",
+      "highlights": [
+        "Curated sections on disasters, resources, and actionable guidance",
+        "Responsive semantic HTML with Google Fonts typography",
+        "Static — deployable to any static host"
+      ],
+      "tech": [
+        "HTML",
+        "CSS"
+      ],
+      "details": [
+        {
+          "title": "Sections",
+          "bullets": [
+            "Hero banner with city suggestions via `<datalist>`",
+            "Featured air pollution disasters with external references",
+            "Information + solutions (WHO, EPA, NRDC)",
+            "About section describing the mission"
+          ]
+        },
+        {
+          "title": "Stack",
+          "bullets": [
+            "HTML5 + CSS3",
+            "Google Fonts: Satisfy, Barlow Condensed, Roboto",
+            "Responsive semantic markup",
+            "No JavaScript yet — datalist suggestions need a small JS enhancement"
+          ]
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "name": "fastapi-cheatsheet",
+      "description": "📘 A comprehensive FastAPI Cheat Sheet (Markdown + PDF)",
+      "url": "https://github.com/vasu-devs/fastapi-cheatsheet",
+      "homepage": null,
+      "language": null,
+      "stars": 0,
+      "forks": 1,
+      "topics": [],
+      "updatedAt": "2025-10-05T09:53:48Z",
+      "summary": "Single-page FastAPI reference. Snippets organized by topic — not a product, just a scratchpad you keep open while building.",
+      "highlights": [
+        "Copy-paste snippets for every common FastAPI pattern",
+        "Covers auth (OAuth2, API keys), background tasks, testing, CORS",
+        "Includes a SQLAlchemy integration example"
+      ],
+      "tech": [
+        "Python",
+        "FastAPI",
+        "Pydantic",
+        "SQLAlchemy"
+      ],
+      "details": [
+        {
+          "title": "Coverage",
+          "bullets": [
+            "Routing + path/query params",
+            "Pydantic models — request bodies, response_model, Query/Path validation",
+            "Depends() dependency injection",
+            "OAuth2 JWT + API-key security",
+            "File uploads + form data",
+            "Cookies + headers",
+            "Background tasks",
+            "Middleware & startup/shutdown events",
+            "SQLAlchemy integration",
+            "Testing via TestClient",
+            "CORS + auto-docs (/docs, /redoc)"
+          ]
+        },
+        {
+          "title": "Performance tips included",
+          "bullets": [
+            "`async def` for I/O tasks",
+            "`response_model` to filter outputs",
+            "Lifespan events for DB connections",
+            "BackgroundTasks or Celery for heavy work"
+          ]
+        }
+      ],
+      "rank": 4
+    },
+    {
+      "name": "ChatBotUI",
+      "description": "",
+      "url": "https://github.com/vasu-devs/ChatBotUI",
+      "homepage": null,
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 2,
+      "topics": [],
+      "updatedAt": "2025-09-24T14:41:14Z",
+      "summary": "React + Vite college-assistant front-end with three portals sharing a unified theme — landing, student chat with voice input, and admin dashboard for PDF document management.",
+      "highlights": [
+        "Three-portal design: landing / student chat / admin",
+        "Drag-and-drop PDF ingestion with real-time processing status",
+        "Voice-mode overlay for accessibility"
+      ],
+      "tech": [
+        "React",
+        "Vite",
+        "Tailwind",
+        "FastAPI"
+      ],
+      "details": [
+        {
+          "title": "Portals",
+          "bullets": [
+            "Landing — marketing page with feature cards and usage-stats tiles",
+            "Student Chat — message bubbles, typing indicators, department context switching, voice-mode overlay",
+            "Admin — drag-and-drop PDF upload with real-time processing, knowledge-base management, analytics"
+          ]
+        },
+        {
+          "title": "Architecture",
+          "body": "Shared `ThemeContext` and `useTheme` hook keep all three portals visually consistent through dark/light switches. A root layout wraps everything in the theme provider; `AppRouter.jsx` handles portal-level navigation."
+        },
+        {
+          "title": "Stack",
+          "body": "React 19+ with hooks + context API, Vite for dev and build, Tailwind for styling. API layer structured for FastAPI backend integration."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "Portfolio",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Portfolio",
+      "homepage": null,
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-09-02T00:05:12Z",
+      "summary": "",
+      "highlights": [],
+      "tech": [],
+      "rank": 5
+    },
+    {
+      "name": "Folder-Summary-Parser",
+      "description": "",
+      "url": "https://github.com/vasu-devs/Folder-Summary-Parser",
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-07-18T18:23:24Z",
+      "summary": "Python GUI utility that recursively scans a folder and reports file/folder counts, human-readable total size, and a file-type breakdown. Tkinter interface, standard library only.",
+      "highlights": [
+        "Recursive os.walk traversal with permission-error handling",
+        "Human-readable size formatting (B/KB/MB/GB/TB)",
+        "Pure stdlib — no external packages required"
+      ],
+      "tech": [
+        "Python",
+        "Tkinter"
+      ],
+      "details": [
+        {
+          "title": "What it does",
+          "body": "Point it at a directory. It walks the tree via `os.walk()`, tallies total files, total folders, total size, and a per-extension breakdown. Permission-denied paths are caught gracefully so the scan never crashes."
+        },
+        {
+          "title": "Module split",
+          "bullets": [
+            "main.py — entrypoint, launches the GUI",
+            "gui.py — Tkinter window",
+            "parser.py — os.walk aggregation logic",
+            "utils.py — pure helpers (e.g. human-readable size formatting)"
+          ]
+        },
+        {
+          "title": "Dependencies",
+          "body": "Python standard library only. Tkinter ships with Python. No pip install, no build step."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "waterBuddyV1",
+      "description": "",
+      "url": "https://github.com/vasu-devs/waterBuddyV1",
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-07-16T17:51:51Z",
+      "summary": "Background Python script that sends periodic desktop notifications to drink water. Cross-platform via the plyer library; interval and message configurable in a single file.",
+      "highlights": [
+        "Cross-platform desktop notifications via plyer",
+        "Interval and message fully config-driven",
+        "Minimal footprint — runs quietly in the background"
+      ],
+      "tech": [
+        "Python",
+        "plyer"
+      ],
+      "details": [
+        {
+          "title": "Files",
+          "bullets": [
+            "main.py — entrypoint, starts the reminder loop",
+            "reminder_logic.py — timing + message formatting",
+            "notifier.py — plyer wrapper for cross-platform notifications",
+            "config.py — interval and message text"
+          ]
+        },
+        {
+          "title": "Usage",
+          "body": "`pip install plyer` then `python main.py`. Drop `INTERVAL_MINUTES` to 0.1 for quick testing; 60–90 for daily use. Ctrl+C to stop."
+        }
+      ],
+      "rank": 4
+    },
+    {
+      "name": "habiTurtle",
+      "description": "",
+      "url": "https://github.com/vasu-devs/habiTurtle",
+      "homepage": null,
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2025-07-15T16:25:15Z",
+      "summary": "Minimalist PyQt5 desktop habit tracker where a turtle mascot's mood reflects your streak state — happy on completion, angry when you're late, sad when you break it.",
+      "highlights": [
+        "Turtle mascot mood reflects streak state across 6+ moods",
+        "JSON-backed habit log — no database needed",
+        "One-command PyInstaller build for a standalone .exe"
+      ],
+      "tech": [
+        "Python",
+        "PyQt5"
+      ],
+      "details": [
+        {
+          "title": "The idea",
+          "body": "Mark a habit done, the turtle is happy. Miss a day, the turtle is sad. Close to end-of-day without completing? Nervous. Long streak? Excited."
+        },
+        {
+          "title": "Moods",
+          "bullets": [
+            "Happy — today's habit done",
+            "Nervous — day is almost over",
+            "Angry — very late, streak at risk",
+            "Sad — missed a day",
+            "Sleepy — still early in the day",
+            "Excited — long streaks or early solves"
+          ]
+        },
+        {
+          "title": "Build",
+          "body": "`main.py` + `gui.py` + `storage.py` over PyQt5. Habits persist to `habits.json`. Mascot images live in `assets/`. One-command PyInstaller build produces a standalone Windows .exe."
+        }
+      ],
+      "rank": 4
+    }
+  ],
+  "readmesFetchedAt": "2026-04-17T18:52:41.842Z",
+  "curatedAt": "2026-04-17T19:53:29.847Z"
+}

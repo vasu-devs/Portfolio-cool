@@ -20,11 +20,35 @@
   --bg-primary: #050505;
   --bg-secondary: #0A0A0A;
   --fg-primary: #ffffff;
-  --fg-secondary: #a1a1aa;
+  --fg-secondary: #b4b4bd;
   --border-primary: #27272a;
   --accent-glow: rgba(255, 255, 255, 0.15);
   /* White glow for dark mode */
   --grid-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Section-local theme inversion. Applying `.inverted` to any element
+   swaps the theme variables within that scope, so every Tailwind class
+   using bg-bg-primary / text-fg-primary / border-border-primary flips
+   to the opposite-palette values automatically. */
+.inverted {
+  --bg-primary: #050505;
+  --bg-secondary: #0A0A0A;
+  --fg-primary: #ffffff;
+  --fg-secondary: #b4b4bd;
+  --border-primary: #27272a;
+  --accent-glow: rgba(255, 255, 255, 0.15);
+  --grid-color: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme='dark'] .inverted {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f5;
+  --fg-primary: #050505;
+  --fg-secondary: #52525b;
+  --border-primary: #e4e4e7;
+  --accent-glow: rgba(0, 0, 0, 0.08);
+  --grid-color: rgba(0, 0, 0, 0.04);
 }
 
 html {
@@ -59,6 +83,17 @@ body {
   font-family: 'Inter', sans-serif;
   transition: background-color 0.4s ease-out, color 0.4s ease-out;
   overflow-x: hidden;
+}
+
+/* Keyboard focus ring (suppressed for mouse clicks) */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--fg-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -141,7 +176,7 @@ body {
 /* Hero intro text - black text-stroke on mobile only */
 @media (max-width: 768px) {
   .hero-intro-text {
-    color: #a1a1aa;
+    color: #b4b4bd;
     /* Force dark mode secondary color */
     text-shadow:
       -1px -1px 0 #000,
