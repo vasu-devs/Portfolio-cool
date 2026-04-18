@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface ExperienceModalProps {
     isOpen: boolean;
@@ -104,7 +105,7 @@ export const ExperienceModal = ({ isOpen, onClose }: ExperienceModalProps) => {
         };
     }, [isOpen, onClose]);
 
-    return (
+    return createPortal(
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-[3vw] md:p-[2vw]">
@@ -261,6 +262,7 @@ export const ExperienceModal = ({ isOpen, onClose }: ExperienceModalProps) => {
                     </motion.div>
                 </div>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 };

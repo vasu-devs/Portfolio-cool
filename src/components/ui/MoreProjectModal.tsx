@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Star, GitFork, Calendar, Github, ExternalLink } from 'lucide-react';
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { DetailSections, DetailSection } from './DetailSections';
 
 interface RepoProject {
@@ -65,7 +66,7 @@ export const MoreProjectModal = ({ project, onClose }: MoreProjectModalProps) =>
         };
     }, [project, onClose]);
 
-    return (
+    return createPortal(
         <AnimatePresence>
             {project && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-[3vw] md:p-[2vw]">
@@ -222,6 +223,7 @@ export const MoreProjectModal = ({ project, onClose }: MoreProjectModalProps) =>
                     </motion.div>
                 </div>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 };
