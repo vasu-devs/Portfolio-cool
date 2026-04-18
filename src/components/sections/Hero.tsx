@@ -3,6 +3,7 @@ import { Github, Twitter, Linkedin, Calendar } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { SocialButton } from '../ui/SocialButton';
 import { ResumeButton } from '../ui/ResumeButton';
+import { SideBranding } from '../ui/SideBranding';
 
 interface HeroProps {
     theme?: 'light' | 'dark';
@@ -18,6 +19,9 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                 <div className="h-[42%] lg:h-[56%] w-full bg-bg-primary" />
             </div>
 
+            {/* Side branding — anchored to the split inside Hero */}
+            <SideBranding />
+
             <Container className="relative z-10 min-h-[100dvh] lg:h-full flex flex-col pt-4 lg:pt-8 pb-24 lg:pb-10 overflow-visible">
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -26,7 +30,7 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                     className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-end lg:items-start overflow-visible"
                 >
                     {/* Left Column: Text */}
-                    <div className="order-2 lg:order-1 lg:row-start-1 lg:col-start-1 lg:col-span-7 relative z-30 pt-12 md:pt-24 h-full flex flex-col pointer-events-none">
+                    <div className="order-2 lg:order-1 lg:row-start-1 lg:col-start-1 lg:col-span-7 relative z-30 pt-24 md:pt-24 h-full flex flex-col pointer-events-none">
                         {/* Huge Heading */}
                         <div className="-translate-y-[25%] lg:translate-y-0 -mb-24 lg:-mb-0">
                             <h1 className={`font-display font-black text-[13vw] md:text-[11vw] lg:text-9xl xl:text-[10rem] leading-[0.8] lg:leading-[0.85] tracking-tighter uppercase mb-4 lg:mb-6 lg:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>

@@ -535,6 +535,28 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
         };
     }, [isTouchDevice, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
+    // Resting "Hold & Move" pill — shown in both touch and desktop branches.
+    const restingBotPill = (
+        <AnimatePresence>
+            {!eaterVisible && !isPainting && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className={`fixed top-[4vw] left-[4vw] md:top-[2vw] md:left-[2.5vw] z-[50] flex items-center gap-[2vw] md:gap-[0.75vw] px-[3vw] py-[1.5vw] md:px-[1.25vw] md:py-[0.6vw] rounded-full border backdrop-blur-2xl backdrop-saturate-150 pointer-events-none select-none transition-colors duration-300 cursor-element font-mono
+                       ${botContrast === 'dark'
+                            ? 'bg-zinc-900/60 border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_0_rgba(255,255,255,0.12)]'
+                            : 'bg-white/70 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]'}`}
+                >
+                    <Bot className={`shrink-0 w-[3.5vw] h-[3.5vw] md:w-[14px] md:h-[14px] ${botContrast === 'dark' ? 'text-white' : 'text-black'}`} />
+                    <span className={`text-[2.2vw] md:text-xs uppercase tracking-[0.15em] font-black leading-tight translate-y-[0.5px] ${botContrast === 'dark' ? 'text-white' : 'text-black'}`}>
+                        Hold &amp; Move
+                    </span>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+
     // On touch devices, only render the paint canvas and eater bot (no cursor)
     if (isTouchDevice) {
         return (
@@ -562,6 +584,9 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
                         ))}
                     </AnimatePresence>
                 </div>
+
+                {/* Resting Bot pill — symmetric to "Open To Work" on mobile */}
+                {restingBotPill}
 
                 {/* Eater Bot for mobile */}
                 <AnimatePresence>
@@ -633,25 +658,8 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
                 </AnimatePresence>
             </div>
 
-            {/* Resting Bot */}
-            <AnimatePresence>
-                {!eaterVisible && !isPainting && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        className={`fixed top-8 left-8 z-[50] hidden md:flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-md border shadow-lg pointer-events-none select-none transition-colors duration-300 cursor-element
-                       ${botContrast === 'dark'
-                                ? 'bg-white/20 border-white/30 shadow-black/20'
-                                : 'bg-white border-black/10 shadow-black/10'}`}
-                    >
-                        <Bot size={18} className={botContrast === 'dark' ? 'text-white' : 'text-black'} />
-                        <span className={`text-xs font-mono font-medium tracking-tight ${botContrast === 'dark' ? 'text-white/80' : 'text-black'}`}>
-                            Hold and move
-                        </span>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {/* Resting Bot pill */}
+            {restingBotPill}
 
             {/* Eater Bot */}
             <AnimatePresence>

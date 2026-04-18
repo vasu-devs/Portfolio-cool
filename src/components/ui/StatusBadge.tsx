@@ -7,9 +7,17 @@ interface StatusBadgeProps {
     theme?: 'light' | 'dark';
 }
 
-export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeProps) => {
+// Sections that visually invert the base theme (light bg in dark mode, dark bg in light mode)
+const INVERTED_SECTION_IDS = ['experience', 'more-projects', 'oss-impact'];
+
+export const StatusBadge = ({ theme = 'dark' }: StatusBadgeProps) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [overInverted, setOverInverted] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Background detection — XOR base theme with inverted-section overlap
+    const baseIsLight = theme === 'light';
+    const isOverLightBg = baseIsLight !== overInverted;
 
     // Close when clicking outside
     useEffect(() => {
@@ -20,6 +28,52 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    // Detect whether the pill is currently over a section with an inverted background
+    useEffect(() => {
+        let rafId: number | null = null;
+
+        const check = () => {
+            rafId = null;
+            if (!containerRef.current) return;
+            const pillRect = containerRef.current.getBoundingClientRect();
+            const pillCenterY = pillRect.top + pillRect.height / 2;
+
+            let overlaps = INVERTED_SECTION_IDS.some(id => {
+                const el = document.getElementById(id);
+                if (!el) return false;
+                const rect = el.getBoundingClientRect();
+                return rect.top <= pillCenterY && rect.bottom >= pillCenterY;
+            });
+
+            // Hero (fixed, z-10) sits behind the pill until the first scrolling
+            // section reaches it. Hero's top half uses the opposite of the base
+            // theme color (white in dark mode, black in light mode), so treat it
+            // the same as an inverted section.
+            if (!overlaps) {
+                const firstScrollingSection = document.getElementById('experience');
+                if (firstScrollingSection) {
+                    const rect = firstScrollingSection.getBoundingClientRect();
+                    if (rect.top > pillCenterY) overlaps = true;
+                }
+            }
+
+            setOverInverted(overlaps);
+        };
+
+        const onScroll = () => {
+            if (rafId === null) rafId = requestAnimationFrame(check);
+        };
+
+        check();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+            if (rafId !== null) cancelAnimationFrame(rafId);
+        };
     }, []);
 
     const contactLinks = [
@@ -56,23 +110,19 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center gap-[2vw] md:gap-[0.75vw] px-[3vw] py-[1.5vw] md:px-[1.25vw] md:py-[0.6vw] rounded-full border transition-all duration-300 pointer-events-auto cursor-pointer shadow-2xl
-                    ${isOpen
-                        ? `${theme === 'dark' ? 'bg-black text-white border-white' : 'bg-white text-black border-white'} ring-8 ring-emerald-500/10`
-                        : `${theme === 'dark' ? 'bg-black text-white border-white' : 'bg-white text-black border-white'} ring-emerald-500/5 hover:ring-8`
-                    }`}
+                className={`flex items-center gap-[2vw] md:gap-[0.75vw] px-[3vw] py-[1.5vw] md:px-[1.25vw] md:py-[0.6vw] rounded-full border backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 pointer-events-auto cursor-pointer
+                    ${isOverLightBg
+                        ? 'bg-white/70 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]'
+                        : 'bg-zinc-900/60 border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_0_rgba(255,255,255,0.12)]'}
+                `}
             >
-                <span className="relative flex h-[1.5vw] w-[1.5vw] md:h-[0.5vw] md:w-[0.5vw]">
-                    <span className="relative inline-flex rounded-full h-full w-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
+                <span className="relative flex h-[1.5vw] w-[1.5vw] md:h-2 md:w-2 shrink-0">
+                    <span className="relative inline-flex rounded-full h-full w-full bg-emerald-500"></span>
                 </span>
-                <div className="flex flex-col items-start translate-y-[0.5px]">
-                    <span className={`text-[1.8vw] md:text-[0.7vw] uppercase tracking-[0.2em] font-black leading-tight mb-[0.25vw] opacity-60`}>
-                        Open To Work
-                    </span>
-                    <span className={`text-[2.2vw] md:text-[0.9vw] uppercase tracking-[0.1em] font-black leading-tight`}>
-                        Hire Me
-                    </span>
-                </div>
+                <span className={`text-[2.2vw] md:text-xs uppercase tracking-[0.15em] font-black leading-tight translate-y-[0.5px]
+                    ${isOverLightBg ? 'text-black' : 'text-white'}`}>
+                    Open To Work
+                </span>
             </motion.button>
 
             {/* Dropdown Menu */}
@@ -84,18 +134,18 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
                         exit={{ opacity: 0, y: 10, scale: 0.95, filter: 'blur(10px)' }}
                         transition={{ type: "spring", stiffness: 300, damping: 25 }}
                         className={`absolute top-full right-0 mt-[4vw] md:mt-[1vw] w-[70vw] md:w-[22vw] max-w-[calc(100vw-2rem)] backdrop-blur-xl border rounded-[2rem] shadow-lg overflow-hidden z-[71]
-                            ${(isInverted || theme === 'light')
+                            ${isOverLightBg
                                 ? 'bg-white/70 text-black border-black/10'
                                 : 'bg-black/70 text-white border-white/10'}
                         `}
                     >
                         <div className="p-[4vw] md:p-[1.5vw] relative z-10">
-                            <div className={`px-[2vw] md:px-[0.5vw] pb-[4vw] md:pb-[1vw] border-b mb-[4vw] md:mb-[1vw] flex items-center justify-between transition-colors duration-300 ${(isInverted || theme === 'light') ? 'border-black/5' : 'border-white/5'}`}>
+                            <div className={`px-[2vw] md:px-[0.5vw] pb-[4vw] md:pb-[1vw] border-b mb-[4vw] md:mb-[1vw] flex items-center justify-between transition-colors duration-300 ${isOverLightBg ? 'border-black/5' : 'border-white/5'}`}>
                                 <div className="flex flex-col gap-1">
-                                    <span className={`text-[2.25vw] md:text-[0.7vw] uppercase tracking-[0.3em] font-black opacity-40 ${(isInverted || theme === 'light') ? 'text-black' : 'text-white'}`}>Initialize Connection</span>
-                                    <span className={`text-[1.75vw] md:text-[0.6vw] font-mono opacity-20 font-bold ${(isInverted || theme === 'light') ? 'text-black' : 'text-white'}`}>PROTO_77_STABLE</span>
+                                    <span className={`text-[2.25vw] md:text-[0.7vw] uppercase tracking-[0.3em] font-black opacity-40 ${isOverLightBg ? 'text-black' : 'text-white'}`}>Initialize Connection</span>
+                                    <span className={`text-[1.75vw] md:text-[0.6vw] font-mono opacity-20 font-bold ${isOverLightBg ? 'text-black' : 'text-white'}`}>PROTO_77_STABLE</span>
                                 </div>
-                                <div className={`p-[2vw] md:p-[0.5vw] rounded-full border ${(isInverted || theme === 'light') ? 'border-emerald-500/20 bg-emerald-500/10' : 'border-emerald-500/30 bg-emerald-500/10'}`}>
+                                <div className={`p-[2vw] md:p-[0.5vw] rounded-full border ${isOverLightBg ? 'border-emerald-500/20 bg-emerald-500/10' : 'border-emerald-500/30 bg-emerald-500/10'}`}>
                                     <div className="w-[1.5vw] h-[1.5vw] md:w-[0.4vw] md:h-[0.4vw] rounded-full bg-emerald-500 animate-pulse" />
                                 </div>
                             </div>
@@ -111,22 +161,22 @@ export const StatusBadge = ({ isInverted = false, theme = 'dark' }: StatusBadgeP
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: i * 0.05 + 0.2 }}
                                         className={`flex items-center justify-between p-[3vw] md:p-[1vw] rounded-2xl transition-all duration-300 group pointer-events-auto border border-transparent
-                                            ${(isInverted || theme === 'light')
+                                            ${isOverLightBg
                                                 ? 'hover:bg-black/5 hover:border-black/5'
                                                 : 'hover:bg-white/5 hover:border-white/5'}
                                         `}
                                         onClick={() => setIsOpen(false)}
                                     >
                                         <div className="flex items-center gap-[4vw] md:gap-[1vw] flex-1">
-                                            <ChevronRight className={`w-[3.5vw] h-[3.5vw] md:w-[1vw] md:h-[1vw] opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500 ${(isInverted || theme === 'light') ? 'text-black' : 'text-white'}`} />
+                                            <ChevronRight className={`w-[3.5vw] h-[3.5vw] md:w-[1vw] md:h-[1vw] opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500 ${isOverLightBg ? 'text-black' : 'text-white'}`} />
                                             <div className="flex flex-col">
-                                                <span className={`text-[2.5vw] md:text-[0.8vw] font-black uppercase tracking-wider ${(isInverted || theme === 'light') ? 'text-black' : 'text-white'}`}>{link.name}</span>
-                                                <span className={`text-[2.25vw] md:text-[0.7vw] opacity-40 group-hover:opacity-100 transition-opacity truncate max-w-[150px] md:max-w-[200px] font-medium ${(isInverted || theme === 'light') ? 'text-black' : 'text-white'}`}>
+                                                <span className={`text-[2.5vw] md:text-[0.8vw] font-black uppercase tracking-wider ${isOverLightBg ? 'text-black' : 'text-white'}`}>{link.name}</span>
+                                                <span className={`text-[2.25vw] md:text-[0.7vw] opacity-40 group-hover:opacity-100 transition-opacity truncate max-w-[150px] md:max-w-[200px] font-medium ${isOverLightBg ? 'text-black' : 'text-white'}`}>
                                                     {link.detail}
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className={`p-[3vw] md:p-[0.75vw] rounded-xl transition-all duration-500 group-hover:scale-110 ${(isInverted || theme === 'light') ? 'bg-black/5 text-black group-hover:bg-black group-hover:text-white' : 'bg-white/5 text-white group-hover:bg-white group-hover:text-black'}`}>
+                                        <div className={`p-[3vw] md:p-[0.75vw] rounded-xl transition-all duration-500 group-hover:scale-110 ${isOverLightBg ? 'bg-black/5 text-black group-hover:bg-black group-hover:text-white' : 'bg-white/5 text-white group-hover:bg-white group-hover:text-black'}`}>
                                             <span className="block w-[3.5vw] h-[3.5vw] md:w-[1vw] md:h-[1vw]">{link.icon}</span>
                                         </div>
                                     </motion.a>

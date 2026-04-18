@@ -6,7 +6,6 @@ import { Hero } from './components/sections/Hero';
 import { Grain } from './components/ui/Grain';
 import { MagneticButton } from './components/ui/MagneticButton';
 import { Preloader } from './components/ui/Preloader';
-import { SideBranding } from './components/ui/SideBranding';
 import { StatusBadge } from './components/ui/StatusBadge';
 import { SunToggle } from './components/ui/SunToggle';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -514,7 +513,6 @@ export default function App() {
          </AnimatePresence>
 
          <Grain />
-         <SideBranding />
 
          <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
             <div
