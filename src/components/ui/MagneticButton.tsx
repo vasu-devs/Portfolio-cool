@@ -40,6 +40,8 @@ export const MagneticButton = ({
       className={`${className} cursor-pointer relative`}
       style={{ isolation: 'isolate' }}
       ref={ref}
+      role="button"
+      tabIndex={0}
       onMouseMove={handleMouse}
       onMouseEnter={handleEnter}
       onMouseLeave={reset}
@@ -56,6 +58,12 @@ export const MagneticButton = ({
         scale: { duration: 0.2, ease: "easeOut" }
       }}
       onClick={onClick}
+      onKeyDown={(e) => {
+        if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          onClick();
+        }
+      }}
     >
       {children}
     </motion.div>

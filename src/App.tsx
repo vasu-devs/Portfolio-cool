@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useTransition, lazy, Suspense } from 'react';
+import { flushSync } from 'react-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Mail, Linkedin, Twitter } from 'lucide-react';
@@ -46,24 +47,37 @@ export default function App() {
       document.documentElement.setAttribute('data-theme', theme);
    }, [theme]);
 
+   // Detect what's behind the bottom nav so it can flip its color scheme
+   // when crossing inverted-bg sections (Experience, MoreProjects, OssImpact).
    useEffect(() => {
-      const handleScroll = () => {
-         const ossSection = document.getElementById('oss-impact');
-         if (ossSection) {
-            const rect = ossSection.getBoundingClientRect();
-            const navBuffer = 100;
-            const bottomThreshold = window.innerHeight - navBuffer;
+      const NAV_INVERTED_SECTION_IDS = ['experience', 'more-projects', 'oss-impact'];
+      let rafId: number | null = null;
 
-            if (rect.top <= bottomThreshold && rect.bottom >= bottomThreshold - 40) {
-               setIsNavInverted(true);
-            } else {
-               setIsNavInverted(false);
-            }
-         }
+      const check = () => {
+         rafId = null;
+         // Nav sits at bottom-6 (24px from bottom) with ~50px height — sample its center.
+         const navCenterY = window.innerHeight - 50;
+         const overlaps = NAV_INVERTED_SECTION_IDS.some(id => {
+            const el = document.getElementById(id);
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.top <= navCenterY && rect.bottom >= navCenterY;
+         });
+         setIsNavInverted(overlaps);
       };
 
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
+      const onScroll = () => {
+         if (rafId === null) rafId = requestAnimationFrame(check);
+      };
+
+      check();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      return () => {
+         window.removeEventListener('scroll', onScroll);
+         window.removeEventListener('resize', onScroll);
+         if (rafId !== null) cancelAnimationFrame(rafId);
+      };
    }, []);
 
    useEffect(() => {
@@ -137,23 +151,48 @@ export default function App() {
    const toggleTheme = (e?: React.MouseEvent) => {
       if (isTransitioning || isPending) return;
 
+      let x = window.innerWidth / 2;
+      let y = window.innerHeight - 60;
       if (e) {
-         setClickPos({ x: e.clientX, y: e.clientY });
+         x = e.clientX;
+         y = e.clientY;
       } else if (toggleRef.current) {
          const rect = toggleRef.current.getBoundingClientRect();
-         setClickPos({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+         x = rect.left + rect.width / 2;
+         y = rect.top + rect.height / 2;
+      }
+      setClickPos({ x, y });
+
+      // Use View Transitions API for a true clip-path "sunlight" wave from the
+      // toggle position — each pixel switches theme as the wave reaches it.
+      const startViewTransition = (document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } }).startViewTransition;
+
+      if (typeof startViewTransition === 'function') {
+         const maxRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y),
+         );
+         document.documentElement.style.setProperty('--theme-toggle-x', `${x}px`);
+         document.documentElement.style.setProperty('--theme-toggle-y', `${y}px`);
+         document.documentElement.style.setProperty('--theme-toggle-radius', `${maxRadius}px`);
+
+         setIsTransitioning(true);
+         const transition = startViewTransition.call(document, () => {
+            flushSync(() => {
+               setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+            });
+         });
+         transition.finished.finally(() => setIsTransitioning(false));
+         return;
       }
 
+      // Fallback for browsers without View Transitions API
       setIsTransitioning(true);
-
-      // Delay theme change to middle of expansion, use startTransition to avoid blocking
       setTimeout(() => {
          startTransition(() => {
             setTheme(prev => prev === 'dark' ? 'light' : 'dark');
          });
       }, 300);
-
-      // Reset transition state
       setTimeout(() => {
          setIsTransitioning(false);
       }, 1200);
@@ -444,6 +483,10 @@ export default function App() {
       }
    ];
 
+   // Nav bg is "light" when (theme is light) XOR (over an inverted section).
+   // Drives the glass + text colors so the nav is always readable.
+   const navIsOverLightBg = (theme === 'light') !== isNavInverted;
+
    return (
       <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary font-sans relative">
          <CustomCursor theme={theme} isAppTransitioning={isTransitioning} />
@@ -517,31 +560,31 @@ export default function App() {
          <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
             <div
                className={`
-                  backdrop-blur-xl border rounded-full px-5 md:px-6 py-2.5 md:py-3 shadow-lg flex items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-center transition-all duration-300 pointer-events-auto
-                  ${isNavInverted
-                     ? 'bg-fg-primary/95 border-bg-primary text-bg-primary'
-                     : 'bg-bg-primary/95 border-border-primary text-fg-primary'}
+                  backdrop-blur-2xl backdrop-saturate-150 border rounded-full px-5 md:px-6 py-2.5 md:py-3 flex items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-center transition-colors duration-300 pointer-events-auto
+                  ${navIsOverLightBg
+                     ? 'bg-white/70 border-black/10 text-black shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]'
+                     : 'bg-zinc-900/60 border-white/15 text-white shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_0_rgba(255,255,255,0.12)]'}
                `}
             >
-               <span className={`font-mono text-sm md:text-base uppercase tracking-widest font-black shrink-0 ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
+               <span className="font-mono text-sm md:text-base uppercase tracking-widest font-black shrink-0">
                   Vasu-DevS
                </span>
                <div className="flex items-center gap-4 md:gap-6">
                   <div className="flex lg:hidden items-center gap-4 pr-4 border-r border-current/10">
-                     <a href="mailto:siddhvasudev1402@gmail.com" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
+                     <a href="mailto:siddhvasudev1402@gmail.com" className="opacity-70 hover:opacity-100 transition-opacity">
                         <Mail className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
-                     <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
+                     <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity">
                         <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
-                     <a href="https://twitter.com/Vasu_DevS" target="_blank" rel="noopener noreferrer" className={`transition-opacity hover:opacity-100 opacity-70 ${isNavInverted ? 'text-bg-primary' : 'text-fg-primary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>
+                     <a href="https://twitter.com/Vasu_DevS" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity">
                         <Twitter className="w-4 h-4 md:w-5 md:h-5" />
                      </a>
                   </div>
-                  <a href="#experience" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Experience</a>
-                  <a href="#projects" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Work</a>
-                  <a href="#skills" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Skills</a>
-                  <a href="#contact" className={`hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest transition-colors ${isNavInverted ? 'hover:text-bg-secondary' : 'hover:text-fg-secondary'} ${!isNavInverted && theme === 'dark' ? 'text-outline' : ''}`}>Contact</a>
+                  <a href="#experience" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Experience</a>
+                  <a href="#projects" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Work</a>
+                  <a href="#skills" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Skills</a>
+                  <a href="#contact" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Contact</a>
                   <div ref={toggleRef}>
                      <MagneticButton onClick={toggleTheme}>
                         <SunToggle theme={theme} isInverted={isNavInverted} />

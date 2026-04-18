@@ -85,6 +85,38 @@ body {
   overflow-x: hidden;
 }
 
+/* Theme toggle "sunlight" wave — uses View Transitions API to clip-reveal
+   the new theme as an expanding circle from the toggle's position. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: theme-wave-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes theme-wave-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 100%));
+  }
+  to {
+    clip-path: circle(var(--theme-toggle-radius, 150vmax) at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 100%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation-duration: 0.01s;
+  }
+}
+
 /* Keyboard focus ring (suppressed for mouse clicks) */
 :focus {
   outline: none;
