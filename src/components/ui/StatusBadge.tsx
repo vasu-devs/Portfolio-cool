@@ -47,16 +47,15 @@ export const StatusBadge = ({ theme = 'dark' }: StatusBadgeProps) => {
                 return rect.top <= pillCenterY && rect.bottom >= pillCenterY;
             });
 
-            // Hero (fixed, z-10) sits behind the pill until the first scrolling
-            // section reaches it. Hero's top half uses the opposite of the base
-            // theme color (white in dark mode, black in light mode), so treat it
-            // the same as an inverted section.
-            if (!overlaps) {
-                const firstScrollingSection = document.getElementById('experience');
-                if (firstScrollingSection) {
-                    const rect = firstScrollingSection.getBoundingClientRect();
-                    if (rect.top > pillCenterY) overlaps = true;
-                }
+            // Hero (fixed, z-10) sits behind the pill until scroll has pushed
+            // the scrolling content over it. The content sits after a 100vh
+            // spacer, so when scrollY < (100vh - pillCenterY), nothing has
+            // covered the pill yet and Hero's split-bg upper half is behind it.
+            // Hero's upper half uses the opposite of the base theme color, so
+            // treat that case as inverted. (Robust against Suspense — doesn't
+            // depend on Experience being mounted.)
+            if (!overlaps && window.scrollY < window.innerHeight - pillCenterY) {
+                overlaps = true;
             }
 
             setOverInverted(overlaps);
