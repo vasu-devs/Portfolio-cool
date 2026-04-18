@@ -92,9 +92,9 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                         </div>
 
                         {/* Body — stacked on mobile, side-by-side on desktop */}
-                        <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-y-auto md:overflow-hidden" data-lenis-prevent>
-                            {/* Video column */}
-                            <div className="md:w-[58%] md:shrink-0 bg-black flex items-center justify-center md:border-r md:border-border-primary">
+                        <div className="flex flex-col md:flex-row-reverse flex-1 min-h-0 overflow-y-auto md:overflow-hidden" data-lenis-prevent>
+                            {/* Video column — right on desktop */}
+                            <div className="md:w-[58%] md:shrink-0 bg-black flex items-center justify-center md:border-l md:border-border-primary">
                                 <div className="relative w-full aspect-video overflow-hidden">
                                     {project.videoUrl ? (
                                         getYouTubeEmbedUrl(project.videoUrl) ? (
