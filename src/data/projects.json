@@ -128,36 +128,6 @@
       "rank": 1
     },
     {
-      "name": "MoltBattles",
-      "description": "",
-      "url": "https://github.com/vasu-devs/MoltBattles",
-      "homepage": null,
-      "language": null,
-      "stars": 1,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-04-04T22:36:45Z",
-      "summary": "",
-      "highlights": [],
-      "tech": [],
-      "rank": 5
-    },
-    {
-      "name": "Rehab",
-      "description": "",
-      "url": "https://github.com/vasu-devs/Rehab",
-      "homepage": null,
-      "language": null,
-      "stars": 1,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-04-04T22:36:44Z",
-      "summary": "",
-      "highlights": [],
-      "tech": [],
-      "rank": 5
-    },
-    {
       "name": "SSS",
       "description": "Screen Shot Sorter",
       "url": "https://github.com/vasu-devs/SSS",
@@ -262,21 +232,6 @@
       "rank": 1
     },
     {
-      "name": "Kritrim",
-      "description": "",
-      "url": "https://github.com/vasu-devs/Kritrim",
-      "homepage": null,
-      "language": "Python",
-      "stars": 1,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-04-04T22:36:30Z",
-      "summary": "",
-      "highlights": [],
-      "tech": [],
-      "rank": 5
-    },
-    {
       "name": "A18-INFINION-",
       "description": "",
       "url": "https://github.com/vasu-devs/A18-INFINION-",
@@ -377,21 +332,6 @@
       "rank": 5
     },
     {
-      "name": "Portfolio-min",
-      "description": "",
-      "url": "https://github.com/vasu-devs/Portfolio-min",
-      "homepage": null,
-      "language": null,
-      "stars": 1,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-04-04T22:36:22Z",
-      "summary": "",
-      "highlights": [],
-      "tech": [],
-      "rank": 5
-    },
-    {
       "name": "RupeeRoast",
       "description": "The AI-powered financial forensic tool that turns messy bank PDFs into actionable insights—and roasts your spending habits",
       "url": "https://github.com/vasu-devs/RupeeRoast",
@@ -444,37 +384,6 @@
         }
       ],
       "rank": 2
-    },
-    {
-      "name": "Roadmap-Walkthrough-2025",
-      "description": "",
-      "url": "https://github.com/vasu-devs/Roadmap-Walkthrough-2025",
-      "homepage": null,
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-01-01T05:34:50Z",
-      "summary": "",
-      "highlights": [],
-      "tech": [],
-      "rank": 5
-    },
-    {
-      "name": "Ocular",
-      "description": "Demo Recording software ",
-      "url": "https://github.com/vasu-devs/Ocular",
-      "homepage": null,
-      "language": null,
-      "stars": 1,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-12-29T18:04:10Z",
-      "summary": "Early-stage demo / screen-recording software.",
-      "highlights": [],
-      "tech": [],
-      "details": [],
-      "rank": 5
     },
     {
       "name": "EmailDrafter",
@@ -556,80 +465,6 @@
         }
       ],
       "rank": 3
-    },
-    {
-      "name": "LEETCODE",
-      "description": "here i share my leetcode solution, i try to be regular, but lets see how it goes!!!! HOPE IT HELPS!",
-      "url": "https://github.com/vasu-devs/LEETCODE",
-      "homepage": null,
-      "language": "C++",
-      "stars": 1,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-12-10T08:59:26Z",
-      "summary": "Personal archive of LeetCode solutions in C++. Updated as I solve problems — a reference for my own review, not a product.",
-      "highlights": [],
-      "tech": [
-        "C++"
-      ],
-      "details": [],
-      "rank": 5
-    },
-    {
-      "name": "NyaySaathi",
-      "description": "Legal Help assistant prototype for AIU",
-      "url": "https://github.com/vasu-devs/NyaySaathi",
-      "homepage": null,
-      "language": "Python",
-      "stars": 1,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-12-10T08:59:20Z",
-      "summary": "RAG-based legal assistant for Indian law. Admins upload PDFs/DOCX through a portal; the backend chunks, embeds and stores locally in Qdrant. Citizens chat with citation-backed answers in English or Indian languages. Zero Docker — runs natively.",
-      "highlights": [
-        "Local Qdrant — zero-infra RAG setup",
-        "Document-scoped NyayLens mode for deep-diving a single uploaded file",
-        "SSE-streamed typewriter-style responses"
-      ],
-      "tech": [
-        "FastAPI",
-        "Python",
-        "React 19",
-        "Vite",
-        "Tailwind",
-        "Qdrant",
-        "Gemini",
-        "Sentence Transformers"
-      ],
-      "details": [
-        {
-          "title": "What it is",
-          "body": "Upload legal PDFs (Constitution of India, bare acts, case summaries), chat with citation-backed answers. Designed to be stood up by someone non-technical on a single machine."
-        },
-        {
-          "title": "Architecture — local everything",
-          "bullets": [
-            "Qdrant in local mode (no server, no Docker)",
-            "Sentence Transformers (all-MiniLM-L6-v2 or bge-m3) for embeddings",
-            "PyMuPDF / python-docx for extraction; background tasks keep the UI responsive",
-            "Gemini 2.0 Flash or OpenAI GPT-4o for generation",
-            "FastAPI + React 19 + Vite + Tailwind 4"
-          ]
-        },
-        {
-          "title": "Modes",
-          "bullets": [
-            "Main chat — query the whole corpus",
-            "NyayLens — scope the query to a single uploaded document",
-            "NyayShala — daily curated legal snippets to improve legal literacy"
-          ]
-        },
-        {
-          "title": "Delivery",
-          "body": "SSE-streamed typewriter responses. Default admin login out of the box. Resetting the index is as simple as deleting the `.qdrant_data` folder."
-        }
-      ],
-      "rank": 2
     },
     {
       "name": "ASCIIRealTime",
@@ -730,10 +565,10 @@
       "forks": 0,
       "topics": [],
       "updatedAt": "2026-04-14T19:03:48Z",
-      "summary": "Browser-based tool that lets you paint your GitHub contribution graph like a canvas. Design a 52×7 heatmap, the app builds a real Git repository — in-browser via isomorphic-git on memfs, zipped with JSZip — whose commit timestamps reproduce that design when pushed.",
+      "summary": "Browser-based tool that lets you paint your GitHub contribution graph like a canvas. Design a 52x7 heatmap, the app builds a real Git repository — in-browser via isomorphic-git on memfs, zipped with JSZip — whose commit timestamps reproduce that design when pushed.",
       "highlights": [
         "Runs entirely in-browser — no server, no GitHub API, no fake identities",
-        "30+ built-in templates (Pac-Man, QR code, Christmas tree, Nyan trail…)",
+        "30+ built-in templates (Pac-Man, QR code, Christmas tree, Nyan trail...)",
         "Image drop-in with 5-band quantization + text-to-pixels bitmap font"
       ],
       "tech": [
@@ -748,7 +583,7 @@
       "details": [
         {
           "title": "The concept",
-          "body": "GitHub's profile page renders your commit activity as a 52-week × 7-day heatmap. GitArt treats that grid as a painter's canvas: pick colors, draw a design, and the app builds a real Git repo whose commit timestamps reproduce the design when pushed to a fresh empty repo."
+          "body": "GitHub's profile page renders your commit activity as a 52-week x 7-day heatmap. GitArt treats that grid as a painter's canvas: pick colors, draw a design, and the app builds a real Git repo whose commit timestamps reproduce the design when pushed to a fresh empty repo."
         },
         {
           "title": "Everything runs in the browser",
@@ -760,39 +595,20 @@
         },
         {
           "title": "Intensity mapping",
-          "body": "Cells have intensity 0–4 mapping to 0 / 1 / 5 / 10 / 20 commits per day. The brightest cell (20 commits) stays within GitHub's \"active user\" bucket so the graph looks dramatic without looking synthetic."
+          "body": "Cells have intensity 0-4 mapping to 0 / 1 / 5 / 10 / 20 commits per day. The brightest cell (20 commits) stays within GitHub's \"active user\" bucket so the graph looks dramatic without looking synthetic."
         },
         {
           "title": "Design tools",
           "bullets": [
-            "Brush (levels 0–4) + eraser",
+            "Brush (levels 0-4) + eraser",
             "Drop-in images quantized to 5 intensity bands",
             "Text-to-pixels via bitmap font",
-            "30+ templates — Pac-Man Chase, QR Code, Matrix Rain, Nyan Trail, Christmas Tree, Fireworks…",
-            "Time Machine — target any year 2022–2027, anchors to the first Sunday of that year"
+            "30+ templates — Pac-Man Chase, QR Code, Matrix Rain, Nyan Trail, Christmas Tree, Fireworks...",
+            "Time Machine — target any year 2022-2027, anchors to the first Sunday of that year"
           ]
         }
       ],
       "rank": 1
-    },
-    {
-      "name": "GhostSyncWeb",
-      "description": "",
-      "url": "https://github.com/vasu-devs/GhostSyncWeb",
-      "homepage": "https://ghost-sync-web.vercel.app",
-      "language": "HTML",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-01-31T15:44:44Z",
-      "summary": "Web companion for the GhostSync desktop app — landing page and setup walkthrough for the Telegram-controlled Antigravity IDE bridge.",
-      "highlights": [],
-      "tech": [
-        "HTML",
-        "CSS"
-      ],
-      "details": [],
-      "rank": 5
     },
     {
       "name": "GhostSync",
@@ -843,40 +659,6 @@
         }
       ],
       "rank": 2
-    },
-    {
-      "name": "Aura-Portfolio",
-      "description": "",
-      "url": "https://github.com/vasu-devs/Aura-Portfolio",
-      "homepage": null,
-      "language": null,
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-01-12T21:18:28Z",
-      "summary": "",
-      "highlights": [],
-      "tech": [],
-      "rank": 5
-    },
-    {
-      "name": "InfoVis",
-      "description": "",
-      "url": "https://github.com/vasu-devs/InfoVis",
-      "homepage": "https://info-vis-ten.vercel.app",
-      "language": "TypeScript",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-01-08T13:45:36Z",
-      "summary": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-      "highlights": [],
-      "tech": [
-        "React",
-        "Vite",
-        "TypeScript"
-      ],
-      "rank": 5
     },
     {
       "name": "Kyoka",
@@ -1018,7 +800,7 @@
     },
     {
       "name": "Maze-Pathfinder-Visualizer",
-      "description": "An interactive Pygame-based maze pathfinding visualizer that demonstrates four classic pathfinding algorithms: BFS, DFS, Dijkstra, and A*. Watch in real-time as different algorithms explore a randomly generated maze to find the shortest path from start to finish!",
+      "description": "An interactive Pygame-based maze pathfinding visualizer that demonstrates four classic pathfinding algorithms: BFS, DFS, Dijkstra, and A*.",
       "url": "https://github.com/vasu-devs/Maze-Pathfinder-Visualizer",
       "homepage": null,
       "language": "Python",
@@ -1041,7 +823,7 @@
           "title": "How it works",
           "bullets": [
             "Mazes generated via recursive backtracking (stack-based DFS → one solution)",
-            "45×45 cell grid at 15 px/cell (675×675 window) — 60 FPS animation",
+            "45x45 cell grid at 15 px/cell (675x675 window) — 60 FPS animation",
             "Path reconstruction via parent pointers stored in `visited: {cell: parent}`",
             "A* uses Manhattan distance as its admissible heuristic"
           ]
@@ -1058,14 +840,14 @@
         },
         {
           "title": "Controls",
-          "body": "Press 1–4 to select algorithm, SPACE to run, R to generate a new maze, ESC to quit. Each run displays path length and wall-clock execution time."
+          "body": "Press 1-4 to select algorithm, SPACE to run, R to generate a new maze, ESC to quit. Each run displays path length and wall-clock execution time."
         }
       ],
       "rank": 3
     },
     {
       "name": "weather-dashboard-ai",
-      "description": "An AI-powered weather dashboard combining real-time weather data from OpenWeatherMap with lifestyle suggestions generated via the OpenRouter API (DeepSeek model). The project consists of a FastAPI backend and a React + Vite + TailwindCSS frontend.",
+      "description": "An AI-powered weather dashboard combining real-time weather data from OpenWeatherMap with lifestyle suggestions generated via the OpenRouter API (DeepSeek model).",
       "url": "https://github.com/vasu-devs/weather-dashboard-ai",
       "homepage": "https://weather-dashboard-ai.vercel.app",
       "language": "JavaScript",
@@ -1112,367 +894,6 @@
       "rank": 3
     },
     {
-      "name": "HoleEmAll",
-      "description": "a simple python 2d game",
-      "url": "https://github.com/vasu-devs/HoleEmAll",
-      "homepage": null,
-      "language": "Python",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-11-07T14:05:55Z",
-      "summary": "Casual mouse-driven Pygame arcade. Grow a black hole by absorbing red fruits scattered on the field; each catch grows the hole by 1 pixel, creating a natural difficulty curve.",
-      "highlights": [
-        "Dynamic difficulty — hole grows 1px per fruit absorbed",
-        "Randomized fruit placement each round",
-        "Win/lose overlay with instant restart"
-      ],
-      "tech": [
-        "Python",
-        "Pygame"
-      ],
-      "details": [
-        {
-          "title": "The loop",
-          "body": "Thirty fruits are randomly scattered on an 800×600 field. Your hole follows the cursor. Absorb them all before time runs out; each absorption grows the hole and increases your score."
-        },
-        {
-          "title": "Under the hood",
-          "bullets": [
-            "Euclidean distance check between cursor center and each fruit",
-            "Hole grows 1 px per fruit absorbed",
-            "Win: all fruits absorbed before timer expires",
-            "Lose: timer expires with fruits remaining",
-            "SPACE restarts from either end state"
-          ]
-        }
-      ],
-      "rank": 4
-    },
-    {
-      "name": "MaintMaster",
-      "description": "A chatbot which integrates Gemini API to have a chatbot helping in house maintainance and tracking",
-      "url": "https://github.com/vasu-devs/MaintMaster",
-      "homepage": null,
-      "language": "HTML",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-11-07T14:05:40Z",
-      "summary": "Single-page front-end seed for maintenance scheduling and task tracking. Plain HTML/CSS/JS with zero build step — drop onto any static host and it serves.",
-      "highlights": [
-        "Zero build pipeline — pure static HTML/CSS/JS",
-        "Deployable to GitHub Pages / Netlify / S3 out of the box",
-        "Starting point for small-team maintenance workflows"
-      ],
-      "tech": [
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ],
-      "details": [
-        {
-          "title": "What it is",
-          "body": "Deliberately minimal: one `index.html` with supporting styles, optimized for quick deployment of a maintenance-tracking UI. No framework, no build tool, no package.json."
-        },
-        {
-          "title": "Deploy",
-          "bullets": [
-            "Drop onto GitHub Pages, Netlify, or S3",
-            "Or preview locally with `python -m http.server 8000`"
-          ]
-        }
-      ],
-      "rank": 5
-    },
-    {
-      "name": "RealTimeMemoryAllocationSimulator",
-      "description": "Real Time Memory Allocation Simulator",
-      "url": "https://github.com/vasu-devs/RealTimeMemoryAllocationSimulator",
-      "homepage": null,
-      "language": "HTML",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-11-07T14:02:26Z",
-      "summary": "Browser-based memory-allocation simulator running from a single index.html. A concrete, visual way to explore OS concepts like fragmentation and allocation strategies.",
-      "highlights": [
-        "Single-file HTML — runs anywhere",
-        "No build pipeline, no dependencies",
-        "Refresh-to-see-changes dev loop"
-      ],
-      "tech": [
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ],
-      "details": [
-        {
-          "title": "What it is",
-          "body": "One HTML file that opens in a browser and lets you visualize allocation/deallocation behavior in real time. Pairs well with an OS course."
-        },
-        {
-          "title": "Setup",
-          "bullets": [
-            "Open `index.html` directly or serve over HTTP",
-            "`python -m http.server 8000` for a local server",
-            "No build step, no dependencies"
-          ]
-        }
-      ],
-      "rank": 5
-    },
-    {
-      "name": "CultureCompass",
-      "description": "A chatbot which integrates Gemini API to have a chatbot that teaches about etiquettes and customs around the world ",
-      "url": "https://github.com/vasu-devs/CultureCompass",
-      "homepage": null,
-      "language": "HTML",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-11-07T13:49:06Z",
-      "summary": "Minimal static-site seed built around a single index.html — a starting point for cultural storytelling, interactive exhibits, or portfolio microsites.",
-      "highlights": [
-        "Minimal single-file scaffold, opinion-free",
-        "Accessibility-focused semantic HTML",
-        "Ready to be extended with any static-site toolchain"
-      ],
-      "tech": [
-        "HTML",
-        "CSS"
-      ],
-      "details": [
-        {
-          "title": "Philosophy",
-          "body": "Simple, fast, and accessible by default. Opinion-free — extend with JavaScript, a CSS framework, or wrap in a static-site generator when the project outgrows a single HTML file."
-        },
-        {
-          "title": "Workflow",
-          "bullets": [
-            "Open in VS Code",
-            "Live Server for auto-reload",
-            "Edit index.html, refresh",
-            "No dependencies, no build step"
-          ]
-        }
-      ],
-      "rank": 5
-    },
-    {
-      "name": "travel-Vlog",
-      "description": "",
-      "url": "https://github.com/vasu-devs/travel-Vlog",
-      "homepage": null,
-      "language": "HTML",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-11-07T13:41:31Z",
-      "summary": "Static travel site documenting trips across India. One HTML page per destination (Goa, Hampi, Munnar, Ziro Valley, Amritsar, and more). Deployable to GitHub Pages with no build step.",
-      "highlights": [
-        "One HTML page per destination with shared styling",
-        "Deployable to GitHub Pages out of the box",
-        "Optional login scaffold via login.js"
-      ],
-      "tech": [
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ],
-      "details": [
-        {
-          "title": "Structure",
-          "bullets": [
-            "Home page (`index.html`)",
-            "One HTML page per destination",
-            "Optional login UI (login.html + login.js)",
-            "`image/` and `video/` directories for media"
-          ]
-        },
-        {
-          "title": "Styling",
-          "body": "Split across multiple CSS files by region — `south india.css`, `north india.css`, `north east.css` — plus page-specific files. Known cleanup: some filenames contain spaces which work locally but aren't URL-portable."
-        }
-      ],
-      "rank": 5
-    },
-    {
-      "name": "sidz-cafe",
-      "description": "",
-      "url": "https://github.com/vasu-devs/sidz-cafe",
-      "homepage": null,
-      "language": "CSS",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-11-07T13:40:36Z",
-      "summary": "Static restaurant website with home + 8 category pages, driven by a single dishes.json with 700+ items. Client-side cart panel, embedded Google Map. No build.",
-      "highlights": [
-        "Menu driven entirely by dishes.json — no build step",
-        "Eight category pages with dedicated styling",
-        "Horizontal-scroll dish carousels with next/prev navigation"
-      ],
-      "tech": [
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ],
-      "details": [
-        {
-          "title": "Content model",
-          "body": "All menu items live in `dishes.json` (id, name, price, category) — adding items is a JSON edit, no HTML changes needed. `shoppingcartjs.js` fetches it on page load."
-        },
-        {
-          "title": "Pages",
-          "bullets": [
-            "Home — hero + category tiles + embedded Google Map",
-            "Eight category pages — Italian, Chinese, American, Indian, Breakfast, Lunch, Shakes, Mocktails",
-            "Each category has its own CSS file for distinct styling"
-          ]
-        },
-        {
-          "title": "UI details",
-          "body": "Horizontal-scroll dish carousels with next/prev buttons. Cart UI toggles a `showcart` class on the body. Preview locally via `python -m http.server 8000` (the JSON fetch needs HTTP, not `file://`)."
-        }
-      ],
-      "rank": 5
-    },
-    {
-      "name": "password-generator-and-validator",
-      "description": "",
-      "url": "https://github.com/vasu-devs/password-generator-and-validator",
-      "homepage": null,
-      "language": "Python",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-11-07T13:36:13Z",
-      "summary": "Interactive Python CLI: validate password strength against composition rules, or generate random passwords of length 6–10 that satisfy those rules. Standard library only.",
-      "highlights": [
-        "Validation returns targeted hints when specific rules fail",
-        "Generator seeds upper + lower + digit + special before filling",
-        "Pure stdlib — zero external dependencies"
-      ],
-      "tech": [
-        "Python"
-      ],
-      "details": [
-        {
-          "title": "Rules",
-          "bullets": [
-            "At least one uppercase A–Z",
-            "At least one lowercase a–z",
-            "At least one digit 0–9",
-            "At least one special character from !@#$%^&*",
-            "No whitespace"
-          ]
-        },
-        {
-          "title": "Generator",
-          "body": "Seeds the first four characters — one of each required class — then fills the remaining characters from a mixed pool. Length 6 passwords always have all four required classes covered."
-        },
-        {
-          "title": "Caveats",
-          "body": "Uses Python's `random` module which is not cryptographically secure — for high-security use cases, swap in `secrets` from the stdlib."
-        }
-      ],
-      "rank": 4
-    },
-    {
-      "name": "air-aware-website",
-      "description": "a website that explains air pollution , its solutions , various blogs on air pollution , also tells the stories of the most disastrous events that occurred due to air pollution, also provides latest AQI , CO2 levels etc of almost all cities, using external links",
-      "url": "https://github.com/vasu-devs/air-aware-website",
-      "homepage": null,
-      "language": "HTML",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-11-07T08:14:56Z",
-      "summary": "Educational static landing page about air quality awareness. Curated sections on pollution disasters, WHO/EPA/NRDC resources, and actionable guidance. Plain HTML/CSS.",
-      "highlights": [
-        "Curated sections on disasters, resources, and actionable guidance",
-        "Responsive semantic HTML with Google Fonts typography",
-        "Static — deployable to any static host"
-      ],
-      "tech": [
-        "HTML",
-        "CSS"
-      ],
-      "details": [
-        {
-          "title": "Sections",
-          "bullets": [
-            "Hero banner with city suggestions via `<datalist>`",
-            "Featured air pollution disasters with external references",
-            "Information + solutions (WHO, EPA, NRDC)",
-            "About section describing the mission"
-          ]
-        },
-        {
-          "title": "Stack",
-          "bullets": [
-            "HTML5 + CSS3",
-            "Google Fonts: Satisfy, Barlow Condensed, Roboto",
-            "Responsive semantic markup",
-            "No JavaScript yet — datalist suggestions need a small JS enhancement"
-          ]
-        }
-      ],
-      "rank": 5
-    },
-    {
-      "name": "fastapi-cheatsheet",
-      "description": "📘 A comprehensive FastAPI Cheat Sheet (Markdown + PDF)",
-      "url": "https://github.com/vasu-devs/fastapi-cheatsheet",
-      "homepage": null,
-      "language": null,
-      "stars": 0,
-      "forks": 1,
-      "topics": [],
-      "updatedAt": "2025-10-05T09:53:48Z",
-      "summary": "Single-page FastAPI reference. Snippets organized by topic — not a product, just a scratchpad you keep open while building.",
-      "highlights": [
-        "Copy-paste snippets for every common FastAPI pattern",
-        "Covers auth (OAuth2, API keys), background tasks, testing, CORS",
-        "Includes a SQLAlchemy integration example"
-      ],
-      "tech": [
-        "Python",
-        "FastAPI",
-        "Pydantic",
-        "SQLAlchemy"
-      ],
-      "details": [
-        {
-          "title": "Coverage",
-          "bullets": [
-            "Routing + path/query params",
-            "Pydantic models — request bodies, response_model, Query/Path validation",
-            "Depends() dependency injection",
-            "OAuth2 JWT + API-key security",
-            "File uploads + form data",
-            "Cookies + headers",
-            "Background tasks",
-            "Middleware & startup/shutdown events",
-            "SQLAlchemy integration",
-            "Testing via TestClient",
-            "CORS + auto-docs (/docs, /redoc)"
-          ]
-        },
-        {
-          "title": "Performance tips included",
-          "bullets": [
-            "`async def` for I/O tasks",
-            "`response_model` to filter outputs",
-            "Lifespan events for DB connections",
-            "BackgroundTasks or Celery for heavy work"
-          ]
-        }
-      ],
-      "rank": 4
-    },
-    {
       "name": "ChatBotUI",
       "description": "",
       "url": "https://github.com/vasu-devs/ChatBotUI",
@@ -1513,144 +934,8 @@
         }
       ],
       "rank": 2
-    },
-    {
-      "name": "Portfolio",
-      "description": "",
-      "url": "https://github.com/vasu-devs/Portfolio",
-      "homepage": null,
-      "language": "HTML",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-09-02T00:05:12Z",
-      "summary": "",
-      "highlights": [],
-      "tech": [],
-      "rank": 5
-    },
-    {
-      "name": "Folder-Summary-Parser",
-      "description": "",
-      "url": "https://github.com/vasu-devs/Folder-Summary-Parser",
-      "homepage": null,
-      "language": "Python",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-07-18T18:23:24Z",
-      "summary": "Python GUI utility that recursively scans a folder and reports file/folder counts, human-readable total size, and a file-type breakdown. Tkinter interface, standard library only.",
-      "highlights": [
-        "Recursive os.walk traversal with permission-error handling",
-        "Human-readable size formatting (B/KB/MB/GB/TB)",
-        "Pure stdlib — no external packages required"
-      ],
-      "tech": [
-        "Python",
-        "Tkinter"
-      ],
-      "details": [
-        {
-          "title": "What it does",
-          "body": "Point it at a directory. It walks the tree via `os.walk()`, tallies total files, total folders, total size, and a per-extension breakdown. Permission-denied paths are caught gracefully so the scan never crashes."
-        },
-        {
-          "title": "Module split",
-          "bullets": [
-            "main.py — entrypoint, launches the GUI",
-            "gui.py — Tkinter window",
-            "parser.py — os.walk aggregation logic",
-            "utils.py — pure helpers (e.g. human-readable size formatting)"
-          ]
-        },
-        {
-          "title": "Dependencies",
-          "body": "Python standard library only. Tkinter ships with Python. No pip install, no build step."
-        }
-      ],
-      "rank": 3
-    },
-    {
-      "name": "waterBuddyV1",
-      "description": "",
-      "url": "https://github.com/vasu-devs/waterBuddyV1",
-      "homepage": null,
-      "language": "Python",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-07-16T17:51:51Z",
-      "summary": "Background Python script that sends periodic desktop notifications to drink water. Cross-platform via the plyer library; interval and message configurable in a single file.",
-      "highlights": [
-        "Cross-platform desktop notifications via plyer",
-        "Interval and message fully config-driven",
-        "Minimal footprint — runs quietly in the background"
-      ],
-      "tech": [
-        "Python",
-        "plyer"
-      ],
-      "details": [
-        {
-          "title": "Files",
-          "bullets": [
-            "main.py — entrypoint, starts the reminder loop",
-            "reminder_logic.py — timing + message formatting",
-            "notifier.py — plyer wrapper for cross-platform notifications",
-            "config.py — interval and message text"
-          ]
-        },
-        {
-          "title": "Usage",
-          "body": "`pip install plyer` then `python main.py`. Drop `INTERVAL_MINUTES` to 0.1 for quick testing; 60–90 for daily use. Ctrl+C to stop."
-        }
-      ],
-      "rank": 4
-    },
-    {
-      "name": "habiTurtle",
-      "description": "",
-      "url": "https://github.com/vasu-devs/habiTurtle",
-      "homepage": null,
-      "language": "HTML",
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2025-07-15T16:25:15Z",
-      "summary": "Minimalist PyQt5 desktop habit tracker where a turtle mascot's mood reflects your streak state — happy on completion, angry when you're late, sad when you break it.",
-      "highlights": [
-        "Turtle mascot mood reflects streak state across 6+ moods",
-        "JSON-backed habit log — no database needed",
-        "One-command PyInstaller build for a standalone .exe"
-      ],
-      "tech": [
-        "Python",
-        "PyQt5"
-      ],
-      "details": [
-        {
-          "title": "The idea",
-          "body": "Mark a habit done, the turtle is happy. Miss a day, the turtle is sad. Close to end-of-day without completing? Nervous. Long streak? Excited."
-        },
-        {
-          "title": "Moods",
-          "bullets": [
-            "Happy — today's habit done",
-            "Nervous — day is almost over",
-            "Angry — very late, streak at risk",
-            "Sad — missed a day",
-            "Sleepy — still early in the day",
-            "Excited — long streaks or early solves"
-          ]
-        },
-        {
-          "title": "Build",
-          "body": "`main.py` + `gui.py` + `storage.py` over PyQt5. Habits persist to `habits.json`. Mascot images live in `assets/`. One-command PyInstaller build produces a standalone Windows .exe."
-        }
-      ],
-      "rank": 4
     }
   ],
-  "readmesFetchedAt": "2026-04-17T18:52:41.842Z",
-  "curatedAt": "2026-04-17T19:53:29.847Z"
+  "readmesFetchedAt": "2026-04-17T18:52:41.862Z",
+  "curatedAt": "2026-04-23T00:00:00.000Z"
 }

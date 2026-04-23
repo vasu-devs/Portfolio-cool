@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Star, GitFork, Globe, Github, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, Star, GitFork, Globe, ChevronDown } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { MoreProjectModal } from '../ui/MoreProjectModal';
 import { DetailSection } from '../ui/DetailSections';
@@ -200,17 +200,6 @@ export const MoreProjects = () => {
                                         {p.name}
                                     </h3>
                                     <div className="flex items-center gap-[2vw] md:gap-2 shrink-0">
-                                        <a
-                                            href={p.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={(e) => e.stopPropagation()}
-                                            aria-label={`${p.name} on GitHub`}
-                                            title="Open on GitHub"
-                                            className="w-[8vw] h-[8vw] md:w-9 md:h-9 rounded-full border border-border-primary flex items-center justify-center transition-colors hover:bg-bg-primary"
-                                        >
-                                            <Github className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
-                                        </a>
                                         <span className="w-[8vw] h-[8vw] md:w-9 md:h-9 rounded-full border border-border-primary flex items-center justify-center transition-all duration-300 group-hover:bg-fg-primary group-hover:text-bg-primary group-hover:rotate-45">
                                             <ArrowUpRight className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
                                         </span>

@@ -13,10 +13,57 @@ interface HeroProps {
 export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
     return (
         <section id="hero" className="min-h-[100dvh] lg:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
-            {/* Split Background */}
+            {/* Split Background — glassy panels */}
             <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                <div className={`h-[58%] lg:h-[44%] w-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                <div className="h-[42%] lg:h-[56%] w-full bg-bg-primary" />
+                {/* TOP half — frosted glass panel */}
+                <div
+                    className={`relative h-[58%] lg:h-[44%] w-full overflow-hidden ${
+                        theme === 'dark' ? 'bg-white' : 'bg-black'
+                    }`}
+                >
+                    {/* Vertical depth gradient — slight lightness shift bottom-to-top */}
+                    <div
+                        className={`absolute inset-0 ${
+                            theme === 'dark'
+                                ? 'bg-gradient-to-b from-white via-white/95 to-zinc-100'
+                                : 'bg-gradient-to-b from-black via-black/95 to-zinc-950'
+                        }`}
+                    />
+                    {/* Specular top reflection — strong highlight along the upper edge */}
+                    <div
+                        className={`absolute inset-x-0 top-0 h-1/3 ${
+                            theme === 'dark'
+                                ? 'bg-gradient-to-b from-white via-white/40 to-transparent'
+                                : 'bg-gradient-to-b from-zinc-700/60 via-zinc-800/30 to-transparent'
+                        }`}
+                    />
+                    {/* Diagonal sheen — subtle light streak across the surface */}
+                    <div
+                        className={`absolute inset-0 ${
+                            theme === 'dark'
+                                ? 'bg-gradient-to-tr from-transparent via-white/15 to-transparent'
+                                : 'bg-gradient-to-tr from-transparent via-zinc-700/20 to-transparent'
+                        }`}
+                    />
+                    {/* Bottom edge — soft shadow where it meets the dark half */}
+                    <div
+                        className={`absolute inset-x-0 bottom-0 h-12 ${
+                            theme === 'dark'
+                                ? 'bg-gradient-to-t from-zinc-200/50 to-transparent'
+                                : 'bg-gradient-to-t from-zinc-900/40 to-transparent'
+                        }`}
+                    />
+                </div>
+
+                {/* BOTTOM half — dark glass panel */}
+                <div className="relative h-[42%] lg:h-[56%] w-full overflow-hidden bg-bg-primary">
+                    {/* Top edge highlight — thin specular line at the seam */}
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-fg-primary/30 to-transparent" />
+                    {/* Soft top fade — light bleeding down from the bright half */}
+                    <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-fg-primary/[0.05] to-transparent" />
+                    {/* Centered radial highlight — gives the dark surface a sense of depth */}
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(255,255,255,0.06),transparent_70%)]" />
+                </div>
             </div>
 
             {/* Side branding — anchored to the split inside Hero */}

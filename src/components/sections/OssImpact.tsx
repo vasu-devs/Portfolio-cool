@@ -56,24 +56,7 @@ const FEATURED = [
     },
 ];
 
-const SECONDARY = [
-    {
-        repo: 'SAYOUNCDR/auto-timetable',
-        url: 'https://github.com/SAYOUNCDR/auto-timetable',
-        title: 'auto-timetable',
-        icon: Calendar,
-        description:
-            'Architected the core scheduling algorithm — constraint-satisfaction logic for conflict-free timetables.',
-    },
-    {
-        repo: 'SAYOUNCDR/NyaySaathi',
-        url: 'https://github.com/SAYOUNCDR/NyaySaathi',
-        title: 'NyaySaathi',
-        icon: GitPullRequest,
-        description:
-            "Built out the backend and restructured the file layout for the org's legal-assistant project.",
-    },
-];
+const SECONDARY: any[] = [];
 
 const AnimatedCounter = ({
     value,
@@ -206,39 +189,41 @@ export const OssImpact = ({ stats, isLoading = false }: OssImpactProps) => {
                 </div>
 
                 {/* Secondary tier: compact rows */}
-                <div className="flex flex-col gap-[3vw] md:gap-3 mb-[14vw] md:mb-20">
-                    {SECONDARY.map((c, i) => (
-                        <motion.a
-                            key={c.repo}
-                            href={c.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: '-5%' }}
-                            transition={{ duration: 0.4, delay: 0.3 + i * 0.05 }}
-                            className="group flex items-center gap-[4vw] md:gap-5 p-[4vw] md:p-4 border border-bg-primary/15 rounded-2xl bg-bg-primary/5 hover:bg-bg-primary/10 transition-colors"
-                        >
-                            <div className="p-[2.5vw] md:p-2 bg-bg-primary/10 rounded-lg shrink-0">
-                                <c.icon className="w-[5vw] h-[5vw] md:w-4 md:h-4" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <div className="flex items-baseline gap-[2vw] md:gap-3 mb-[0.5vw] md:mb-0.5">
-                                    <h4 className="font-display font-bold text-[4vw] md:text-base truncate">
-                                        {c.title}
-                                    </h4>
-                                    <span className="font-mono text-[2.3vw] md:text-[10px] uppercase tracking-widest opacity-50 truncate">
-                                        {c.repo}
-                                    </span>
+                {SECONDARY.length > 0 && (
+                    <div className="flex flex-col gap-[3vw] md:gap-3 mb-[14vw] md:mb-20">
+                        {SECONDARY.map((c, i) => (
+                            <motion.a
+                                key={c.repo}
+                                href={c.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true, margin: '-5%' }}
+                                transition={{ duration: 0.4, delay: 0.3 + i * 0.05 }}
+                                className="group flex items-center gap-[4vw] md:gap-5 p-[4vw] md:p-4 border border-bg-primary/15 rounded-2xl bg-bg-primary/5 hover:bg-bg-primary/10 transition-colors"
+                            >
+                                <div className="p-[2.5vw] md:p-2 bg-bg-primary/10 rounded-lg shrink-0">
+                                    <c.icon className="w-[5vw] h-[5vw] md:w-4 md:h-4" />
                                 </div>
-                                <p className="text-[3vw] md:text-sm leading-relaxed opacity-70 line-clamp-1">
-                                    {c.description}
-                                </p>
-                            </div>
-                            <ArrowUpRight className="w-[5vw] h-[5vw] md:w-4 md:h-4 opacity-40 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0" />
-                        </motion.a>
-                    ))}
-                </div>
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-baseline gap-[2vw] md:gap-3 mb-[0.5vw] md:mb-0.5">
+                                        <h4 className="font-display font-bold text-[4vw] md:text-base truncate">
+                                            {c.title}
+                                        </h4>
+                                        <span className="font-mono text-[2.3vw] md:text-[10px] uppercase tracking-widest opacity-50 truncate">
+                                            {c.repo}
+                                        </span>
+                                    </div>
+                                    <p className="text-[3vw] md:text-sm leading-relaxed opacity-70 line-clamp-1">
+                                        {c.description}
+                                    </p>
+                                </div>
+                                <ArrowUpRight className="w-[5vw] h-[5vw] md:w-4 md:h-4 opacity-40 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0" />
+                            </motion.a>
+                        ))}
+                    </div>
+                )}
 
                 {/* Stats grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-[6vw] md:gap-6">

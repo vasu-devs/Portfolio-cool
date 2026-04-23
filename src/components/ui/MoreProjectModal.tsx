@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Star, GitFork, Calendar, Github, ExternalLink } from 'lucide-react';
+import { X, Star, GitFork, Calendar, Mail, ExternalLink } from 'lucide-react';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { DetailSections, DetailSection } from './DetailSections';
@@ -89,7 +89,7 @@ export const MoreProjectModal = ({ project, onClose }: MoreProjectModalProps) =>
                         <div className="flex justify-between items-start gap-4 px-[6vw] md:px-8 py-[4vw] md:py-5 border-b border-border-primary bg-bg-primary/80 backdrop-blur-md z-10">
                             <div className="min-w-0 flex-1">
                                 <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary block mb-[1vw] md:mb-1.5">
-                                    Project · github.com/vasu-devs
+                                    Project
                                 </span>
                                 <h2 className="font-display font-black text-[6vw] md:text-3xl leading-tight tracking-tight truncate">
                                     {project.name}
@@ -198,13 +198,11 @@ export const MoreProjectModal = ({ project, onClose }: MoreProjectModalProps) =>
                                 {/* Action buttons */}
                                 <div className="flex flex-wrap gap-[3vw] md:gap-3 pt-[4vw] md:pt-6 border-t border-border-primary/60">
                                     <a
-                                        href={project.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                        href="mailto:siddhvasudev1402@gmail.com"
                                         className="inline-flex items-center gap-[2vw] md:gap-2 px-[5vw] md:px-6 py-[3vw] md:py-3 rounded-full bg-fg-primary text-bg-primary font-mono text-[2.8vw] md:text-sm uppercase tracking-widest font-bold hover:scale-105 transition-transform"
                                     >
-                                        <Github className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
-                                        View on GitHub
+                                        <Mail className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
+                                        Drop Me a Mail
                                     </a>
                                     {project.homepage && (
                                         <a

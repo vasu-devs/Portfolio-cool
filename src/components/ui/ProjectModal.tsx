@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Github } from "lucide-react";
+import { X, ExternalLink, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 import { DetailSections, DetailSection } from "./DetailSections";
 
@@ -197,17 +197,13 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                                 Live Demo
                                             </a>
                                         )}
-                                        {project.repoUrl && (
-                                            <a
-                                                href={project.repoUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-[2vw] md:gap-2 px-[5vw] md:px-5 py-[3vw] md:py-2.5 rounded-full border border-border-primary font-mono text-[2.8vw] md:text-xs uppercase tracking-widest font-bold hover:bg-bg-secondary transition-colors"
-                                            >
-                                                <Github className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
-                                                Source Code
-                                            </a>
-                                        )}
+                                        <a
+                                            href="mailto:siddhvasudev1402@gmail.com"
+                                            className="inline-flex items-center gap-[2vw] md:gap-2 px-[5vw] md:px-5 py-[3vw] md:py-2.5 rounded-full border border-border-primary font-mono text-[2.8vw] md:text-xs uppercase tracking-widest font-bold hover:bg-bg-secondary transition-colors"
+                                        >
+                                            <Mail className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
+                                            Discuss / Code
+                                        </a>
                                     </div>
                                 </div>
                             </div>

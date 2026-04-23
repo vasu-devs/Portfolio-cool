@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowUpRight, Github, Play } from "lucide-react";
+import { ArrowUpRight, Play } from "lucide-react";
 import { MagneticButton } from "./ui/MagneticButton";
 
 export const CaseStudy = ({
@@ -79,14 +79,13 @@ export const CaseStudy = ({
                             </a>
                         </MagneticButton>
                     )}
-                    {repoUrl && (
-                        <MagneticButton>
-                            <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-[2vw] md:gap-2 px-[6vw] md:px-6 py-[3vw] md:py-3.5 border border-border-primary font-bold font-mono text-[2.5vw] md:text-sm uppercase hover:bg-bg-secondary transition-colors">
-                                Source_Code <Github className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
-                            </a>
-                        </MagneticButton>
-                    )}
                 </div>
+                <p className="font-mono text-[2.8vw] md:text-sm text-fg-secondary mt-[4vw] md:mt-5">
+                    Want to see the code or discuss?{' '}
+                    <a href="mailto:siddhvasudev1402@gmail.com" className="text-fg-primary underline underline-offset-2 hover:opacity-70 transition-opacity">
+                        Drop me a mail
+                    </a>
+                </p>
             </div>
 
             {/* Visual Side */}

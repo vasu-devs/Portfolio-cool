@@ -252,7 +252,6 @@ export default function App() {
          tech: ['Next.js 16', 'TypeScript', 'Drizzle ORM', 'Neon Postgres', 'Vercel AI SDK', 'Groq', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM',
          thumbnailUrl: 'https://img.youtube.com/vi/RB3zvAXbpL0/maxresdefault.jpg',
-         repoUrl: 'https://github.com/vasu-devs/BranchGPT',
          liveUrl: 'https://branchgpt.vasudev.live/'
       },
       {
@@ -307,7 +306,6 @@ export default function App() {
          tech: ['Python', 'FastAPI', 'LiveKit Agents', 'Groq', 'Deepgram', 'React 18', 'Vite', 'Tailwind', 'SIP', 'Docker'],
          videoUrl: 'https://www.youtube.com/watch?v=VsEfOfwh8XM',
          thumbnailUrl: 'https://img.youtube.com/vi/VsEfOfwh8XM/maxresdefault.jpg',
-         repoUrl: 'https://github.com/vasu-devs/Vaani',
       },
       {
          title: 'Odeon',
@@ -364,7 +362,6 @@ export default function App() {
          tech: ['Python', 'FastAPI', 'WebSockets', 'Groq', 'LangChain', 'SQLite', 'React 19', 'Vite', 'TypeScript', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/GFdSe4-c_xQ',
          thumbnailUrl: 'https://img.youtube.com/vi/GFdSe4-c_xQ/maxresdefault.jpg',
-         repoUrl: 'https://github.com/vasu-devs/Odeon',
       },
       {
          title: 'MapMyRepo',
@@ -422,7 +419,6 @@ export default function App() {
          tech: ['React 19', 'TypeScript', 'Vite 6', 'D3.js 7', 'Google Gemini', 'Tailwind'],
          videoUrl: 'https://youtu.be/EmTDrPzAo40',
          thumbnailUrl: 'https://img.youtube.com/vi/EmTDrPzAo40/maxresdefault.jpg',
-         repoUrl: 'https://github.com/vasu-devs/MapMyRepo',
          liveUrl: 'https://mapmyrepo.vasudev.live'
       },
       {
@@ -479,7 +475,6 @@ export default function App() {
          tech: ['React', 'Tailwind', 'FastAPI', 'Python', 'Gemini Flash 2.0', 'Ollama', 'ChromaDB'],
          videoUrl: 'https://youtu.be/6weynv_rblI',
          thumbnailUrl: 'https://img.youtube.com/vi/6weynv_rblI/maxresdefault.jpg',
-         repoUrl: 'https://github.com/vasu-devs/PolySEE',
       }
    ];
 
