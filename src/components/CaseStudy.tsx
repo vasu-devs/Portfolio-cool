@@ -8,7 +8,6 @@ export const CaseStudy = ({
     category,
     description,
     thumbnailUrl,
-    repoUrl,
     liveUrl,
     index
 }: {
@@ -17,7 +16,6 @@ export const CaseStudy = ({
     description: string;
     videoUrl?: string;
     thumbnailUrl?: string;
-    repoUrl?: string;
     liveUrl?: string;
     index: number;
 }) => {

@@ -7,7 +7,6 @@ import {
     Palette,
     Wand2,
     BookOpen,
-    Calendar,
     ArrowUpRight,
 } from 'lucide-react';
 import { Container } from '../ui/Container';
