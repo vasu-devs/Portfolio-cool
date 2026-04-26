@@ -578,7 +578,6 @@ export default function App() {
                      </a>
                   </div>
                   <a href="#experience" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Experience</a>
-                  <a href="#projects" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Work</a>
                   <a href="#skills" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Skills</a>
                   <a href="#services" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Services</a>
                   <a href="#contact" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Contact</a>
