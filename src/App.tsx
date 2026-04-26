@@ -20,6 +20,7 @@ const Work = lazy(() => import('./components/sections/Work').then(m => ({ defaul
 const MoreProjects = lazy(() => import('./components/sections/MoreProjects').then(m => ({ default: m.MoreProjects })));
 const Skills = lazy(() => import('./components/sections/Skills').then(m => ({ default: m.Skills })));
 const OssImpact = lazy(() => import('./components/sections/OssImpact').then(m => ({ default: m.OssImpact })));
+const Services = lazy(() => import('./components/sections/Services').then(m => ({ default: m.Services })));
 const Footer = lazy(() => import('./components/sections/Footer').then(m => ({ default: m.Footer })));
 const ProjectModal = lazy(() => import('./components/ui/ProjectModal').then(m => ({ default: m.ProjectModal })));
 const ResumeModal = lazy(() => import('./components/ui/ResumeModal').then(m => ({ default: m.ResumeModal })));
@@ -50,7 +51,7 @@ export default function App() {
    // Detect what's behind the bottom nav so it can flip its color scheme
    // when crossing inverted-bg sections (Experience, MoreProjects, OssImpact).
    useEffect(() => {
-      const NAV_INVERTED_SECTION_IDS = ['experience', 'more-projects', 'oss-impact'];
+      const NAV_INVERTED_SECTION_IDS = ['experience', 'more-projects', 'oss-impact', 'services'];
       let rafId: number | null = null;
 
       const check = () => {
@@ -609,6 +610,7 @@ export default function App() {
                <MoreProjects />
                <Skills />
                <OssImpact stats={stats} isLoading={isStatsLoading} />
+               <Services />
                <Footer theme={theme} onResumeClick={openResumeModal} />
             </Suspense>
          </div>
