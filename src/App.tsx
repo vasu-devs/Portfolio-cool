@@ -5,10 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Mail, Linkedin, Twitter } from 'lucide-react';
 import { Hero } from './components/sections/Hero';
 import { Grain } from './components/ui/Grain';
-import { MagneticButton } from './components/ui/MagneticButton';
 import { Preloader } from './components/ui/Preloader';
 import { StatusBadge } from './components/ui/StatusBadge';
-import { SunToggle } from './components/ui/SunToggle';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { useLenis } from './hooks/useLenis';
@@ -149,55 +147,6 @@ export default function App() {
    }, []);
 
 
-   const toggleTheme = (e?: React.MouseEvent) => {
-      if (isTransitioning || isPending) return;
-
-      let x = window.innerWidth / 2;
-      let y = window.innerHeight - 60;
-      if (e) {
-         x = e.clientX;
-         y = e.clientY;
-      } else if (toggleRef.current) {
-         const rect = toggleRef.current.getBoundingClientRect();
-         x = rect.left + rect.width / 2;
-         y = rect.top + rect.height / 2;
-      }
-      setClickPos({ x, y });
-
-      // Use View Transitions API for a true clip-path "sunlight" wave from the
-      // toggle position — each pixel switches theme as the wave reaches it.
-      const startViewTransition = (document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } }).startViewTransition;
-
-      if (typeof startViewTransition === 'function') {
-         const maxRadius = Math.hypot(
-            Math.max(x, window.innerWidth - x),
-            Math.max(y, window.innerHeight - y),
-         );
-         document.documentElement.style.setProperty('--theme-toggle-x', `${x}px`);
-         document.documentElement.style.setProperty('--theme-toggle-y', `${y}px`);
-         document.documentElement.style.setProperty('--theme-toggle-radius', `${maxRadius}px`);
-
-         setIsTransitioning(true);
-         const transition = startViewTransition.call(document, () => {
-            flushSync(() => {
-               setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-            });
-         });
-         transition.finished.finally(() => setIsTransitioning(false));
-         return;
-      }
-
-      // Fallback for browsers without View Transitions API
-      setIsTransitioning(true);
-      setTimeout(() => {
-         startTransition(() => {
-            setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-         });
-      }, 300);
-      setTimeout(() => {
-         setIsTransitioning(false);
-      }, 1200);
-   };
 
    const openModal = (project: Project) => {
       setSelectedProject(project);
