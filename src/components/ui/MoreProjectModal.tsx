@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Star, GitFork, Calendar, Mail, ExternalLink } from 'lucide-react';
+import { X, Star, GitFork, Calendar, Mail, ExternalLink, Copy } from 'lucide-react';
+import { CopyButton } from './CopyButton';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { DetailSections, DetailSection } from './DetailSections';
@@ -95,17 +96,21 @@ export const MoreProjectModal = ({ project, onClose }: MoreProjectModalProps) =>
                                     {project.name}
                                 </h2>
                             </div>
-                            <button
-                                onClick={onClose}
-                                aria-label="Close"
-                                className="shrink-0 p-[2vw] md:p-2 rounded-full border border-transparent hover:border-border-primary hover:bg-bg-secondary transition-colors"
-                            >
-                                <X className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
-                            </button>
+                            <div className="flex items-center gap-3 shrink-0">
+                                <CopyButton contentId="more-project-modal-content" className="flex" />
+                                <button
+                                    onClick={onClose}
+                                    aria-label="Close"
+                                    className="p-[2vw] md:p-2 rounded-full border border-transparent hover:border-border-primary hover:bg-bg-secondary transition-colors"
+                                >
+                                    <X className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Scrollable body */}
                         <div
+                            id="more-project-modal-content"
                             className="overflow-y-auto flex-1 overscroll-contain"
                             data-lenis-prevent
                         >

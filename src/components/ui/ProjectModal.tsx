@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Mail } from "lucide-react";
+import { X, ExternalLink, Mail, Copy } from "lucide-react";
+import { CopyButton } from "./CopyButton";
 import { useEffect, useState } from "react";
 import { DetailSections, DetailSection } from "./DetailSections";
 
@@ -82,17 +83,20 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                     {project.title}
                                 </h2>
                             </div>
-                            <button
-                                onClick={onClose}
-                                aria-label="Close"
-                                className="shrink-0 p-[2vw] md:p-2 rounded-full border border-transparent hover:border-border-primary hover:bg-bg-secondary transition-colors"
-                            >
-                                <X className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
-                            </button>
+                             <div className="flex items-center gap-3 shrink-0">
+                                <CopyButton contentId="project-modal-content" className="flex" />
+                                <button
+                                    onClick={onClose}
+                                    aria-label="Close"
+                                    className="p-[2vw] md:p-2 rounded-full border border-transparent hover:border-border-primary hover:bg-bg-secondary transition-colors"
+                                >
+                                    <X className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Body — stacked on mobile, side-by-side on desktop */}
-                        <div className="flex flex-col md:flex-row-reverse flex-1 min-h-0 overflow-y-auto md:overflow-hidden" data-lenis-prevent>
+                        <div id="project-modal-content" className="flex flex-col md:flex-row-reverse flex-1 min-h-0 overflow-y-auto md:overflow-hidden" data-lenis-prevent>
                             {/* Video column — right on desktop */}
                             <div className="md:w-[58%] md:shrink-0 bg-black flex items-center justify-center md:border-l md:border-border-primary">
                                 <div className="relative w-full aspect-video overflow-hidden">

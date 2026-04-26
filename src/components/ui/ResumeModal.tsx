@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Download } from "lucide-react";
+import { X, ExternalLink, Download, Copy } from "lucide-react";
+import { CopyButton } from "./CopyButton";
 import { useEffect } from "react";
 
 interface ResumeModalProps {
@@ -51,7 +52,8 @@ export const ResumeModal = ({ isOpen, onClose, resumeUrl }: ResumeModalProps) =>
                                 </span>
                                 <h3 className="font-display font-bold text-[5vw] md:text-[1.5vw]">My Resume</h3>
                             </div>
-                            <div className="flex items-center gap-[2vw] md:gap-[0.5vw]">
+                             <div className="flex items-center gap-[2vw] md:gap-[0.5vw]">
+                                <CopyButton text={resumeUrl} className="flex" />
                                 <a
                                     href={resumeUrl}
                                     target="_blank"

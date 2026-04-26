@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
+import { CopyButton } from './CopyButton';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -134,17 +135,21 @@ export const ExperienceModal = ({ isOpen, onClose }: ExperienceModalProps) => {
                                     Internal Finance &amp; P&amp;L Platform
                                 </h2>
                             </div>
-                            <button
-                                onClick={onClose}
-                                aria-label="Close case study"
-                                className="shrink-0 p-[2vw] md:p-2 rounded-full border border-transparent hover:border-border-primary hover:bg-bg-secondary transition-colors"
-                            >
-                                <X className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
-                            </button>
+                            <div className="flex items-center gap-3 shrink-0">
+                                <CopyButton contentId="experience-modal-content" className="flex" />
+                                <button
+                                    onClick={onClose}
+                                    aria-label="Close case study"
+                                    className="p-[2vw] md:p-2 rounded-full border border-transparent hover:border-border-primary hover:bg-bg-secondary transition-colors"
+                                >
+                                    <X className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Scrollable content */}
                         <div
+                            id="experience-modal-content"
                             className="overflow-y-auto flex-1 overscroll-contain"
                             data-lenis-prevent
                         >
