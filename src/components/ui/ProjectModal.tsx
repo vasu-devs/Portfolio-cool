@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Mail, Copy } from "lucide-react";
+import { X, ExternalLink, Mail } from "lucide-react";
 import { CopyButton } from "./CopyButton";
 import { useEffect, useState } from "react";
 import { DetailSections, DetailSection } from "./DetailSections";

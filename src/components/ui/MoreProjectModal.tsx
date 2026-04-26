@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Star, GitFork, Calendar, Mail, ExternalLink, Copy } from 'lucide-react';
+import { X, Star, GitFork, Calendar, Mail, ExternalLink } from 'lucide-react';
 import { CopyButton } from './CopyButton';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';

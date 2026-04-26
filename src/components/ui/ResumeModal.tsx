@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Download, Copy } from "lucide-react";
+import { X, ExternalLink, Download } from "lucide-react";
 import { CopyButton } from "./CopyButton";
 import { useEffect } from "react";
 
