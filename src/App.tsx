@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef, useTransition, lazy, Suspense } from 'react';
-import { flushSync } from 'react-dom';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Mail, Linkedin, Twitter } from 'lucide-react';
@@ -24,7 +23,7 @@ const ProjectModal = lazy(() => import('./components/ui/ProjectModal').then(m =>
 const ResumeModal = lazy(() => import('./components/ui/ResumeModal').then(m => ({ default: m.ResumeModal })));
 
 export default function App() {
-   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+   const [theme] = useState<'light' | 'dark'>('dark');
    const [stats, setStats] = useState({ stars: 0, commits: 0, prs: 0 });
    const [isStatsLoading, setIsStatsLoading] = useState(true);
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,10 +31,8 @@ export default function App() {
    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
    const [isNavInverted, setIsNavInverted] = useState(false);
    const [isLoading, setIsLoading] = useState(true);
-   const [isTransitioning, setIsTransitioning] = useState(false);
-   const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
-   const [isPending, startTransition] = useTransition();
-   const toggleRef = useRef<HTMLDivElement>(null);
+   const [isTransitioning] = useState(false);
+   const [clickPos] = useState({ x: 0, y: 0 });
 
    // Initialize Lenis smooth scrolling
    useLenis();
