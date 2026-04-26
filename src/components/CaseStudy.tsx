@@ -87,19 +87,19 @@ export const CaseStudy = ({
             </div>
 
             {/* Visual Side */}
-            <div className="flex-1 w-full aspect-video md:aspect-[4/3] bg-bg-secondary relative overflow-hidden rounded-xl border border-border-primary group cursor-pointer">
-                <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%]">
+            <div className="flex-1 w-full aspect-[4/3] bg-bg-secondary relative overflow-hidden rounded-xl border border-border-primary group cursor-pointer">
+                <div className="absolute inset-0 w-full h-full">
                     {thumbnailUrl ? (
                         <img
                             src={thumbnailUrl}
                             alt={`${title} — ${category} project preview`}
                             loading="lazy"
-                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
+                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                         />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-bg-secondary to-border-primary opacity-50" />
                     )}
-                </motion.div>
+                </div>
 
                 {/* Overlay Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
