@@ -527,11 +527,7 @@ export default function App() {
                   <a href="#skills" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Skills</a>
                   <a href="#services" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Services</a>
                   <a href="#contact" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Contact</a>
-                  {/* <div ref={toggleRef}>
-                     <MagneticButton onClick={toggleTheme}>
-                        <SunToggle theme={theme} isInverted={isNavInverted} />
-                     </MagneticButton>
-                  </div> */}
+                  {/* Theme toggle removed */}
                </div>
             </div>
          </nav >
