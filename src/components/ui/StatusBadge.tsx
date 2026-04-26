@@ -109,7 +109,7 @@ export const StatusBadge = ({ theme = 'dark' }: StatusBadgeProps) => {
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center gap-[2vw] md:gap-[0.75vw] px-[3vw] py-[1.5vw] md:px-[1.25vw] md:py-[0.6vw] rounded-full border backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 pointer-events-auto cursor-pointer
+                className={`flex items-center gap-[2.5vw] md:gap-[0.9vw] px-[5vw] py-[2.5vw] md:px-[1.8vw] md:py-[1vw] rounded-full border backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 pointer-events-auto cursor-pointer
                     ${isOverLightBg
                         ? 'bg-white/70 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]'
                         : 'bg-zinc-900/60 border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_0_rgba(255,255,255,0.12)]'}

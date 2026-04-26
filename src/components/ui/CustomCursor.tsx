@@ -543,7 +543,7 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
-                    className={`fixed top-[4vw] left-[4vw] md:top-[2vw] md:left-[2.5vw] z-[50] flex items-center gap-[2vw] md:gap-[0.75vw] px-[3vw] py-[1.5vw] md:px-[1.25vw] md:py-[0.6vw] rounded-full border backdrop-blur-2xl backdrop-saturate-150 pointer-events-none select-none transition-colors duration-300 cursor-element font-mono
+                    className={`fixed top-[4vw] left-[4vw] md:top-[2vw] md:left-[2.5vw] z-[50] flex items-center gap-[2.5vw] md:gap-[0.9vw] px-[5vw] py-[2.5vw] md:px-[1.8vw] md:py-[1vw] rounded-full border backdrop-blur-2xl backdrop-saturate-150 pointer-events-none select-none transition-colors duration-300 cursor-element font-mono
                        ${botContrast === 'dark'
                             ? 'bg-zinc-900/60 border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_0_rgba(255,255,255,0.12)]'
                             : 'bg-white/70 border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]'}`}
