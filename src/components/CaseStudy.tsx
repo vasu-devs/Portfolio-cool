@@ -25,7 +25,6 @@ export const CaseStudy = ({
         offset: ["start end", "end start"]
     });
 
-    const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
     const overallY = useTransform(scrollYProgress, [0, 1], [10, -10]);
     const opacity = useTransform(
         scrollYProgress,
