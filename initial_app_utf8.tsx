@@ -1,11 +1,14 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+﻿import { useState, useEffect, useRef, useTransition, lazy, Suspense } from 'react';
+import { flushSync } from 'react-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Mail, Linkedin, Twitter } from 'lucide-react';
 import { Hero } from './components/sections/Hero';
 import { Grain } from './components/ui/Grain';
+import { MagneticButton } from './components/ui/MagneticButton';
 import { Preloader } from './components/ui/Preloader';
 import { StatusBadge } from './components/ui/StatusBadge';
+import { SunToggle } from './components/ui/SunToggle';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { useLenis } from './hooks/useLenis';
@@ -23,7 +26,7 @@ const ProjectModal = lazy(() => import('./components/ui/ProjectModal').then(m =>
 const ResumeModal = lazy(() => import('./components/ui/ResumeModal').then(m => ({ default: m.ResumeModal })));
 
 export default function App() {
-   const [theme] = useState<'light' | 'dark'>('dark');
+   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
    const [stats, setStats] = useState({ stars: 0, commits: 0, prs: 0 });
    const [isStatsLoading, setIsStatsLoading] = useState(true);
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,8 +34,10 @@ export default function App() {
    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
    const [isNavInverted, setIsNavInverted] = useState(false);
    const [isLoading, setIsLoading] = useState(true);
-   const [isTransitioning] = useState(false);
-   const [clickPos] = useState({ x: 0, y: 0 });
+   const [isTransitioning, setIsTransitioning] = useState(false);
+   const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
+   const [isPending, startTransition] = useTransition();
+   const toggleRef = useRef<HTMLDivElement>(null);
 
    // Initialize Lenis smooth scrolling
    useLenis();
@@ -51,7 +56,7 @@ export default function App() {
 
       const check = () => {
          rafId = null;
-         // Nav sits at bottom-6 (24px from bottom) with ~50px height — sample its center.
+         // Nav sits at bottom-6 (24px from bottom) with ~50px height ΓÇö sample its center.
          const navCenterY = window.innerHeight - 50;
          const overlaps = NAV_INVERTED_SECTION_IDS.some(id => {
             const el = document.getElementById(id);
@@ -110,7 +115,7 @@ export default function App() {
             }
 
             // 2. Fetch total stars from a cached counter service.
-            // GitHub's unauthenticated API is capped at 60 req/hr per IP — visitors
+            // GitHub's unauthenticated API is capped at 60 req/hr per IP ΓÇö visitors
             // on shared NATs/mobile carriers routinely hit the limit and stars fall
             // back to 0. This worker caches globally and has no practical limit.
             const starsData = await fetchJson('https://api.github-star-counter.workers.dev/user/vasu-devs');
@@ -144,6 +149,55 @@ export default function App() {
    }, []);
 
 
+   const toggleTheme = (e?: React.MouseEvent) => {
+      if (isTransitioning || isPending) return;
+
+      let x = window.innerWidth / 2;
+      let y = window.innerHeight - 60;
+      if (e) {
+         x = e.clientX;
+         y = e.clientY;
+      } else if (toggleRef.current) {
+         const rect = toggleRef.current.getBoundingClientRect();
+         x = rect.left + rect.width / 2;
+         y = rect.top + rect.height / 2;
+      }
+      setClickPos({ x, y });
+
+      // Use View Transitions API for a true clip-path "sunlight" wave from the
+      // toggle position ΓÇö each pixel switches theme as the wave reaches it.
+      const startViewTransition = (document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } }).startViewTransition;
+
+      if (typeof startViewTransition === 'function') {
+         const maxRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y),
+         );
+         document.documentElement.style.setProperty('--theme-toggle-x', `${x}px`);
+         document.documentElement.style.setProperty('--theme-toggle-y', `${y}px`);
+         document.documentElement.style.setProperty('--theme-toggle-radius', `${maxRadius}px`);
+
+         setIsTransitioning(true);
+         const transition = startViewTransition.call(document, () => {
+            flushSync(() => {
+               setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+            });
+         });
+         transition.finished.finally(() => setIsTransitioning(false));
+         return;
+      }
+
+      // Fallback for browsers without View Transitions API
+      setIsTransitioning(true);
+      setTimeout(() => {
+         startTransition(() => {
+            setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+         });
+      }, 300);
+      setTimeout(() => {
+         setIsTransitioning(false);
+      }, 1200);
+   };
 
    const openModal = (project: Project) => {
       setSelectedProject(project);
@@ -160,20 +214,20 @@ export default function App() {
          category: 'Context Optimization / AI',
          description: 'A Git-like chat interface that treats conversations as a Directed Acyclic Graph (DAG) for context garbage collection. Features include forking branches and merging insights back to keep AI context clean.',
          summary:
-            'Conversations are trees, not lists. BranchGPT reimplements chat as a DAG — fork any message into a parallel reality, explore tangents without polluting the main thread, and smart-merge branches back as LLM-generated summaries.',
+            'Conversations are trees, not lists. BranchGPT reimplements chat as a DAG ΓÇö fork any message into a parallel reality, explore tangents without polluting the main thread, and smart-merge branches back as LLM-generated summaries.',
          details: [
             {
                title: 'The idea',
                body:
-                  "Long chat sessions bloat LLM context. Every tangent and dead-end stays in history, burning tokens and diluting relevance. BranchGPT models the conversation as a Git-style DAG — every message is a node, forking spawns a parallel branch that inherits history up to that point, and merging is explicit.",
+                  "Long chat sessions bloat LLM context. Every tangent and dead-end stays in history, burning tokens and diluting relevance. BranchGPT models the conversation as a Git-style DAG ΓÇö every message is a node, forking spawns a parallel branch that inherits history up to that point, and merging is explicit.",
             },
             {
                title: 'Smart merging',
                bullets: [
-                  "Llama 3.3 summarizes branches before merging, so the parent only absorbs new insight — not the full branch transcript",
+                  "Llama 3.3 summarizes branches before merging, so the parent only absorbs new insight ΓÇö not the full branch transcript",
                   'Merge logic filters out shared history, appending only what\'s new',
                   'Merges recorded as distinct system events in the chat stream',
-                  'The branch stays intact post-merge — you can keep exploring it',
+                  'The branch stays intact post-merge ΓÇö you can keep exploring it',
                ],
             },
             {
@@ -184,7 +238,7 @@ export default function App() {
             {
                title: 'Stack',
                bullets: [
-                  'Next.js 16 — App Router + Server Actions',
+                  'Next.js 16 ΓÇö App Router + Server Actions',
                   'Neon Postgres via Drizzle ORM for tree storage',
                   'Vercel AI SDK wiring to Groq (Llama 3.3) for inference',
                   'Tailwind 4 + glassmorphic UI, full Markdown + LaTeX support',
@@ -192,13 +246,13 @@ export default function App() {
             },
          ],
          highlights: [
-            'Conversations as DAGs — fork, branch, merge, prune',
+            'Conversations as DAGs ΓÇö fork, branch, merge, prune',
             'LLM-summarized merges retain insight without transcript bloat',
             'Git-tree sidebar for instant branch navigation',
          ],
          tech: ['Next.js 16', 'TypeScript', 'Drizzle ORM', 'Neon Postgres', 'Vercel AI SDK', 'Groq', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM',
-         thumbnailUrl: '/covers/branchGPT.png',
+         thumbnailUrl: 'https://img.youtube.com/vi/RB3zvAXbpL0/maxresdefault.jpg',
          liveUrl: 'https://branchgpt.vasudev.live/'
       },
       {
@@ -206,7 +260,7 @@ export default function App() {
          category: 'Voice AI / Fintech',
          description: 'An intelligent, voice-native debt collection platform powered by LiveKit, Groq, and Deepgram. Features sub-500ms latency, real-time negotiation, and FDCPA compliance guardrails.',
          summary:
-            "Voice-native debt-recovery command center. LiveKit handles real-time transport, Groq runs the LLM, Deepgram does both STT and TTS. Two personas — empathetic Rachel and firm Orion — pick up the phone. A 'Sherlock' risk engine watches every second for compliance and intent.",
+            "Voice-native debt-recovery command center. LiveKit handles real-time transport, Groq runs the LLM, Deepgram does both STT and TTS. Two personas ΓÇö empathetic Rachel and firm Orion ΓÇö pick up the phone. A 'Sherlock' risk engine watches every second for compliance and intent.",
          details: [
             {
                title: 'Voice pipeline',
@@ -215,14 +269,14 @@ export default function App() {
                   'Deepgram Nova-2 for real-time speech-to-text',
                   'Groq Llama 3 for low-latency LLM inference',
                   'Deepgram TTS for natural synthesized speech',
-                  'Sub-500 ms end-to-end latency; full-duplex — debtors can interrupt mid-sentence',
+                  'Sub-500 ms end-to-end latency; full-duplex ΓÇö debtors can interrupt mid-sentence',
                ],
             },
             {
                title: 'Two personas',
                bullets: [
-                  'Rachel — empathetic and patient, tuned for hardship cases',
-                  'Orion — firm and direct, tuned for strategic defaulters',
+                  'Rachel ΓÇö empathetic and patient, tuned for hardship cases',
+                  'Orion ΓÇö firm and direct, tuned for strategic defaulters',
                ],
             },
             {
@@ -239,7 +293,7 @@ export default function App() {
                title: 'Architecture',
                bullets: [
                   'Frontend: React 18 + Vite + Tailwind',
-                  'API: Python + FastAPI — orchestrates calls and SIP handler',
+                  'API: Python + FastAPI ΓÇö orchestrates calls and SIP handler',
                   'Agent Worker: LiveKit Agents, runs as a separate process',
                   'Dockerfiles for DigitalOcean App Platform deployment (API + Worker + Frontend)',
                ],
@@ -248,18 +302,18 @@ export default function App() {
          highlights: [
             'Sub-500 ms voice latency with full-duplex interruption handling',
             "Sherlock engine: FDCPA guardrails + debtor-matrix profiling + live PTP/Refusal/Dispute tagging",
-            'Two tuned personas (Rachel / Orion) — dispatch by debtor archetype',
+            'Two tuned personas (Rachel / Orion) ΓÇö dispatch by debtor archetype',
          ],
          tech: ['Python', 'FastAPI', 'LiveKit Agents', 'Groq', 'Deepgram', 'React 18', 'Vite', 'Tailwind', 'SIP', 'Docker'],
          videoUrl: 'https://www.youtube.com/watch?v=VsEfOfwh8XM',
-         thumbnailUrl: '/covers/Vaani.png',
+         thumbnailUrl: 'https://img.youtube.com/vi/VsEfOfwh8XM/maxresdefault.jpg',
       },
       {
          title: 'Odeon',
          category: 'Autonomous Agents',
          description: 'A framework for evolving voice agents through adversarial persona testing. It iteratively self-corrects based on simulation outcomes to improve agent performance.',
          summary:
-            "AI agent optimization platform. Generate adversarial personas, run high-fidelity simulations, score each conversation against strict KPIs, and let a meta-agent rewrite the prompt automatically when targets are missed — a self-improving loop that converges on the optimal persona.",
+            "AI agent optimization platform. Generate adversarial personas, run high-fidelity simulations, score each conversation against strict KPIs, and let a meta-agent rewrite the prompt automatically when targets are missed ΓÇö a self-improving loop that converges on the optimal persona.",
          details: [
             {
                title: 'The problem',
@@ -269,21 +323,21 @@ export default function App() {
             {
                title: 'Personas generated on the fly',
                body:
-                  "Odeon spawns diverse user personas per scenario — \"The Lawyer,\" \"The Crying Student,\" \"The Stubborn Defaulter,\" etc. Each persona drives the user-side of the simulation, giving the agent genuinely hard traffic to handle.",
+                  "Odeon spawns diverse user personas per scenario ΓÇö \"The Lawyer,\" \"The Crying Student,\" \"The Stubborn Defaulter,\" etc. Each persona drives the user-side of the simulation, giving the agent genuinely hard traffic to handle.",
             },
             {
                title: 'Strict metric thresholds',
                bullets: [
-                  'Empathy (1–10)',
-                  'Negotiation (1–10)',
-                  'Repetition (1–10)',
-                  'Agents must meet ALL criteria to pass a scenario — no cherry-picking',
+                  'Empathy (1ΓÇô10)',
+                  'Negotiation (1ΓÇô10)',
+                  'Repetition (1ΓÇô10)',
+                  'Agents must meet ALL criteria to pass a scenario ΓÇö no cherry-picking',
                ],
             },
             {
                title: 'Self-improving loop',
                body:
-                  "When the agent fails a threshold, the Optimizer meta-agent reads the failure logs and rewrites the system prompt. The Neural Visual Diffing view renders the prompt change as a Git-style red/green diff — so you can see exactly which words changed to improve empathy or compliance.",
+                  "When the agent fails a threshold, the Optimizer meta-agent reads the failure logs and rewrites the system prompt. The Neural Visual Diffing view renders the prompt change as a Git-style red/green diff ΓÇö so you can see exactly which words changed to improve empathy or compliance.",
             },
             {
                title: 'Live stream',
@@ -303,19 +357,19 @@ export default function App() {
          ],
          highlights: [
             'Adversarial persona generation for synthetic stress testing',
-            'Meta-agent auto-rewrites prompts when thresholds fail — self-improving loop',
+            'Meta-agent auto-rewrites prompts when thresholds fail ΓÇö self-improving loop',
             'Git-style red/green diff view shows exactly which words changed',
          ],
          tech: ['Python', 'FastAPI', 'WebSockets', 'Groq', 'LangChain', 'SQLite', 'React 19', 'Vite', 'TypeScript', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/GFdSe4-c_xQ',
-         thumbnailUrl: '/covers/Odeon.png',
+         thumbnailUrl: 'https://img.youtube.com/vi/GFdSe4-c_xQ/maxresdefault.jpg',
       },
       {
          title: 'MapMyRepo',
          category: 'Knowledge Graph / AI',
          description: 'Turns any codebase into an interactive knowledge graph. Files and folders become interconnected nodes; Gemini summarizes each, and you can chat with the graph to explore architecture.',
          summary:
-            "Transforms any codebase — uploaded locally or fetched from a public GitHub URL — into an interactive D3.js force-directed node graph. Every file and folder is a node, Gemini summarizes each one, and a per-node chat panel lets you ask architectural questions directly.",
+            "Transforms any codebase ΓÇö uploaded locally or fetched from a public GitHub URL ΓÇö into an interactive D3.js force-directed node graph. Every file and folder is a node, Gemini summarizes each one, and a per-node chat panel lets you ask architectural questions directly.",
          details: [
             {
                title: 'What it does',
@@ -335,7 +389,7 @@ export default function App() {
                title: 'AI layer (Gemini)',
                bullets: [
                   'Per-node architectural summary generated on demand',
-                  'Chat tab per node — "what does this file do?", "where is auth handled?", "explain the routing structure"',
+                  'Chat tab per node ΓÇö "what does this file do?", "where is auth handled?", "explain the routing structure"',
                   'Contextual answers: Gemini sees the file / folder metadata + related nodes',
                   'Markdown-rendered responses via Marked',
                ],
@@ -361,11 +415,11 @@ export default function App() {
          highlights: [
             'Interactive force-directed node graph of any codebase',
             'Gemini-powered per-node summaries + contextual chat',
-            'Load any public GitHub repo by URL — no auth required',
+            'Load any public GitHub repo by URL ΓÇö no auth required',
          ],
          tech: ['React 19', 'TypeScript', 'Vite 6', 'D3.js 7', 'Google Gemini', 'Tailwind'],
          videoUrl: 'https://youtu.be/EmTDrPzAo40',
-         thumbnailUrl: '/covers/MapMyRepo.png',
+         thumbnailUrl: 'https://img.youtube.com/vi/EmTDrPzAo40/maxresdefault.jpg',
          liveUrl: 'https://mapmyrepo.vasudev.live'
       },
       {
@@ -378,7 +432,7 @@ export default function App() {
             {
                title: 'The problem',
                body:
-                  "Campus offices field the same questions — fee deadlines, scholarship forms, timetable changes — every single day, often in Hindi or regional languages. Staff burn hours on repetition; answers already exist in circulars and PDFs but students want conversation, not search.",
+                  "Campus offices field the same questions ΓÇö fee deadlines, scholarship forms, timetable changes ΓÇö every single day, often in Hindi or regional languages. Staff burn hours on repetition; answers already exist in circulars and PDFs but students want conversation, not search.",
             },
             {
                title: 'RAG pipeline',
@@ -407,7 +461,7 @@ export default function App() {
                title: 'Stack',
                bullets: [
                   'Frontend: React + Tailwind (student chat UI + admin dashboard)',
-                  'Backend: FastAPI (Python) — chat, validation, logging',
+                  'Backend: FastAPI (Python) ΓÇö chat, validation, logging',
                   'LLM: Gemini Flash 2.0',
                   'Embeddings: Ollama (local)',
                   'Vector DB: ChromaDB',
@@ -416,12 +470,12 @@ export default function App() {
          ],
          highlights: [
             'Hindi + English + 3 regional languages via RAG',
-            'Admin-approval workflow — only validated answers reach production',
+            'Admin-approval workflow ΓÇö only validated answers reach production',
             'Embeddable on web + WhatsApp + Telegram',
          ],
          tech: ['React', 'Tailwind', 'FastAPI', 'Python', 'Gemini Flash 2.0', 'Ollama', 'ChromaDB'],
          videoUrl: 'https://youtu.be/6weynv_rblI',
-         thumbnailUrl: '/covers/PolySee.png',
+         thumbnailUrl: 'https://img.youtube.com/vi/6weynv_rblI/maxresdefault.jpg',
       }
    ];
 
@@ -502,7 +556,7 @@ export default function App() {
          <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
             <div
                className={`
-                  backdrop-blur-2xl backdrop-saturate-150 border rounded-full px-5 md:px-8 py-4 md:py-5 flex items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-center transition-colors duration-300 pointer-events-auto
+                  backdrop-blur-2xl backdrop-saturate-150 border rounded-full px-5 md:px-6 py-2.5 md:py-3 flex items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-center transition-colors duration-300 pointer-events-auto
                   ${navIsOverLightBg
                      ? 'bg-white/70 border-black/10 text-black shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]'
                      : 'bg-zinc-900/60 border-white/15 text-white shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_0_rgba(255,255,255,0.12)]'}
@@ -524,10 +578,14 @@ export default function App() {
                      </a>
                   </div>
                   <a href="#experience" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Experience</a>
+                  <a href="#projects" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Work</a>
                   <a href="#skills" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Skills</a>
-                  <a href="#services" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Services</a>
                   <a href="#contact" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Contact</a>
-                  {/* Theme toggle removed */}
+                  <div ref={toggleRef}>
+                     <MagneticButton onClick={toggleTheme}>
+                        <SunToggle theme={theme} isInverted={isNavInverted} />
+                     </MagneticButton>
+                  </div>
                </div>
             </div>
          </nav >
