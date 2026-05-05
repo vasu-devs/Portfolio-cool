@@ -4,7 +4,6 @@ import { Bot, Pointer } from 'lucide-react';
 
 interface CustomCursorProps {
     theme: 'light' | 'dark';
-    isAppTransitioning?: boolean;
 }
 
 interface PaintDot {
@@ -15,48 +14,9 @@ interface PaintDot {
     size: number;
 }
 
-// Helper to get the background color at a specific point
-function getColorAtPoint(x: number, y: number): string {
-    // Get all elements at the point
-    const elements = document.elementsFromPoint(x, y);
 
-    for (const el of elements) {
-        // Skip our cursor elements
-        if (el.classList.contains('cursor-element') || el.classList.contains('paint-dot')) {
-            continue;
-        }
 
-        const style = window.getComputedStyle(el);
-        const bgColor = style.backgroundColor;
-
-        // If element has a non-transparent background
-        if (bgColor && bgColor !== 'transparent' && bgColor !== 'rgba(0, 0, 0, 0)') {
-            // Parse alpha if present
-            const alphaMatch = bgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
-            if (alphaMatch) {
-                const alpha = alphaMatch[4] ? parseFloat(alphaMatch[4]) : 1;
-
-                // Ignore effectively transparent backgrounds
-                if (alpha < 0.1) continue;
-
-                const r = parseInt(alphaMatch[1]);
-                const g = parseInt(alphaMatch[2]);
-                const b = parseInt(alphaMatch[3]);
-
-                // Calculate luminance
-                const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-                // Return white for dark backgrounds, black for light backgrounds
-                return luminance < 0.5 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)';
-            }
-        }
-    }
-
-    // Default based on document background (check data-theme)
-    const theme = document.documentElement.getAttribute('data-theme');
-    return theme === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)';
-}
-
-export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
+export function CustomCursor({ theme }: CustomCursorProps) {
     const [isHovering, setIsHovering] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
     const [hoverText, setHoverText] = useState<string | null>(null);
@@ -87,77 +47,7 @@ export function CustomCursor({ theme, isAppTransitioning }: CustomCursorProps) {
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
 
-    // State for dynamic bot contrast
-    const [botContrast, setBotContrast] = useState<'light' | 'dark'>('light');
 
-    // Check background at Bot position
-    useEffect(() => {
-        let lastRun = 0;
-        const checkContrast = () => {
-            if (isAppTransitioning) return; // Skip checks during theme toggle
-            let mode: 'light' | 'dark' = 'light';
-
-            // 1. Check if we are visually over the Hero section
-            // Hero is fixed at z-0. Content (z-20) starts at 100vh.
-            // So if scrollY < 100vh - (Bot Position + Buffer), the Bot is over Hero.
-            // Bot Top is 32px (top-8). Let's use 100px buffer. or window.innerHeight - 80
-            const isHeroVisible = window.scrollY < (window.innerHeight - 80);
-
-            if (isHeroVisible) {
-                // Hero Logic: Inverted
-                // Dark Theme -> White Top BG -> Needs Black Text (light mode)
-                // Light Theme -> Black Top BG -> Needs White Text (dark mode)
-                if (theme === 'dark') {
-                    mode = 'light';
-                } else {
-                    mode = 'dark';
-                }
-            } else {
-                // 2. Standard Logic for rest of page
-                const color = getColorAtPoint(48, 48);
-                // getColorAtPoint returns the CONTRAST color (White for Dark BG, Black for Light BG)
-
-                if (color.startsWith('rgba(255')) {
-                    // Returns White -> BG is Dark -> Needs White Text
-                    mode = 'dark';
-                } else {
-                    // Returns Black -> BG is Light -> Needs Black Text
-                    mode = 'light';
-                }
-            }
-
-            setBotContrast(mode);
-        };
-
-        const throttledCheck = () => {
-            const now = Date.now();
-            if (now - lastRun >= 100) {
-                checkContrast();
-                lastRun = now;
-            }
-        };
-
-        // Check initially
-        checkContrast();
-
-        // Re-check on scroll (throttled) and when DOM/theme mutates
-        window.addEventListener('scroll', throttledCheck, { passive: true });
-
-        const mutationObserver = new MutationObserver(throttledCheck);
-        mutationObserver.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['data-theme', 'class', 'style'],
-        });
-        mutationObserver.observe(document.body, {
-            childList: true,
-            subtree: true,
-        });
-
-        return () => {
-            window.removeEventListener('scroll', throttledCheck);
-            mutationObserver.disconnect();
-        };
-    }, [theme, isAppTransitioning]);
 
     // State for animation duration control
     const [moveDuration, setMoveDuration] = useState(0.1);

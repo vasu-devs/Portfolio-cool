@@ -432,7 +432,7 @@ export default function App() {
 
    return (
       <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary font-sans relative">
-         <CustomCursor theme={theme} isAppTransitioning={isTransitioning} />
+         <CustomCursor theme={theme} />
          <AnimatePresence mode="wait">
             {isLoading && (
                <Preloader key="preloader" theme={theme} finishLoading={() => setIsLoading(false)} />
