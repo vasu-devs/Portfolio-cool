@@ -12,6 +12,46 @@ type TrafficStats = {
     activeNow: number;
 };
 
+const formatCounterValue = (value: number) => value.toLocaleString('en-US');
+
+const RollingNumber = ({
+    value,
+    className = '',
+}: {
+    value: number;
+    className?: string;
+}) => (
+    <span className={`inline-flex items-center tabular-nums ${className}`} aria-label={formatCounterValue(value)}>
+        {formatCounterValue(value).split('').map((char, index) => {
+            if (char === ',') {
+                return (
+                    <span key={`${index}-${char}`} className="inline-block opacity-60">
+                        ,
+                    </span>
+                );
+            }
+
+            const digit = Number(char);
+
+            return (
+                <span key={index} className="relative inline-block h-[1.1em] w-[0.62em] overflow-hidden align-[-0.12em]">
+                    <motion.span
+                        className="absolute left-0 top-0 flex flex-col"
+                        animate={{ y: `${-digit * 1.1}em` }}
+                        transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+                    >
+                        {'0123456789'.split('').map(number => (
+                            <span key={number} className="block h-[1.1em] leading-[1.1em]">
+                                {number}
+                            </span>
+                        ))}
+                    </motion.span>
+                </span>
+            );
+        })}
+    </span>
+);
+
 export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
     const [stats, setStats] = useState<TrafficStats>({ totalViews: 0, uniqueVisitors: 0, activeNow: 0 });
     const [displayStats, setDisplayStats] = useState<TrafficStats>({ totalViews: 0, uniqueVisitors: 0, activeNow: 0 });
@@ -74,7 +114,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
         };
 
         fetchStats(true);
-        const interval = setInterval(() => fetchStats(false), 15000);
+        const interval = setInterval(() => fetchStats(false), 7000);
         return () => clearInterval(interval);
     }, []);
 
@@ -174,7 +214,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                 </div>
                 <span className={`text-[2.2vw] md:text-xs uppercase tracking-[0.15em] font-black leading-tight translate-y-[0.5px]
                     ${isOverLightBg ? 'text-black' : 'text-white'}`}>
-                    {isLoading || hasError ? '---' : displayStats.totalViews.toLocaleString()} <span className="opacity-40">Views</span>
+                    {isLoading || hasError ? '---' : <RollingNumber value={displayStats.totalViews} />} <span className="opacity-40">Views</span>
                 </span>
             </motion.button>
 
@@ -209,9 +249,9 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                             {/* Stats Rows */}
                             <div className="flex flex-col gap-[2vw] md:gap-[0.5vw]">
                                 {[
-                                    { name: 'Live Users', value: hasError ? '---' : `${displayStats.activeNow} ACTIVE`, icon: <Activity size={14} />, color: hasError ? 'text-red-500' : 'text-emerald-500' },
-                                    { name: 'Unique Visitors', value: hasError ? '---' : displayStats.uniqueVisitors.toLocaleString(), icon: <Users size={14} /> },
-                                    { name: 'Total Views', value: hasError ? '---' : displayStats.totalViews.toLocaleString(), icon: <Eye size={14} /> }
+                                    { name: 'Live Users', value: hasError ? '---' : <><RollingNumber value={displayStats.activeNow} /> ACTIVE</>, icon: <Activity size={14} />, color: hasError ? 'text-red-500' : 'text-emerald-500' },
+                                    { name: 'Unique Visitors', value: hasError ? '---' : <RollingNumber value={displayStats.uniqueVisitors} />, icon: <Users size={14} /> },
+                                    { name: 'Total Views', value: hasError ? '---' : <RollingNumber value={displayStats.totalViews} />, icon: <Eye size={14} /> }
                                 ].map((stat, i) => (
                                     <div
                                         key={i}
