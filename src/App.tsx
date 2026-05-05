@@ -37,7 +37,7 @@ export default function App() {
    // Initialize Lenis smooth scrolling
    useLenis();
 
-   const resumeUrl = "https://drive.google.com/file/d/1YK8o65wTso2_l2e9bwZo46daonm6-P7x/view?usp=sharing";
+   const resumeUrl = "https://drive.google.com/file/d/1izp4u2wqtKNfSSXFTvX_VBnAe6vKKoT4/view?usp=sharing";
 
    useEffect(() => {
       document.documentElement.setAttribute('data-theme', theme);
