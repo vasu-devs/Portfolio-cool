@@ -2,7 +2,7 @@
 
 ## Hero Section
 - **Name:** Vasu DevS
-- **Tagline:** A 21-year-old self-taught Full Stack AI Engineer based in India. Building AI Agents and Intelligent Systems.
+- **Tagline:** AI Engineer from India building Voice AI Agents, Multi-Agent Systems, Agentic RAG, and Intelligent Full-Stack Products.
 - **Links & Socials:** GitHub, Twitter, LinkedIn, Book a Call, Resume
 - **Aesthetic:** Features an elevated, premium, and static hero image with a radial theme transition, custom cursor with contrast-aware color/paint trails, and a sticky-hero stacked-section scroll pattern powered by Lenis.
 
