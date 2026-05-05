@@ -8,6 +8,8 @@ const JSON_HEADERS = {
 const VIEWS_KEY = 'portfolio:traffic:views';
 const UNIQUE_KEY = 'portfolio:traffic:unique-visitors';
 const VISITOR_KEY_PREFIX = 'portfolio:traffic:visitor';
+const ACTIVE_VISITORS_KEY = 'portfolio:traffic:active-visitors';
+const ACTIVE_WINDOW_SECONDS = 90;
 const RATE_LIMIT_PREFIX = 'portfolio:traffic:rate';
 const RATE_LIMIT_PER_MINUTE = 120;
 
@@ -112,6 +114,8 @@ export default async function handler(req, res) {
     const ip = getClientIp(req);
     const clientHash = hashValue(`${ip}:${userAgent}:${acceptLanguage}`);
     const rateKey = `${RATE_LIMIT_PREFIX}:${getMinuteBucket()}:${hashValue(ip)}`;
+    const now = Date.now();
+    const staleBefore = now - ACTIVE_WINDOW_SECONDS * 1000;
 
     const [requestCount] = await redisPipeline([
       ['INCR', rateKey],
@@ -126,18 +130,30 @@ export default async function handler(req, res) {
 
     let totalViews = 0;
     let uniqueVisitors = 0;
+    let activeNow = 0;
     let trackedUniqueVisitor = false;
 
     if (shouldTrackView) {
       const visitorKey = `${VISITOR_KEY_PREFIX}:${clientHash}`;
-      const [views, visitorCreated, currentUniqueVisitors] = await redisPipeline([
+      const [
+        views,
+        visitorCreated,
+        currentUniqueVisitors,
+        ,
+        ,
+        activeCount,
+      ] = await redisPipeline([
         ['INCR', VIEWS_KEY],
         ['SET', visitorKey, '1', 'NX'],
         ['GET', UNIQUE_KEY],
+        ['ZADD', ACTIVE_VISITORS_KEY, now, clientHash],
+        ['ZREMRANGEBYSCORE', ACTIVE_VISITORS_KEY, 0, staleBefore],
+        ['ZCARD', ACTIVE_VISITORS_KEY],
       ]);
 
       totalViews = toCount(views);
       uniqueVisitors = toCount(currentUniqueVisitors);
+      activeNow = toCount(activeCount);
 
       if (visitorCreated === 'OK') {
         const [updatedUniqueVisitors] = await redisPipeline([
@@ -147,22 +163,40 @@ export default async function handler(req, res) {
         trackedUniqueVisitor = true;
       }
     } else {
-      const [views, currentUniqueVisitors] = await redisPipeline([
+      const shouldHeartbeat = !isBot && Boolean(body.heartbeat);
+      const commands = [
         ['GET', VIEWS_KEY],
         ['GET', UNIQUE_KEY],
-      ]);
+      ];
+
+      if (shouldHeartbeat) {
+        commands.push(['ZADD', ACTIVE_VISITORS_KEY, now, clientHash]);
+      }
+
+      commands.push(
+        ['ZREMRANGEBYSCORE', ACTIVE_VISITORS_KEY, 0, staleBefore],
+        ['ZCARD', ACTIVE_VISITORS_KEY],
+      );
+
+      const results = await redisPipeline(commands);
+      const views = results[0];
+      const currentUniqueVisitors = results[1];
+      const activeCount = results[results.length - 1];
 
       totalViews = toCount(views);
       uniqueVisitors = toCount(currentUniqueVisitors);
+      activeNow = toCount(activeCount);
     }
 
     return sendJson(res, 200, {
       totalViews,
       uniqueVisitors,
+      activeNow,
       service: 'upstash-redis',
       tracked: {
         view: shouldTrackView,
         uniqueVisitor: trackedUniqueVisitor,
+        activeSession: !isBot && (shouldTrackView || Boolean(body.heartbeat)),
       },
     });
   } catch (error) {

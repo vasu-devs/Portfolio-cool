@@ -9,11 +9,12 @@ interface ViewerBadgeProps {
 type TrafficStats = {
     totalViews: number;
     uniqueVisitors: number;
+    activeNow: number;
 };
 
 export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
-    const [stats, setStats] = useState<TrafficStats>({ totalViews: 0, uniqueVisitors: 0 });
-    const [displayStats, setDisplayStats] = useState<TrafficStats>({ totalViews: 0, uniqueVisitors: 0 });
+    const [stats, setStats] = useState<TrafficStats>({ totalViews: 0, uniqueVisitors: 0, activeNow: 0 });
+    const [displayStats, setDisplayStats] = useState<TrafficStats>({ totalViews: 0, uniqueVisitors: 0, activeNow: 0 });
     const [isLoading, setIsLoading] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [hasError, setHasError] = useState(false);
@@ -27,7 +28,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
     const isOverLightBg = baseIsLight !== overInverted;
 
     useEffect(() => {
-        const fetchTrafficStats = async (trackView: boolean) => {
+        const fetchTrafficStats = async (trackView: boolean, heartbeat: boolean) => {
             const res = await fetch('/api/traffic', {
                 method: 'POST',
                 headers: {
@@ -36,6 +37,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                 cache: 'no-store',
                 body: JSON.stringify({
                     trackView,
+                    heartbeat,
                 }),
             });
 
@@ -47,6 +49,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
             return {
                 totalViews: Number(data.totalViews) || 0,
                 uniqueVisitors: Number(data.uniqueVisitors) || 0,
+                activeNow: Number(data.activeNow) || 0,
             };
         };
 
@@ -56,7 +59,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
             try {
                 const shouldTrackView = isInitial && !hasTrackedViewRef.current;
                 if (shouldTrackView) hasTrackedViewRef.current = true;
-                const newStats = await fetchTrafficStats(shouldTrackView);
+                const newStats = await fetchTrafficStats(shouldTrackView, true);
 
                 setHasError(false);
                 setStats(newStats);
@@ -93,6 +96,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                     return {
                         totalViews: update(prev.totalViews, stats.totalViews),
                         uniqueVisitors: update(prev.uniqueVisitors, stats.uniqueVisitors),
+                        activeNow: update(prev.activeNow, stats.activeNow),
                     };
                 });
             }, intervalTime);
@@ -205,7 +209,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                             {/* Stats Rows */}
                             <div className="flex flex-col gap-[2vw] md:gap-[0.5vw]">
                                 {[
-                                    { name: 'Service Status', value: hasError ? 'UNAVAILABLE' : 'LIVE', icon: <Activity size={14} />, color: hasError ? 'text-red-500' : 'text-emerald-500' },
+                                    { name: 'Live Users', value: hasError ? '---' : `${displayStats.activeNow} ACTIVE`, icon: <Activity size={14} />, color: hasError ? 'text-red-500' : 'text-emerald-500' },
                                     { name: 'Unique Visitors', value: hasError ? '---' : displayStats.uniqueVisitors.toLocaleString(), icon: <Users size={14} /> },
                                     { name: 'Total Views', value: hasError ? '---' : displayStats.totalViews.toLocaleString(), icon: <Eye size={14} /> }
                                 ].map((stat, i) => (
