@@ -6,60 +6,108 @@ interface ViewerBadgeProps {
     theme?: 'light' | 'dark';
 }
 
+type TrafficStats = {
+    totalViews: number;
+    uniqueVisitors: number;
+};
+
 export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
-    const [stats, setStats] = useState({ totalViews: 0, uniqueVisitors: 0, onlineNow: 0 });
-    const [displayStats, setDisplayStats] = useState({ totalViews: 0, uniqueVisitors: 0, onlineNow: 0 });
+    const [stats, setStats] = useState<TrafficStats>({ totalViews: 0, uniqueVisitors: 0 });
+    const [displayStats, setDisplayStats] = useState<TrafficStats>({ totalViews: 0, uniqueVisitors: 0 });
     const [isLoading, setIsLoading] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
+    const [hasError, setHasError] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [overInverted, setOverInverted] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const hasTrackedViewRef = useRef(false);
 
     const INVERTED_SECTION_IDS = ['experience', 'more-projects', 'oss-impact'];
     const baseIsLight = theme === 'light';
     const isOverLightBg = baseIsLight !== overInverted;
 
     const NAMESPACE = 'vasudev-live-portfolio-analytics';
-    const BASE_VIEWS = 609;
-    const BASE_VISITORS = 450;
+    const COUNTER_API_BASE = `https://api.counterapi.dev/v1/${NAMESPACE}`;
+    const VISIT_STORAGE_KEY = 'vasudev-live-portfolio-visited';
+    const LEGACY_VISIT_STORAGE_KEY = 'v_visited';
 
     useEffect(() => {
+        const readCounter = async (name: string) => {
+            const res = await fetch(`${COUNTER_API_BASE}/${name}?t=${Date.now()}`, {
+                cache: 'no-store',
+            });
+
+            if (!res.ok) {
+                throw new Error(`CounterAPI read failed for ${name}: ${res.status}`);
+            }
+
+            const data = await res.json();
+            return Number(data.count) || 0;
+        };
+
+        const incrementCounter = async (name: string) => {
+            const res = await fetch(`${COUNTER_API_BASE}/${name}/up?t=${Date.now()}`, {
+                cache: 'no-store',
+            });
+
+            if (!res.ok) {
+                throw new Error(`CounterAPI increment failed for ${name}: ${res.status}`);
+            }
+
+            const data = await res.json();
+            return Number(data.count) || 0;
+        };
+
         const fetchStats = async (isInitial = false) => {
             if (!isInitial) setIsRefreshing(true);
+
             try {
-                const endpoint = isInitial ? 'up' : 'get';
-                const totalRes = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/total_views/${endpoint}`);
-                const totalData = await totalRes.json();
-                
-                let uniqueCount = 0;
-                const hasVisited = localStorage.getItem('v_visited');
-                
-                if (isInitial && !hasVisited) {
-                    const uniqueRes = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/unique_visitors/up`);
-                    const uniqueData = await uniqueRes.json();
-                    uniqueCount = uniqueData.count;
-                    localStorage.setItem('v_visited', 'true');
+                let totalViewsPromise: Promise<number>;
+
+                if (isInitial && !hasTrackedViewRef.current) {
+                    hasTrackedViewRef.current = true;
+                    totalViewsPromise = incrementCounter('total_views');
                 } else {
-                    const uniqueRes = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/unique_visitors`);
-                    const uniqueData = await uniqueRes.json();
-                    uniqueCount = uniqueData.count;
+                    totalViewsPromise = readCounter('total_views');
+                }
+
+                let shouldTrackUniqueVisitor = false;
+                try {
+                    shouldTrackUniqueVisitor = isInitial
+                        && !localStorage.getItem(VISIT_STORAGE_KEY)
+                        && !localStorage.getItem(LEGACY_VISIT_STORAGE_KEY);
+                } catch {
+                    shouldTrackUniqueVisitor = false;
+                }
+
+                const uniqueVisitorsPromise = shouldTrackUniqueVisitor
+                    ? incrementCounter('unique_visitors')
+                    : readCounter('unique_visitors');
+
+                const [totalViews, uniqueVisitors] = await Promise.all([
+                    totalViewsPromise,
+                    uniqueVisitorsPromise,
+                ]);
+
+                if (shouldTrackUniqueVisitor) {
+                    try {
+                        localStorage.setItem(VISIT_STORAGE_KEY, 'true');
+                    } catch {
+                        // Storage can be blocked in strict privacy modes; the live counter is still valid.
+                    }
                 }
 
                 const newStats = {
-                    totalViews: BASE_VIEWS + (totalData.count || 0),
-                    uniqueVisitors: BASE_VISITORS + (uniqueCount || 0),
-                    onlineNow: Math.floor(Math.random() * 3) + 2
+                    totalViews,
+                    uniqueVisitors,
                 };
-                
+
+                setHasError(false);
                 setStats(newStats);
                 if (isInitial) setDisplayStats(newStats);
             } catch (e) {
                 console.error("Failed to fetch visitor stats:", e);
-                if (isInitial) {
-                    const fallback = { totalViews: 609, uniqueVisitors: 450, onlineNow: 1 };
-                    setStats(fallback);
-                    setDisplayStats(fallback);
-                }
+                setHasError(true);
             } finally {
                 if (isInitial) setIsLoading(false);
                 setTimeout(() => setIsRefreshing(false), 1000);
@@ -86,27 +134,15 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                     return diff > 0 ? current + step : current - step;
                 };
                 
-                return {
-                    totalViews: update(prev.totalViews, stats.totalViews),
-                    uniqueVisitors: update(prev.uniqueVisitors, stats.uniqueVisitors),
-                    onlineNow: update(prev.onlineNow, stats.onlineNow)
-                };
-            });
-        }, intervalTime);
+                    return {
+                        totalViews: update(prev.totalViews, stats.totalViews),
+                        uniqueVisitors: update(prev.uniqueVisitors, stats.uniqueVisitors),
+                    };
+                });
+            }, intervalTime);
 
         return () => clearInterval(timer);
     }, [stats]);
-
-    // Fluctuate Online Now more frequently
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setStats(prev => ({
-                ...prev,
-                onlineNow: Math.max(1, prev.onlineNow + (Math.random() > 0.5 ? 1 : -1))
-            }));
-        }, 8000);
-        return () => clearInterval(interval);
-    }, []);
 
     useEffect(() => {
         let rafId: number | null = null;
@@ -178,7 +214,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                 </div>
                 <span className={`text-[2.2vw] md:text-xs uppercase tracking-[0.15em] font-black leading-tight translate-y-[0.5px]
                     ${isOverLightBg ? 'text-black' : 'text-white'}`}>
-                    {isLoading ? '---' : displayStats.totalViews.toLocaleString()} <span className="opacity-40">Views</span>
+                    {isLoading || hasError ? '---' : displayStats.totalViews.toLocaleString()} <span className="opacity-40">Views</span>
                 </span>
             </motion.button>
 
@@ -202,7 +238,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                                 <div className="flex flex-col gap-1">
                                     <span className={`text-[2.25vw] md:text-[0.7vw] uppercase tracking-[0.3em] font-black opacity-40 ${isOverLightBg ? 'text-black' : 'text-white'}`}>Traffic Insights</span>
                                     <span className={`text-[1.75vw] md:text-[0.6vw] font-mono opacity-20 font-bold ${isOverLightBg ? 'text-black' : 'text-white'}`}>
-                                        {isRefreshing ? 'REFRESHING_DATA...' : 'LIVE_FETCH_STABLE'}
+                                        {hasError ? 'LIVE_DATA_UNAVAILABLE' : isRefreshing ? 'REFRESHING_DATA...' : 'COUNTERAPI_LIVE'}
                                     </span>
                                 </div>
                                 <div className={`p-[2vw] md:p-[0.5vw] rounded-full border ${isOverLightBg ? 'border-emerald-500/20 bg-emerald-500/10' : 'border-emerald-500/30 bg-emerald-500/10'}`}>
@@ -213,9 +249,9 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                             {/* Stats Rows */}
                             <div className="flex flex-col gap-[2vw] md:gap-[0.5vw]">
                                 {[
-                                    { name: 'Online Now', value: `${displayStats.onlineNow} ACTIVE`, icon: <Activity size={14} />, color: 'text-emerald-500' },
-                                    { name: 'Unique Visitors', value: displayStats.uniqueVisitors.toLocaleString(), icon: <Users size={14} /> },
-                                    { name: 'Total Views', value: displayStats.totalViews.toLocaleString(), icon: <Eye size={14} /> }
+                                    { name: 'Service Status', value: hasError ? 'UNAVAILABLE' : 'LIVE', icon: <Activity size={14} />, color: hasError ? 'text-red-500' : 'text-emerald-500' },
+                                    { name: 'Unique Visitors', value: hasError ? '---' : displayStats.uniqueVisitors.toLocaleString(), icon: <Users size={14} /> },
+                                    { name: 'Total Views', value: hasError ? '---' : displayStats.totalViews.toLocaleString(), icon: <Eye size={14} /> }
                                 ].map((stat, i) => (
                                     <div
                                         key={i}
@@ -244,7 +280,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
 
                             {/* Footer text */}
                             <div className="mt-4 pt-4 border-t border-current/5 opacity-20 text-[1.5vw] md:text-[0.5vw] uppercase tracking-widest text-center">
-                                Analytics seeded from Vercel history
+                                Live counts from CounterAPI
                             </div>
                         </div>
                     </motion.div>
