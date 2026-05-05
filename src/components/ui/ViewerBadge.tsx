@@ -26,81 +26,37 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
     const baseIsLight = theme === 'light';
     const isOverLightBg = baseIsLight !== overInverted;
 
-    const NAMESPACE = 'vasudev-live-portfolio-analytics';
-    const COUNTER_API_BASE = `https://api.counterapi.dev/v1/${NAMESPACE}`;
-    const VISIT_STORAGE_KEY = 'vasudev-live-portfolio-visited';
-    const LEGACY_VISIT_STORAGE_KEY = 'v_visited';
-
     useEffect(() => {
-        const readCounter = async (name: string) => {
-            const res = await fetch(`${COUNTER_API_BASE}/${name}?t=${Date.now()}`, {
+        const fetchTrafficStats = async (trackView: boolean) => {
+            const res = await fetch('/api/traffic', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
                 cache: 'no-store',
+                body: JSON.stringify({
+                    trackView,
+                }),
             });
 
             if (!res.ok) {
-                throw new Error(`CounterAPI read failed for ${name}: ${res.status}`);
+                throw new Error(`Traffic API failed: ${res.status}`);
             }
 
             const data = await res.json();
-            return Number(data.count) || 0;
-        };
-
-        const incrementCounter = async (name: string) => {
-            const res = await fetch(`${COUNTER_API_BASE}/${name}/up?t=${Date.now()}`, {
-                cache: 'no-store',
-            });
-
-            if (!res.ok) {
-                throw new Error(`CounterAPI increment failed for ${name}: ${res.status}`);
-            }
-
-            const data = await res.json();
-            return Number(data.count) || 0;
+            return {
+                totalViews: Number(data.totalViews) || 0,
+                uniqueVisitors: Number(data.uniqueVisitors) || 0,
+            };
         };
 
         const fetchStats = async (isInitial = false) => {
             if (!isInitial) setIsRefreshing(true);
 
             try {
-                let totalViewsPromise: Promise<number>;
-
-                if (isInitial && !hasTrackedViewRef.current) {
-                    hasTrackedViewRef.current = true;
-                    totalViewsPromise = incrementCounter('total_views');
-                } else {
-                    totalViewsPromise = readCounter('total_views');
-                }
-
-                let shouldTrackUniqueVisitor = false;
-                try {
-                    shouldTrackUniqueVisitor = isInitial
-                        && !localStorage.getItem(VISIT_STORAGE_KEY)
-                        && !localStorage.getItem(LEGACY_VISIT_STORAGE_KEY);
-                } catch {
-                    shouldTrackUniqueVisitor = false;
-                }
-
-                const uniqueVisitorsPromise = shouldTrackUniqueVisitor
-                    ? incrementCounter('unique_visitors')
-                    : readCounter('unique_visitors');
-
-                const [totalViews, uniqueVisitors] = await Promise.all([
-                    totalViewsPromise,
-                    uniqueVisitorsPromise,
-                ]);
-
-                if (shouldTrackUniqueVisitor) {
-                    try {
-                        localStorage.setItem(VISIT_STORAGE_KEY, 'true');
-                    } catch {
-                        // Storage can be blocked in strict privacy modes; the live counter is still valid.
-                    }
-                }
-
-                const newStats = {
-                    totalViews,
-                    uniqueVisitors,
-                };
+                const shouldTrackView = isInitial && !hasTrackedViewRef.current;
+                if (shouldTrackView) hasTrackedViewRef.current = true;
+                const newStats = await fetchTrafficStats(shouldTrackView);
 
                 setHasError(false);
                 setStats(newStats);
@@ -238,7 +194,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                                 <div className="flex flex-col gap-1">
                                     <span className={`text-[2.25vw] md:text-[0.7vw] uppercase tracking-[0.3em] font-black opacity-40 ${isOverLightBg ? 'text-black' : 'text-white'}`}>Traffic Insights</span>
                                     <span className={`text-[1.75vw] md:text-[0.6vw] font-mono opacity-20 font-bold ${isOverLightBg ? 'text-black' : 'text-white'}`}>
-                                        {hasError ? 'LIVE_DATA_UNAVAILABLE' : isRefreshing ? 'REFRESHING_DATA...' : 'COUNTERAPI_LIVE'}
+                                        {hasError ? 'LIVE_DATA_UNAVAILABLE' : isRefreshing ? 'REFRESHING_DATA...' : 'UPSTASH_REDIS_LIVE'}
                                     </span>
                                 </div>
                                 <div className={`p-[2vw] md:p-[0.5vw] rounded-full border ${isOverLightBg ? 'border-emerald-500/20 bg-emerald-500/10' : 'border-emerald-500/30 bg-emerald-500/10'}`}>
@@ -280,7 +236,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
 
                             {/* Footer text */}
                             <div className="mt-4 pt-4 border-t border-current/5 opacity-20 text-[1.5vw] md:text-[0.5vw] uppercase tracking-widest text-center">
-                                Live counts from CounterAPI
+                                Live counts from Upstash Redis
                             </div>
                         </div>
                     </motion.div>
