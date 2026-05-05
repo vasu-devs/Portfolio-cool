@@ -6,6 +6,7 @@ import { Hero } from './components/sections/Hero';
 import { Grain } from './components/ui/Grain';
 import { Preloader } from './components/ui/Preloader';
 import { StatusBadge } from './components/ui/StatusBadge';
+import { ViewerBadge } from './components/ui/ViewerBadge';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { useLenis } from './hooks/useLenis';
@@ -533,6 +534,7 @@ export default function App() {
          </nav >
 
          <StatusBadge isInverted={isNavInverted} theme={theme} />
+         <ViewerBadge theme={theme} />
 
          {/* Stacked Sticky Sections - Each overlaps the previous */}
 
