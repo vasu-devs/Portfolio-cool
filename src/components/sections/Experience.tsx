@@ -1,8 +1,26 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Github, Globe2 } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { ExperienceModal } from '../ui/ExperienceModal';
+
+const JUSTHIREME_METRICS = [
+    { value: '205K', label: 'Launch views' },
+    { value: '2K', label: 'Likes' },
+    { value: '217', label: 'Reposts' },
+    { value: '65', label: 'Replies' },
+];
+
+const JUSTHIREME_CHIPS = [
+    'Tauri',
+    'React',
+    'TypeScript',
+    'FastAPI',
+    'SQLite',
+    'KuzuDB',
+    'LanceDB',
+    'Playwright',
+];
 
 const HEADLINE_METRICS = [
     { value: '18', label: 'Days, solo' },
@@ -34,6 +52,93 @@ export const Experience = () => {
                 >
                     <span className="text-fg-primary/30">01 /</span> Experience
                 </motion.h2>
+
+                <motion.article
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-10%' }}
+                    transition={{ duration: 0.6 }}
+                    className="relative border border-border-primary rounded-2xl bg-fg-primary/[0.04] backdrop-blur-sm p-[6vw] md:p-10 mb-[6vw] md:mb-8 overflow-hidden"
+                >
+                    <div className="flex items-start justify-between gap-[4vw] md:gap-6 mb-[6vw] md:mb-8">
+                        <div className="flex flex-wrap items-center gap-[2vw] md:gap-3">
+                            <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary">
+                                May 2026
+                            </span>
+                            <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
+                                Open source founder / Local-first AI
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-[2vw] md:gap-3 shrink-0">
+                            <a
+                                href="https://github.com/vasu-devs/justhireme"
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label="Open JustHireMe on GitHub"
+                                className="w-[10vw] h-[10vw] md:w-12 md:h-12 rounded-full border border-border-primary flex items-center justify-center transition-all duration-300 hover:bg-fg-primary hover:text-bg-primary"
+                            >
+                                <Github className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
+                            </a>
+                            <a
+                                href="https://justhireme.ai"
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label="Open JustHireMe live site"
+                                className="w-[10vw] h-[10vw] md:w-12 md:h-12 rounded-full border border-border-primary flex items-center justify-center transition-all duration-300 hover:bg-fg-primary hover:text-bg-primary"
+                            >
+                                <Globe2 className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <h3 className="font-display font-black text-[9vw] md:text-5xl lg:text-6xl leading-[0.9] tracking-tighter uppercase mb-[3vw] md:mb-4">
+                        JustHireMe
+                    </h3>
+                    <p className="font-mono text-[3vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[6vw] md:mb-8">
+                        Agentic AI desktop app for transparent, privacy-first job search
+                    </p>
+
+                    <p className="text-[4vw] md:text-xl text-fg-secondary leading-relaxed mb-[8vw] md:mb-10 max-w-4xl">
+                        Building and open-sourcing a local-first job intelligence workbench
+                        that ingests a candidate profile, builds a professional graph,
+                        discovers and filters job leads, explains role fit, and generates
+                        tailored resumes, cover letters, cold emails, and LinkedIn outreach.
+                        The launch went viral with 205K views while the product is live at
+                        justhireme.ai.
+                    </p>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-[3vw] md:gap-4 mb-[6vw] md:mb-8">
+                        {JUSTHIREME_METRICS.map((m) => (
+                            <div
+                                key={m.label}
+                                className="p-[4vw] md:p-5 rounded-xl border border-border-primary bg-fg-primary/[0.04]"
+                            >
+                                <div className="font-display font-black text-[8vw] md:text-4xl leading-none mb-[1vw] md:mb-2">
+                                    {m.value}
+                                </div>
+                                <div className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
+                                    {m.label}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-[3vw] md:gap-4">
+                        <div className="flex flex-wrap gap-[2vw] md:gap-2">
+                            {JUSTHIREME_CHIPS.map((t) => (
+                                <span
+                                    key={t}
+                                    className="px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary text-[2.5vw] md:text-xs font-mono bg-fg-primary/[0.03] text-fg-secondary"
+                                >
+                                    {t}
+                                </span>
+                            ))}
+                        </div>
+                        <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
+                            Graph + vector search / human in the loop
+                        </span>
+                    </div>
+                </motion.article>
 
                 <motion.article
                     initial={{ opacity: 0, y: 40 }}
