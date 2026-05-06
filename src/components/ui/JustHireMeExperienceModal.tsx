@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Github, Globe2, X } from 'lucide-react';
 import { CopyButton } from './CopyButton';
-import { fetchRepoStats, type GitHubRepoStats } from '../../lib/github';
+import { fetchCachedRepoStats, type GitHubRepoStats } from '../../lib/github';
 
 interface JustHireMeExperienceModalProps {
     isOpen: boolean;
@@ -126,8 +126,17 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
 
         const controller = new AbortController();
 
-        fetchRepoStats('vasu-devs', 'justhireme', controller.signal)
-            .then(setRepoStats)
+        fetchCachedRepoStats('vasu-devs', 'justhireme', controller.signal)
+            .then((stats) => {
+                setRepoStats({
+                    stars: stats.stars > 0 ? stats.stars : FALLBACK_REPO_STATS.stars,
+                    forks: stats.forks > 0 ? stats.forks : FALLBACK_REPO_STATS.forks,
+                    openPullRequests:
+                        stats.openPullRequests > 0
+                            ? stats.openPullRequests
+                            : FALLBACK_REPO_STATS.openPullRequests,
+                });
+            })
             .catch((error) => {
                 if (controller.signal.aborted) return;
                 console.warn('Failed to fetch JustHireMe GitHub stats:', error);

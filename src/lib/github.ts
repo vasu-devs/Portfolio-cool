@@ -134,6 +134,27 @@ export async function fetchRepoStats(owner: string, repo: string, signal?: Abort
     };
 }
 
+export async function fetchCachedRepoStats(owner: string, repo: string, signal?: AbortSignal): Promise<GitHubRepoStats> {
+    try {
+        const params = new URLSearchParams({ owner, repo });
+        const stats = await fetchGitHubJson<GitHubRepoStats>(`/api/github-repo-stats?${params}`, signal);
+
+        if (
+            typeof stats.stars === 'number'
+            && typeof stats.forks === 'number'
+            && typeof stats.openPullRequests === 'number'
+            && stats.stars > 0
+        ) {
+            return stats;
+        }
+
+        throw new Error('Cached repo stats returned an invalid star count');
+    } catch (error) {
+        console.warn('Cached repo stats API unavailable, falling back to GitHub:', error);
+        return fetchRepoStats(owner, repo, signal);
+    }
+}
+
 export function countEarnedStars(repos: GitHubRepo[]): number {
     return repos
         .filter((repo) => !repo.isFork && !repo.isArchived && !repo.isPrivate)
