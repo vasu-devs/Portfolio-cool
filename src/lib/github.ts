@@ -17,6 +17,12 @@ export interface GitHubRepo {
     isPrivate: boolean;
 }
 
+export interface GitHubRepoStats {
+    stars: number;
+    forks: number;
+    openPullRequests: number;
+}
+
 interface GitHubApiRepo {
     name: string;
     description: string | null;
@@ -30,6 +36,10 @@ interface GitHubApiRepo {
     fork: boolean;
     archived: boolean;
     private: boolean;
+}
+
+interface GitHubSearchResponse {
+    total_count: number;
 }
 
 async function fetchGitHubJson<T>(url: string, signal?: AbortSignal): Promise<T> {
@@ -77,6 +87,22 @@ export async function fetchUserRepos(signal?: AbortSignal): Promise<GitHubRepo[]
     }
 
     return repos;
+}
+
+export async function fetchRepoStats(owner: string, repo: string, signal?: AbortSignal): Promise<GitHubRepoStats> {
+    const [repoData, pullRequests] = await Promise.all([
+        fetchGitHubJson<GitHubApiRepo>(`https://api.github.com/repos/${owner}/${repo}`, signal),
+        fetchGitHubJson<GitHubSearchResponse>(
+            `https://api.github.com/search/issues?q=repo:${owner}/${repo}+type:pr+state:open`,
+            signal
+        ),
+    ]);
+
+    return {
+        stars: repoData.stargazers_count || 0,
+        forks: repoData.forks_count || 0,
+        openPullRequests: pullRequests.total_count || 0,
+    };
 }
 
 export function countEarnedStars(repos: GitHubRepo[]): number {

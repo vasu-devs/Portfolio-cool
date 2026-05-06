@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Github, Globe2, X } from 'lucide-react';
 import { CopyButton } from './CopyButton';
+import { fetchRepoStats, type GitHubRepoStats } from '../../lib/github';
 
 interface JustHireMeExperienceModalProps {
     isOpen: boolean;
@@ -81,12 +82,11 @@ const SECTIONS: Section[] = [
     },
 ];
 
-const HEADLINE_METRICS = [
-    { value: '205K', label: 'Launch views' },
-    { value: '479', label: 'GitHub stars' },
-    { value: '92', label: 'Forks' },
-    { value: '18', label: 'Open PRs' },
-];
+const FALLBACK_REPO_STATS: GitHubRepoStats = {
+    stars: 479,
+    forks: 92,
+    openPullRequests: 18,
+};
 
 const TECH_STACK = [
     'Tauri 2',
@@ -104,6 +104,8 @@ const TECH_STACK = [
 ];
 
 export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperienceModalProps) => {
+    const [repoStats, setRepoStats] = useState<GitHubRepoStats>(FALLBACK_REPO_STATS);
+
     useEffect(() => {
         if (!isOpen) return;
 
@@ -118,6 +120,31 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
             window.removeEventListener('keydown', onKey);
         };
     }, [isOpen, onClose]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const controller = new AbortController();
+
+        fetchRepoStats('vasu-devs', 'justhireme', controller.signal)
+            .then(setRepoStats)
+            .catch((error) => {
+                if (controller.signal.aborted) return;
+                console.warn('Failed to fetch JustHireMe GitHub stats:', error);
+            });
+
+        return () => controller.abort();
+    }, [isOpen]);
+
+    const headlineMetrics = useMemo(
+        () => [
+            { value: '205K', label: 'Launch views' },
+            { value: repoStats.stars.toLocaleString(), label: 'GitHub stars' },
+            { value: repoStats.forks.toLocaleString(), label: 'Forks' },
+            { value: repoStats.openPullRequests.toLocaleString(), label: 'Open PRs' },
+        ],
+        [repoStats]
+    );
 
     return createPortal(
         <AnimatePresence>
@@ -204,7 +231,7 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
                                 </div>
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-[3vw] md:gap-4 mb-[12vw] md:mb-16">
-                                    {HEADLINE_METRICS.map((m) => (
+                                    {headlineMetrics.map((m) => (
                                         <div
                                             key={m.label}
                                             className="p-[4vw] md:p-5 rounded-xl border border-border-primary"
