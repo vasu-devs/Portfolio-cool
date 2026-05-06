@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { useLenis } from './hooks/useLenis';
 import type { Project } from './components/sections/Work';
+import { countEarnedStars, fetchUserRepos } from './lib/github';
 
 // Lazy load sections and modals
 const Experience = lazy(() => import('./components/sections/Experience').then(m => ({ default: m.Experience })));
@@ -110,13 +111,13 @@ export default function App() {
                }
             }
 
-            // 2. Fetch total stars from a cached counter service.
-            // GitHub's unauthenticated API is capped at 60 req/hr per IP — visitors
-            // on shared NATs/mobile carriers routinely hit the limit and stars fall
-            // back to 0. This worker caches globally and has no practical limit.
-            const starsData = await fetchJson('https://api.github-star-counter.workers.dev/user/vasu-devs');
-            if (starsData && typeof starsData.stars === 'number') {
-               setStats(prev => ({ ...prev, stars: starsData.stars }));
+            // 2. Fetch live stars directly from GitHub and sum the current
+            // stargazers_count across public, non-fork repos.
+            try {
+               const repos = await fetchUserRepos();
+               setStats(prev => ({ ...prev, stars: countEarnedStars(repos) }));
+            } catch (e) {
+               console.warn('Failed to fetch live GitHub stars:', e);
             }
 
             // 3. Fetch PR Count from GitHub API
@@ -137,10 +138,12 @@ export default function App() {
 
       // Periodic refresh every 5 minutes (300000ms)
       const refreshInterval = setInterval(fetchStats, 300000);
+      window.addEventListener('focus', fetchStats);
 
       return () => {
          clearTimeout(initialTimer);
          clearInterval(refreshInterval);
+         window.removeEventListener('focus', fetchStats);
       };
    }, []);
 

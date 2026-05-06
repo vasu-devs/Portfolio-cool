@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Star, GitFork, Globe, ChevronDown } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { MoreProjectModal } from '../ui/MoreProjectModal';
 import { DetailSection } from '../ui/DetailSections';
 import projectsData from '../../data/projects.json';
+import { fetchUserRepos, GitHubRepo, GITHUB_USER } from '../../lib/github';
 
 interface RepoProject {
     name: string;
@@ -52,6 +53,7 @@ const LANG_COLOR: Record<string, string> = {
 };
 
 const INITIAL_VISIBLE = 9;
+const FEATURED = new Set(['branchgpt', 'vaani', 'odeon', 'mapmyrepo', 'polysee']);
 
 function dedupeTags(topics: string[], tech: string[], max = 4): string[] {
     const seen = new Set<string>();
@@ -69,10 +71,82 @@ function dedupeTags(topics: string[], tech: string[], max = 4): string[] {
 }
 
 export const MoreProjects = () => {
+    const [liveRepos, setLiveRepos] = useState<GitHubRepo[] | null>(null);
+    const [selected, setSelected] = useState<RepoProject | null>(null);
+    const [langFilter, setLangFilter] = useState<string>('All');
+    const [showAll, setShowAll] = useState(false);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        const refreshRepos = () => {
+            fetchUserRepos(controller.signal)
+                .then((repos) => {
+                    setLiveRepos(
+                        repos.filter((repo) => {
+                            if (repo.isFork || repo.isArchived || repo.isPrivate) return false;
+                            if (repo.name.toLowerCase() === GITHUB_USER) return false;
+                            return !FEATURED.has(repo.name.toLowerCase());
+                        })
+                    );
+                })
+                .catch((error) => {
+                    if (error instanceof DOMException && error.name === 'AbortError') return;
+                    console.warn('Failed to refresh live GitHub project stats:', error);
+                });
+        };
+
+        refreshRepos();
+        const intervalId = window.setInterval(refreshRepos, 300000);
+        window.addEventListener('focus', refreshRepos);
+
+        return () => {
+            controller.abort();
+            window.clearInterval(intervalId);
+            window.removeEventListener('focus', refreshRepos);
+        };
+    }, []);
+
     // Sort by rank asc, then stars desc, then updatedAt desc, so tech-relevant
     // projects (lower rank) lead the grid.
     const projects = useMemo(() => {
-        const list = [...((projectsData.projects as RepoProject[]) ?? [])];
+        const curated = [...((projectsData.projects as RepoProject[]) ?? [])];
+        const liveByName = new Map(
+            (liveRepos ?? []).map((repo) => [repo.name.toLowerCase(), repo])
+        );
+        const curatedNames = new Set(curated.map((repo) => repo.name.toLowerCase()));
+        const list: RepoProject[] = curated.map((project) => {
+            const live = liveByName.get(project.name.toLowerCase());
+            if (!live) return project;
+
+            return {
+                ...project,
+                description: live.description || project.description,
+                url: live.url,
+                homepage: live.homepage,
+                language: live.language,
+                stars: live.stars,
+                forks: live.forks,
+                topics: live.topics,
+                updatedAt: live.updatedAt,
+            };
+        });
+
+        for (const repo of liveRepos ?? []) {
+            if (curatedNames.has(repo.name.toLowerCase())) continue;
+            list.push({
+                name: repo.name,
+                description: repo.description,
+                url: repo.url,
+                homepage: repo.homepage,
+                language: repo.language,
+                stars: repo.stars,
+                forks: repo.forks,
+                topics: repo.topics,
+                updatedAt: repo.updatedAt,
+            });
+        }
+
         list.sort((a, b) => {
             const ra = a.rank ?? 5;
             const rb = b.rank ?? 5;
@@ -81,10 +155,13 @@ export const MoreProjects = () => {
             return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
         });
         return list;
-    }, []);
-    const [selected, setSelected] = useState<RepoProject | null>(null);
-    const [langFilter, setLangFilter] = useState<string>('All');
-    const [showAll, setShowAll] = useState(false);
+    }, [liveRepos]);
+
+    useEffect(() => {
+        if (!selected) return;
+        const refreshed = projects.find((project) => project.name === selected.name);
+        if (refreshed && refreshed !== selected) setSelected(refreshed);
+    }, [projects, selected]);
 
     // Derive top languages (by repo count) for the filter chips.
     const languages = useMemo(() => {
