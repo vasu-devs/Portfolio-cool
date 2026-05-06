@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Github, Globe2 } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { ExperienceModal } from '../ui/ExperienceModal';
+import { JustHireMeExperienceModal } from '../ui/JustHireMeExperienceModal';
 
 const JUSTHIREME_METRICS = [
     { value: '205K', label: 'Launch views' },
@@ -40,6 +41,7 @@ const TECH_CHIPS = [
 
 export const Experience = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isJustHireMeModalOpen, setIsJustHireMeModalOpen] = useState(false);
 
     return (
         <section id="experience" className="inverted bg-bg-primary text-fg-primary py-[16vw] md:py-24 relative">
@@ -58,7 +60,17 @@ export const Experience = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-10%' }}
                     transition={{ duration: 0.6 }}
-                    className="relative border border-border-primary rounded-2xl bg-fg-primary/[0.04] backdrop-blur-sm p-[6vw] md:p-10 mb-[6vw] md:mb-8 overflow-hidden"
+                    onClick={() => setIsJustHireMeModalOpen(true)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setIsJustHireMeModalOpen(true);
+                        }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Open case study for JustHireMe"
+                    className="group relative border border-border-primary rounded-2xl bg-fg-primary/[0.04] backdrop-blur-sm p-[6vw] md:p-10 mb-[6vw] md:mb-8 overflow-hidden cursor-pointer transition-colors hover:bg-fg-primary/[0.06]"
                 >
                     <div className="flex items-start justify-between gap-[4vw] md:gap-6 mb-[6vw] md:mb-8">
                         <div className="flex flex-wrap items-center gap-[2vw] md:gap-3">
@@ -74,6 +86,7 @@ export const Experience = () => {
                                 href="https://github.com/vasu-devs/justhireme"
                                 target="_blank"
                                 rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
                                 aria-label="Open JustHireMe on GitHub"
                                 className="w-[10vw] h-[10vw] md:w-12 md:h-12 rounded-full border border-border-primary flex items-center justify-center transition-all duration-300 hover:bg-fg-primary hover:text-bg-primary"
                             >
@@ -83,6 +96,7 @@ export const Experience = () => {
                                 href="https://justhireme.ai"
                                 target="_blank"
                                 rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
                                 aria-label="Open JustHireMe live site"
                                 className="w-[10vw] h-[10vw] md:w-12 md:h-12 rounded-full border border-border-primary flex items-center justify-center transition-all duration-300 hover:bg-fg-primary hover:text-bg-primary"
                             >
@@ -135,7 +149,7 @@ export const Experience = () => {
                             ))}
                         </div>
                         <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
-                            Graph + vector search / human in the loop
+                            Open case study &rarr;
                         </span>
                     </div>
                 </motion.article>
@@ -227,6 +241,10 @@ export const Experience = () => {
             <ExperienceModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
+            />
+            <JustHireMeExperienceModal
+                isOpen={isJustHireMeModalOpen}
+                onClose={() => setIsJustHireMeModalOpen(false)}
             />
         </section>
     );
