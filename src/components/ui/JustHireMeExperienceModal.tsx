@@ -63,7 +63,7 @@ const SECTIONS: Section[] = [
     {
         title: 'Open-source launch',
         bullets: [
-            'Open-sourced the alpha publicly at github.com/vasu-devs/justhireme and launched the live project at justhireme.ai.',
+            'Open-sourced the alpha publicly at github.com/vasu-devs/JustHireMe and launched the live project at justhireme.ai.',
             'The launch post reached 205K views, 2K likes, 217 reposts, and 65 replies, validating that developers and job seekers feel the pain this project targets.',
             'The repository attracted early open-source attention, including hundreds of stars, forks, and active pull requests.',
             'Positioned the project for contributors across agentic AI, source adapters, ranking algorithms, GraphRAG, semantic search, resume parsing, document generation, testing, docs, and UI/UX.',
@@ -126,7 +126,7 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
 
         const controller = new AbortController();
 
-        fetchCachedRepoStats('vasu-devs', 'justhireme', controller.signal)
+        fetchCachedRepoStats('vasu-devs', 'JustHireMe', controller.signal)
             .then((stats) => {
                 setRepoStats({
                     stars: stats.stars > 0 ? stats.stars : FALLBACK_REPO_STATS.stars,
@@ -185,7 +185,7 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
                             </div>
                             <div className="flex items-center gap-3 shrink-0">
                                 <a
-                                    href="https://github.com/vasu-devs/justhireme"
+                                    href="https://github.com/vasu-devs/JustHireMe"
                                     target="_blank"
                                     rel="noreferrer"
                                     aria-label="Open JustHireMe on GitHub"

@@ -83,7 +83,7 @@ export const Experience = () => {
                         </div>
                         <div className="flex items-center gap-[2vw] md:gap-3 shrink-0">
                             <a
-                                href="https://github.com/vasu-devs/justhireme"
+                                href="https://github.com/vasu-devs/JustHireMe"
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={(e) => e.stopPropagation()}
