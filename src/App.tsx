@@ -11,7 +11,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { useLenis } from './hooks/useLenis';
 import type { Project } from './components/sections/Work';
-import { countEarnedStars, fetchUserRepos } from './lib/github';
+import projectsData from './data/projects.json';
+import { fetchPortfolioGitHubStats } from './lib/github';
 
 // Lazy load sections and modals
 const Experience = lazy(() => import('./components/sections/Experience').then(m => ({ default: m.Experience })));
@@ -23,6 +24,13 @@ const Services = lazy(() => import('./components/sections/Services').then(m => (
 const Footer = lazy(() => import('./components/sections/Footer').then(m => ({ default: m.Footer })));
 const ProjectModal = lazy(() => import('./components/ui/ProjectModal').then(m => ({ default: m.ProjectModal })));
 const ResumeModal = lazy(() => import('./components/ui/ResumeModal').then(m => ({ default: m.ResumeModal })));
+
+function getStaticProjectStars() {
+   return ((projectsData.projects as { stars?: number }[]) ?? []).reduce(
+      (total, project) => total + (project.stars || 0),
+      0
+   );
+}
 
 export default function App() {
    const [theme] = useState<'light' | 'dark'>('dark');
@@ -111,13 +119,25 @@ export default function App() {
                }
             }
 
-            // 2. Fetch live stars directly from GitHub and sum the current
-            // stargazers_count across public, non-fork repos.
+            // 2. Fetch live stars through the cached Vercel API first, then
+            // fall back to direct GitHub, then stale local JSON. Never show a
+            // fake zero just because a live request got rate-limited.
             try {
-               const repos = await fetchUserRepos();
-               setStats(prev => ({ ...prev, stars: countEarnedStars(repos) }));
+               const starsData = await fetchPortfolioGitHubStats();
+               if (starsData.stars > 0) {
+                  setStats(prev => ({ ...prev, stars: starsData.stars }));
+               } else {
+                  throw new Error('GitHub returned zero stars unexpectedly');
+               }
             } catch (e) {
                console.warn('Failed to fetch live GitHub stars:', e);
+               const cachedStarsData = await fetchJson('https://api.github-star-counter.workers.dev/user/vasu-devs');
+               const fallbackStars =
+                  cachedStarsData && typeof cachedStarsData.stars === 'number' && cachedStarsData.stars > 0
+                     ? cachedStarsData.stars
+                     : getStaticProjectStars();
+
+               setStats(prev => ({ ...prev, stars: Math.max(prev.stars, fallbackStars) }));
             }
 
             // 3. Fetch PR Count from GitHub API

@@ -5,7 +5,7 @@ import { Container } from '../ui/Container';
 import { MoreProjectModal } from '../ui/MoreProjectModal';
 import { DetailSection } from '../ui/DetailSections';
 import projectsData from '../../data/projects.json';
-import { fetchUserRepos, GitHubRepo, GITHUB_USER } from '../../lib/github';
+import { fetchPortfolioGitHubStats, GitHubRepo, GITHUB_USER } from '../../lib/github';
 
 interface RepoProject {
     name: string;
@@ -80,10 +80,10 @@ export const MoreProjects = () => {
         const controller = new AbortController();
 
         const refreshRepos = () => {
-            fetchUserRepos(controller.signal)
-                .then((repos) => {
+            fetchPortfolioGitHubStats(controller.signal)
+                .then((stats) => {
                     setLiveRepos(
-                        repos.filter((repo) => {
+                        stats.repos.filter((repo) => {
                             if (repo.isFork || repo.isArchived || repo.isPrivate) return false;
                             if (repo.name.toLowerCase() === GITHUB_USER) return false;
                             return !FEATURED.has(repo.name.toLowerCase());

@@ -23,6 +23,14 @@ export interface GitHubRepoStats {
     openPullRequests: number;
 }
 
+export interface GitHubStatsPayload {
+    user: string;
+    fetchedAt: string;
+    stars: number;
+    repos: GitHubRepo[];
+    source: string;
+}
+
 interface GitHubApiRepo {
     name: string;
     description: string | null;
@@ -87,6 +95,27 @@ export async function fetchUserRepos(signal?: AbortSignal): Promise<GitHubRepo[]
     }
 
     return repos;
+}
+
+export async function fetchPortfolioGitHubStats(signal?: AbortSignal): Promise<GitHubStatsPayload> {
+    try {
+        const stats = await fetchGitHubJson<GitHubStatsPayload>('/api/github-stats', signal);
+        if (typeof stats.stars === 'number' && Array.isArray(stats.repos)) {
+            return stats;
+        }
+    } catch (error) {
+        console.warn('Portfolio GitHub stats API unavailable, falling back to GitHub:', error);
+    }
+
+    const repos = await fetchUserRepos(signal);
+
+    return {
+        user: GITHUB_USER,
+        fetchedAt: new Date().toISOString(),
+        stars: countEarnedStars(repos),
+        repos,
+        source: 'github-rest-browser',
+    };
 }
 
 export async function fetchRepoStats(owner: string, repo: string, signal?: AbortSignal): Promise<GitHubRepoStats> {
