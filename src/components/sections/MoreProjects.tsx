@@ -97,13 +97,9 @@ export const MoreProjects = () => {
         };
 
         refreshRepos();
-        const intervalId = window.setInterval(refreshRepos, 300000);
-        window.addEventListener('focus', refreshRepos);
 
         return () => {
             controller.abort();
-            window.clearInterval(intervalId);
-            window.removeEventListener('focus', refreshRepos);
         };
     }, []);
 

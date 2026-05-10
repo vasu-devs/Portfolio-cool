@@ -14,7 +14,10 @@
         "fetch-readmes": "node scripts/fetch-readmes.mjs",
         "fetch-featured-readmes": "node scripts/fetch-featured-readmes.mjs",
         "fetch-oss-contributions": "node scripts/fetch-oss-contributions.mjs",
-        "apply-curated": "node scripts/apply-curated.mjs"
+        "apply-curated": "node scripts/apply-curated.mjs",
+        "export-traffic-counter": "node scripts/export-traffic-counter.mjs",
+        "inspect-upstash-keys": "node scripts/inspect-upstash-keys.mjs",
+        "seed-traffic-counter": "node scripts/seed-traffic-counter-from-values.mjs"
     },
     "dependencies": {
         "@vercel/analytics": "^1.6.1",

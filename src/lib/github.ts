@@ -50,6 +50,9 @@ interface GitHubSearchResponse {
     total_count: number;
 }
 
+let portfolioStatsRequest: Promise<GitHubStatsPayload> | null = null;
+const repoStatsRequests = new Map<string, Promise<GitHubRepoStats>>();
+
 async function fetchGitHubJson<T>(url: string, signal?: AbortSignal): Promise<T> {
     const res = await fetch(url, {
         signal,
@@ -98,6 +101,17 @@ export async function fetchUserRepos(signal?: AbortSignal): Promise<GitHubRepo[]
 }
 
 export async function fetchPortfolioGitHubStats(signal?: AbortSignal): Promise<GitHubStatsPayload> {
+    if (portfolioStatsRequest) return portfolioStatsRequest;
+
+    portfolioStatsRequest = fetchPortfolioGitHubStatsOnce(signal).catch((error) => {
+        portfolioStatsRequest = null;
+        throw error;
+    });
+
+    return portfolioStatsRequest;
+}
+
+async function fetchPortfolioGitHubStatsOnce(signal?: AbortSignal): Promise<GitHubStatsPayload> {
     try {
         const stats = await fetchGitHubJson<GitHubStatsPayload>('/api/github-stats', signal);
         if (typeof stats.stars === 'number' && Array.isArray(stats.repos)) {
@@ -135,6 +149,20 @@ export async function fetchRepoStats(owner: string, repo: string, signal?: Abort
 }
 
 export async function fetchCachedRepoStats(owner: string, repo: string, signal?: AbortSignal): Promise<GitHubRepoStats> {
+    const requestKey = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+    const existingRequest = repoStatsRequests.get(requestKey);
+    if (existingRequest) return existingRequest;
+
+    const request = fetchCachedRepoStatsOnce(owner, repo, signal).catch((error) => {
+        repoStatsRequests.delete(requestKey);
+        throw error;
+    });
+
+    repoStatsRequests.set(requestKey, request);
+    return request;
+}
+
+async function fetchCachedRepoStatsOnce(owner: string, repo: string, signal?: AbortSignal): Promise<GitHubRepoStats> {
     try {
         const params = new URLSearchParams({ owner, repo });
         const stats = await fetchGitHubJson<GitHubRepoStats>(`/api/github-repo-stats?${params}`, signal);

@@ -1,5 +1,3 @@
-import { createHash } from 'node:crypto';
-
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
   'cache-control': 'no-store, max-age=0',
@@ -7,11 +5,6 @@ const JSON_HEADERS = {
 
 const VIEWS_KEY = 'portfolio:traffic:views';
 const UNIQUE_KEY = 'portfolio:traffic:unique-visitors';
-const VISITOR_KEY_PREFIX = 'portfolio:traffic:visitor';
-const ACTIVE_VISITORS_KEY = 'portfolio:traffic:active-visitors';
-const ACTIVE_WINDOW_SECONDS = 90;
-const RATE_LIMIT_PREFIX = 'portfolio:traffic:rate';
-const RATE_LIMIT_PER_MINUTE = 120;
 
 const BOT_USER_AGENT =
   /bot|crawler|spider|crawling|preview|facebookexternalhit|slackbot|twitterbot|linkedinbot|discordbot|whatsapp|telegrambot|vercel-screenshot/i;
@@ -39,22 +32,6 @@ const readBody = async (req) => {
     return {};
   }
 };
-
-const getClientIp = (req) => {
-  const forwardedFor = req.headers['x-forwarded-for'];
-  const firstForwardedIp = Array.isArray(forwardedFor)
-    ? forwardedFor[0]
-    : forwardedFor?.split(',')[0];
-
-  return firstForwardedIp?.trim()
-    || req.headers['x-real-ip']
-    || req.socket?.remoteAddress
-    || 'unknown';
-};
-
-const getMinuteBucket = () => Math.floor(Date.now() / 60000);
-
-const hashValue = (value) => createHash('sha256').update(value).digest('hex');
 
 const getRedisConfig = () => {
   const url = process.env.UPSTASH_REDIS_REST_URL?.replace(/\/$/, '');
@@ -109,24 +86,9 @@ export default async function handler(req, res) {
   try {
     const body = await readBody(req);
     const userAgent = String(req.headers['user-agent'] || '');
-    const acceptLanguage = String(req.headers['accept-language'] || '');
     const isBot = BOT_USER_AGENT.test(userAgent);
-    const ip = getClientIp(req);
-    const clientHash = hashValue(`${ip}:${userAgent}:${acceptLanguage}`);
-    const rateKey = `${RATE_LIMIT_PREFIX}:${getMinuteBucket()}:${hashValue(ip)}`;
-    const now = Date.now();
-    const staleBefore = now - ACTIVE_WINDOW_SECONDS * 1000;
-
-    const [requestCount] = await redisPipeline([
-      ['INCR', rateKey],
-      ['EXPIRE', rateKey, 60],
-    ]);
-
-    if (toCount(requestCount) > RATE_LIMIT_PER_MINUTE) {
-      return sendJson(res, 429, { error: 'Rate limited' });
-    }
-
     const shouldTrackView = Boolean(body.trackView) && !isBot;
+    const shouldTrackUnique = shouldTrackView && Boolean(body.trackUnique);
 
     let totalViews = 0;
     let uniqueVisitors = 0;
@@ -134,58 +96,31 @@ export default async function handler(req, res) {
     let trackedUniqueVisitor = false;
 
     if (shouldTrackView) {
-      const visitorKey = `${VISITOR_KEY_PREFIX}:${clientHash}`;
-      const [
-        views,
-        visitorCreated,
-        currentUniqueVisitors,
-        ,
-        ,
-        activeCount,
-      ] = await redisPipeline([
+      const commands = [
         ['INCR', VIEWS_KEY],
-        ['SET', visitorKey, '1', 'NX'],
+      ];
+
+      if (shouldTrackUnique) {
+        commands.push(['INCR', UNIQUE_KEY]);
+      } else {
+        commands.push(['GET', UNIQUE_KEY]);
+      }
+
+      const [views, currentUniqueVisitors] = await redisPipeline(commands);
+
+      totalViews = toCount(views);
+      uniqueVisitors = toCount(currentUniqueVisitors);
+      activeNow = 1;
+      trackedUniqueVisitor = shouldTrackUnique;
+    } else {
+      const [views, currentUniqueVisitors] = await redisPipeline([
+        ['GET', VIEWS_KEY],
         ['GET', UNIQUE_KEY],
-        ['ZADD', ACTIVE_VISITORS_KEY, now, clientHash],
-        ['ZREMRANGEBYSCORE', ACTIVE_VISITORS_KEY, 0, staleBefore],
-        ['ZCARD', ACTIVE_VISITORS_KEY],
       ]);
 
       totalViews = toCount(views);
       uniqueVisitors = toCount(currentUniqueVisitors);
-      activeNow = toCount(activeCount);
-
-      if (visitorCreated === 'OK') {
-        const [updatedUniqueVisitors] = await redisPipeline([
-          ['INCR', UNIQUE_KEY],
-        ]);
-        uniqueVisitors = toCount(updatedUniqueVisitors);
-        trackedUniqueVisitor = true;
-      }
-    } else {
-      const shouldHeartbeat = !isBot && Boolean(body.heartbeat);
-      const commands = [
-        ['GET', VIEWS_KEY],
-        ['GET', UNIQUE_KEY],
-      ];
-
-      if (shouldHeartbeat) {
-        commands.push(['ZADD', ACTIVE_VISITORS_KEY, now, clientHash]);
-      }
-
-      commands.push(
-        ['ZREMRANGEBYSCORE', ACTIVE_VISITORS_KEY, 0, staleBefore],
-        ['ZCARD', ACTIVE_VISITORS_KEY],
-      );
-
-      const results = await redisPipeline(commands);
-      const views = results[0];
-      const currentUniqueVisitors = results[1];
-      const activeCount = results[results.length - 1];
-
-      totalViews = toCount(views);
-      uniqueVisitors = toCount(currentUniqueVisitors);
-      activeNow = toCount(activeCount);
+      activeNow = 0;
     }
 
     return sendJson(res, 200, {
@@ -196,7 +131,7 @@ export default async function handler(req, res) {
       tracked: {
         view: shouldTrackView,
         uniqueVisitor: trackedUniqueVisitor,
-        activeSession: !isBot && (shouldTrackView || Boolean(body.heartbeat)),
+        activeSession: shouldTrackView,
       },
     });
   } catch (error) {

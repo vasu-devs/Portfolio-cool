@@ -1,11 +1,11 @@
-const CACHE_TTL_SECONDS = 60;
-const STALE_TTL_SECONDS = 86400;
+const CACHE_TTL_SECONDS = 60 * 60 * 6;
+const STALE_TTL_SECONDS = 60 * 60 * 24 * 7;
 const OWNER_RE = /^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i;
 const REPO_RE = /^[A-Za-z0-9_.-]+$/;
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
-  'cache-control': 's-maxage=60, stale-while-revalidate=300',
+  'cache-control': 's-maxage=3600, stale-while-revalidate=86400',
 };
 
 const sendJson = (res, status, body) => {

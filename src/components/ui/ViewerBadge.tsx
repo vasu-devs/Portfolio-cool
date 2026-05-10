@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users, Eye, Activity, Bot } from 'lucide-react';
+import { Users, Eye, BarChart3, Bot } from 'lucide-react';
 
 interface ViewerBadgeProps {
     theme?: 'light' | 'dark';
@@ -11,6 +11,8 @@ type TrafficStats = {
     uniqueVisitors: number;
     activeNow: number;
 };
+
+const UNIQUE_VISITOR_STORAGE_KEY = 'portfolio:traffic:unique-tracked';
 
 const formatCounterValue = (value: number) => value.toLocaleString('en-US');
 
@@ -68,7 +70,23 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
     const isOverLightBg = baseIsLight !== overInverted;
 
     useEffect(() => {
-        const fetchTrafficStats = async (trackView: boolean, heartbeat: boolean) => {
+        const hasTrackedUniqueVisitor = () => {
+            try {
+                return window.localStorage.getItem(UNIQUE_VISITOR_STORAGE_KEY) === '1';
+            } catch {
+                return true;
+            }
+        };
+
+        const markUniqueVisitorTracked = () => {
+            try {
+                window.localStorage.setItem(UNIQUE_VISITOR_STORAGE_KEY, '1');
+            } catch {
+                // Ignore storage failures; the server still counts the page view.
+            }
+        };
+
+        const fetchTrafficStats = async (trackView: boolean, trackUnique: boolean) => {
             const res = await fetch('/api/traffic', {
                 method: 'POST',
                 headers: {
@@ -77,7 +95,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                 cache: 'no-store',
                 body: JSON.stringify({
                     trackView,
-                    heartbeat,
+                    trackUnique,
                 }),
             });
 
@@ -98,8 +116,11 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
 
             try {
                 const shouldTrackView = isInitial && !hasTrackedViewRef.current;
+                const shouldTrackUnique = shouldTrackView && !hasTrackedUniqueVisitor();
                 if (shouldTrackView) hasTrackedViewRef.current = true;
-                const newStats = await fetchTrafficStats(shouldTrackView, true);
+                const newStats = await fetchTrafficStats(shouldTrackView, shouldTrackUnique);
+
+                if (shouldTrackUnique) markUniqueVisitorTracked();
 
                 setHasError(false);
                 setStats(newStats);
@@ -114,8 +135,6 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
         };
 
         fetchStats(true);
-        const interval = setInterval(() => fetchStats(false), 7000);
-        return () => clearInterval(interval);
     }, []);
 
     // Smooth counter animation
@@ -238,7 +257,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                                 <div className="flex flex-col gap-1">
                                     <span className={`text-[2.25vw] md:text-[0.7vw] uppercase tracking-[0.3em] font-black opacity-40 ${isOverLightBg ? 'text-black' : 'text-white'}`}>Traffic Insights</span>
                                     <span className={`text-[1.75vw] md:text-[0.6vw] font-mono opacity-20 font-bold ${isOverLightBg ? 'text-black' : 'text-white'}`}>
-                                        {hasError ? 'LIVE_DATA_UNAVAILABLE' : isRefreshing ? 'REFRESHING_DATA...' : 'UPSTASH_REDIS_LIVE'}
+                                        {hasError ? 'DATA_UNAVAILABLE' : isRefreshing ? 'REFRESHING_DATA...' : 'UPSTASH_REDIS_CACHED'}
                                     </span>
                                 </div>
                                 <div className={`p-[2vw] md:p-[0.5vw] rounded-full border ${isOverLightBg ? 'border-emerald-500/20 bg-emerald-500/10' : 'border-emerald-500/30 bg-emerald-500/10'}`}>
@@ -249,7 +268,7 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
                             {/* Stats Rows */}
                             <div className="flex flex-col gap-[2vw] md:gap-[0.5vw]">
                                 {[
-                                    { name: 'Live Users', value: hasError ? '---' : <><RollingNumber value={displayStats.activeNow} /> ACTIVE</>, icon: <Activity size={14} />, color: hasError ? 'text-red-500' : 'text-emerald-500' },
+                                    { name: 'Session', value: hasError ? '---' : 'TRACKED', icon: <BarChart3 size={14} />, color: hasError ? 'text-red-500' : 'text-emerald-500' },
                                     { name: 'Unique Visitors', value: hasError ? '---' : <RollingNumber value={displayStats.uniqueVisitors} />, icon: <Users size={14} /> },
                                     { name: 'Total Views', value: hasError ? '---' : <RollingNumber value={displayStats.totalViews} />, icon: <Eye size={14} /> }
                                 ].map((stat, i) => (

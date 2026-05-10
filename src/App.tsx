@@ -153,17 +153,12 @@ export default function App() {
          }
       };
 
-      // Initial fetch with slight delay to prioritize LCP
+      // Initial fetch with slight delay to prioritize LCP. GitHub stats change
+      // slowly, so avoid background polling that burns API/cache quota.
       const initialTimer = setTimeout(fetchStats, 1000);
-
-      // Periodic refresh every 5 minutes (300000ms)
-      const refreshInterval = setInterval(fetchStats, 300000);
-      window.addEventListener('focus', fetchStats);
 
       return () => {
          clearTimeout(initialTimer);
-         clearInterval(refreshInterval);
-         window.removeEventListener('focus', fetchStats);
       };
    }, []);
 
