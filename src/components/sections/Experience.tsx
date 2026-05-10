@@ -6,10 +6,10 @@ import { ExperienceModal } from '../ui/ExperienceModal';
 import { JustHireMeExperienceModal } from '../ui/JustHireMeExperienceModal';
 
 const JUSTHIREME_METRICS = [
-    { value: '205K', label: 'Launch views' },
-    { value: '2K', label: 'Likes' },
-    { value: '217', label: 'Reposts' },
-    { value: '65', label: 'Replies' },
+    { value: '380.6K', label: 'Launch views' },
+    { value: '3.2K', label: 'Likes' },
+    { value: '339', label: 'Reposts' },
+    { value: '98', label: 'Replies' },
 ];
 
 const JUSTHIREME_CHIPS = [
@@ -117,7 +117,7 @@ export const Experience = () => {
                         that ingests a candidate profile, builds a professional graph,
                         discovers and filters job leads, explains role fit, and generates
                         tailored resumes, cover letters, cold emails, and LinkedIn outreach.
-                        The launch went viral with 205K views while the product is live at
+                        The launch went viral with 380.6K views while the product is live at
                         justhireme.ai.
                     </p>
 
