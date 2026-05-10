@@ -64,7 +64,7 @@ const SECTIONS: Section[] = [
         title: 'Open-source launch',
         bullets: [
             'Open-sourced the alpha publicly at github.com/vasu-devs/JustHireMe and launched the live project at justhireme.ai.',
-            'The launch post reached 379.7K views, 3.2K likes, 338 reposts, and 98 replies, validating that developers and job seekers feel the pain this project targets.',
+            'The launch post reached 380.6K views, 3.2K likes, 339 reposts, and 98 replies, validating that developers and job seekers feel the pain this project targets.',
             'The repository attracted early open-source attention, including hundreds of stars, forks, and active pull requests.',
             'Positioned the project for contributors across agentic AI, source adapters, ranking algorithms, GraphRAG, semantic search, resume parsing, document generation, testing, docs, and UI/UX.',
         ],
@@ -147,7 +147,7 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
 
     const headlineMetrics = useMemo(
         () => [
-            { value: '379.7K', label: 'Launch views' },
+            { value: '380.6K', label: 'Launch views' },
             { value: repoStats.stars.toLocaleString(), label: 'GitHub stars' },
             { value: repoStats.forks.toLocaleString(), label: 'Forks' },
             { value: repoStats.openPullRequests.toLocaleString(), label: 'Open PRs' },
