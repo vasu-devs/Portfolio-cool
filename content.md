@@ -54,7 +54,7 @@ End-to-end build of a production-grade financial reporting platform: unified tra
 ## 02 / Selected Work (Featured Projects)
 
 ### 1. BranchGPT (Context Optimization / AI)
-**Live:** https://branchgpt.vasudev.live/ | **Video:** https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM
+**Live:** https://branchgpt.siddhvasudev.com/ | **Video:** https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM
 **Description:** A Git-like chat interface that treats conversations as a Directed Acyclic Graph (DAG) for context garbage collection. Features include forking branches and merging insights back to keep AI context clean.
 **Summary:** Conversations are trees, not lists. BranchGPT reimplements chat as a DAG — fork any message into a parallel reality, explore tangents without polluting the main thread, and smart-merge branches back as LLM-generated summaries.
 **Highlights:**
@@ -105,7 +105,7 @@ End-to-end build of a production-grade financial reporting platform: unified tra
 - **Stack:** FastAPI + WebSockets backend, Groq Cloud for ultra-fast LLM inference (Llama 3.1 8B / 70B), LangChain for chain management and structured output parsing, SQLite for history & replay, React 19 + Vite + TypeScript + Tailwind 4 frontend.
 
 ### 4. MapMyRepo (Knowledge Graph / AI)
-**Live:** https://mapmyrepo.vasudev.live | **Video:** https://youtu.be/EmTDrPzAo40
+**Live:** https://mapmyrepo.siddhvasudev.com | **Video:** https://youtu.be/EmTDrPzAo40
 **Description:** Turns any codebase into an interactive knowledge graph. Files and folders become interconnected nodes; Gemini summarizes each, and you can chat with the graph to explore architecture.
 **Summary:** Transforms any codebase into an interactive D3.js force-directed node graph. Every file and folder is a node, Gemini summarizes each one, and a per-node chat panel lets you ask architectural questions directly.
 **Highlights:**
@@ -175,7 +175,7 @@ End-to-end build of a production-grade financial reporting platform: unified tra
   - **Performance tuning:** Model loads once at startup, images process one at a time; GPU cache clears every 5 images; Uses `bfloat16` for reduced VRAM footprint; ~5–10 sec per image on RTX 4060 (8 GB VRAM target); No cloud API calls — fully local inference.
 
 ### DryRunVisualised (TypeScript)
-- **Live:** https://visualdsa.vasudev.live
+- **Live:** https://visualdsa.siddhvasudev.com
 - **Summary:** Real-time algorithm visualizer that renders data-structure operations in both 2D (SVG) and 3D (WebGL via Three.js). Write Python or C++ in Monaco, hit Run, watch each line execute with full variable inspection.
 - **Highlights:** Dual 2D / 3D view toggle with draggable nodes in the 3D scene; 50+ pre-built algorithms across searching, sorting, graphs, DP, backtracking; Per-line trace replay with step forward/backward and speed slider.
 - **Tech:** Next.js 16, React 19, Three.js, TypeScript, Pyodide, Monaco Editor, Zustand, Tailwind.
@@ -195,7 +195,7 @@ End-to-end build of a production-grade financial reporting platform: unified tra
   - **Multi-provider:** Gemini 2.0, DeepSeek V3 and GPT-4o are interchangeable. Detections below 70% confidence are dropped.
 
 ### Portfolio-cool (TypeScript)
-- **Live:** https://www.vasudev.live/
+- **Live:** https://www.siddhvasudev.com/
 - **Summary:** This portfolio site. Vite + React + TypeScript with Tailwind and Framer Motion. Radial theme toggle, context-aware custom cursor with paint trails, magnetic buttons, live GitHub stats.
 - **Highlights:** Radial theme transition tied to click coordinates; Custom cursor with contrast-aware color + paint trails; Sticky-hero stacked-section scroll pattern powered by Lenis.
 - **Tech:** Vite, React, TypeScript, Tailwind, Framer Motion, Lenis, Vercel.
