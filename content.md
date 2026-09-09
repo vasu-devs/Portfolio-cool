@@ -1,6 +1,6 @@
 # Vasu DevS - Portfolio Content
 
-> Mirrors every text surface rendered on vasudev.live: all seven sections plus the
+> Mirrors every text surface rendered on siddhvasudev.com: all seven sections plus the
 > three Experience case-study modals and the per-project modals in 02 / 03.
 > Section numbers match the on-site eyebrows.
 
@@ -94,7 +94,7 @@ Delivered a full-stack application for a confidential client.
 (Full case study is the JustHireMe entry under 01 / Experience.)
 
 ### 2. BranchGPT (Context Optimization / AI)
-**Live:** https://branchgpt.vasudev.live/ | **Video:** https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM
+**Live:** https://branchgpt.siddhvasudev.com/ | **Video:** https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM
 **Description:** A Git-like chat interface that treats conversations as a Directed Acyclic Graph (DAG) for context garbage collection. Features include forking branches and merging insights back to keep AI context clean.
 **Summary:** Conversations are trees, not lists. BranchGPT reimplements chat as a DAG — fork any message into a parallel reality, explore tangents without polluting the main thread, and smart-merge branches back as LLM-generated summaries.
 **Highlights:**
@@ -145,7 +145,7 @@ Delivered a full-stack application for a confidential client.
 - **Stack:** FastAPI + WebSockets backend, Groq Cloud for ultra-fast LLM inference (Llama 3.1 8B / 70B), LangChain for chain management and structured output parsing, SQLite for history & replay, React 19 + Vite + TypeScript + Tailwind 4 frontend.
 
 ### 5. MapMyRepo (Knowledge Graph / AI)
-**Live:** https://mapmyrepo.vasudev.live | **Video:** https://youtu.be/EmTDrPzAo40
+**Live:** https://mapmyrepo.siddhvasudev.com | **Video:** https://youtu.be/EmTDrPzAo40
 **Description:** Turns any codebase into an interactive knowledge graph. Files and folders become interconnected nodes; Gemini summarizes each, and you can chat with the graph to explore architecture.
 **Summary:** Transforms any codebase into an interactive D3.js force-directed node graph. Every file and folder is a node, Gemini summarizes each one, and a per-node chat panel lets you ask architectural questions directly.
 **Highlights:**
@@ -239,7 +239,7 @@ Delivered a full-stack application for a confidential client.
 
 ### DryRunVisualised (TypeScript)
 - **Repo:** https://github.com/vasu-devs/DryRunVisualised
-- **Live:** https://visualdsa.vasudev.live
+- **Live:** https://visualdsa.siddhvasudev.com
 - **Summary:** Real-time algorithm visualizer that renders data-structure operations in both 2D (SVG) and 3D (WebGL via Three.js). Write Python or C++ in Monaco, hit Run, watch each line execute with full variable inspection.
 - **Highlights:**
   - Dual 2D / 3D view toggle with draggable nodes in the 3D scene
@@ -282,7 +282,7 @@ Delivered a full-stack application for a confidential client.
 
 ### Portfolio-cool (TypeScript)
 - **Repo:** https://github.com/vasu-devs/Portfolio-cool
-- **Live:** https://www.vasudev.live/
+- **Live:** https://www.siddhvasudev.com/
 - **Summary:** This portfolio site. Vite + React + TypeScript with Tailwind and Framer Motion. Radial theme toggle, context-aware custom cursor with paint trails, magnetic buttons, live GitHub stats.
 - **Highlights:**
   - Radial theme transition tied to click coordinates
@@ -735,9 +735,9 @@ Text that isn't inside a numbered section but is rendered on the site.
 - **Oct 2025 — Smart India Hackathon semifinalist** (award): PolySEE, a multilingual campus RAG chatbot, reached the Top 15 of 900+ teams at SIH 2025.
 - **Oct 2025 — First voice-agent work** (work): Started building real-time LiveKit voice agents — the beginning of the voice-AI thread that runs through everything since.
 - **Nov 2025 — Open source: themes + animated icons** (oss): Merged 4 dark themes into lingdojo/kana-dojo and an animated corner-arrow pack into pqoqubbw/icons (5.5k★). Hacktoberfest 2025.
-- **Dec 2025 — vasudev.live + Odeon + BranchGPT** (ship): Shipped the live portfolio, the Odeon self-improving voice-agent gym, and the first BranchGPT DAG-chat build.
+- **Dec 2025 — siddhvasudev.com + Odeon + BranchGPT** (ship): Shipped the live portfolio, the Odeon self-improving voice-agent gym, and the first BranchGPT DAG-chat build.
 - **Jan → Mar 2026 — Recruitment take-homes, all shipped** (ship): Socratis (voice interviewer), Waldo (multimodal RAG), RupeeRoast (fintech forensics), and the Infineon A18 agentic C++ bug detector — each a complete product.
-- **Feb 2026 — Visual DSA** (ship): Shipped visualdsa.vasudev.live — run Python or C++ and watch it execute line-by-line in 2D + 3D.
+- **Feb 2026 — Visual DSA** (ship): Shipped visualdsa.siddhvasudev.com — run Python or C++ and watch it execute line-by-line in 2D + 3D.
 - **Mar → Apr 2026 — Freelance · Stealth:** Delivered a full-stack application for a confidential client.
 - **May 2026 — JustHireMe goes viral** (ship): Launched the local-first AI job-intelligence desktop app. 380K+ views and 800 → 2,000+ GitHub stars within two weeks.
 - **Jun 2026 — Forge + engram** (ship): Published two Claude Code plugins: Forge (a SOTA SDLC skill set) and engram (local cross-session agent memory).
@@ -780,17 +780,17 @@ Text that isn't inside a numbered section but is rendered on the site.
 #### BranchGPT — Git-DAG chat for context optimization [Live]
 - **Blurb:** Reimagines chat as a Directed Acyclic Graph — fork any message into a parallel branch, then smart-merge insights back as an LLM-generated summary so context stays clean.
 - **Tech:** Next.js 16, Drizzle, Neon, Vercel AI SDK, Groq
-- **Links:** Live: https://branchgpt.vasudev.live · Repo: https://github.com/vasu-devs/BranchGPT
+- **Links:** Live: https://branchgpt.siddhvasudev.com · Repo: https://github.com/vasu-devs/BranchGPT
 
 #### MapMyRepo — Any codebase → interactive knowledge graph [Live]
 - **Blurb:** Turns a repo or whole GitHub profile into a D3 force-directed node graph with Gemini per-node summaries and a chat panel to explore architecture.
 - **Tech:** React 19, TypeScript, D3.js, Google Gemini
-- **Links:** Live: https://mapmyrepo.vasudev.live · Repo: https://github.com/vasu-devs/MapMyRepo
+- **Links:** Live: https://mapmyrepo.siddhvasudev.com · Repo: https://github.com/vasu-devs/MapMyRepo
 
 #### Visual DSA — Run code, watch it execute in 2D + 3D [Live]
 - **Blurb:** Write Python or C++, hit run, and step through execution as arrays sort, graphs traverse and lists re-wire — line by line, with full variable inspection in both 2D and 3D.
 - **Tech:** Next.js 16, React 19, Three.js, Pyodide, Monaco
-- **Links:** Live: https://visualdsa.vasudev.live · Repo: https://github.com/vasu-devs/DryRunVisualised
+- **Links:** Live: https://visualdsa.siddhvasudev.com · Repo: https://github.com/vasu-devs/DryRunVisualised
 
 #### GitArt — Paint your GitHub contribution graph [Live]
 - **Blurb:** Design a 52×7 heatmap in the browser and get a real, pushable Git repo whose commit timestamps reproduce the art — built entirely client-side with isomorphic-git.

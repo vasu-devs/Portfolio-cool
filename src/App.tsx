@@ -265,7 +265,7 @@ export default function App() {
          tech: ['Next.js 16', 'TypeScript', 'Drizzle ORM', 'Neon Postgres', 'Vercel AI SDK', 'Groq', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM',
          thumbnailUrl: '/covers/branchGPT.png',
-         liveUrl: 'https://branchgpt.vasudev.live/'
+         liveUrl: 'https://branchgpt.siddhvasudev.com/'
       },
       {
          title: 'Vaani',
@@ -432,7 +432,7 @@ export default function App() {
          tech: ['React 19', 'TypeScript', 'Vite 6', 'D3.js 7', 'Google Gemini', 'Tailwind'],
          videoUrl: 'https://youtu.be/EmTDrPzAo40',
          thumbnailUrl: '/covers/MapMyRepo.png',
-         liveUrl: 'https://mapmyrepo.vasudev.live'
+         liveUrl: 'https://mapmyrepo.siddhvasudev.com'
       }
    ];
 

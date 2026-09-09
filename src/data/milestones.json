@@ -53,7 +53,7 @@
             "date": "Dec 2025",
             "sort": "2025-12",
             "type": "ship",
-            "title": "vasudev.live + Odeon + BranchGPT",
+            "title": "siddhvasudev.com + Odeon + BranchGPT",
             "blurb": "Shipped the live portfolio, the Odeon self-improving voice-agent gym, and the first BranchGPT DAG-chat build."
         },
         {
@@ -70,7 +70,7 @@
             "sort": "2026-02",
             "type": "ship",
             "title": "Visual DSA",
-            "blurb": "Shipped visualdsa.vasudev.live — run Python or C++ and watch it execute line-by-line in 2D + 3D."
+            "blurb": "Shipped visualdsa.siddhvasudev.com — run Python or C++ and watch it execute line-by-line in 2D + 3D."
         },
         {
             "id": "freelance",
