@@ -3,19 +3,19 @@ import { motion } from 'framer-motion';
 import { Container } from '../ui/Container';
 import {
     // Languages
-    SiPython, SiTypescript, SiJavascript, SiCplusplus,
-    // Frontend
-    SiNextdotjs, SiReact, SiVite, SiTailwindcss, SiFramer, SiThreedotjs, SiD3Dotjs,
+    SiPython, SiTypescript, SiJavascript, SiCplusplus, SiRust, SiOpenjdk,
+    // Frontend / Desktop
+    SiNextdotjs, SiReact, SiVite, SiTailwindcss, SiFramer, SiThreedotjs, SiD3Dotjs, SiTauri,
     // Backend
     SiNodedotjs, SiExpress, SiFastapi, SiPrisma, SiDrizzle,
     // Data
-    SiPostgresql, SiMongodb, SiSupabase,
+    SiPostgresql, SiMongodb, SiSupabase, SiRedis, SiSqlite,
     // AI / LLM
     SiOpenai, SiAnthropic, SiGooglegemini, SiLangchain, SiOllama, SiHuggingface, SiPytorch,
     // Voice
-    SiDeepgram,
+    SiDeepgram, SiTwilio, SiWebrtc,
     // DevOps
-    SiGit, SiDocker, SiLinux, SiVercel, SiCloudflare, SiPostman,
+    SiGit, SiDocker, SiLinux, SiVercel, SiCloudflare, SiPostman, SiGithubactions,
 } from 'react-icons/si';
 import {
     BrandGroq, BrandLivekit, BrandDeepseek, BrandQdrant, BrandChromadb, BrandNeon, BrandLanggraph,
@@ -32,8 +32,10 @@ const skillIconMap: Record<string, { icon: IconComponent; color: string | null }
     TypeScript: { icon: SiTypescript, color: '#3178C6' },
     JavaScript: { icon: SiJavascript, color: '#F7DF1E' },
     'C++': { icon: SiCplusplus, color: '#00599C' },
+    Rust: { icon: SiRust, color: null },
+    Java: { icon: SiOpenjdk, color: '#437291' },
 
-    // Frontend
+    // Frontend / Desktop
     'Next.js': { icon: SiNextdotjs, color: null },
     React: { icon: SiReact, color: '#61DAFB' },
     Vite: { icon: SiVite, color: '#646CFF' },
@@ -41,6 +43,7 @@ const skillIconMap: Record<string, { icon: IconComponent; color: string | null }
     'Framer Motion': { icon: SiFramer, color: '#0055FF' },
     'Three.js': { icon: SiThreedotjs, color: null },
     'D3.js': { icon: SiD3Dotjs, color: '#F9A03C' },
+    Tauri: { icon: SiTauri, color: '#24C8D8' },
 
     // Backend
     'Node.js': { icon: SiNodedotjs, color: '#339933' },
@@ -54,6 +57,8 @@ const skillIconMap: Record<string, { icon: IconComponent; color: string | null }
     MongoDB: { icon: SiMongodb, color: '#47A248' },
     Supabase: { icon: SiSupabase, color: '#3ECF8E' },
     Neon: { icon: BrandNeon, color: '#00E699' },
+    Redis: { icon: SiRedis, color: '#FF4438' },
+    SQLite: { icon: SiSqlite, color: '#4DB6E4' },
     ChromaDB: { icon: BrandChromadb, color: '#FC521F' },
     Qdrant: { icon: BrandQdrant, color: '#DC244C' },
 
@@ -72,6 +77,8 @@ const skillIconMap: Record<string, { icon: IconComponent; color: string | null }
     // Voice / Realtime
     LiveKit: { icon: BrandLivekit, color: '#FF3399' },
     Deepgram: { icon: SiDeepgram, color: '#13EF93' },
+    WebRTC: { icon: SiWebrtc, color: null },
+    'Twilio / SIP': { icon: SiTwilio, color: '#F22F46' },
 
     // DevOps
     Git: { icon: SiGit, color: '#F05032' },
@@ -79,17 +86,18 @@ const skillIconMap: Record<string, { icon: IconComponent; color: string | null }
     Linux: { icon: SiLinux, color: '#FCC624' },
     Vercel: { icon: SiVercel, color: null },
     Cloudflare: { icon: SiCloudflare, color: '#F38020' },
+    'GitHub Actions': { icon: SiGithubactions, color: '#2088FF' },
     Postman: { icon: SiPostman, color: '#FF6C37' },
 };
 
 const skillCategories = [
     {
         title: 'Languages',
-        skills: ['Python', 'TypeScript', 'JavaScript', 'C++'],
+        skills: ['Python', 'TypeScript', 'JavaScript', 'C++', 'Rust', 'Java'],
     },
     {
-        title: 'Frontend',
-        skills: ['Next.js', 'React', 'Vite', 'Tailwind', 'Framer Motion', 'Three.js', 'D3.js'],
+        title: 'Frontend & Desktop',
+        skills: ['Next.js', 'React', 'Vite', 'Tailwind', 'Framer Motion', 'Three.js', 'D3.js', 'Tauri'],
     },
     {
         title: 'Backend',
@@ -97,7 +105,7 @@ const skillCategories = [
     },
     {
         title: 'Data & Vector',
-        skills: ['PostgreSQL', 'MongoDB', 'Supabase', 'Neon', 'Qdrant', 'ChromaDB'],
+        skills: ['PostgreSQL', 'MongoDB', 'Supabase', 'Neon', 'Redis', 'SQLite', 'Qdrant', 'ChromaDB'],
     },
     {
         title: 'AI / LLM',
@@ -108,11 +116,11 @@ const skillCategories = [
     },
     {
         title: 'Voice & Realtime',
-        skills: ['LiveKit', 'Deepgram'],
+        skills: ['LiveKit', 'Deepgram', 'WebRTC', 'Twilio / SIP'],
     },
     {
         title: 'DevOps',
-        skills: ['Git', 'Docker', 'Linux', 'Vercel', 'Cloudflare', 'Postman'],
+        skills: ['Git', 'Docker', 'Linux', 'Vercel', 'Cloudflare', 'GitHub Actions', 'Postman'],
     },
 ];
 

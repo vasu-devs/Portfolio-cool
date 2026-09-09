@@ -47,7 +47,7 @@ export default function App() {
    // Initialize Lenis smooth scrolling
    useLenis();
 
-   const resumeUrl = "https://drive.google.com/file/d/1izp4u2wqtKNfSSXFTvX_VBnAe6vKKoT4/view?usp=sharing";
+   const resumeUrl = "/resume.html";
 
    useEffect(() => {
       document.documentElement.setAttribute('data-theme', theme);
@@ -174,6 +174,53 @@ export default function App() {
    };
 
    const projects: Project[] = [
+      {
+         title: 'JustHireMe',
+         category: 'Local-First AI / Open Source',
+         description:
+            'A local-first AI job-intelligence desktop app with 2,000+ GitHub stars. It scrapes and ranks roles with graph + vector retrieval, explains why each fits, and generates tailored resumes and outreach — all on-device.',
+         summary:
+            "Local-first job intelligence, shipped as a cross-platform desktop app. A Tauri + Rust shell hosts a React workbench and a bundled Python FastAPI sidecar; leads flow through scrape → quality-gate → local CRM → explainable fit-ranking over a graph + vectors, then a generator produces tailored resumes, cover letters and outreach. Nothing leaves your machine. The launch went viral — 380K+ views and 800 → 2,000+ GitHub stars in two weeks.",
+         details: [
+            {
+               title: 'The problem',
+               body:
+                  "Job boards drown you in stale, senior-only, spammy postings; black-box 'auto-apply' tools ship your data to the cloud and never explain why a role was recommended. JustHireMe is for any field, in any country — better signal, explainable ranking, and tailored materials without giving up control or privacy.",
+            },
+            {
+               title: 'How it works',
+               bullets: [
+                  'Tauri 2 (Rust) shell + React 19 workbench + a bundled Python FastAPI sidecar, bound to 127.0.0.1 behind a runtime-generated token',
+                  'Leads flow: source adapter → normalize → deterministic quality gate → local SQLite CRM → fit ranking',
+                  'Ranking blends deterministic scoring, an optional LLM evaluator, and semantic vector matching (LanceDB) over a Kuzu profile graph',
+                  'A bundled ONNX all-MiniLM embedding model means semantic matching works with no API key',
+               ],
+            },
+            {
+               title: 'Tailored materials',
+               body:
+                  'A customizer emits a tailored resume PDF (with versioning + keyword coverage), a cover letter, and founder / LinkedIn / cold-email outreach — field- and location-agnostic, degrading cleanly on transient vs permanent LLM failure so an untailored doc is never silently marked approved.',
+            },
+            {
+               title: 'The launch',
+               bullets: [
+                  '380K+ views and 800 → 2,000+ GitHub stars within ~2 weeks',
+                  'Cross-platform installers (Windows / macOS / Linux) built by CI from v* tags across 100+ releases',
+                  '620 backend pytest + 71 frontend Vitest tests; a thin ~100 MB installer with a content-versioned runtime pack',
+                  'AGPL-3.0 open source and sponsorable, with an MCP server + a reusable agent skill',
+               ],
+            },
+         ],
+         highlights: [
+            '2,000+ GitHub stars from a viral launch (380K+ views)',
+            'Fully local-first — profile graph, vectors, CRM and generated docs never leave your device',
+            'Explainable fit-ranking with a bundled, keyless ONNX embedding model',
+         ],
+         tech: ['Tauri 2', 'Rust', 'React 19', 'TypeScript', 'Python', 'FastAPI', 'SQLite', 'Kuzu', 'LanceDB', 'ONNX'],
+         videoUrl: '',
+         thumbnailUrl: '/covers/JustHireMe.png',
+         liveUrl: 'https://justhireme.ai',
+      },
       {
          title: 'BranchGPT',
          category: 'Context Optimization / AI',
@@ -386,61 +433,6 @@ export default function App() {
          videoUrl: 'https://youtu.be/EmTDrPzAo40',
          thumbnailUrl: '/covers/MapMyRepo.png',
          liveUrl: 'https://mapmyrepo.vasudev.live'
-      },
-      {
-         title: 'PolySEE',
-         category: 'NLP / Chatbot',
-         description: 'A multilingual campus chatbot designed to handle FAQs in regional languages. Maintains conversational context and simplifies student support.',
-         summary:
-            "Multilingual campus FAQ chatbot supporting Hindi, English and 3+ regional languages. RAG over institutional circulars and notices; admin-approval workflow before responses go live; deployable across web, WhatsApp and Telegram.",
-         details: [
-            {
-               title: 'The problem',
-               body:
-                  "Campus offices field the same questions — fee deadlines, scholarship forms, timetable changes — every single day, often in Hindi or regional languages. Staff burn hours on repetition; answers already exist in circulars and PDFs but students want conversation, not search.",
-            },
-            {
-               title: 'RAG pipeline',
-               bullets: [
-                  'Query embedded via local Ollama models',
-                  'Semantic search over institutional documents in ChromaDB',
-                  'Retrieved context + user query sent to Gemini Flash 2.0',
-                  'Response returned with confidence score and source context',
-               ],
-            },
-            {
-               title: 'Admin-approval workflow',
-               body:
-                  "New responses don\u2019t go live unconfirmed. In staging mode, each response shows its confidence score and the retrieved context. Admins approve or reject; only approved responses get promoted into the production dataset. This gives the bot a fact-checked update loop that student volunteers can maintain.",
-            },
-            {
-               title: 'Multi-channel + multi-language',
-               bullets: [
-                  'Embeddable chat widget on the college website',
-                  'WhatsApp + Telegram integrations for wider reach',
-                  'Hindi + English + 3 additional regional languages',
-                  'Confidence-based human fallback when the bot is unsure',
-               ],
-            },
-            {
-               title: 'Stack',
-               bullets: [
-                  'Frontend: React + Tailwind (student chat UI + admin dashboard)',
-                  'Backend: FastAPI (Python) — chat, validation, logging',
-                  'LLM: Gemini Flash 2.0',
-                  'Embeddings: Ollama (local)',
-                  'Vector DB: ChromaDB',
-               ],
-            },
-         ],
-         highlights: [
-            'Hindi + English + 3 regional languages via RAG',
-            'Admin-approval workflow — only validated answers reach production',
-            'Embeddable on web + WhatsApp + Telegram',
-         ],
-         tech: ['React', 'Tailwind', 'FastAPI', 'Python', 'Gemini Flash 2.0', 'Ollama', 'ChromaDB'],
-         videoUrl: 'https://youtu.be/6weynv_rblI',
-         thumbnailUrl: '/covers/PolySee.png',
       }
    ];
 

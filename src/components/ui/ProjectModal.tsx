@@ -9,6 +9,7 @@ interface Project {
     category: string;
     description: string;
     videoUrl?: string;
+    thumbnailUrl?: string;
     repoUrl?: string;
     liveUrl?: string;
     summary?: string;
@@ -125,6 +126,12 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                                 className="absolute inset-0 w-full h-full object-contain"
                                             />
                                         )
+                                    ) : project.thumbnailUrl ? (
+                                        <img
+                                            src={project.thumbnailUrl}
+                                            alt={`${project.title} preview`}
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        />
                                     ) : (
                                         <div className="absolute inset-0 flex items-center justify-center bg-zinc-900">
                                             <p className="text-zinc-500 font-mono text-[3.5vw] md:text-sm">

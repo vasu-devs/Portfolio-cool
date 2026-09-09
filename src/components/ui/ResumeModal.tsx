@@ -90,7 +90,7 @@ export const ResumeModal = ({ isOpen, onClose, resumeUrl }: ResumeModalProps) =>
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-[2vw] px-[6vw] py-[2vw] bg-fg-primary text-bg-primary font-bold font-mono text-[3vw] uppercase rounded-full"
                             >
-                                <Download className="w-[4vw] h-[4vw]" /> Download PDF
+                                <Download className="w-[4vw] h-[4vw]" /> Open printable résumé
                             </a>
                         </div>
                     </motion.div>

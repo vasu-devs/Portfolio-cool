@@ -108,7 +108,17 @@ export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
                             className="w-full mt-auto mb-2 lg:mb-28 lg:mt-12 pointer-events-auto"
                         >
                             <p className="hero-intro-text max-w-2xl text-sm md:text-xl lg:text-3xl text-fg-secondary leading-relaxed font-medium mb-4 lg:mb-10">
-                                <strong className="text-fg-primary font-bold">AI Engineer</strong> from <span className="text-fg-primary">India</span> building <strong className="text-fg-primary">Voice AI Agents</strong>, <strong className="text-fg-primary">Multi-Agent Systems</strong>, <strong className="text-fg-primary">Agentic RAG</strong>, and <strong className="text-fg-primary">Intelligent Full-Stack Products</strong>.
+                                <strong className="text-fg-primary font-bold">AI Engineer</strong> building <strong className="text-fg-primary">Voice AI Agents</strong>, <strong className="text-fg-primary">Multi-Agent Systems</strong>, and <strong className="text-fg-primary">Agentic RAG</strong> — currently an <strong className="text-fg-primary">AI Engineering Intern at a stealth company</strong>
+                                , creator of{' '}
+                                <a
+                                    href="https://justhireme.ai"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-fg-primary font-bold underline decoration-fg-primary/30 underline-offset-[0.25em] hover:decoration-fg-primary transition-colors"
+                                >
+                                    JustHireMe
+                                </a>{' '}
+                                (2K+ GitHub stars).
                             </p>
 
                             <div className="flex flex-wrap items-center gap-3 md:gap-4 relative z-50">

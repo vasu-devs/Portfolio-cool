@@ -1,33 +1,17 @@
 {
-  "fetchedAt": "2026-04-17T18:41:01.567Z",
+  "fetchedAt": "2026-06-30T00:00:00.000Z",
   "user": "vasu-devs",
   "projects": [
-    {
-      "name": "HireMe",
-      "description": "Automating Hiring Processs",
-      "url": "https://github.com/vasu-devs/HireMe",
-      "homepage": null,
-      "language": null,
-      "stars": 6,
-      "forks": 0,
-      "topics": [],
-      "updatedAt": "2026-04-04T22:36:34Z",
-      "summary": "Experiment in automating the hiring loop end-to-end — job-description parsing, candidate screening and shortlisting via LLMs.",
-      "highlights": [],
-      "tech": [],
-      "details": [],
-      "rank": 5
-    },
     {
       "name": "Socratis",
       "description": "Voice AI Agent-powered technical interview platform with real-time voice interaction, live code feedback, and intelligent assessment using LiveKit, Deepgram, and Groq.",
       "url": "https://github.com/vasu-devs/Socratis",
       "homepage": null,
       "language": "TypeScript",
-      "stars": 2,
+      "stars": 1,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-04-04T22:36:50Z",
+      "updatedAt": "2026-01-22T13:29:19Z",
       "summary": "Real-time AI interviewer that runs live coding interviews over WebRTC voice. Candidates code in Monaco while a Python agent watches every keystroke via chat-context injection, asks Socratic hints only when needed, and writes a forensic post-interview report.",
       "highlights": [
         "Real-time code awareness — agent sees every edit via chat-context injection",
@@ -75,10 +59,10 @@
       "url": "https://github.com/vasu-devs/Waldo",
       "homepage": null,
       "language": "Python",
-      "stars": 2,
+      "stars": 1,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-02-17T11:01:00Z",
+      "updatedAt": "2026-01-25T06:56:52Z",
       "summary": "Production-grade agentic RAG pipeline that ingests complex PDFs with text, tables, charts and diagrams. Figures are transcribed by Gemini VLM, and a LangGraph agent routes, grades and rewrites queries with strict anti-hallucination guardrails.",
       "highlights": [
         "Multimodal ingestion — text + tables + figures in a single pipeline",
@@ -133,10 +117,10 @@
       "url": "https://github.com/vasu-devs/SSS",
       "homepage": null,
       "language": "Python",
-      "stars": 1,
+      "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-04-04T22:36:37Z",
+      "updatedAt": "2026-02-28T07:04:31Z",
       "summary": "Local AI-powered screenshot organizer. Qwen2-VL-2B runs on your GPU, classifying images into nine semantic buckets, extracting URLs, cleaning text and generating per-image markdown logs.",
       "highlights": [
         "Fully local inference — no cloud API calls",
@@ -183,10 +167,10 @@
       "url": "https://github.com/vasu-devs/DryRunVisualised",
       "homepage": "https://visualdsa.vasudev.live",
       "language": "TypeScript",
-      "stars": 1,
+      "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-04-04T22:36:35Z",
+      "updatedAt": "2026-02-28T08:04:53Z",
       "summary": "Real-time algorithm visualizer that renders data-structure operations in both 2D (SVG) and 3D (WebGL via Three.js). Write Python or C++ in Monaco, hit Run, watch each line execute with full variable inspection.",
       "highlights": [
         "Dual 2D / 3D view toggle with draggable nodes in the 3D scene",
@@ -237,10 +221,10 @@
       "url": "https://github.com/vasu-devs/A18-INFINION-",
       "homepage": null,
       "language": "Python",
-      "stars": 1,
+      "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-04-04T22:36:29Z",
+      "updatedAt": "2026-03-06T09:08:05Z",
       "summary": "Multi-agent static bug detector for specialized C++ (Infineon RDI API). A central Orchestrator dispatches Code Parser, MCP Lookup, Bug Detector and Bug Describer agents through a two-layer detection strategy that boosts confidence when pattern matching and LLM reasoning agree.",
       "highlights": [
         "Context-first — pulls API docs via MCP before inspecting the code",
@@ -286,10 +270,10 @@
       "url": "https://github.com/vasu-devs/Portfolio-cool",
       "homepage": "https://www.vasudev.live/",
       "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
+      "stars": 5,
+      "forks": 1,
       "topics": [],
-      "updatedAt": "2026-04-04T22:36:26Z",
+      "updatedAt": "2026-05-10T20:45:47Z",
       "summary": "This portfolio site. Vite + React + TypeScript with Tailwind and Framer Motion. Radial theme toggle, context-aware custom cursor with paint trails, magnetic buttons, live GitHub stats.",
       "highlights": [
         "Radial theme transition tied to click coordinates",
@@ -337,10 +321,10 @@
       "url": "https://github.com/vasu-devs/RupeeRoast",
       "homepage": null,
       "language": "TypeScript",
-      "stars": 1,
+      "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-01-07T18:06:31Z",
+      "updatedAt": "2026-01-07T18:05:43Z",
       "summary": "AI financial forensic tool that parses messy Indian bank PDFs (including UPI), categorizes every transaction via an LLM, and produces both a dashboard and a Groq-powered 'Indian Dad / Gen-Z' roast of your impulsive purchases.",
       "highlights": [
         "Universal PDF extraction for messy bank statements incl. UPI transactions",
@@ -394,7 +378,7 @@
       "stars": 1,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2025-12-18T00:11:50Z",
+      "updatedAt": "2025-12-18T00:11:28Z",
       "summary": "AI-assisted email drafting app — FastAPI backend, React + Vite + Tailwind frontend. Users enter context and tone/length preferences; the backend calls an LLM to draft or refine; the UI shows live previews.",
       "highlights": [
         "Separate /draft and /refine endpoints with prompt-level control",
@@ -433,10 +417,10 @@
       "url": "https://github.com/vasu-devs/Korosuke",
       "homepage": null,
       "language": "Python",
-      "stars": 1,
+      "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2025-12-18T00:10:41Z",
+      "updatedAt": "2025-11-07T21:09:31Z",
       "summary": "PyQt5 sliding-sidebar desktop assistant. Chat with a local LLaMA via Ollama, toggle with a hotkey, runs inference on a background thread so the UI never blocks.",
       "highlights": [
         "Sliding sidebar UI with non-blocking background worker",
@@ -472,10 +456,10 @@
       "url": "https://github.com/vasu-devs/ASCIIRealTime",
       "homepage": "https://ascii-real-time.vercel.app",
       "language": "HTML",
-      "stars": 1,
+      "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2025-12-03T15:29:22Z",
+      "updatedAt": "2025-12-03T15:29:18Z",
       "summary": "Browser demo that turns your webcam feed into real-time ASCII or emoji art. Optional MediaPipe Selfie Segmentation masks the background. Zero build — vanilla JS + Tailwind via CDN.",
       "highlights": [
         "ASCII text mode + emoji-canvas mode with per-glyph caching",
@@ -519,9 +503,9 @@
       "homepage": null,
       "language": "TypeScript",
       "stars": 0,
-      "forks": 0,
+      "forks": 1,
       "topics": [],
-      "updatedAt": "2026-04-15T10:05:38Z",
+      "updatedAt": "2026-04-15T10:05:34Z",
       "summary": "Mobile-first PWA dashboard for workouts and meals. Next.js 14 App Router with a viewport-locked layout where only internal panes scroll — the page itself never grows a scrollbar.",
       "highlights": [
         "Installable PWA with offline-ready service worker",
@@ -564,7 +548,7 @@
       "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-04-14T19:03:48Z",
+      "updatedAt": "2026-04-14T19:03:44Z",
       "summary": "Browser-based tool that lets you paint your GitHub contribution graph like a canvas. Design a 52x7 heatmap, the app builds a real Git repository — in-browser via isomorphic-git on memfs, zipped with JSZip — whose commit timestamps reproduce that design when pushed.",
       "highlights": [
         "Runs entirely in-browser — no server, no GitHub API, no fake identities",
@@ -619,7 +603,7 @@
       "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-01-31T15:42:54Z",
+      "updatedAt": "2026-01-31T15:42:03Z",
       "summary": "Windows app that exposes Antigravity IDE to a private Telegram bot over a Cloudflare Tunnel, so you can trigger AI prompts and receive live IDE screenshots from anywhere — with a strict user whitelist and rate limiting.",
       "highlights": [
         "Auto-generated Cloudflare tunnel — no port-forwarding required",
@@ -669,7 +653,7 @@
       "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2026-01-07T18:11:42Z",
+      "updatedAt": "2026-01-05T06:31:35Z",
       "summary": "OSINT-driven behavioral intelligence app. A tri-agent LangChain pipeline reads a target's digital footprint, synthesizes DISC and Big-Five traits, then produces actionable 'Battle Cards' with DOs, DON'Ts and opening lines.",
       "highlights": [
         "Tri-agent pipeline: researcher → analyst → tactician",
@@ -721,7 +705,7 @@
       "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2025-12-31T11:58:33Z",
+      "updatedAt": "2025-12-31T11:58:29Z",
       "summary": "Chrome extension that turns ChatGPT into a DAG-based chat tool. Fork any message into a parallel branch, visualize the tree in a side panel, and keep context clean. All data stored locally via IndexedDB.",
       "highlights": [
         "True branching — fork any message into a parallel reality",
@@ -765,7 +749,7 @@
       "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2025-12-24T08:50:37Z",
+      "updatedAt": "2026-05-15T08:33:32Z",
       "summary": "JavaFX image-to-ASCII converter with a multi-threaded rendering engine. Real-time preview with debounced slider, full-color per-character mode, and HD PNG export at original image dimensions.",
       "highlights": [
         "Multi-threaded canvas engine — UI stays smooth while rendering",
@@ -807,7 +791,7 @@
       "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2025-12-18T00:12:57Z",
+      "updatedAt": "2025-10-29T08:50:19Z",
       "summary": "Pygame-based pathfinding visualizer comparing BFS, DFS, Dijkstra and A* side-by-side on procedurally generated mazes. Per-algorithm color coding, 60 FPS step-by-step exploration.",
       "highlights": [
         "4 classic algorithms: BFS, DFS, Dijkstra, A* with Manhattan heuristic",
@@ -854,7 +838,7 @@
       "stars": 0,
       "forks": 0,
       "topics": [],
-      "updatedAt": "2025-12-18T00:11:00Z",
+      "updatedAt": "2025-11-07T14:15:19Z",
       "summary": "React + FastAPI weather dashboard combining OpenWeatherMap data with AI-generated lifestyle suggestions (clothing, activity, precaution) from OpenRouter's DeepSeek model.",
       "highlights": [
         "Fused weather data + AI-generated daily suggestions",
@@ -900,9 +884,9 @@
       "homepage": null,
       "language": "JavaScript",
       "stars": 0,
-      "forks": 2,
+      "forks": 0,
       "topics": [],
-      "updatedAt": "2025-09-24T14:41:14Z",
+      "updatedAt": "2025-09-24T14:41:09Z",
       "summary": "React + Vite college-assistant front-end with three portals sharing a unified theme — landing, student chat with voice input, and admin dashboard for PDF document management.",
       "highlights": [
         "Three-portal design: landing / student chat / admin",
@@ -934,8 +918,230 @@
         }
       ],
       "rank": 2
+    },
+    {
+      "name": "Forge",
+      "description": "A SOTA SDLC skill set for Claude Code — 16 lifecycle skills, a continuous-learning memory layer, and a live code-dependency graph.",
+      "url": "https://github.com/vasu-devs/Forge",
+      "homepage": null,
+      "language": "JavaScript",
+      "stars": 1,
+      "forks": 0,
+      "topics": [
+        "claude-code",
+        "agent-skills",
+        "sdlc",
+        "developer-tools"
+      ],
+      "updatedAt": "2026-06-07T09:21:28Z",
+      "summary": "One cohesive Claude Code plugin: 16 hand-off-linked SDLC skills (understand → brainstorm → architect → plan → tdd → debug → review → verify → ship), each encoding a falsifiable engineering rule — plus a local memory layer that learns from your sessions and a live, self-updating map of your codebase.",
+      "highlights": [
+        "16 namespaced lifecycle skills wired into one hand-off chain — discipline as falsifiable rules, not vibes",
+        "Two-tier continuous-learning memory: per-project instincts + anonymized global lessons, distilled from your own sessions",
+        "Live code-dependency graph (god-nodes, modules, blast-radius, cycles) patched incrementally so it never goes stale"
+      ],
+      "tech": [
+        "Claude Code plugin",
+        "Node.js",
+        "JSONL",
+        "ONNX embeddings"
+      ],
+      "details": [
+        {
+          "title": "The problem",
+          "body": "Power users of Claude Code accumulate a dozen overlapping skill packs, and a raw model has predictable failure modes: it assumes silently, over-builds, edits code it doesn't understand, and claims success it never verified. Forge is one namespaced lifecycle that enforces engineering discipline AND learns from your sessions so the agent stops repeating mistakes."
+        },
+        {
+          "title": "Falsifiable, not aspirational",
+          "bullets": [
+            "tdd: no production code without a failing test first — watch it fail, delete pre-test code",
+            "debug: after 3 failed fixes, question the architecture",
+            "verify: a claim → required-proof table before 'done' is allowed",
+            "Each skill names the rationalization it forbids, so the agent can't talk itself out of the process"
+          ]
+        },
+        {
+          "title": "The memory loop",
+          "body": "Four lifecycle hooks feed a zero-dependency Node core: every Edit/Write/Bash is logged as compact JSONL, a throttled background distiller (Haiku) extracts trigger → action lessons through a strict quality gate, and the highest-confidence lessons are injected at session start. Its memory subsystem was later extracted into a second standalone plugin, engram."
+        },
+        {
+          "title": "The code graph",
+          "body": "forge:graph builds a static import graph for JS/TS, Python, C/C++, Ruby and Rust (including tsconfig aliases), surfaces god-nodes, cycles and dead files, and is rebuilt once then patched by an mtime-diff on every stop — a high-accuracy skeleton that stays cheap."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "PolySEE",
+      "description": "A multilingual campus chatbot that answers student FAQs from documents, supports regional languages, maintains context, and escalates to staff when unsure.",
+      "url": "https://github.com/vasu-devs/PolySEE",
+      "homepage": null,
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [
+        "rag",
+        "chatbot",
+        "multilingual",
+        "gemini"
+      ],
+      "updatedAt": "2026-04-01T18:26:02Z",
+      "summary": "Multilingual campus FAQ chatbot supporting Hindi, English and 3+ regional languages — RAG over institutional circulars with an admin-approval workflow before answers go live. Smart India Hackathon 2025 semifinalist (Top 15 of 900+ teams).",
+      "highlights": [
+        "Hindi + English + 3 regional languages via RAG",
+        "Admin-approval workflow — only validated answers reach production",
+        "SIH 2025 semifinalist: Top 15 of 900+ teams"
+      ],
+      "tech": [
+        "React",
+        "Tailwind",
+        "FastAPI",
+        "Python",
+        "Gemini Flash 2.0",
+        "Ollama",
+        "ChromaDB"
+      ],
+      "details": [
+        {
+          "title": "The problem",
+          "body": "Campus offices field the same questions — fee deadlines, scholarship forms, timetable changes — every single day, often in Hindi or regional languages. Staff burn hours on repetition; answers already exist in circulars and PDFs but students want conversation, not search."
+        },
+        {
+          "title": "RAG pipeline",
+          "bullets": [
+            "Query embedded via local Ollama models",
+            "Semantic search over institutional documents in ChromaDB",
+            "Retrieved context + user query sent to Gemini Flash 2.0",
+            "Response returned with confidence score and source context"
+          ]
+        },
+        {
+          "title": "Admin-approval workflow",
+          "body": "New responses don't go live unconfirmed. In staging mode, each response shows its confidence score and the retrieved context. Admins approve or reject; only approved responses get promoted into the production dataset — a fact-checked update loop that student volunteers can maintain."
+        },
+        {
+          "title": "Multi-channel + multi-language",
+          "bullets": [
+            "Embeddable chat widget on the college website",
+            "WhatsApp + Telegram integrations for wider reach",
+            "Confidence-based human fallback when the bot is unsure"
+          ]
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "name": "Arohan",
+      "description": "The AI IPO Observatory — a research-grounded predictive model for the 2026 frontier-AI mega-IPOs.",
+      "url": "https://github.com/vasu-devs/Arohan",
+      "homepage": null,
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [
+        "fintech",
+        "research",
+        "dataviz"
+      ],
+      "updatedAt": "2026-06-10T22:44:46Z",
+      "summary": "An investor-research observatory for the 2026 AI mega-IPO window (OpenAI, Anthropic, xAI/SPCX): a probability-weighted comparables + scenario model rendered as P10–P90 fan charts, an expected-return heatmap, and an in-app reader for the full research corpus — built in a single day.",
+      "highlights": [
+        "Four-layer scenario model: historical-comparables regression, fundamentals, demand overlay, macro gate",
+        "Fan-chart forecast lab with a live macro-stress slider and bear/base/bull toggles",
+        "8 markdown dossiers (~4,300 words, 24 sources) bundled and readable in-app"
+      ],
+      "tech": [
+        "React 19",
+        "Vite",
+        "Tailwind 4",
+        "Recharts",
+        "Motion"
+      ],
+      "details": [
+        {
+          "title": "The model",
+          "body": "A log-linear regression anchor fit on a 20-listing historical IPO dataset (1995–2025), a company-fundamentals layer from verified June 2026 marks, a demand-side overlay, and a macro gate. Nine scenario cells per company collapse into probability-weighted P10/P50/P90 bands, computed offline and embedded as static data."
+        },
+        {
+          "title": "Honest framing",
+          "body": "An OpenAI listing at ~$1T would be ~6x the largest IPO in history, so the comparables regression is an anchor, not statistics-grade inference — every band is labelled probability-weighted, with wide error bars and caveats baked into each research file. A research exercise, not investment advice."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "NyaySaathi",
+      "description": "AI legal research assistant for Indian law — RAG over the Constitution, IT Act and FIRs with citation-backed answers.",
+      "url": "https://github.com/vasu-devs/NyaySaathi",
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [
+        "rag",
+        "legal",
+        "qdrant"
+      ],
+      "updatedAt": "2025-11-20T15:41:25Z",
+      "summary": "AI legal assistant that gives Indian citizens accurate, citation-backed answers grounded strictly in verified statutes — a local Qdrant RAG with legal-aware chunking, reference-aware reranking, and support for ~13 Indian languages including romanized Hinglish.",
+      "highlights": [
+        "Legal-aware chunking that preserves Article/Section/Part/Chapter structure",
+        "Hybrid retrieval + reranking with a Constitution-to-statute cross-link map",
+        "Refuses to hallucinate: context-only answers with official-source fallback"
+      ],
+      "tech": [
+        "Python",
+        "FastAPI",
+        "Qdrant",
+        "sentence-transformers",
+        "Gemini 2.0 Flash",
+        "React 19"
+      ],
+      "details": [
+        {
+          "title": "The problem",
+          "body": "Statutes like the Constitution and the IT Act are dense, cross-referenced, and only available in English legalese — and generic chatbots hallucinate fake sections, which is dangerous for legal questions. NyaySaathi answers only from verified source documents, in the user's own language."
+        },
+        {
+          "title": "Retrieval engine",
+          "bullets": [
+            "Embedded local Qdrant — no server or Docker needed",
+            "Query expansion via a hand-tuned Constitution-to-statute link map (e.g. IT Act 69A → Article 19(2))",
+            "Reranking by exact article/section matches, number proximity and keyword overlap",
+            "13-language layer: script detection + Hinglish heuristics, English-pivot retrieval, translate-back answers"
+          ]
+        },
+        {
+          "title": "Product surfaces",
+          "body": "Three features on one backend: the cited legal chatbot, NyayLens per-document Q&A (isolated collection per upload), and NyayShala — daily auto-generated legal-literacy nuggets across contract, criminal, family, IP, tax and property law."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "name": "fastapi-cheatsheet",
+      "description": "A comprehensive FastAPI Cheat Sheet (Markdown + PDF).",
+      "url": "https://github.com/vasu-devs/fastapi-cheatsheet",
+      "homepage": null,
+      "language": null,
+      "stars": 6,
+      "forks": 4,
+      "topics": [
+        "fastapi",
+        "cheatsheet"
+      ],
+      "updatedAt": "2025-10-05T09:53:44Z",
+      "summary": "A comprehensive FastAPI cheat sheet in Markdown + PDF — small, useful, and quietly my most-forked repo. Its FastAPI entry was also merged into EbookFoundation/free-programming-books (275k+ stars).",
+      "highlights": [],
+      "tech": [
+        "FastAPI",
+        "Python",
+        "Markdown"
+      ],
+      "details": [],
+      "rank": 4
     }
   ],
   "readmesFetchedAt": "2026-04-17T18:52:41.862Z",
-  "curatedAt": "2026-04-23T00:00:00.000Z"
+  "curatedAt": "2026-07-03T00:00:00.000Z"
 }

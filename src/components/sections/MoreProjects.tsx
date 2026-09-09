@@ -52,8 +52,8 @@ const LANG_COLOR: Record<string, string> = {
     Solidity: '#aa6746',
 };
 
-const INITIAL_VISIBLE = 9;
-const FEATURED = new Set(['branchgpt', 'vaani', 'odeon', 'mapmyrepo', 'polysee']);
+const INITIAL_VISIBLE = 6;
+const FEATURED = new Set(['justhireme', 'branchgpt', 'vaani', 'odeon', 'mapmyrepo']);
 
 function dedupeTags(topics: string[], tech: string[], max = 4): string[] {
     const seen = new Set<string>();

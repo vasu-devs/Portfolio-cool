@@ -1,0 +1,301 @@
+{
+    "building": [
+        {
+            "id": "justhireme",
+            "name": "JustHireMe",
+            "status": "Live",
+            "tagline": "Local-first AI job-intelligence workbench",
+            "blurb": "Scrapes and ranks job leads with graph + vector retrieval, explains why each role fits, and generates tailored resumes, cover letters and outreach — all on your machine, no data leaving the device.",
+            "how": "A Tauri 2 (Rust) shell hosts a React workbench and launches a bundled Python FastAPI sidecar; ranking blends deterministic scoring, an optional LLM evaluator and a keyless bundled ONNX embedding model over Kuzu + LanceDB.",
+            "metrics": [
+                {
+                    "value": "2k+",
+                    "label": "GitHub stars"
+                },
+                {
+                    "value": "620",
+                    "label": "Backend tests"
+                },
+                {
+                    "value": "102",
+                    "label": "Releases"
+                }
+            ],
+            "tech": [
+                "Tauri 2",
+                "Rust",
+                "React 19",
+                "Python",
+                "FastAPI",
+                "Kuzu",
+                "LanceDB",
+                "ONNX"
+            ],
+            "liveUrl": "https://justhireme.ai",
+            "repoUrl": "https://github.com/vasu-devs/JustHireMe"
+        },
+        {
+            "id": "forge",
+            "name": "Forge",
+            "status": "Active",
+            "tagline": "A SOTA SDLC skill set for Claude Code",
+            "blurb": "One cohesive plugin of 16 hand-off-linked lifecycle skills (understand → plan → tdd → debug → review → ship) that encode software discipline as falsifiable rules and learn from your sessions.",
+            "how": "A zero-dependency Node hook core feeds a two-tier continuous-learning memory layer and a live, self-updating code-dependency graph — all local, patched incrementally on each turn.",
+            "metrics": [
+                {
+                    "value": "16",
+                    "label": "Skills"
+                },
+                {
+                    "value": "v2.1",
+                    "label": "Shipped"
+                }
+            ],
+            "tech": [
+                "Claude Code plugin",
+                "Node.js",
+                "JSONL",
+                "ONNX embeddings"
+            ],
+            "repoUrl": "https://github.com/vasu-devs/Forge"
+        },
+        {
+            "id": "engram",
+            "name": "engram",
+            "status": "Active",
+            "tagline": "Local cross-session memory for Claude Code",
+            "blurb": "Gives Claude Code a memory that survives across sessions — surfaced proactively at session start, consolidated instead of hoarded, and treated as untrusted against prompt-injection.",
+            "how": "A two-tier local plugin with Mem0-style ADD/UPDATE/DELETE consolidation, a bi-temporal lifecycle, importance-modulated decay, and a hand-rolled dense-cosine + BM25 + entity hybrid retriever — no ANN index, no telemetry.",
+            "metrics": [
+                {
+                    "value": "384d",
+                    "label": "Local ONNX embed"
+                },
+                {
+                    "value": "v2",
+                    "label": "Rebuilt"
+                }
+            ],
+            "tech": [
+                "Node.js ESM",
+                "bge-small-en",
+                "BM25",
+                "Mem0-style"
+            ],
+            "repoUrl": "https://github.com/vasu-devs/Forge"
+        }
+    ],
+    "shipped": [
+        {
+            "id": "branchgpt",
+            "name": "BranchGPT",
+            "status": "Live",
+            "tagline": "Git-DAG chat for context optimization",
+            "blurb": "Reimagines chat as a Directed Acyclic Graph — fork any message into a parallel branch, then smart-merge insights back as an LLM-generated summary so context stays clean.",
+            "tech": [
+                "Next.js 16",
+                "Drizzle",
+                "Neon",
+                "Vercel AI SDK",
+                "Groq"
+            ],
+            "liveUrl": "https://branchgpt.vasudev.live",
+            "repoUrl": "https://github.com/vasu-devs/BranchGPT"
+        },
+        {
+            "id": "mapmyrepo",
+            "name": "MapMyRepo",
+            "status": "Live",
+            "tagline": "Any codebase → interactive knowledge graph",
+            "blurb": "Turns a repo or whole GitHub profile into a D3 force-directed node graph with Gemini per-node summaries and a chat panel to explore architecture.",
+            "tech": [
+                "React 19",
+                "TypeScript",
+                "D3.js",
+                "Google Gemini"
+            ],
+            "liveUrl": "https://mapmyrepo.vasudev.live",
+            "repoUrl": "https://github.com/vasu-devs/MapMyRepo"
+        },
+        {
+            "id": "visualdsa",
+            "name": "Visual DSA",
+            "status": "Live",
+            "tagline": "Run code, watch it execute in 2D + 3D",
+            "blurb": "Write Python or C++, hit run, and step through execution as arrays sort, graphs traverse and lists re-wire — line by line, with full variable inspection in both 2D and 3D.",
+            "tech": [
+                "Next.js 16",
+                "React 19",
+                "Three.js",
+                "Pyodide",
+                "Monaco"
+            ],
+            "liveUrl": "https://visualdsa.vasudev.live",
+            "repoUrl": "https://github.com/vasu-devs/DryRunVisualised"
+        },
+        {
+            "id": "gitart",
+            "name": "GitArt",
+            "status": "Live",
+            "tagline": "Paint your GitHub contribution graph",
+            "blurb": "Design a 52×7 heatmap in the browser and get a real, pushable Git repo whose commit timestamps reproduce the art — built entirely client-side with isomorphic-git.",
+            "tech": [
+                "Next.js 16",
+                "React 19",
+                "isomorphic-git",
+                "memfs",
+                "JSZip"
+            ],
+            "liveUrl": "https://git-art-iota.vercel.app",
+            "repoUrl": "https://github.com/vasu-devs/GitArt"
+        },
+        {
+            "id": "vaani",
+            "name": "Vaani",
+            "status": "Demo",
+            "tagline": "Voice-native AI debt collection",
+            "blurb": "Sub-500ms outbound voice agent with an FDCPA 'Sherlock' risk engine, two tuned personas, and a live mission-control dashboard.",
+            "tech": [
+                "Python",
+                "FastAPI",
+                "LiveKit",
+                "Groq",
+                "Deepgram"
+            ],
+            "liveUrl": "https://www.youtube.com/watch?v=VsEfOfwh8XM",
+            "repoUrl": "https://github.com/vasu-devs/Vaani"
+        },
+        {
+            "id": "odeon",
+            "name": "Odeon",
+            "status": "Demo",
+            "tagline": "Self-improving voice-agent gym",
+            "blurb": "Generates adversarial personas, scores each conversation against KPIs, and lets a meta-agent auto-rewrite the prompt — with a Git-style neural diff of every change.",
+            "tech": [
+                "Python",
+                "FastAPI",
+                "WebSockets",
+                "Groq",
+                "React 19"
+            ],
+            "liveUrl": "https://youtu.be/GFdSe4-c_xQ",
+            "repoUrl": "https://github.com/vasu-devs/Odeon"
+        },
+        {
+            "id": "socratis",
+            "name": "Socratis",
+            "status": "Shipped",
+            "tagline": "Real-time AI voice interviewer",
+            "blurb": "Conducts live coding interviews over WebRTC voice, watches every keystroke via chat-context injection, and writes a forensic post-interview report.",
+            "tech": [
+                "Next.js 14",
+                "LiveKit",
+                "Deepgram",
+                "Groq",
+                "MongoDB"
+            ],
+            "repoUrl": "https://github.com/vasu-devs/Socratis"
+        },
+        {
+            "id": "waldo",
+            "name": "Waldo",
+            "status": "Shipped",
+            "tagline": "Agentic multimodal RAG over PDFs",
+            "blurb": "Ingests complex PDFs with text, tables and figures; transcribes charts with a Gemini VLM; and a LangGraph agent routes, grades and rewrites queries with anti-hallucination guardrails.",
+            "tech": [
+                "Python",
+                "FastAPI",
+                "Qdrant",
+                "LangGraph",
+                "Gemini"
+            ],
+            "repoUrl": "https://github.com/vasu-devs/Waldo"
+        },
+        {
+            "id": "rupeeroast",
+            "name": "RupeeRoast",
+            "status": "Shipped",
+            "tagline": "AI forensics for messy bank PDFs",
+            "blurb": "Parses messy Indian bank + UPI statements, categorizes every transaction with an LLM, and produces both an interactive dashboard and a data-backed roast of your spending.",
+            "tech": [
+                "Next.js 15",
+                "FastAPI",
+                "Groq",
+                "Gemini",
+                "Recharts"
+            ],
+            "repoUrl": "https://github.com/vasu-devs/RupeeRoast"
+        },
+        {
+            "id": "kyoka",
+            "name": "Kyoka",
+            "status": "Prototype",
+            "tagline": "OSINT → behavioral battle cards",
+            "blurb": "A tri-agent pipeline that reads a target's public footprint, synthesizes DISC + Big-Five traits, and produces an actionable negotiation 'Battle Card'.",
+            "tech": [
+                "React",
+                "FastAPI",
+                "LangChain",
+                "Gemini",
+                "Tavily"
+            ],
+            "repoUrl": "https://github.com/vasu-devs/Kyoka"
+        },
+        {
+            "id": "leetbot",
+            "name": "LeetBot",
+            "status": "Published",
+            "tagline": "AI LeetCode tutor extension",
+            "blurb": "A Chrome MV3 extension with Tutor / Hint / Planner modes and auto-generated Mermaid diagrams, injected onto any LeetCode problem — keys stay local.",
+            "tech": [
+                "React 19",
+                "Vite",
+                "Chrome MV3",
+                "Gemini",
+                "Mermaid.js"
+            ],
+            "repoUrl": "https://github.com/vasu-devs/LeetBot"
+        },
+        {
+            "id": "polysee",
+            "name": "PolySEE",
+            "status": "Shipped",
+            "tagline": "Multilingual campus FAQ chatbot",
+            "blurb": "RAG over institutional circulars in Hindi, English and regional languages, with an admin-approval workflow before answers go live. Smart India Hackathon 2025 semifinalist.",
+            "tech": [
+                "React",
+                "FastAPI",
+                "Gemini Flash",
+                "Ollama",
+                "ChromaDB"
+            ],
+            "repoUrl": "https://github.com/vasu-devs/PolySEE"
+        }
+    ],
+    "principles": [
+        {
+            "title": "Eval-driven",
+            "body": "Ship behind measurable gates — deterministic checks plus LLM-as-judge, and pass^k for reliability. Not vibes."
+        },
+        {
+            "title": "Local-first & private",
+            "body": "Default to on-device: bundled ONNX embeddings, keyless operation, no telemetry, data that never leaves the machine."
+        },
+        {
+            "title": "Agent-assisted, human-owned",
+            "body": "Heavy agent-assisted workflow with versioned plans, TDD and internal code-review passes — but I own every line that ships."
+        },
+        {
+            "title": "Ship the whole slice",
+            "body": "Prototype to production: packaging, CI, signed releases and docs. A demo is not a product."
+        },
+        {
+            "title": "Honest metrics",
+            "body": "Real numbers, real commit shares. If it's a contribution to someone else's product, it says so."
+        },
+        {
+            "title": "Fast",
+            "body": "An 18-day production fintech SaaS. Two-day SaaS sprints. Single-day recruitment take-homes. Momentum compounds."
+        }
+    ]
+}

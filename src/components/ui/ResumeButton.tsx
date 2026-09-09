@@ -118,7 +118,7 @@ export const ResumeButton = ({ className = "", showLabel = true, onClick }: Resu
     return (
         <MagneticButton onClick={handleClick}>
             <motion.a
-                href="https://drive.google.com/file/d/1izp4u2wqtKNfSSXFTvX_VBnAe6vKKoT4/view?usp=sharing"
+                href="/resume.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial="initial"

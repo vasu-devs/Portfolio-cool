@@ -20,7 +20,7 @@ const SERVICES = [
         tag: 'Fast turnaround',
         heading: 'Full Stack MVPs',
         description:
-            'Production-ready apps shipped fast. Next.js, PostgreSQL, auth, payments, and real performance — not just a prototype. Last one: 18 days, 290 commits, zero post-launch bugs.',
+            'Production-ready apps shipped fast. Next.js, PostgreSQL, auth, payments, and real performance — not just a prototype.',
         chips: ['Next.js', 'TypeScript', 'PostgreSQL', 'Vercel'],
     },
 ];

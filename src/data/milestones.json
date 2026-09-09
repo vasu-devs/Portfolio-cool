@@ -1,0 +1,108 @@
+{
+    "milestones": [
+        {
+            "id": "cu-boulder",
+            "date": "Nov 2024",
+            "sort": "2024-11",
+            "type": "learn",
+            "title": "Foundations",
+            "blurb": "University of Colorado Computer Communications specialization + Coursera networking / systems track. The groundwork before the AI ramp."
+        },
+        {
+            "id": "nptel-mongo",
+            "date": "H1 2025",
+            "sort": "2025-03",
+            "type": "learn",
+            "title": "Deep Learning + data engineering",
+            "blurb": "NPTEL Deep Learning (IIT Kharagpur), the 8-course MongoDB University track (incl. RAG + AI Agents), and SkillStone DSA training."
+        },
+        {
+            "id": "oracle",
+            "date": "Sep 2025",
+            "sort": "2025-09",
+            "type": "award",
+            "title": "Oracle OCI AI Foundations — 98%",
+            "blurb": "Passed the Oracle Cloud Infrastructure 2025 AI Foundations Associate exam at 98%."
+        },
+        {
+            "id": "sih",
+            "date": "Oct 2025",
+            "sort": "2025-10-01",
+            "type": "award",
+            "title": "Smart India Hackathon semifinalist",
+            "blurb": "PolySEE, a multilingual campus RAG chatbot, reached the Top 15 of 900+ teams at SIH 2025."
+        },
+        {
+            "id": "voice-start",
+            "date": "Oct 2025",
+            "sort": "2025-10-10",
+            "type": "work",
+            "title": "First voice-agent work",
+            "blurb": "Started building real-time LiveKit voice agents — the beginning of the voice-AI thread that runs through everything since."
+        },
+        {
+            "id": "oss",
+            "date": "Nov 2025",
+            "sort": "2025-11",
+            "type": "oss",
+            "title": "Open source: themes + animated icons",
+            "blurb": "Merged 4 dark themes into lingdojo/kana-dojo and an animated corner-arrow pack into pqoqubbw/icons (5.5k★). Hacktoberfest 2025."
+        },
+        {
+            "id": "portfolio-odeon",
+            "date": "Dec 2025",
+            "sort": "2025-12",
+            "type": "ship",
+            "title": "vasudev.live + Odeon + BranchGPT",
+            "blurb": "Shipped the live portfolio, the Odeon self-improving voice-agent gym, and the first BranchGPT DAG-chat build."
+        },
+        {
+            "id": "takehomes",
+            "date": "Jan → Mar 2026",
+            "sort": "2026-01",
+            "type": "ship",
+            "title": "Recruitment take-homes, all shipped",
+            "blurb": "Socratis (voice interviewer), Waldo (multimodal RAG), RupeeRoast (fintech forensics), and the Infineon A18 agentic C++ bug detector — each a complete product."
+        },
+        {
+            "id": "visualdsa",
+            "date": "Feb 2026",
+            "sort": "2026-02",
+            "type": "ship",
+            "title": "Visual DSA",
+            "blurb": "Shipped visualdsa.vasudev.live — run Python or C++ and watch it execute line-by-line in 2D + 3D."
+        },
+        {
+            "id": "freelance",
+            "date": "Mar → Apr 2026",
+            "sort": "2026-03",
+            "type": "work",
+            "title": "Freelance · Stealth",
+            "blurb": "Delivered a full-stack application for a confidential client."
+        },
+        {
+            "id": "justhireme",
+            "date": "May 2026",
+            "sort": "2026-05",
+            "type": "ship",
+            "title": "JustHireMe goes viral",
+            "blurb": "Launched the local-first AI job-intelligence desktop app. 380K+ views and 800 → 2,000+ GitHub stars within two weeks."
+        },
+        {
+            "id": "forge-engram",
+            "date": "Jun 2026",
+            "sort": "2026-06-06",
+            "type": "ship",
+            "title": "Forge + engram",
+            "blurb": "Published two Claude Code plugins: Forge (a SOTA SDLC skill set) and engram (local cross-session agent memory)."
+        },
+        {
+            "id": "stealth-internship",
+            "date": "Jun 2026 → now",
+            "sort": "2026-06-15",
+            "type": "work",
+            "title": "AI engineering internship · Stealth",
+            "blurb": "Contributing to AI systems with a focus on reliable agent behavior, real-time interactions, evaluation, and privacy. Company and project details remain confidential."
+        }
+    ]
+}

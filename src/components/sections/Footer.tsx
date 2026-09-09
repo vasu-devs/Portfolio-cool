@@ -106,7 +106,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             className="col-span-1 md:col-span-4"
                         >
                             <span className="font-mono text-[2.5vw] md:text-base uppercase tracking-widest text-fg-secondary block mb-[3vw] md:mb-4 text-center md:text-left">
-                                <span className="text-fg-primary/30">06 /</span> Contact
+                                <span className="text-fg-primary/30">07 /</span> Contact
                             </span>
                             <h2 className="font-display font-black text-[16vw] md:text-9xl lg:text-[12rem] leading-[0.75] tracking-tighter uppercase text-center md:text-left">
                                 Let's<br />Talk.
@@ -214,7 +214,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
             </Container>
 
             <Container className="flex justify-between items-end text-[3vw] md:text-sm pt-[3vw] md:pt-6 font-mono uppercase text-fg-secondary">
-                <span>© 2025 Vasu-DevS</span>
+                <span>© 2026 Vasu-DevS</span>
                 <div className="flex gap-[6vw] md:gap-4">
                     <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">GitHub</a>
                     <a href="https://twitter.com/Vasu_DevS" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">Twitter</a>
