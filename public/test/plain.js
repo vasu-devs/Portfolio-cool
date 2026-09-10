@@ -33,3 +33,37 @@ paper.addEventListener('click', () => {
   document.querySelector('.fold-note').textContent = folds[fold][2];
   paper.setAttribute('aria-label', fold === 3 ? 'Unfold the paper bird' : 'Fold a little paper');
 });
+
+const themeButton = document.querySelector('.theme-toggle');
+const root = document.documentElement;
+function themeLabel() {
+ const light = root.dataset.theme === 'light';
+ themeButton.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} mode`);
+ themeButton.querySelector('.theme-label').textContent = light ? 'dark' : 'light';
+ themeButton.querySelector('.sun-icon').textContent = light ? '☾' : '☼';
+}
+themeLabel();
+let changingTheme = false;
+themeButton.addEventListener('click', async () => {
+ if(changingTheme) return;
+ changingTheme = true;
+ const rect = themeButton.getBoundingClientRect();
+ const x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
+ const radius = Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y));
+ const change = () => {
+  root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+  try { localStorage.setItem('vasu-theme', root.dataset.theme); } catch {}
+  themeLabel();
+ };
+ let beams;
+ try {
+  if(!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) { change(); return; }
+  const transition = document.startViewTransition(change);
+  await transition.ready;
+  beams = document.createElement('div'); beams.className = 'sunbeams'; beams.setAttribute('aria-hidden','true');
+  beams.style.setProperty('--sun-x', `${x}px`); beams.style.setProperty('--sun-y', `${y}px`);document.body.append(beams);
+  await root.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${radius}px at ${x}px ${y}px)`]}, {duration:850,easing:'cubic-bezier(.2,.65,.25,1)',pseudoElement:'::view-transition-new(root)'}).finished;
+  await transition.finished;
+ } catch { /* The theme remains usable if the visual transition is interrupted. */ }
+ finally { beams?.remove(); changingTheme = false; }
+});
