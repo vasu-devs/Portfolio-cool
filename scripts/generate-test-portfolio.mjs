@@ -54,11 +54,11 @@ const replacements = {
   EMAIL: escape(resume.email)
 };
 replacements.WAVE = Array.from({length: 47}, (_, i) => `<i style="--height:${14 + Math.sin(i * 1.7) ** 2 * 100 * Math.sin((i + 1) / 48 * Math.PI)}px;--delay:${-i * .12}s"></i>`).join('');
-const template = readFileSync(resolve(root, 'scripts/curiosity-portfolio.template.html'), 'utf8');
+const template = readFileSync(resolve(root, 'scripts/plain-portfolio.template.html'), 'utf8');
 const page = template.replace(/@@([A-Z]+)@@/g, (_, key) => {
   if (!(key in replacements)) throw new Error(`Unknown template field: ${key}`);
   return replacements[key];
 });
 mkdirSync(resolve(root, 'public/test'), {recursive:true});
 writeFileSync(resolve(root, 'public/test/index.html'), page);
-console.log('Generated curiosity lab /test portfolio from approved public content.');
+console.log('Generated plain /test portfolio from approved public content.');
