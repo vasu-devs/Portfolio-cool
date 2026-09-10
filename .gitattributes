@@ -1,0 +1,2 @@
+# Preserve PDF byte offsets and embedded links on every platform.
+*.pdf binary
