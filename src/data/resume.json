@@ -43,21 +43,23 @@
       ]
     },
     {
-      "name": "Svara",
-      "label": "Open-source voice tooling",
-      "url": "https://github.com/vasu-devs/Svara",
-      "tech": "Python / faster-whisper / CUDA / Windows",
+      "name": "Odeon",
+      "label": "Solo build / Agent evaluation",
+      "url": "https://github.com/vasu-devs/Odeon",
+      "tech": "Python / FastAPI / WebSockets / React / SQLite",
       "bullets": [
-        "Built system-wide dictation with local speech recognition, streaming text insertion, CPU/GPU execution, and optional local-LLM formatting."
+        "Built an evaluation loop that simulates adversarial conversations, scores agent behavior with an LLM judge, and rewrites prompts against per-metric thresholds.",
+        "Streamed simulation results over WebSockets; added persisted run history and word-level prompt diffs to inspect each optimization cycle."
       ]
     },
     {
-      "name": "PolySEE",
-      "label": "Team project / SIH 2025",
-      "url": "https://github.com/vasu-devs/PolySEE",
-      "tech": "React / FastAPI / LangChain / ChromaDB",
+      "name": "Waldo",
+      "label": "Solo build / Multimodal RAG",
+      "url": "https://github.com/vasu-devs/Waldo",
+      "tech": "Python / LangGraph / Docling / Gemini / Qdrant",
       "bullets": [
-        "Contributed frontend and AI work to a multilingual campus assistant: document retrieval, regional-language answers, administrator review, and human escalation."
+        "Built PDF retrieval across text, tables, and figures using OCR, vision-model descriptions, and embeddings linked to page and image metadata.",
+        "Implemented relevance grading, bounded query-rewrite retries, and a no-context refusal path; surfaced supporting figures in a React chat interface."
       ]
     }
   ],
