@@ -33,7 +33,10 @@ themeButton.addEventListener('click', async () => {
  changingTheme = true;
  const rect = themeButton.querySelector('.sun-icon').getBoundingClientRect();
  const x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
- const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+ const originX = x / innerWidth * 100;
+ const originY = y / innerHeight * 100;
+ const radius = Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y));
+ const radiusPercent = radius / (Math.hypot(innerWidth, innerHeight) / Math.SQRT2) * 100 + 1;
  const change = () => {
   root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
   try { localStorage.setItem('vasu-theme', root.dataset.theme); } catch {}
@@ -43,7 +46,7 @@ themeButton.addEventListener('click', async () => {
   if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) { change(); return; }
   const transition = document.startViewTransition(change);
   await transition.ready;
-  await root.animate({clipPath:[`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`]}, {duration:850,easing:'cubic-bezier(.2,.65,.25,1)',pseudoElement:'::view-transition-new(root)'}).finished;
+  await root.animate({clipPath:[`circle(0% at ${originX}% ${originY}%)`, `circle(${radiusPercent}% at ${originX}% ${originY}%)`]}, {duration:850,easing:'cubic-bezier(.4,0,.2,1)',pseudoElement:'::view-transition-new(root)'}).finished;
   await transition.finished;
  } catch { /* Theme changes still apply if the reveal is interrupted. */ }
  finally { changingTheme = false; }
