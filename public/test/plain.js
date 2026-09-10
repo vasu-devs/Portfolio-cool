@@ -79,3 +79,32 @@ themeButton.addEventListener('click', () => {
 });
 window.addEventListener('resize', clearReveal, {passive:true});
 window.addEventListener('pagehide', clearReveal);
+
+const avatar = document.querySelector('.avatar-rotator');
+const slides = [...avatar.querySelectorAll('.avatar-slide')];
+let avatarIndex = 0, avatarTimer = null, avatarPaused = reducedMotion.matches;
+function stopAvatars() { clearTimeout(avatarTimer); avatarTimer = null; }
+function scheduleAvatar() {
+ stopAvatars();
+ if (avatarPaused || document.hidden) return;
+ avatarTimer = setTimeout(async () => {
+  const next = (avatarIndex + 1) % slides.length;
+  try { await slides[next].decode(); } catch { scheduleAvatar(); return; }
+  if (avatarPaused || document.hidden) return;
+  slides[avatarIndex].classList.remove('is-visible');
+  slides[next].classList.add('is-visible');
+  avatarIndex = next; scheduleAvatar();
+ }, 6000);
+}
+function avatarLabel() {
+ const label = avatarPaused ? 'Resume avatar rotation' : 'Pause avatar rotation';
+ avatar.setAttribute('aria-label', label); avatar.title = label;
+ avatar.classList.toggle('is-paused', avatarPaused);
+ avatar.querySelector('.avatar-control').textContent = avatarPaused ? '▶' : 'Ⅱ';
+}
+avatar.addEventListener('click', () => { avatarPaused = !avatarPaused; avatarLabel(); scheduleAvatar(); });
+reducedMotion.addEventListener('change', () => { avatarPaused = reducedMotion.matches; avatarLabel(); scheduleAvatar(); });
+document.addEventListener('visibilitychange', scheduleAvatar);
+window.addEventListener('pagehide', stopAvatars);
+window.addEventListener('pageshow', scheduleAvatar);
+avatarLabel(); scheduleAvatar();
