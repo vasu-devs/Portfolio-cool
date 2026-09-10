@@ -8,6 +8,46 @@ const host = document.getElementById('scene-host');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const motionButton = document.getElementById('motion-toggle');
 let selectedProject = 0, paused = false, desk = null, messageTimer;
+let dreaming = false, outfit = 0, collecting = false;
+const foundStars = new Set();
+const outfits = ['Blueberry', 'Matcha', 'Strawberry'];
+function message(text) {
+  clearTimeout(messageTimer);
+  const bubble = document.getElementById('buddy-message');
+  bubble.textContent = text; bubble.classList.add('visible');
+  messageTimer = setTimeout(() => { bubble.classList.remove('visible'); bubble.textContent = ''; }, 3500);
+}
+function catchStar(index) {
+  if (!collecting || foundStars.has(index)) return;
+  foundStars.add(index); desk?.collect(index);
+  document.getElementById('star-progress').textContent = foundStars.size + ' / 5 stars';
+  if (foundStars.size === 5) {
+    collecting = false;
+    if (document.activeElement === document.getElementById('catch-star')) document.getElementById('play-stars').focus({preventScroll:true});
+    document.getElementById('catch-star').hidden = true;
+    document.getElementById('play-stars').textContent = 'Play again ↻';
+    message('Five stars. One very happy Pip. ✦'); desk?.celebrate();
+  } else message(['Ooh, shiny!','For me? You shouldn’t have.','My tiny constellation.','One more. I believe in you.'][foundStars.size-1]);
+}
+document.getElementById('daydream').addEventListener('click', () => {
+  dreaming = !dreaming; document.body.classList.toggle('daydream', dreaming);
+  document.getElementById('daydream').setAttribute('aria-pressed', String(dreaming));
+  document.getElementById('daydream').textContent = dreaming ? '☀ Back to daylight' : '☾ After hours';
+  desk?.dream(dreaming); message(dreaming ? 'The best ideas arrive after hours.' : 'A little sunshine. A fresh start.');
+});
+document.getElementById('dress-pip').addEventListener('click', () => {
+  outfit = (outfit + 1) % outfits.length; desk?.outfit(outfit);
+  document.getElementById('dress-pip').textContent = 'Pip: ' + outfits[outfit] + ' ↻';
+  message(outfits[outfit] + ' Pip reporting for duty.');
+});
+document.getElementById('play-stars').addEventListener('click', () => {
+  foundStars.clear(); collecting = true;
+  document.getElementById('star-progress').textContent = '0 / 5 stars';
+  document.getElementById('catch-star').hidden = false;
+  document.getElementById('play-stars').textContent = 'Restart ↻';
+  desk?.startGame(); message('Catch five stars for Pip. Tap the golden ones!');
+});
+document.getElementById('catch-star').addEventListener('click', () => catchStar([0,1,2,3,4].find(i => !foundStars.has(i))));
 function pickProject(index) {
   selectedProject = index;
   document.querySelectorAll('[data-pick]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.pick) === index)));
@@ -21,11 +61,8 @@ function pickProject(index) {
 }
 document.querySelectorAll('[data-pick]').forEach(button => button.addEventListener('click', () => pickProject(Number(button.dataset.pick))));
 function sayHi() {
-  clearTimeout(messageTimer);
-  const bubble = document.getElementById('buddy-message');
-  bubble.textContent = 'Hey! You found me. ✦'; bubble.classList.add('visible');
+  message(['Hello, internet person. ✦','I supervise. Vasu does the coding.','Have you tried collecting the stars?','Tiny desk. Big ideas.'][Math.floor(Math.random()*4)]);
   desk?.hello();
-  messageTimer = setTimeout(() => { bubble.classList.remove('visible'); bubble.textContent = ''; }, 3500);
 }
 document.getElementById('hello-buddy').addEventListener('click', sayHi);
 function syncMotion() {
@@ -161,6 +198,13 @@ async function createDesk() {
   const starShape=new T.Shape();for(let i=0;i<10;i++){const radius=i%2===0?.27:.13;const a=i*Math.PI/5+Math.PI/2;const x=Math.cos(a)*radius,y=Math.sin(a)*radius;i===0?starShape.moveTo(x,y):starShape.lineTo(x,y);}starShape.closePath();
   const starGeo=new T.ExtrudeGeometry(starShape,{depth:.07,bevelEnabled:true,bevelSize:.025,bevelThickness:.025,bevelSegments:3,steps:1});starGeo.center();
   const star=mesh(starGeo,0xf5dba0,world,1.83,2.15,-.63);star.rotation.set(.1,-.25,-.12);star.userData.hello=true;
+  const gameStars = [[-2.65,1.05,.9],[-1.4,2.65,-.6],[.2,2.85,0],[2.5,1.85,.4],[.1,.7,1.6]].map((position,i) => {
+    const object = mesh(starGeo,0xffcc55,world,...position); object.scale.setScalar(.63); object.rotation.y=.4; object.userData.star=i; object.userData.baseY=position[1]; object.visible=false; return object;
+  });
+  const confetti = Array.from({length:28},(_,i) => {
+    const object=mesh(new T.BoxGeometry(.055,.13,.025),[0x7cadff,0xffbbd4,0xffd570,0x93d9bd][i%4],world,0,0,0);
+    object.visible=false; object.castShadow=false; return object;
+  });
   // Pip: a tiny original clay-like desk companion.
   const pip=new T.Group();world.add(pip);pip.position.set(1.6,.5,1.12);pip.rotation.y=.08;pip.userData.hello=true;
   const body=ball(.32,0xa4c7f5,pip,0,0,0,1,1.1,.84);
@@ -175,17 +219,24 @@ async function createDesk() {
   const armL=ball(.085,0xb3d0f6,pip,-.31,-.065,0,.55,1.3,.7);
   const armR=ball(.085,0xb3d0f6,pip,.31,-.065,0,.55,1.3,.7);
   const antenna=cyl(.012,.012,.19,0x9fb9dc,pip,0,.39,0);ball(.055,0xf6d4a7,pip,0,.51,0);
+  // Give Pip its own materials so changing its outfit leaves the desk unchanged.
+  const pipColors = new Map();
+  pip.traverse(object => { if(object.isMesh && [0xa4c7f5,0x93b7e6,0xb3d0f6].includes(object.material.color.getHex())) { object.material=object.material.clone(); pipColors.set(object,object.material.color.clone()); }});
   const raycaster=new T.Raycaster(),pointer=new T.Vector2();
-  let targetYaw=.1, drag=null, inView=true, stopped=paused||reduced.matches, frame=0, time=0, previous=0, hopUntil=0, disposed=false;
+  let targetYaw=.1, drag=null, inView=true, stopped=paused||reduced.matches, frame=0, time=0, previous=0, hopUntil=0, disposed=false, partyUntil=0;
   const canvas=renderer.domElement;
-  function hitAt(event){const bounds=canvas.getBoundingClientRect();pointer.set((event.clientX-bounds.left)/bounds.width*2-1,-(event.clientY-bounds.top)/bounds.height*2+1);raycaster.setFromCamera(pointer,camera);return raycaster.intersectObjects(world.children,true).find(hit=>{let o=hit.object;while(o&&o!==world){if(o.userData.pick!==undefined||o.userData.hello)return true;o=o.parent;}return false;});}
+  function hitAt(event){const bounds=canvas.getBoundingClientRect();pointer.set((event.clientX-bounds.left)/bounds.width*2-1,-(event.clientY-bounds.top)/bounds.height*2+1);raycaster.setFromCamera(pointer,camera);return raycaster.intersectObjects(world.children,true).find(hit=>{let o=hit.object;while(o&&o!==world){if(!o.visible)return false;if(o.userData.pick!==undefined||o.userData.hello||o.userData.star!==undefined)return true;o=o.parent;}return false;});}
   canvas.addEventListener('pointerdown',event=>{drag={x:event.clientX,y:event.clientY,yaw:targetYaw,moved:false};canvas.setPointerCapture(event.pointerId);});
   canvas.addEventListener('pointermove',event=>{if(drag){const dx=event.clientX-drag.x;const dy=event.clientY-drag.y;if(Math.abs(dx)>6&&Math.abs(dx)>Math.abs(dy)){drag.moved=true;targetYaw=T.MathUtils.clamp(drag.yaw+dx*.004,-.85,.55);if(stopped)world.rotation.y=targetYaw;requestDraw();}}else canvas.style.cursor=hitAt(event)?'pointer':'grab';});
-  canvas.addEventListener('pointerup',event=>{const start=drag;drag=null;if(canvas.hasPointerCapture(event.pointerId))canvas.releasePointerCapture(event.pointerId);if(!start||start.moved||Math.hypot(event.clientX-start.x,event.clientY-start.y)>8)return;const hit=hitAt(event);if(!hit)return;let object=hit.object;while(object&&object!==world){if(object.userData.pick!==undefined){pickProject(object.userData.pick);break;}if(object.userData.hello){sayHi();break;}object=object.parent;}});
+  canvas.addEventListener('pointerup',event=>{const start=drag;drag=null;if(canvas.hasPointerCapture(event.pointerId))canvas.releasePointerCapture(event.pointerId);if(!start||start.moved||Math.hypot(event.clientX-start.x,event.clientY-start.y)>8)return;const hit=hitAt(event);if(!hit)return;let object=hit.object;while(object&&object!==world){if(object.userData.star!==undefined){catchStar(object.userData.star);break;}if(object.userData.pick!==undefined){pickProject(object.userData.pick);break;}if(object.userData.hello){sayHi();break;}object=object.parent;}});
   canvas.addEventListener('pointercancel',()=>{drag=null;});
   function resize(){const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);const aspect=w/h;const halfWidth=aspect<1.2?3.7:4.1;camera.left=-halfWidth;camera.right=halfWidth;camera.top=halfWidth/aspect;camera.bottom=-halfWidth/aspect;camera.updateProjectionMatrix();requestDraw();}
   function draw(now){frame=0;if(disposed||!inView||document.hidden)return;const delta=previous?Math.min((now-previous)/1000,.05):0;previous=now;if(!stopped)time+=delta;
     if(!stopped){world.rotation.y+=(targetYaw-world.rotation.y)*.12;tile.position.y=1.77+Math.sin(time*1.3)*.055;tile.rotation.z=-.15+Math.sin(time*.8)*.035;star.position.y=2.15+Math.sin(time*1.1+1)*.065;star.rotation.z=-.12+Math.sin(time*.7)*.08;pip.position.y=.5+Math.sin(time*1.4)*.012;const blink=time%4.7<.12?.1:1;eyes.forEach(eye=>eye.scale.y=1.25*blink);if(now<hopUntil){pip.position.y+=Math.abs(Math.sin((hopUntil-now)*.007))*.22;armR.rotation.z=-.7+Math.sin(now*.025)*.45;}else armR.rotation.z=0;}
+    gameStars.forEach((object,i) => { if(!stopped){object.position.y=object.userData.baseY+Math.sin(time*2+i)*.09;object.rotation.y=.4+Math.sin(time*.8+i)*.28;object.rotation.z=Math.sin(time+i)*.15;} });
+    const party = !stopped && now < partyUntil;
+    confetti.forEach((object,i) => { object.visible=party;if(party){const progress=1-(partyUntil-now)/2600;object.position.set(1.6+Math.sin(i*2.4)*progress*2.4,.8+Math.sin(progress*Math.PI)*2.8-i%3*.12,1.1+Math.cos(i*2.4)*progress*1.4);object.rotation.set(time*2+i,time*3,i);} });
+    if(party){pip.rotation.z=Math.sin(time*12)*.14;armL.rotation.z=.8;armR.rotation.z=-.8;}else {pip.rotation.z=0;armL.rotation.z=0;}
     renderer.render(scene,camera);if(!stopped)frame=requestAnimationFrame(draw);
   }
   function requestDraw(){if(!frame&&!disposed&&inView&&!document.hidden)frame=requestAnimationFrame(draw);}
@@ -200,10 +251,15 @@ async function createDesk() {
   return {
     select(index){paintScreen(index);requestDraw();},
     hello(){hopUntil=performance.now()+1200;requestDraw();},
+    dream(on){hemi.intensity=on?.8:1.8;key.intensity=on?1.7:2.6;fill.color.set(on?0xc7b6ff:0xcadfff);fill.intensity=on?2:.8;ground.material.opacity=on?.07:.14;requestDraw();},
+    outfit(index){pipColors.forEach((original,object)=>object.material.color.copy(index===0?original:new T.Color(index===1?0xa1dbb4:0xf5abc7)));hopUntil=performance.now()+1200;requestDraw();},
+    startGame(){gameStars.forEach(object=>object.visible=true);star.visible=false;requestDraw();},
+    collect(index){gameStars[index].visible=false;hopUntil=performance.now()+700;if(foundStars.size===5)star.visible=true;requestDraw();},
+    celebrate(){partyUntil=performance.now()+2600;hopUntil=partyUntil;requestDraw();},
     turn(amount){targetYaw=T.MathUtils.clamp(targetYaw+amount,-.85,.55);if(stopped)world.rotation.y=targetYaw;requestDraw();},
     reset(){targetYaw=.1;if(stopped)world.rotation.y=targetYaw;requestDraw();},
     motion(off){stopped=off;previous=0;if(off){world.rotation.y=targetYaw;eyes.forEach(eye=>eye.scale.y=1.25);pip.position.y=.5;armR.rotation.z=0;}requestDraw();}
   };
 }
-createDesk().then(instance=>{desk=instance;syncMotion();}).catch(()=>fallback());
+createDesk().then(instance=>{desk=instance;desk.dream(dreaming);desk.outfit(outfit);if(collecting){desk.startGame();foundStars.forEach(i=>desk.collect(i));}syncMotion();}).catch(()=>fallback());
 document.addEventListener('visibilitychange',()=>document.body.classList.toggle('page-hidden',document.hidden));
