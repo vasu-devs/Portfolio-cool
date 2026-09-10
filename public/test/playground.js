@@ -1,7 +1,8 @@
 const projectChoices = [
   {name:'JustHireMe', description:'A local-first desktop workbench for job discovery, matching, and application drafts.', subtitle:'Your next chapter.', color:'#dceaff'},
   {name:'Svara', description:'On-device dictation that puts your words into the application you’re already using.', subtitle:'Say it. Keep going.', color:'#ece0ff'},
-  {name:'Dreamer', description:'A workspace where research agents investigate ideas and you decide which proposals to keep.', subtitle:'An idea starts here.', color:'#ffe8d4'}
+  {name:'Dreamer', description:'A workspace where research agents investigate ideas and you decide which proposals to keep.', subtitle:'An idea starts here.', color:'#ffe8d4'},
+  {name:'Ori no Michi', description:'Learn origami through interactive 3D folds. A personal exploration of geometry, motion, and learning by doing.', subtitle:'One fold at a time.', color:'#e3f0d9', target:4}
 ];
 const stage = document.getElementById('desk-stage');
 const host = document.getElementById('scene-host');
@@ -53,8 +54,8 @@ function pickProject(index) {
   document.querySelectorAll('[data-pick]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.pick) === index)));
   document.getElementById('picked-description').textContent = projectChoices[index].description;
   const link = document.getElementById('picked-link');
-  link.href = '#project-' + index;
-  link.dataset.openProject = 'project-' + index;
+  link.href = '#project-' + (projectChoices[index].target ?? index);
+  link.dataset.openProject = 'project-' + (projectChoices[index].target ?? index);
   link.replaceChildren(document.createTextNode('Inside ' + projectChoices[index].name + ' '));
   const arrow = document.createElement('span'); arrow.textContent = '↗'; arrow.setAttribute('aria-hidden', 'true'); link.append(arrow);
   desk?.select(index);
@@ -160,7 +161,7 @@ async function createDesk() {
     ctx.fillStyle='#8994aa';ctx.font='18px Arial';ctx.textAlign='right';ctx.fillText('vasu’s workspace',726,63);
     ctx.textAlign='left';ctx.fillStyle='#283c59';ctx.font='bold 60px Arial';ctx.fillText(p.name,76,159);
     ctx.fillStyle='#8290a8';ctx.font='25px Arial';ctx.fillText(p.subtitle,79,202);
-    const labels=index===0?['Discover','Understand','Prepare']:index===1?['Speak','Transcribe','Keep going']:['Research','Question','Review'];
+    const labels=index===0?['Discover','Understand','Prepare']:index===1?['Speak','Transcribe','Keep going']:index===3?['Fold','Rotate','Learn']:['Research','Question','Review'];
     const colors=['#e3edff','#eee5fa','#ffeddb'];
     labels.forEach((label,i)=>{ctx.fillStyle=colors[i];ctx.beginPath();ctx.roundRect(76+i*218,255,199,107,17);ctx.fill();ctx.fillStyle='#70839f';ctx.font='bold 22px Arial';ctx.fillText(label,93+i*218,318);});
     ctx.fillStyle='#a4afbf';ctx.font='17px Arial';ctx.fillText('An independent project by Vasudev Siddh',78,402);
@@ -198,6 +199,12 @@ async function createDesk() {
   const starShape=new T.Shape();for(let i=0;i<10;i++){const radius=i%2===0?.27:.13;const a=i*Math.PI/5+Math.PI/2;const x=Math.cos(a)*radius,y=Math.sin(a)*radius;i===0?starShape.moveTo(x,y):starShape.lineTo(x,y);}starShape.closePath();
   const starGeo=new T.ExtrudeGeometry(starShape,{depth:.07,bevelEnabled:true,bevelSize:.025,bevelThickness:.025,bevelSegments:3,steps:1});starGeo.center();
   const star=mesh(starGeo,0xf5dba0,world,1.83,2.15,-.63);star.rotation.set(.1,-.25,-.12);star.userData.hello=true;
+  const plane = new T.Group(); world.add(plane); plane.position.set(-2.6,1.25,.25); plane.rotation.set(.15,-.4,-.15); plane.userData.pick=3;
+  const planeGeometry=new T.BufferGeometry();
+  planeGeometry.setAttribute('position',new T.Float32BufferAttribute([0,0,-.65,-.48,0,.35,0,.10,.16, 0,0,-.65,0,.10,.16,.48,0,.35, 0,0,-.65,0,-.16,.3,-.07,.02,.2, 0,0,-.65,.07,.02,.2,0,-.16,.3],3));
+  planeGeometry.computeVertexNormals();
+  const planeMesh=new T.Mesh(planeGeometry,new T.MeshStandardMaterial({color:0xc5e5b1,roughness:.65,side:T.DoubleSide})); planeMesh.castShadow=true; plane.add(planeMesh);
+  const planeTarget=new T.Mesh(new T.SphereGeometry(.37,12,8),new T.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));plane.add(planeTarget);
   const gameStars = [[-2.65,1.05,.9],[-1.4,2.65,-.6],[.2,2.85,0],[2.5,1.85,.4],[.1,.7,1.6]].map((position,i) => {
     const object = mesh(starGeo,0xffcc55,world,...position); object.scale.setScalar(.63); object.rotation.y=.4; object.userData.star=i; object.userData.baseY=position[1]; object.visible=false; return object;
   });
@@ -234,6 +241,7 @@ async function createDesk() {
   function draw(now){frame=0;if(disposed||!inView||document.hidden)return;const delta=previous?Math.min((now-previous)/1000,.05):0;previous=now;if(!stopped)time+=delta;
     if(!stopped){world.rotation.y+=(targetYaw-world.rotation.y)*.12;tile.position.y=1.77+Math.sin(time*1.3)*.055;tile.rotation.z=-.15+Math.sin(time*.8)*.035;star.position.y=2.15+Math.sin(time*1.1+1)*.065;star.rotation.z=-.12+Math.sin(time*.7)*.08;pip.position.y=.5+Math.sin(time*1.4)*.012;const blink=time%4.7<.12?.1:1;eyes.forEach(eye=>eye.scale.y=1.25*blink);if(now<hopUntil){pip.position.y+=Math.abs(Math.sin((hopUntil-now)*.007))*.22;armR.rotation.z=-.7+Math.sin(now*.025)*.45;}else armR.rotation.z=0;}
     gameStars.forEach((object,i) => { if(!stopped){object.position.y=object.userData.baseY+Math.sin(time*2+i)*.09;object.rotation.y=.4+Math.sin(time*.8+i)*.28;object.rotation.z=Math.sin(time+i)*.15;} });
+    if(!stopped){plane.position.y=1.25+Math.sin(time*1.3)*.12;plane.rotation.z=-.15+Math.sin(time*.9)*.1;}
     const party = !stopped && now < partyUntil;
     confetti.forEach((object,i) => { object.visible=party;if(party){const progress=1-(partyUntil-now)/2600;object.position.set(1.6+Math.sin(i*2.4)*progress*2.4,.8+Math.sin(progress*Math.PI)*2.8-i%3*.12,1.1+Math.cos(i*2.4)*progress*1.4);object.rotation.set(time*2+i,time*3,i);} });
     if(party){pip.rotation.z=Math.sin(time*12)*.14;armL.rotation.z=.8;armR.rotation.z=-.8;}else {pip.rotation.z=0;armL.rotation.z=0;}
