@@ -5,10 +5,10 @@
   "email": "siddhvasudev1402@gmail.com",
   "links": [
     {"label": "siddhvasudev.com", "url": "https://siddhvasudev.com"},
-    {"label": "GitHub / vasu-devs", "url": "https://github.com/vasu-devs"},
-    {"label": "LinkedIn / vasu-devs", "url": "https://www.linkedin.com/in/vasu-devs/"}
+    {"label": "github.com/vasu-devs", "url": "https://github.com/vasu-devs"},
+    {"label": "linkedin.com/in/vasu-devs", "url": "https://www.linkedin.com/in/vasu-devs/"}
   ],
-  "summary": "AI engineering intern and open-source developer working across real-time voice, LLM applications, retrieval, and full-stack systems. Creator of JustHireMe, an AI job-intelligence workbench with 2,200+ GitHub stars. Combines hands-on Python and TypeScript development with evaluation, testing, and a focus on privacy.",
+  "summary": "AI engineering intern and open-source developer working across real-time voice, LLM applications, and full-stack systems. Creator of JustHireMe, an AI job-intelligence workbench with 2,200+ GitHub stars.",
   "experience": [
     {
       "role": "AI Engineering Intern",
@@ -16,8 +16,7 @@
       "dates": "Jun 2026 - Present",
       "bullets": [
         "Work across conversational AI, real-time voice, and full-stack development using Python, TypeScript, React, Next.js, PostgreSQL, and WebRTC.",
-        "Apply LLM integration, asynchronous processing, performance analysis, and automated evaluations to day-to-day engineering work.",
-        "Contribute through code review, regression testing, and careful handling of permissions and data isolation."
+        "Contribute to LLM integration, async processing, evaluations, regression testing, and data-access controls."
       ]
     },
     {
@@ -25,9 +24,8 @@
       "company": "Confidential client",
       "dates": "2026 - Present",
       "bullets": [
-        "Work with Python, FastAPI, TypeScript, Node.js, and MongoDB across applied AI and backend development.",
-        "Focus on embeddings, vector retrieval, multimodal AI, data processing, and API integration.",
-        "Contribute to application reliability, automated testing, containerized workflows, and CI/CD using Docker and AWS."
+        "Work on applied AI and backend development using Python, FastAPI, TypeScript, Node.js, and MongoDB; focus on embeddings, vector retrieval, and multimodal AI.",
+        "Contribute to API integration, automated testing, containerized workflows, and CI/CD using Docker and AWS."
       ]
     }
   ],
@@ -39,7 +37,7 @@
       "tech": "Tauri / Rust / React / Python / FastAPI",
       "bullets": [
         "Built a local-first desktop workbench for discovering jobs, explaining role fit, and preparing tailored application drafts; grew the public project to 2,200+ GitHub stars.",
-        "Combined professional graph and vector retrieval with deterministic lead-quality checks and human review of generated documents."
+        "Combined graph and vector retrieval, deterministic lead-quality checks, and human review of generated documents."
       ]
     },
     {
@@ -65,11 +63,11 @@
   ],
   "skills": [
     {"label": "Languages & applications", "text": "Python, TypeScript, JavaScript, SQL, React, Next.js, FastAPI, Node.js"},
-    {"label": "AI & data", "text": "LLM integration, RAG, LangGraph, embeddings, vector search, voice AI, PostgreSQL, MongoDB"},
+    {"label": "AI & data", "text": "Large language models (LLMs), retrieval-augmented generation (RAG), LangGraph, embeddings, vector search, voice AI, PostgreSQL, MongoDB"},
     {"label": "Engineering", "text": "Docker, AWS, GitHub Actions, automated testing, AI evaluations, Git, API design"}
   ],
   "education": {
-    "degree": "B.Tech, Computer Science & Engineering",
+    "degree": "Bachelor of Technology (B.Tech), Computer Science & Engineering",
     "institution": "Lovely Professional University, Punjab",
     "dates": "2023 - 2027 (expected)",
     "detail": "CGPA: 8.59"

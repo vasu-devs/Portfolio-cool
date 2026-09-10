@@ -55,12 +55,12 @@ muted = colors.HexColor('#475966')
 styles = {
     'name': ParagraphStyle('name', fontName='Helvetica-Bold', fontSize=25, leading=29, textColor=ink, spaceAfter=3),
     'headline': ParagraphStyle('headline', fontName='Helvetica-Bold', fontSize=11, leading=14, textColor=accent, spaceAfter=6),
-    'contact': ParagraphStyle('contact', fontName='Helvetica', fontSize=8.4, leading=11, textColor=muted),
-    'body': ParagraphStyle('body', fontName='Helvetica', fontSize=9, leading=12, textColor=ink, spaceAfter=3),
-    'heading': ParagraphStyle('heading', fontName='Helvetica-Bold', fontSize=9.3, leading=12, textColor=accent, spaceBefore=10, spaceAfter=5),
-    'entry': ParagraphStyle('entry', fontName='Helvetica-Bold', fontSize=9.3, leading=12, textColor=ink, spaceAfter=2),
-    'meta': ParagraphStyle('meta', fontName='Helvetica', fontSize=8, leading=10, textColor=muted, spaceAfter=3),
-    'bullet': ParagraphStyle('bullet', fontName='Helvetica', fontSize=9, leading=11.8, textColor=ink, leftIndent=9, firstLineIndent=-7, spaceAfter=2),
+    'contact': ParagraphStyle('contact', fontName='Helvetica', fontSize=9, leading=11, textColor=muted),
+    'body': ParagraphStyle('body', fontName='Helvetica', fontSize=10, leading=12.5, textColor=ink, spaceAfter=3),
+    'heading': ParagraphStyle('heading', fontName='Helvetica-Bold', fontSize=10, leading=12, textColor=accent, spaceBefore=9, spaceAfter=4),
+    'entry': ParagraphStyle('entry', fontName='Helvetica-Bold', fontSize=10, leading=12.5, textColor=ink, spaceAfter=2),
+    'meta': ParagraphStyle('meta', fontName='Helvetica', fontSize=9, leading=11, textColor=muted, spaceAfter=3),
+    'bullet': ParagraphStyle('bullet', fontName='Helvetica', fontSize=10, leading=12.5, textColor=ink, leftIndent=9, firstLineIndent=-7, spaceAfter=2),
 }
 def p(text, style='body'):
     return Paragraph(text, styles[style])
