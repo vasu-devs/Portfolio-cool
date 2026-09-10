@@ -81,29 +81,42 @@ window.addEventListener('resize', clearReveal, {passive:true});
 window.addEventListener('pagehide', clearReveal);
 
 const avatar = document.querySelector('.avatar-rotator');
+const avatarPause = document.querySelector('.avatar-pause');
 const slides = [...avatar.querySelectorAll('.avatar-slide')];
 let avatarIndex = 0, avatarTimer = null, avatarPaused = reducedMotion.matches;
+let avatarAnimation = null, avatarBusy = false;
 function stopAvatars() { clearTimeout(avatarTimer); avatarTimer = null; }
 function scheduleAvatar() {
  stopAvatars();
  if (avatarPaused || document.hidden) return;
- avatarTimer = setTimeout(async () => {
-  const next = (avatarIndex + 1) % slides.length;
-  try { await slides[next].decode(); } catch { scheduleAvatar(); return; }
-  if (avatarPaused || document.hidden) return;
-  slides[avatarIndex].classList.remove('is-visible');
-  slides[next].classList.add('is-visible');
-  avatarIndex = next; scheduleAvatar();
- }, 6000);
+ avatarTimer = setTimeout(nextAvatar, 6000);
+}
+async function nextAvatar() {
+ if (avatarBusy) return;
+ avatarBusy = true; stopAvatars();
+ const next = (avatarIndex + 1) % slides.length;
+ try {
+  await slides[next].decode();
+  const old = slides[avatarIndex], incoming = slides[next];
+  old.classList.remove('is-visible'); incoming.classList.add('is-visible');
+  avatarIndex = next;
+  if (!reducedMotion.matches) {
+   const options = {duration:550,easing:'cubic-bezier(.22,1,.36,1)'};
+   const outgoing = old.animate([{opacity:1,transform:'translateY(0) scale(1)'},{opacity:0,transform:'translateY(-12px) scale(.96)'}],options);
+   avatarAnimation = incoming.animate([{opacity:0,transform:'translateY(14px) scale(1.04)'},{opacity:1,transform:'translateY(0) scale(1)'}],options);
+   await Promise.allSettled([outgoing.finished,avatarAnimation.finished]);
+  }
+ } catch { /* Keep the current avatar when an asset fails to load. */ }
+ finally { avatarAnimation = null; avatarBusy = false; scheduleAvatar(); }
 }
 function avatarLabel() {
  const label = avatarPaused ? 'Resume avatar rotation' : 'Pause avatar rotation';
- avatar.setAttribute('aria-label', label); avatar.title = label;
- avatar.classList.toggle('is-paused', avatarPaused);
- avatar.querySelector('.avatar-control').textContent = avatarPaused ? '▶' : 'Ⅱ';
+ avatarPause.setAttribute('aria-label', label); avatarPause.title = label;
+ avatarPause.textContent = avatarPaused ? '▶' : 'Ⅱ';
 }
-avatar.addEventListener('click', () => { avatarPaused = !avatarPaused; avatarLabel(); scheduleAvatar(); });
-reducedMotion.addEventListener('change', () => { avatarPaused = reducedMotion.matches; avatarLabel(); scheduleAvatar(); });
+avatar.addEventListener('click', nextAvatar);
+avatarPause.addEventListener('click', () => { avatarPaused = !avatarPaused; avatarLabel(); scheduleAvatar(); });
+reducedMotion.addEventListener('change', () => { avatarPaused = reducedMotion.matches; avatarAnimation?.finish(); avatarLabel(); scheduleAvatar(); });
 document.addEventListener('visibilitychange', scheduleAvatar);
 window.addEventListener('pagehide', stopAvatars);
 window.addEventListener('pageshow', scheduleAvatar);
