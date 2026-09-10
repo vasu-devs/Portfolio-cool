@@ -53,13 +53,12 @@ const replacements = {
   EDUCATION: escape(`${resume.education.institution} · ${resume.education.dates} · ${resume.education.detail}`),
   EMAIL: escape(resume.email)
 };
-replacements.ORB = Array.from({length: 14}, (_, i) => `<i style="--angle:${i * 180 / 14}deg"></i>`).join('');
 replacements.WAVE = Array.from({length: 47}, (_, i) => `<i style="--height:${14 + Math.sin(i * 1.7) ** 2 * 100 * Math.sin((i + 1) / 48 * Math.PI)}px;--delay:${-i * .12}s"></i>`).join('');
-const template = readFileSync(resolve(root, 'scripts/animated-portfolio.template.html'), 'utf8');
+const template = readFileSync(resolve(root, 'scripts/editorial-portfolio.template.html'), 'utf8');
 const page = template.replace(/@@([A-Z]+)@@/g, (_, key) => {
   if (!(key in replacements)) throw new Error(`Unknown template field: ${key}`);
   return replacements[key];
 });
 mkdirSync(resolve(root, 'public/test'), {recursive:true});
 writeFileSync(resolve(root, 'public/test/index.html'), page);
-console.log('Generated animated monochrome /test portfolio from approved public content.');
+console.log('Generated editorial /test portfolio from approved public content.');
