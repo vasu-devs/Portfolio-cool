@@ -56,3 +56,12 @@ a:focus-visible,summary:focus-visible,button:focus-visible{outline-color:var(--a
 /* Softer neutral backgrounds with strong reading contrast. */
 :root{--page:#121212;--ink:#d6d6d6;--bright:#f0f0f0;--muted:#a6a6a6;--line:#343434;--accent:#c8c8c8}
 :root[data-theme=light]{--page:#f7f7f7;--ink:#222222;--bright:#111111;--muted:#595959;--line:#d4d4d4;--accent:#555555}
+
+/* One cohesive profile, rather than a floating avatar above a second name. */
+.identity{display:flex;align-items:center;gap:26px;margin:0 0 36px}
+.portrait-frame{width:112px;height:112px;flex:0 0 112px;overflow:hidden;border-radius:22px;background:#242424;border:1px solid var(--line)}
+.portrait-frame img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1);transform:scale(1.16);transform-origin:50% 65%}
+.identity-copy{min-width:0}.identity h1{font-size:36px;line-height:1.2;letter-spacing:-1px;margin:0 0 10px}.identity-role{font-size:17px;line-height:1.5;color:var(--ink)}.identity-handle{display:inline-block;font-size:15px;line-height:1.6;color:var(--muted);margin-top:5px}
+:root[data-theme=light] .portrait-frame{background:#e7e7e7}.identity+.secret-message:not(:empty){margin:0 0 24px}.intro{font-size:17px;line-height:1.8}
+@media(max-width:600px){.identity{gap:18px;margin-bottom:30px}.portrait-frame{width:88px;height:100px;flex-basis:88px;border-radius:18px}.identity h1{font-size:28px;letter-spacing:-.7px;margin-bottom:7px}.identity-role{font-size:15px}.identity-handle{font-size:14px}.intro{font-size:16px}}
+@media(max-width:360px){.identity{gap:14px}.portrait-frame{width:72px;height:88px;flex-basis:72px}.identity h1{font-size:25px}.identity-role{font-size:14px}}
