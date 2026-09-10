@@ -7,7 +7,7 @@
             "dateLabel": "Jun 2026 → Present",
             "track": "Internship",
             "contribution": "Applied AI / Voice / Full-stack engineering",
-            "summary": "Working across applied AI, real-time voice technology, and full-stack development. My focus includes LLM integration, asynchronous processing, performance analysis, and reliable software.",
+            "summary": "At withlayer.ai, I work on conversational AI and full-stack engineering: real-time voice behavior, LLM and agent integrations, backend APIs, and React/Next.js interfaces. My work also includes investigating latency, writing regression tests, and checking data-access boundaries.",
             "metrics": [
                 {
                     "value": "Voice",
@@ -28,25 +28,59 @@
             ],
             "sections": [
                 {
-                    "title": "Technologies",
-                    "body": "Python, TypeScript, React, Next.js, PostgreSQL, and WebRTC."
+                    "title": "Voice and real-time systems",
+                    "body": "I work on the technical details that make spoken interaction feel responsive and predictable.",
+                    "bullets": [
+                        "Develop and debug speech-to-text, language-model response, and text-to-speech integrations using Python and TypeScript, with WebRTC and LiveKit among the tools I work with.",
+                        "Work on turn detection, interruptions, streaming responses, and connection lifecycle handling, including how the system behaves when a conversation pauses or a connection changes.",
+                        "Work with speech technologies such as Deepgram and Rime, investigating transcription quality and spoken-output behavior."
+                    ]
                 },
                 {
-                    "title": "Current focus",
-                    "body": "Conversational AI, LLM integration, backend APIs, and asynchronous processing."
+                    "title": "LLM and agent workflows",
+                    "body": "I contribute to the engineering around model calls: preparing context, handling outputs, and making asynchronous work dependable.",
+                    "bullets": [
+                        "Implement and refine LLM integrations, prompt construction, context handling, and structured model outputs.",
+                        "Work on grounding and evaluation so generated responses can be checked against the information available to the system.",
+                        "Contribute to asynchronous workflows and background processing, including failure handling and consistency between related operations."
+                    ]
                 },
                 {
-                    "title": "Engineering practice",
-                    "body": "Automated evaluations, regression testing, performance analysis, code review, and careful handling of access control and data isolation."
+                    "title": "Full-stack and data work",
+                    "bullets": [
+                        "Implement application changes across React and Next.js interfaces, TypeScript APIs, and PostgreSQL-backed data flows.",
+                        "Work through UI states and backend behavior together, including loading, unavailable data, and error cases.",
+                        "Check authentication, permissions, and tenant-scoped data access as part of implementation and regression testing."
+                    ]
+                },
+                {
+                    "title": "Performance and reliability",
+                    "bullets": [
+                        "Profile response latency and time to first token to understand where time is spent in streaming and asynchronous processing.",
+                        "Add diagnostics and investigate timing, cancellation, and state-management issues instead of judging responsiveness only by how a demo feels.",
+                        "Review edge cases involving partial results, interrupted work, and unexpected inputs; validate fixes with targeted checks."
+                    ]
+                },
+                {
+                    "title": "Testing and delivery",
+                    "body": "My contribution includes verification and review as well as implementation.",
+                    "bullets": [
+                        "Write and maintain regression tests, integration checks, and browser-level checks with tools including Vitest and Playwright.",
+                        "Use automated evaluations to examine AI behavior, and add coverage for failures and data-access boundaries.",
+                        "Work through code-review feedback and document what has been verified, what remains uncertain, and where a change is ready for release."
+                    ]
                 }
             ],
             "tech": [
                 "Python",
                 "TypeScript",
+                "React",
                 "Next.js",
                 "PostgreSQL",
                 "WebRTC",
-                "AI evaluations"
+                "LiveKit",
+                "Vitest",
+                "Playwright"
             ],
             "links": [
                 {
