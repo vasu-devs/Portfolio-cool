@@ -7,6 +7,7 @@
         "node": ">=18"
     },
     "scripts": {
+        "prebuild": "node scripts/generate-test-portfolio.mjs",
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
