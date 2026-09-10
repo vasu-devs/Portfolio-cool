@@ -39,3 +39,7 @@ body{isolation:isolate}.layout{position:relative;z-index:1}.theme-revealing,.the
 
 .theme-wave-frame{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:strict}.theme-wave{position:absolute}
 .theme-wave-frame{width:100vw;height:100vh;right:auto;bottom:auto}
+/* Readable identity line at desktop and mobile sizes. */
+.hello{gap:16px;font-size:16px;line-height:1.5;color:var(--ink);margin-bottom:24px}
+.hello img{width:72px;height:72px;flex:0 0 72px;object-fit:cover}
+@media(max-width:600px){.hello{font-size:15px;gap:14px;margin-bottom:22px}.hello img{width:64px;height:64px;flex-basis:64px}}
