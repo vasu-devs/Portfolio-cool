@@ -77,6 +77,7 @@ export const Experience = () => {
                     transition={{ duration: 0.6 }}
                     onClick={() => setIsStealthModalOpen(true)}
                     onKeyDown={(e) => {
+                        if (e.target !== e.currentTarget) return;
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
                             setIsStealthModalOpen(true);
@@ -153,6 +154,7 @@ export const Experience = () => {
                     transition={{ duration: 0.6 }}
                     onClick={() => setIsJustHireMeModalOpen(true)}
                     onKeyDown={(e) => {
+                        if (e.target !== e.currentTarget) return;
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
                             setIsJustHireMeModalOpen(true);

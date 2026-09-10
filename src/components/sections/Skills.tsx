@@ -175,8 +175,7 @@ export const Skills = () => {
                 </h2>
 
                 <p className="text-[4vw] md:text-xl text-fg-secondary leading-relaxed mb-[12vw] md:mb-16 max-w-2xl">
-                    The tools I reach for when building — grouped by where they sit in
-                    the stack. Hover any badge to see its brand color.
+                    Tools I use across AI systems, application development, and delivery. The projects above show how I put them to work.
                 </p>
 
                 <div className="divide-y divide-border-primary">

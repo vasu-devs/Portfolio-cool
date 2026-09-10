@@ -1,7 +1,8 @@
+import { useDialog } from '../../hooks/useDialog';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Star, GitFork, Calendar, Mail, ExternalLink } from 'lucide-react';
 import { CopyButton } from './CopyButton';
-import { useEffect } from 'react';
+
 import { createPortal } from 'react-dom';
 import { DetailSections, DetailSection } from './DetailSections';
 
@@ -52,20 +53,7 @@ function formatDate(iso: string): string {
 }
 
 export const MoreProjectModal = ({ project, onClose }: MoreProjectModalProps) => {
-    useEffect(() => {
-        if (!project) return;
-
-        document.body.style.overflow = 'hidden';
-        const onKey = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onClose();
-        };
-        window.addEventListener('keydown', onKey);
-
-        return () => {
-            document.body.style.overflow = 'unset';
-            window.removeEventListener('keydown', onKey);
-        };
-    }, [project, onClose]);
+    const dialogRef = useDialog(Boolean(project), onClose);
 
     return createPortal(
         <AnimatePresence>
@@ -84,6 +72,11 @@ export const MoreProjectModal = ({ project, onClose }: MoreProjectModalProps) =>
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.97, opacity: 0, y: 20 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        ref={dialogRef}
+                        tabIndex={-1}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={project?.name}
                         className="relative w-full max-w-[900px] bg-bg-primary border border-border-primary rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden"
                     >
                         {/* Sticky header */}

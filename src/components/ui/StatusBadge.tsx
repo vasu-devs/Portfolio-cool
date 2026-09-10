@@ -103,9 +103,10 @@ export const StatusBadge = ({ theme = 'dark' }: StatusBadgeProps) => {
     ];
 
     return (
-        <div className="fixed top-[4vw] right-[4vw] md:top-[2vw] md:right-[2.5vw] z-[70] select-none font-mono" ref={containerRef}>
+        <div className="absolute top-[4vw] right-[4vw] md:top-[2vw] md:right-[2.5vw] z-[70] select-none font-mono" ref={containerRef}>
             {/* Status Pill Trigger */}
             <motion.button
+                aria-expanded={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}

@@ -25,7 +25,7 @@ interface WorkProps {
 
 export const Work = ({ projects, openModal }: WorkProps) => {
     return (
-        <section id="projects" className="pt-[1vw] pb-[20vw] md:pt-4 md:pb-24 relative">
+        <section id="projects" className="pt-12 pb-16 md:pt-16 md:pb-24 relative">
             <Container>
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}
@@ -35,7 +35,7 @@ export const Work = ({ projects, openModal }: WorkProps) => {
                 >
                     <span className="text-fg-primary/30">02 /</span> Selected Works
                 </motion.h2>
-                <div className="flex flex-col gap-[10vw] md:gap-16">
+                <div className="flex flex-col gap-4 md:gap-6">
                     {projects.map((project, i) => (
                         <motion.div
                             key={project.title}
@@ -43,19 +43,9 @@ export const Work = ({ projects, openModal }: WorkProps) => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-10%" }}
                             transition={{ duration: 0.8, delay: i * 0.1 }}
-                            className="group relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-fg-primary rounded-xl"
-                            onClick={() => openModal(project)}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                    e.preventDefault();
-                                    openModal(project);
-                                }
-                            }}
-                            role="button"
-                            tabIndex={0}
-                            aria-label={`View details for ${project.title}`}
+                            className="relative"
                         >
-                            <CaseStudy index={i} {...project} />
+                            <CaseStudy index={i} {...project} onOpen={() => openModal(project)} />
                         </motion.div>
                     ))}
                 </div>

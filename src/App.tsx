@@ -1,14 +1,10 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import { Mail, Linkedin, Twitter } from 'lucide-react';
 import { Hero } from './components/sections/Hero';
 import { Grain } from './components/ui/Grain';
-import { Preloader } from './components/ui/Preloader';
 import { StatusBadge } from './components/ui/StatusBadge';
 import { ViewerBadge } from './components/ui/ViewerBadge';
-import { AnimatePresence, motion } from 'framer-motion';
-import { CustomCursor } from './components/ui/CustomCursor';
 import { useLenis } from './hooks/useLenis';
 import type { Project } from './components/sections/Work';
 import projectsData from './data/projects.json';
@@ -40,9 +36,6 @@ export default function App() {
    const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
    const [isNavInverted, setIsNavInverted] = useState(false);
-   const [isLoading, setIsLoading] = useState(true);
-   const [isTransitioning] = useState(false);
-   const [clickPos] = useState({ x: 0, y: 0 });
 
    // Initialize Lenis smooth scrolling
    useLenis();
@@ -141,7 +134,7 @@ export default function App() {
             }
 
             // 3. Fetch PR Count from GitHub API
-            const prsData = await fetchJson('https://api.github.com/search/issues?q=type:pr+author:vasu-devs');
+            const prsData = await fetchJson('https://api.github.com/search/issues?q=type:pr+is:merged+author:vasu-devs');
             if (prsData && typeof prsData.total_count === 'number') {
                setStats(prev => ({ ...prev, prs: prsData.total_count }));
             }
@@ -176,11 +169,12 @@ export default function App() {
    const projects: Project[] = [
       {
          title: 'JustHireMe',
+         repoUrl: 'https://github.com/vasu-devs/JustHireMe',
          category: 'Local-First AI / Open Source',
          description:
-            'A local-first AI job-intelligence desktop app with 2,000+ GitHub stars. It scrapes and ranks roles with graph + vector retrieval, explains why each fits, and generates tailored resumes and outreach — with local storage and optional AI-provider connections.',
+            'A local-first AI job-intelligence desktop app with 2,200+ GitHub stars. It scrapes and ranks roles with graph + vector retrieval, explains why each fits, and generates tailored resumes and outreach — with local storage and optional AI-provider connections.',
          summary:
-            "Local-first job intelligence, shipped as a cross-platform desktop app. A Tauri + Rust shell hosts a React workbench and a bundled Python FastAPI sidecar; leads flow through scrape → quality-gate → local CRM → explainable fit-ranking over a graph + vectors, then a generator produces tailored resumes, cover letters and outreach. Career data is stored locally; optional AI providers process requests when configured. The launch went viral — 380K+ views and 800 → 2,000+ GitHub stars in two weeks.",
+            "Local-first job intelligence, shipped as a cross-platform desktop app. A Tauri + Rust shell hosts a React workbench and a bundled Python FastAPI sidecar; leads flow through scrape → quality-gate → local CRM → explainable fit-ranking over a graph + vectors, then a generator produces tailored resumes, cover letters and outreach. Career data is stored locally; optional AI providers process requests when configured. The launch went viral — 380K+ views and 800 → 2,200+ GitHub stars in two weeks.",
          details: [
             {
                title: 'The problem',
@@ -204,7 +198,7 @@ export default function App() {
             {
                title: 'The launch',
                bullets: [
-                  '380K+ views and 800 → 2,000+ GitHub stars within ~2 weeks',
+                  '380K+ views and 800 → 2,200+ GitHub stars within ~2 weeks',
                   'Cross-platform installers (Windows / macOS / Linux) built by CI from v* tags across 100+ releases',
                   '620 backend pytest + 71 frontend Vitest tests; a thin ~100 MB installer with a content-versioned runtime pack',
                   'AGPL-3.0 open source and sponsorable, with an MCP server + a reusable agent skill',
@@ -212,8 +206,8 @@ export default function App() {
             },
          ],
          highlights: [
-            '2,000+ GitHub stars from a viral launch (380K+ views)',
-            'Fully local-first — profile graph, vectors, CRM and generated docs never leave your device',
+            '2,200+ GitHub stars from a viral launch (380K+ views)',
+            'Local storage for career data, with optional AI-provider connections',
             'Explainable fit-ranking with a bundled, keyless ONNX embedding model',
          ],
          tech: ['Tauri 2', 'Rust', 'React 19', 'TypeScript', 'Python', 'FastAPI', 'SQLite', 'Kuzu', 'LanceDB', 'ONNX'],
@@ -223,6 +217,7 @@ export default function App() {
       },
       {
          title: 'BranchGPT',
+         repoUrl: 'https://github.com/vasu-devs/BranchGPT',
          category: 'Context Optimization / AI',
          description: 'A Git-like chat interface that treats conversations as a Directed Acyclic Graph (DAG) for context garbage collection. Features include forking branches and merging insights back to keep AI context clean.',
          summary:
@@ -268,60 +263,8 @@ export default function App() {
          liveUrl: 'https://branchgpt.siddhvasudev.com/'
       },
       {
-         title: 'Vaani',
-         category: 'Voice AI / Fintech',
-         description: 'An intelligent, voice-native debt collection platform powered by LiveKit, Groq, and Deepgram. Features sub-500ms latency, real-time negotiation, and FDCPA compliance guardrails.',
-         summary:
-            "Voice-native debt-recovery command center. LiveKit handles real-time transport, Groq runs the LLM, Deepgram does both STT and TTS. Two personas — empathetic Rachel and firm Orion — pick up the phone. A 'Sherlock' risk engine watches every second for compliance and intent.",
-         details: [
-            {
-               title: 'Voice pipeline',
-               bullets: [
-                  'LiveKit Agents for WebRTC transport + SIP outbound calls',
-                  'Deepgram Nova-2 for real-time speech-to-text',
-                  'Groq Llama 3 for low-latency LLM inference',
-                  'Deepgram TTS for natural synthesized speech',
-                  'Sub-500 ms end-to-end latency; full-duplex — debtors can interrupt mid-sentence',
-               ],
-            },
-            {
-               title: 'Two personas',
-               bullets: [
-                  'Rachel — empathetic and patient, tuned for hardship cases',
-                  'Orion — firm and direct, tuned for strategic defaulters',
-               ],
-            },
-            {
-               title: 'Sherlock risk engine',
-               body:
-                  "Every second of every call is analyzed live for compliance and intent. FDCPA guardrails instantly flag Bankruptcy, Attorney Representation and Cease & Desist triggers. Matrix profiling classifies debtors into quadrants (Hardship Case vs Strategic Defaulter). Outcomes are auto-tagged as Promise to Pay, Refusal, or Dispute.",
-            },
-            {
-               title: 'Command Center',
-               body:
-                  'A dark-mode React dashboard streams the live transcript in a hacker-style terminal with risk badges popping in as the AI detects intent. Recovery rates and risk scores aggregate across thousands of calls.',
-            },
-            {
-               title: 'Architecture',
-               bullets: [
-                  'Frontend: React 18 + Vite + Tailwind',
-                  'API: Python + FastAPI — orchestrates calls and SIP handler',
-                  'Agent Worker: LiveKit Agents, runs as a separate process',
-                  'Dockerfiles for DigitalOcean App Platform deployment (API + Worker + Frontend)',
-               ],
-            },
-         ],
-         highlights: [
-            'Sub-500 ms voice latency with full-duplex interruption handling',
-            "Sherlock engine: FDCPA guardrails + debtor-matrix profiling + live PTP/Refusal/Dispute tagging",
-            'Two tuned personas (Rachel / Orion) — dispatch by debtor archetype',
-         ],
-         tech: ['Python', 'FastAPI', 'LiveKit Agents', 'Groq', 'Deepgram', 'React 18', 'Vite', 'Tailwind', 'SIP', 'Docker'],
-         videoUrl: 'https://www.youtube.com/watch?v=VsEfOfwh8XM',
-         thumbnailUrl: '/covers/Vaani.png',
-      },
-      {
          title: 'Odeon',
+         repoUrl: 'https://github.com/vasu-devs/Odeon',
          category: 'Autonomous Agents',
          description: 'A framework for evolving voice agents through adversarial persona testing. It iteratively self-corrects based on simulation outcomes to improve agent performance.',
          summary:
@@ -378,6 +321,7 @@ export default function App() {
       },
       {
          title: 'MapMyRepo',
+         repoUrl: 'https://github.com/vasu-devs/MapMyRepo',
          category: 'Knowledge Graph / AI',
          description: 'Turns any codebase into an interactive knowledge graph. Files and folders become interconnected nodes; Gemini summarizes each, and you can chat with the graph to explore architecture.',
          summary:
@@ -433,8 +377,20 @@ export default function App() {
          videoUrl: 'https://youtu.be/EmTDrPzAo40',
          thumbnailUrl: '/covers/MapMyRepo.png',
          liveUrl: 'https://mapmyrepo.siddhvasudev.com'
+      },
+      {
+         title: 'Waldo', category: 'Multimodal RAG',
+         description: 'A document question-answering app that searches text, tables, and figures. A LangGraph workflow grades retrieved context and retries unclear queries before generating an answer.',
+         summary: 'Built a complete multimodal PDF retrieval application as a solo technical assessment. Docling and OCR extract document structure, Gemini turns figures into searchable descriptions, and Qdrant preserves page and image metadata for retrieval.',
+         details: [
+            { title: 'Retrieval and evaluation', bullets: ['LangGraph coordinates retrieval, relevance grading, and bounded query-rewrite retries.', 'A no-context refusal path handles questions without supporting document evidence.', 'The React chat interface displays supporting figures alongside answers.'] },
+            { title: 'Scope', body: 'A documented assessment project with a system card and sample PDF corpus. The demo uses in-memory storage and is not presented as a commercial production deployment.' }
+         ],
+         tech: ['Python', 'LangGraph', 'Docling', 'Gemini', 'Qdrant', 'FastAPI', 'React'],
+         repoUrl: 'https://github.com/vasu-devs/Waldo', videoUrl: '', thumbnailUrl: ''
       }
-   ];
+
+   ].sort((a, b) => ['JustHireMe', 'Odeon', 'Waldo', 'BranchGPT', 'MapMyRepo'].indexOf(a.title) - ['JustHireMe', 'Odeon', 'Waldo', 'BranchGPT', 'MapMyRepo'].indexOf(b.title));
 
    // Nav bg is "light" when (theme is light) XOR (over an inverted section).
    // Drives the glass + text colors so the nav is always readable.
@@ -442,122 +398,22 @@ export default function App() {
 
    return (
       <div className="min-h-screen bg-bg-primary text-fg-primary selection:bg-fg-primary selection:text-bg-primary font-sans relative">
-         <CustomCursor theme={theme} />
-         <AnimatePresence mode="wait">
-            {isLoading && (
-               <Preloader key="preloader" theme={theme} finishLoading={() => setIsLoading(false)} />
-            )}
-         </AnimatePresence>
-
-         <AnimatePresence mode="wait">
-            {isTransitioning && (
-               <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
-                  <motion.div
-                     initial={{ opacity: 0, scale: 0 }}
-                     animate={{
-                        opacity: [0, 1, 0.5, 0],
-                        scale: [0, 1, 5],
-                     }}
-                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                     className="absolute"
-                     style={{
-                        left: clickPos.x,
-                        top: clickPos.y,
-                        width: '100vw',
-                        height: '100vw',
-                        marginLeft: '-50vw',
-                        marginTop: '-50vw',
-                        borderRadius: '50%',
-                        border: theme === 'dark' ? '2px solid rgba(255, 255, 255, 0.1)' : '2px solid rgba(0, 0, 0, 0.1)',
-                        background: theme === 'dark'
-                           ? 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 70%)'
-                           : 'radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.05) 50%, transparent 70%)',
-                        boxShadow: theme === 'dark'
-                           ? '0 0 60px rgba(255, 255, 255, 0.1)'
-                           : '0 0 60px rgba(0, 0, 0, 0.1)',
-                        transform: 'translateZ(0)',
-                        willChange: 'transform, opacity',
-                     }}
-                  />
-                  {[...Array(8)].map((_, i) => (
-                     <motion.div
-                        key={i}
-                        initial={{ opacity: 0, height: 0, rotate: i * 45, width: 2 }}
-                        animate={{
-                           opacity: [0, 0.6, 0],
-                           height: ['0px', `${150 + Math.random() * 400}px`],
-                           width: [2, 3, 1],
-                        }}
-                        transition={{
-                           duration: 1.0,
-                           ease: "easeOut",
-                           delay: Math.random() * 0.1
-                        }}
-                        className="absolute origin-top"
-                        style={{
-                           left: clickPos.x,
-                           top: clickPos.y,
-                           background: theme === 'dark'
-                              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent)'
-                              : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent)',
-                           transform: 'translateZ(0)', // Force GPU
-                        }}
-                     />
-                  ))}
-               </div>
-            )}
-         </AnimatePresence>
-
+<a href="#main-content" className="skip-link">Skip to content</a>
          <Grain />
 
-         <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-            <div
-               className={`
-                  backdrop-blur-2xl backdrop-saturate-150 border rounded-full px-5 md:px-8 py-4 md:py-5 flex items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-center transition-colors duration-300 pointer-events-auto
-                  ${navIsOverLightBg
-                     ? 'bg-white/70 border-black/10 text-black shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]'
-                     : 'bg-zinc-900/60 border-white/15 text-white shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_0_rgba(255,255,255,0.12)]'}
-               `}
-            >
-               <span className="font-mono text-sm md:text-base uppercase tracking-widest font-black shrink-0">
-                  Vasu-DevS
-               </span>
-               <div className="flex items-center gap-4 md:gap-6">
-                  <div className="flex lg:hidden items-center gap-4 pr-4 border-r border-current/10">
-                     <a href="mailto:siddhvasudev1402@gmail.com" className="opacity-70 hover:opacity-100 transition-opacity">
-                        <Mail className="w-4 h-4 md:w-5 md:h-5" />
-                     </a>
-                     <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity">
-                        <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
-                     </a>
-                     <a href="https://twitter.com/Vasu_DevS" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity">
-                        <Twitter className="w-4 h-4 md:w-5 md:h-5" />
-                     </a>
-                  </div>
-                  <a href="#experience" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Experience</a>
-                  <a href="#skills" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Skills</a>
-                  <a href="#services" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Services</a>
-                  <a href="#contact" className="hidden lg:block text-sm md:text-base font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity">Contact</a>
-                  {/* Theme toggle removed */}
-               </div>
+         <nav aria-label="Main navigation" className="fixed bottom-4 left-0 right-0 z-50 flex justify-center px-3 pointer-events-none">
+            <div className={`pointer-events-auto flex items-center gap-1 sm:gap-2 rounded-full border px-2 py-2 shadow-xl backdrop-blur-xl ${navIsOverLightBg ? 'bg-white/95 text-black border-black/15' : 'bg-zinc-900/95 text-white border-white/20'}`}>
+               <a href="#hero" aria-label="Back to top" className="hidden md:block px-4 text-sm font-bold">VASU-DEVS</a>
+               {[['projects', 'Work'], ['experience', 'Experience'], ['skills', 'Skills'], ['contact', 'Contact']].map(([id, label]) => <a key={id} href={`#${id}`} className="rounded-full px-3 sm:px-4 py-3 text-xs sm:text-sm font-medium hover:bg-current/10">{label}</a>)}
+               <button onClick={openResumeModal} className="rounded-full border border-current/25 px-3 sm:px-4 py-3 text-xs sm:text-sm font-medium">Resume</button>
             </div>
-         </nav >
+         </nav>
 
          <StatusBadge isInverted={isNavInverted} theme={theme} />
          <ViewerBadge theme={theme} />
 
-         {/* Stacked Sticky Sections - Each overlaps the previous */}
-
-         {/* Hero Section - Fixed behind everything */}
-         <div className="fixed top-0 left-0 right-0 h-screen z-10">
+         <main id="main-content" tabIndex={-1} className="relative bg-bg-primary">
             <Hero theme={theme} onResumeClick={openResumeModal} />
-         </div>
-
-         {/* Spacer to push content below the Hero - pointer-events-none to allow interaction with hero */}
-         <div className="h-screen pointer-events-none relative z-0" />
-
-         {/* All scrollable content - overlaps the fixed Hero */}
-         <div className="relative z-20 bg-bg-primary">
             <Suspense fallback={<div className="h-96" />}>
                <Experience />
                <Work projects={projects} openModal={openModal} />
@@ -567,7 +423,7 @@ export default function App() {
                <Services />
                <Footer theme={theme} onResumeClick={openResumeModal} />
             </Suspense>
-         </div>
+         </main>
 
          <Suspense fallback={null}>
             <ProjectModal
