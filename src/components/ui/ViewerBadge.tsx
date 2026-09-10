@@ -210,11 +210,10 @@ export const ViewerBadge = ({ theme = 'dark' }: ViewerBadgeProps) => {
     return (
         <div 
             ref={containerRef}
-            className="absolute top-[4vw] left-[4vw] md:top-[2vw] md:left-[2.5vw] z-[70] font-mono select-none"
+            className="fixed top-[4vw] left-[4vw] md:top-[2vw] md:left-[2.5vw] z-[70] font-mono select-none"
         >
             {/* Main Trigger Pill */}
             <motion.button
-                aria-expanded={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}

@@ -1,4 +1,3 @@
-import { useDialog } from '../../hooks/useDialog';
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Mail } from "lucide-react";
 import { CopyButton } from "./CopyButton";
@@ -29,7 +28,7 @@ const getYouTubeEmbedUrl = (url: string) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
     if (match && match[2].length === 11) {
-        return `https://www.youtube.com/embed/${match[2]}?rel=0`;
+        return `https://www.youtube.com/embed/${match[2]}?autoplay=1`;
     }
     return null;
 };
@@ -37,8 +36,22 @@ const getYouTubeEmbedUrl = (url: string) => {
 export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
     const [videoLoaded, setVideoLoaded] = useState(false);
 
-    useEffect(() => { if (!isOpen) setVideoLoaded(false); }, [isOpen]);
-    const dialogRef = useDialog(isOpen, onClose);
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+            setVideoLoaded(false);
+        }
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") onClose();
+        };
+        if (isOpen) window.addEventListener("keydown", onKey);
+        return () => {
+            document.body.style.overflow = "unset";
+            window.removeEventListener("keydown", onKey);
+        };
+    }, [isOpen, onClose]);
 
     if (!project) return null;
 
@@ -59,12 +72,6 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.97, opacity: 0, y: 20 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        ref={dialogRef}
-                        tabIndex={-1}
-                        role="dialog"
-                        aria-modal="true"
-                        aria-label={project?.title}
-                        style={{ maxWidth: project.videoUrl || project.thumbnailUrl ? 1320 : 900 }}
                         className="relative w-full max-w-[1320px] bg-bg-primary border border-border-primary rounded-2xl shadow-2xl flex flex-col max-h-[92vh] md:h-[88vh] overflow-hidden"
                     >
                         {/* Header */}
@@ -92,7 +99,7 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                         {/* Body — stacked on mobile, side-by-side on desktop */}
                         <div id="project-modal-content" className="flex flex-col md:flex-row-reverse flex-1 min-h-0 overflow-y-auto md:overflow-hidden" data-lenis-prevent>
                             {/* Video column — right on desktop */}
-                            {(project.videoUrl || project.thumbnailUrl) && <div className="md:w-[58%] md:shrink-0 bg-black flex items-center justify-center md:border-l md:border-border-primary">
+                            <div className="md:w-[58%] md:shrink-0 bg-black flex items-center justify-center md:border-l md:border-border-primary">
                                 <div className="relative w-full aspect-video overflow-hidden">
                                     {project.videoUrl ? (
                                         getYouTubeEmbedUrl(project.videoUrl) ? (
@@ -115,6 +122,7 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                             <video
                                                 src={project.videoUrl}
                                                 controls
+                                                autoPlay
                                                 className="absolute inset-0 w-full h-full object-contain"
                                             />
                                         )
@@ -132,7 +140,7 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                         </div>
                                     )}
                                 </div>
-                            </div>}
+                            </div>
 
                             {/* Text column — scrollable on desktop */}
                             <div className="md:flex-1 md:overflow-y-auto md:overscroll-contain">
@@ -189,7 +197,6 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
 
                                     {/* Action buttons */}
                                     <div className="flex flex-wrap gap-[3vw] md:gap-3 pt-[4vw] md:pt-6 border-t border-border-primary/60">
-                                        {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-border-primary text-sm font-medium">View on GitHub <ExternalLink size={16} /></a>}
                                         {project.liveUrl && (
                                             <a
                                                 href={project.liveUrl}
@@ -206,7 +213,7 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                             className="inline-flex items-center gap-[2vw] md:gap-2 px-[5vw] md:px-5 py-[3vw] md:py-2.5 rounded-full border border-border-primary font-mono text-[2.8vw] md:text-xs uppercase tracking-widest font-bold hover:bg-bg-secondary transition-colors"
                                         >
                                             <Mail className="w-[4vw] h-[4vw] md:w-4 md:h-4" />
-                                            Discuss this project
+                                            Discuss / Code
                                         </a>
                                     </div>
                                 </div>

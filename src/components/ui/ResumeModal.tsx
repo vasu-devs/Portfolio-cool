@@ -1,8 +1,7 @@
-import { useDialog } from '../../hooks/useDialog';
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Download } from "lucide-react";
 import { CopyButton } from "./CopyButton";
-
+import { useEffect, useRef } from "react";
 
 interface ResumeModalProps {
     isOpen: boolean;
@@ -11,7 +10,23 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal = ({ isOpen, onClose, resumeUrl }: ResumeModalProps) => {
-    const dialogRef = useDialog(isOpen, onClose);
+    const closeButton = useRef<HTMLButtonElement>(null);
+    useEffect(() => {
+        if (!isOpen) return;
+        const previousOverflow = document.body.style.overflow;
+        const previousFocus = document.activeElement as HTMLElement | null;
+        document.body.style.overflow = "hidden";
+        closeButton.current?.focus();
+        const handleKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKey);
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            document.removeEventListener('keydown', handleKey);
+            previousFocus?.focus();
+        };
+    }, [isOpen, onClose]);
 
     // Convert view link to preview link for embedding
     const embedUrl = resumeUrl.replace('/view?usp=sharing', '/preview').replace('/view', '/preview');
@@ -37,8 +52,6 @@ export const ResumeModal = ({ isOpen, onClose, resumeUrl }: ResumeModalProps) =>
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="resume-title"
-                        ref={dialogRef}
-                        tabIndex={-1}
                         className="relative w-full max-w-[90vw] md:max-w-[70vw] bg-bg-secondary border border-border-primary rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[90vh]"
                     >
                         {/* Header */}
@@ -62,7 +75,7 @@ export const ResumeModal = ({ isOpen, onClose, resumeUrl }: ResumeModalProps) =>
                                     <ExternalLink className="w-[5vw] h-[5vw] md:w-[1.25vw] md:h-[1.25vw]" />
                                 </a>
                                 <button
-
+                                    ref={closeButton}
                                     onClick={onClose}
                                     aria-label="Close resume"
                                     className="p-[2vw] md:p-[0.5vw] rounded-full hover:bg-bg-primary transition-colors border border-transparent hover:border-border-primary"

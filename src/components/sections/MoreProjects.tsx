@@ -53,7 +53,7 @@ const LANG_COLOR: Record<string, string> = {
 };
 
 const INITIAL_VISIBLE = 6;
-const FEATURED = new Set(['justhireme', 'branchgpt', 'waldo', 'odeon', 'mapmyrepo']);
+const FEATURED = new Set(['justhireme', 'branchgpt', 'vaani', 'odeon', 'mapmyrepo']);
 
 function dedupeTags(topics: string[], tech: string[], max = 4): string[] {
     const seen = new Set<string>();
@@ -150,7 +150,7 @@ export const MoreProjects = () => {
             if (b.stars !== a.stars) return b.stars - a.stars;
             return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
         });
-        return list.filter(project => !FEATURED.has(project.name.toLowerCase()));
+        return list;
     }, [liveRepos]);
 
     useEffect(() => {
@@ -201,7 +201,9 @@ export const MoreProjects = () => {
                     transition={{ delay: 0.1 }}
                     className="text-[4vw] md:text-xl text-fg-secondary leading-relaxed mb-[6vw] md:mb-10 max-w-2xl"
                 >
-                    More experiments, tools, and open-source builds. Choose a language or open a project to explore the work.
+                    A selection of my other public work. Click any tile for the full
+                    case study — summary, notable details, and tech stack pulled from
+                    the README.
                 </motion.p>
 
                 {/* Filter chips */}

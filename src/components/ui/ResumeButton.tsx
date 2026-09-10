@@ -116,11 +116,9 @@ export const ResumeButton = ({ className = "", showLabel = true, onClick }: Resu
     };
 
     return (
-        <MagneticButton>
+        <MagneticButton onClick={handleClick}>
             <motion.a
                 href="/resume.html"
-                onClick={handleClick}
-                aria-label="View resume"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial="initial"

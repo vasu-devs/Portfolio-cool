@@ -234,7 +234,7 @@ export const OssImpact = ({ stats, isLoading = false }: OssImpactProps) => {
                         </>
                     ) : (
                         [
-                            { icon: GitCommit, label: 'Contributions / last year', value: stats.commits, suffix: '+', delay: 0 },
+                            { icon: GitCommit, label: 'Total Commits', value: stats.commits, suffix: '+', delay: 0 },
                             { icon: Star, label: 'Stars Earned', value: stats.stars, suffix: '', delay: 0.1 },
                             { icon: GitPullRequest, label: 'PRs Merged', value: stats.prs, suffix: '', delay: 0.2 },
                         ].map((stat, i) => (

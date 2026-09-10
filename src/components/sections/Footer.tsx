@@ -16,7 +16,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
-    const [contributionCount, setContributionCount] = useState<number | null>(null);
+    const [contributionCount, setContributionCount] = useState(0);
 
     // Fetch contribution count from the same API as react-github-calendar
     useEffect(() => {
@@ -153,7 +153,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                                 <div className="flex items-center justify-between mt-4 pt-3 border-t border-border-primary/30">
                                     {/* Contribution Count */}
                                     <span className="text-[2.5vw] md:text-sm font-mono text-fg-secondary">
-                                        {contributionCount === null ? 'GitHub activity' : `${contributionCount.toLocaleString()} contributions in the last year`}
+                                        {contributionCount.toLocaleString()} contributions in the last year
                                     </span>
 
                                     {/* Color Legend */}
@@ -187,7 +187,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="flex flex-wrap md:flex-wrap gap-[3vw] md:gap-3 items-center justify-center w-full"
+                        className="flex flex-wrap md:flex-nowrap gap-[3vw] md:gap-3 items-center justify-center w-full"
                     >
                         {[
                             { href: "mailto:siddhvasudev1402@gmail.com", icon: <Mail className="w-[4.5vw] h-[4.5vw] md:w-5 md:h-5" />, label: "siddhvasudev1402@gmail.com", className: "bg-fg-primary text-bg-primary" },
@@ -213,18 +213,18 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                 </div>
             </Container>
 
-            <Container className="flex flex-col sm:flex-row gap-4 justify-between items-center text-xs md:text-sm pt-[3vw] md:pt-6 font-mono uppercase text-fg-secondary">
+            <Container className="flex justify-between items-end text-[3vw] md:text-sm pt-[3vw] md:pt-6 font-mono uppercase text-fg-secondary">
                 <span>© 2026 Vasu-DevS</span>
                 <div className="flex gap-[6vw] md:gap-4">
                     <a href="https://github.com/vasu-devs" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">GitHub</a>
-                    <a href="https://x.com/vasu_devs" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">X / Twitter</a>
+                    <a href="https://twitter.com/Vasu_DevS" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">Twitter</a>
                     <a href="https://www.linkedin.com/in/vasu-devs/" target="_blank" rel="noopener noreferrer" className="hover:text-fg-primary transition-colors">LinkedIn</a>
                 </div>
             </Container>
 
             {/* Bottom Watermark - Separate & Faded - keeping vw for decorative scaling */}
             <div className="w-full flex justify-center items-end mt-[12vw] md:mt-4 overflow-hidden pointer-events-none select-none">
-                <motion.div aria-hidden="true"
+                <motion.h1
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 0.3, y: 16 }}
                     viewport={{ once: true }}
@@ -232,7 +232,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                     className="font-display font-black text-[24vw] md:text-[20.5vw] leading-[0.7] bg-gradient-to-b from-fg-primary to-transparent bg-clip-text text-transparent tracking-tighter uppercase whitespace-nowrap transform"
                 >
                     Vasu-DevS
-                </motion.div>
+                </motion.h1>
             </div>
         </footer>
     );

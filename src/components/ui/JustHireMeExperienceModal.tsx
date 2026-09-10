@@ -1,4 +1,3 @@
-import { useDialog } from '../../hooks/useDialog';
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -107,7 +106,20 @@ const TECH_STACK = [
 export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperienceModalProps) => {
     const [repoStats, setRepoStats] = useState<GitHubRepoStats>(FALLBACK_REPO_STATS);
 
-    const dialogRef = useDialog(isOpen, onClose);
+    useEffect(() => {
+        if (!isOpen) return;
+
+        document.body.style.overflow = 'hidden';
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+        window.addEventListener('keydown', onKey);
+
+        return () => {
+            document.body.style.overflow = 'unset';
+            window.removeEventListener('keydown', onKey);
+        };
+    }, [isOpen, onClose]);
 
     useEffect(() => {
         if (!isOpen) return;
@@ -160,11 +172,6 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.97, opacity: 0, y: 20 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        ref={dialogRef}
-                        tabIndex={-1}
-                        role="dialog"
-                        aria-modal="true"
-                        aria-label={'JustHireMe experience'}
                         className="relative w-full max-w-[1100px] bg-bg-primary border border-border-primary rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden"
                     >
                         <div className="flex justify-between items-start gap-4 px-[6vw] md:px-10 py-[5vw] md:py-6 border-b border-border-primary bg-bg-primary/80 backdrop-blur-md z-10">

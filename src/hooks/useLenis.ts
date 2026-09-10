@@ -5,7 +5,6 @@ export const useLenis = () => {
     const lenisRef = useRef<Lenis | null>(null);
 
     useEffect(() => {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         // Initialize Lenis smooth scrolling
         const lenis = new Lenis({
             duration: 1.2,
@@ -20,13 +19,12 @@ export const useLenis = () => {
         lenisRef.current = lenis;
 
         // Recursive animation frame for smooth updates
-        let rafId = 0;
         const raf = (time: number) => {
             lenis.raf(time);
-            rafId = requestAnimationFrame(raf);
+            requestAnimationFrame(raf);
         };
 
-        rafId = requestAnimationFrame(raf);
+        requestAnimationFrame(raf);
 
         // Handle anchor links for smooth scrolling
         const handleAnchorClick = (e: MouseEvent) => {
@@ -34,18 +32,13 @@ export const useLenis = () => {
             const anchor = target.closest('a[href^="#"]');
             if (anchor) {
                 const href = anchor.getAttribute('href');
-                if (href && href.length > 1) {
-                    const targetElement = document.getElementById(href.slice(1));
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
                     if (targetElement) {
-                        e.preventDefault();
-                        history.replaceState(null, '', href);
                         lenis.scrollTo(targetElement as HTMLElement, {
                             offset: 0,
                             duration: 1.5,
-                            onComplete: () => {
-                                if (!targetElement.hasAttribute('tabindex')) targetElement.setAttribute('tabindex', '-1');
-                                targetElement.focus({ preventScroll: true });
-                            },
                         });
                     }
                 }
@@ -55,7 +48,6 @@ export const useLenis = () => {
         document.addEventListener('click', handleAnchorClick);
 
         return () => {
-            cancelAnimationFrame(rafId);
             document.removeEventListener('click', handleAnchorClick);
             lenis.destroy();
         };

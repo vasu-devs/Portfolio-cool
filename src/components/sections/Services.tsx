@@ -3,24 +3,24 @@ import { Container } from '../ui/Container';
 
 const SERVICES = [
     {
-        tag: 'Applied AI',
+        tag: 'Most requested',
         heading: 'AI Agents & Automation',
         description:
-            'Multi-agent pipelines, RAG systems, LangGraph workflows, and intelligent automation. From a focused prototype to tested application workflows.',
+            'Multi-agent pipelines, RAG systems, LangGraph workflows, and intelligent automation. From research agents to production systems that actually ship.',
         chips: ['LangChain', 'LangGraph', 'RAG', 'Python', 'FastAPI'],
     },
     {
         tag: 'Speciality',
         heading: 'Voice AI Systems',
         description:
-            'Conversational voice systems with speech recognition, LLM integration, and speech synthesis. Attention to turn-taking, latency, and evaluation.',
+            'Real-time voice agents with sub-500ms latency. Full pipeline from STT to LLM to TTS — with personas, guardrails, and live dashboards.',
         chips: ['LiveKit', 'Deepgram', 'Groq', 'WebRTC'],
     },
     {
-        tag: 'Product engineering',
+        tag: 'Fast turnaround',
         heading: 'Full Stack MVPs',
         description:
-            'Full-stack applications with Next.js, PostgreSQL, authentication, and API integrations. Built with clear workflows, responsive interfaces, and automated checks.',
+            'Production-ready apps shipped fast. Next.js, PostgreSQL, auth, payments, and real performance — not just a prototype.',
         chips: ['Next.js', 'TypeScript', 'PostgreSQL', 'Vercel'],
     },
 ];
