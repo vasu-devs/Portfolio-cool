@@ -31,7 +31,7 @@ let changingTheme = false;
 themeButton.addEventListener('click', async () => {
  if (changingTheme) return;
  changingTheme = true;
- const rect = themeButton.getBoundingClientRect();
+ const rect = themeButton.querySelector('.sun-icon').getBoundingClientRect();
  const x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
  const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
  const change = () => {

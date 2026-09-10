@@ -29,3 +29,5 @@ body{background-color:var(--page);color:var(--ink)}h1,.role-name,.project-title 
 .paper-row .desk-link{padding-right:0}
 
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}::view-transition-new(root){z-index:2}::view-transition-old(root){z-index:1}
+
+.sun-icon{width:28px;text-align:center;flex:0 0 28px}.theme-label{width:28px;text-align:left}
