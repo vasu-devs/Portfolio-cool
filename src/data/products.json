@@ -5,7 +5,7 @@
             "name": "JustHireMe",
             "status": "Live",
             "tagline": "Local-first AI job-intelligence workbench",
-            "blurb": "Scrapes and ranks job leads with graph + vector retrieval, explains why each role fits, and generates tailored resumes, cover letters and outreach — all on your machine, no data leaving the device.",
+            "blurb": "Scrapes and ranks job leads with graph + vector retrieval, explains why each role fits, and generates tailored resumes, cover letters and outreach — with local storage and explicit, optional AI-provider connections.",
             "how": "A Tauri 2 (Rust) shell hosts a React workbench and launches a bundled Python FastAPI sidecar; ranking blends deterministic scoring, an optional LLM evaluator and a keyless bundled ONNX embedding model over Kuzu + LanceDB.",
             "metrics": [
                 {

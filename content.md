@@ -8,7 +8,7 @@
 
 ## Hero Section
 - **Wordmark:** VASU-DEVS (rendered as two stacked lines: VASU / DEVS)
-- **Tagline:** AI engineer, AI engineering intern at a stealth company, and creator of JustHireMe.
+- **Tagline:** AI engineer, AI engineering intern at withlayer.ai, and creator of JustHireMe.
 
 - **Buttons & Socials:** RESUME, GitHub, Twitter, LinkedIn, Book a Call
 - **Aesthetic:** Elevated, premium, static hero image with a radial theme transition, custom cursor with contrast-aware color / paint trails, and a sticky-hero stacked-section scroll pattern powered by Lenis.
@@ -17,13 +17,13 @@
 
 ## 01 / Experience
 
-**Jun 2026 → Present | AI Engineering Intern · Stealth**
+**Jun 2026 → Present | AI Engineering Intern · withlayer.ai**
 
-Contributing to AI systems with a focus on reliable agent behavior, real-time interactions, evaluation, and privacy. Company and project details remain confidential.
+Working across applied AI, real-time voice technology, and full-stack development. My focus includes LLM integration, asynchronous processing, performance analysis, and reliable software.
 
-**2026 | Freelance · Stealth**
+**2026 → Present | AI & Full-Stack Engineer · Confidential client**
 
-Freelance work for a confidential client.
+Working with Python, FastAPI, TypeScript, and MongoDB across applied AI and backend engineering. Focus areas include embeddings, vector retrieval, multimodal AI, data processing, and API integration. Engineering practice spans automated tests, Docker, AWS, and CI/CD.
 
 ---
 
@@ -89,7 +89,7 @@ Delivered a full-stack application for a confidential client.
 
 ### 1. JustHireMe (Local-First AI / Open Source)
 **Live:** https://justhireme.ai | **Repo:** https://github.com/vasu-devs/JustHireMe
-**Description:** A local-first AI job-intelligence desktop app with 2,000+ GitHub stars. It scrapes and ranks roles with graph + vector retrieval, explains why each fits, and generates tailored resumes and outreach — all on-device.
+**Description:** A local-first AI job-intelligence desktop app with 2,000+ GitHub stars. It scrapes and ranks roles with graph + vector retrieval, explains why each fits, and generates tailored resumes and outreach — with local storage and optional AI-provider connections.
 **Card actions:** LIVE_DEMO · WATCH_DEMO · "Want to see the code or discuss? Drop me a mail"
 (Full case study is the JustHireMe entry under 01 / Experience.)
 
@@ -741,7 +741,7 @@ Text that isn't inside a numbered section but is rendered on the site.
 - **Mar → Apr 2026 — Freelance · Stealth:** Delivered a full-stack application for a confidential client.
 - **May 2026 — JustHireMe goes viral** (ship): Launched the local-first AI job-intelligence desktop app. 380K+ views and 800 → 2,000+ GitHub stars within two weeks.
 - **Jun 2026 — Forge + engram** (ship): Published two Claude Code plugins: Forge (a SOTA SDLC skill set) and engram (local cross-session agent memory).
-- **Jun 2026 → now — AI engineering internship · Stealth:** Contributing to AI systems with a focus on reliable agent behavior, real-time interactions, evaluation, and privacy. Company and project details remain confidential.
+- **Jun 2026 → now — AI engineering internship · withlayer.ai:** Working across applied AI, real-time voice technology, and full-stack development. My focus includes LLM integration, asynchronous processing, performance analysis, and reliable software.
 
 
 ---
@@ -754,7 +754,7 @@ Text that isn't inside a numbered section but is rendered on the site.
 ### Building
 
 #### JustHireMe — Local-first AI job-intelligence workbench [Live]
-- **Blurb:** Scrapes and ranks job leads with graph + vector retrieval, explains why each role fits, and generates tailored resumes, cover letters and outreach — all on your machine, no data leaving the device.
+- **Blurb:** Scrapes and ranks job leads with graph + vector retrieval, explains why each role fits, and generates tailored resumes, cover letters and outreach — with local storage and explicit, optional AI-provider connections.
 - **How:** A Tauri 2 (Rust) shell hosts a React workbench and launches a bundled Python FastAPI sidecar; ranking blends deterministic scoring, an optional LLM evaluator and a keyless bundled ONNX embedding model over Kuzu + LanceDB.
 - **Metrics:** 2k+ GitHub stars · 620 Backend tests · 102 Releases
 - **Tech:** Tauri 2, Rust, React 19, Python, FastAPI, Kuzu, LanceDB, ONNX
@@ -928,7 +928,7 @@ Text that isn't inside a numbered section but is rendered on the site.
 ### Also in the catalog (detailed above)
 
 - **JustHireMe** — domains: Agents, RAG [Live] *(details above)*
-  - A viral open-source desktop app that scrapes and ranks roles with graph + vector retrieval, explains fit, and generates tailored resumes and outreach — entirely on-device. 2,000+ stars.
+  - A viral open-source desktop app that scrapes and ranks roles with graph + vector retrieval, explains fit, and generates tailored resumes and outreach — with local storage and optional AI-provider connections. 2,200+ stars.
 - **Vaani** — domains: Voice AI, Fintech [Demo] *(details above)*
   - Generates adversarial personas, scores conversations against KPIs, and lets a meta-agent auto-rewrite the prompt — with a git-style neural diff of every change.
 - **Odeon** — domains: Voice AI, Agents [Demo] *(details above)*
@@ -955,3 +955,12 @@ Text that isn't inside a numbered section but is rendered on the site.
   - Mem0-style consolidation, a bi-temporal lifecycle, importance decay, and a hand-rolled dense + BM25 + entity hybrid retriever — all local, no telemetry.
 - **LeetBot** — domains: AI Apps [Published] *(details above)*
   - A Chrome MV3 extension with Tutor / Hint / Planner modes and auto-generated Mermaid diagrams, injected onto any LeetCode problem — keys stay local.
+
+## Resume and recent public work
+
+- **Resume preview:** `/resume.html`; **PDF download:** `/resume.pdf`.
+- The resume highlights current AI engineering work, selected public projects, technical skills, education, and recognition. Employer and client entries describe technologies and broad engineering areas.
+- **withlayer.ai:** Python, TypeScript, React, Next.js, PostgreSQL, WebRTC, LLM integration, asynchronous processing, automated evaluations, and performance analysis.
+- **Confidential client:** Python, FastAPI, TypeScript, Node.js, MongoDB, embeddings, vector retrieval, multimodal AI, Docker, AWS, and CI/CD.
+- **Svara:** Open-source Windows dictation with local speech recognition, streaming text insertion, CPU/GPU execution, and optional local-LLM formatting. Python, faster-whisper, CUDA. [Public repository](https://github.com/vasu-devs/Svara).
+- **JustHireMe:** 2,200+ GitHub stars, checked September 2026. Career data is stored locally; optional AI providers process requests when configured.

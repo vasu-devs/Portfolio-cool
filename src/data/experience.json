@@ -1,68 +1,91 @@
 {
     "roles": [
         {
-            "id": "stealth-internship",
-            "company": "Stealth",
+            "id": "withlayer-internship",
+            "company": "withlayer.ai",
             "role": "AI Engineering Intern",
             "dateLabel": "Jun 2026 → Present",
             "track": "Internship",
-            "contribution": "AI engineering internship",
-            "summary": "Contributing to AI systems with a focus on reliable agent behavior, real-time interactions, evaluation, and privacy. Company and project details remain confidential.",
+            "contribution": "Applied AI / Voice / Full-stack engineering",
+            "summary": "Working across applied AI, real-time voice technology, and full-stack development. My focus includes LLM integration, asynchronous processing, performance analysis, and reliable software.",
             "metrics": [
                 {
                     "value": "Voice",
-                    "label": "Real-time AI"
+                    "label": "Real-time systems"
                 },
                 {
-                    "value": "Agents",
-                    "label": "Reliable behavior"
+                    "value": "LLMs",
+                    "label": "Applied AI"
+                },
+                {
+                    "value": "APIs",
+                    "label": "Full-stack work"
                 },
                 {
                     "value": "Evals",
-                    "label": "Quality checks"
-                },
-                {
-                    "value": "Privacy",
-                    "label": "By design"
+                    "label": "Quality & reliability"
                 }
             ],
             "sections": [
                 {
-                    "title": "AI engineering internship",
-                    "body": "Working on AI engineering in a stealth environment. My focus spans agent reliability, real-time interaction, and evaluation."
+                    "title": "Technologies",
+                    "body": "Python, TypeScript, React, Next.js, PostgreSQL, and WebRTC."
                 },
                 {
-                    "title": "Engineering approach",
-                    "body": "Measure behavior, investigate failures, and validate changes with repeatable checks. Build with privacy and clear access boundaries in mind."
+                    "title": "Current focus",
+                    "body": "Conversational AI, LLM integration, backend APIs, and asynchronous processing."
+                },
+                {
+                    "title": "Engineering practice",
+                    "body": "Automated evaluations, regression testing, performance analysis, code review, and careful handling of access control and data isolation."
                 }
             ],
             "tech": [
-                "AI agents",
-                "Voice AI",
-                "Evaluation",
-                "Privacy"
+                "Python",
+                "TypeScript",
+                "Next.js",
+                "PostgreSQL",
+                "WebRTC",
+                "AI evaluations"
             ],
-            "links": []
+            "links": [
+                {
+                    "label": "Company website",
+                    "href": "https://withlayer.ai"
+                }
+            ]
         },
         {
-            "id": "freelance",
-            "company": "Stealth",
-            "role": "Freelance",
-            "dateLabel": "2026",
+            "id": "confidential-ai-contract",
+            "company": "Confidential client",
+            "role": "AI & Full-Stack Engineer",
+            "dateLabel": "2026 → Present",
             "track": "Freelance",
-            "contribution": "Freelance engagement",
-            "summary": "Freelance work for a confidential client.",
-            "tech": []
+            "contribution": "Contract / Applied AI & backend engineering",
+            "summary": "Working with Python, FastAPI, TypeScript, and MongoDB across applied AI and backend engineering. Focus areas include embeddings, vector retrieval, multimodal AI, data processing, and API integration. Engineering practice spans automated tests, Docker, AWS, and CI/CD.",
+            "tech": [
+                "Python",
+                "FastAPI",
+                "TypeScript",
+                "MongoDB",
+                "Docker",
+                "AWS"
+            ]
         },
         {
             "id": "freelance-delivered",
-            "company": "Stealth",
+            "company": "Confidential client",
             "role": "Freelance · Full-stack Engineer",
             "dateLabel": "Mar → Apr 2026",
             "track": "Freelance",
-            "contribution": "Completed engagement",
-            "summary": "Delivered a full-stack application for a confidential client.",
-            "tech": []
+            "contribution": "Completed full-stack engagement",
+            "summary": "Full-stack engineering across TypeScript, React, backend APIs, and relational databases. Worked through implementation, validation, and delivery.",
+            "tech": [
+                "TypeScript",
+                "React",
+                "Next.js",
+                "PostgreSQL"
+            ]
         }
     ]
 }

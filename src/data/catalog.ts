@@ -31,12 +31,22 @@ export interface CatalogItem {
 
 export const CATALOG: CatalogItem[] = [
     {
+        id: 'svara',
+        name: 'Svara',
+        domains: ['Voice AI', 'Dev Tools'],
+        status: 'Active',
+        tagline: 'Local, system-wide Windows dictation',
+        blurb: 'Open-source speech recognition with streaming text insertion, CPU/GPU execution, and optional local-LLM formatting. Audio processing stays on the device.',
+        tech: ['Python', 'faster-whisper', 'CUDA', 'Windows'],
+        repo: 'https://github.com/vasu-devs/Svara',
+    },
+    {
         id: 'justhireme',
         name: 'JustHireMe',
         domains: ['Agents', 'RAG'],
         status: 'Live',
         tagline: 'Local-first AI job-intelligence workbench',
-        blurb: 'A viral open-source desktop app that scrapes and ranks roles with graph + vector retrieval, explains fit, and generates tailored resumes and outreach — entirely on-device. 2,000+ stars.',
+        blurb: 'A viral open-source desktop app that scrapes and ranks roles with graph + vector retrieval, explains fit, and generates tailored resumes and outreach — with local storage and optional AI-provider connections. 2,200+ stars.',
         tech: ['Tauri', 'Rust', 'React', 'FastAPI', 'Kuzu', 'LanceDB', 'ONNX'],
         live: 'https://justhireme.ai',
         repo: 'https://github.com/vasu-devs/JustHireMe',

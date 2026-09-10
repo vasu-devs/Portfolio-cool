@@ -68,14 +68,14 @@ export const StealthExperienceModal = ({ isOpen, onClose }: StealthExperienceMod
                                     Experience / Internship
                                 </span>
                                 <h2 className="font-display font-black text-[6vw] md:text-3xl lg:text-4xl leading-tight tracking-tight truncate">
-                                    Stealth
+                                    {experienceData.roles[0].company}
                                 </h2>
                             </div>
                             <div className="flex items-center gap-3 shrink-0">
                                 <CopyButton contentId="stealth-modal-content" className="flex" />
                                 <button
                                     onClick={onClose}
-                                    aria-label="Close case study"
+                                    aria-label="Close internship overview"
                                     className="p-[2vw] md:p-2 rounded-full border border-transparent hover:border-border-primary hover:bg-bg-secondary transition-colors"
                                 >
                                     <X className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
@@ -96,7 +96,7 @@ export const StealthExperienceModal = ({ isOpen, onClose }: StealthExperienceMod
                                         </span>
                                         <span className="px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary text-[2.5vw] md:text-xs font-mono uppercase tracking-widest text-fg-secondary">AI Engineering Intern</span>
                                         <span className="px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary text-[2.5vw] md:text-xs font-mono uppercase tracking-widest text-fg-secondary">
-                                            Agent runtime
+                                            Applied AI
                                         </span>
                                     </div>
                                     <p className="text-[4vw] md:text-xl text-fg-secondary leading-relaxed">
@@ -175,7 +175,7 @@ export const StealthExperienceModal = ({ isOpen, onClose }: StealthExperienceMod
 
                                 <div className="mt-[14vw] md:mt-20 pt-[6vw] md:pt-8 border-t border-border-primary">
                                     <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary block mb-[3vw] md:mb-4">
-                                        Stack
+                                        Technologies
                                     </span>
                                     <div className="flex flex-wrap gap-[2vw] md:gap-2">
                                         {TECH_STACK.map((t) => (

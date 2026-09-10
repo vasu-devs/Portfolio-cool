@@ -24,7 +24,7 @@ interface ClientRole {
     links?: { label: string; href: string }[];
 }
 
-// Compact client/contract engagements — the Stealth role gets its own hero
+// Compact client/contract engagements — the internship role gets its own hero
 // card above, so it's excluded here.
 const CLIENT_ROLES = (experienceData.roles as unknown as ClientRole[]).filter(
     (r) => r.track === 'Freelance'
@@ -48,9 +48,9 @@ const JUSTHIREME_CHIPS = [
     'Playwright',
 ];
 
-const STEALTH_METRICS = experienceData.roles[0].metrics ?? [];
+const INTERNSHIP_METRICS = experienceData.roles[0].metrics ?? [];
 
-const STEALTH_CHIPS = experienceData.roles[0].tech;
+const INTERNSHIP_CHIPS = experienceData.roles[0].tech;
 
 
 
@@ -84,7 +84,7 @@ export const Experience = () => {
                     }}
                     role="button"
                     tabIndex={0}
-                    aria-label="Open stealth internship overview"
+                    aria-label="Open withlayer.ai internship overview"
                     className="group relative border border-border-primary rounded-2xl bg-fg-primary/[0.04] backdrop-blur-sm p-[6vw] md:p-10 mb-[6vw] md:mb-8 overflow-hidden cursor-pointer transition-colors hover:bg-fg-primary/[0.06]"
                 >
                     <div className="flex items-start justify-between gap-[4vw] md:gap-6 mb-[6vw] md:mb-8">
@@ -97,13 +97,13 @@ export const Experience = () => {
                                 Jun 2026 → Present
                             </span>
                             <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
-                                AI Engineering Intern · Stealth
+                                AI Engineering Intern · withlayer.ai
                             </span>
                         </div>
                     </div>
 
                     <h3 className="font-display font-black text-[9vw] md:text-5xl lg:text-6xl leading-[0.9] tracking-tighter uppercase mb-[3vw] md:mb-4">
-                        Stealth
+                        {experienceData.roles[0].company}
                     </h3>
                     <p className="font-mono text-[3vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[6vw] md:mb-8">
                         AI engineering internship
@@ -114,7 +114,7 @@ export const Experience = () => {
                     </p>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-[3vw] md:gap-4 mb-[6vw] md:mb-8">
-                        {STEALTH_METRICS.map((m) => (
+                        {INTERNSHIP_METRICS.map((m) => (
                             <div
                                 key={m.label}
                                 className="p-[4vw] md:p-5 rounded-xl border border-border-primary bg-fg-primary/[0.04]"
@@ -131,7 +131,7 @@ export const Experience = () => {
 
                     <div className="flex flex-wrap items-center justify-between gap-[3vw] md:gap-4">
                         <div className="flex flex-wrap gap-[2vw] md:gap-2">
-                            {STEALTH_CHIPS.map((t) => (
+                            {INTERNSHIP_CHIPS.map((t) => (
                                 <span
                                     key={t}
                                     className="px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary text-[2.5vw] md:text-xs font-mono bg-fg-primary/[0.03] text-fg-secondary"
@@ -141,7 +141,7 @@ export const Experience = () => {
                             ))}
                         </div>
                         <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary group-hover:text-fg-primary transition-colors">
-                            Open case study →
+                            Explore technologies →
                         </span>
                     </div>
                 </motion.article>

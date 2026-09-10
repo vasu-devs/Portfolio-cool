@@ -97,12 +97,12 @@
             "blurb": "Published two Claude Code plugins: Forge (a SOTA SDLC skill set) and engram (local cross-session agent memory)."
         },
         {
-            "id": "stealth-internship",
+            "id": "withlayer-internship",
             "date": "Jun 2026 → now",
             "sort": "2026-06-15",
             "type": "work",
-            "title": "AI engineering internship · Stealth",
-            "blurb": "Contributing to AI systems with a focus on reliable agent behavior, real-time interactions, evaluation, and privacy. Company and project details remain confidential."
+            "title": "AI engineering internship · withlayer.ai",
+            "blurb": "Working across applied AI, real-time voice technology, and full-stack development. My focus includes LLM integration, asynchronous processing, performance analysis, and reliable software."
         }
     ]
 }

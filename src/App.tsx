@@ -178,9 +178,9 @@ export default function App() {
          title: 'JustHireMe',
          category: 'Local-First AI / Open Source',
          description:
-            'A local-first AI job-intelligence desktop app with 2,000+ GitHub stars. It scrapes and ranks roles with graph + vector retrieval, explains why each fits, and generates tailored resumes and outreach — all on-device.',
+            'A local-first AI job-intelligence desktop app with 2,000+ GitHub stars. It scrapes and ranks roles with graph + vector retrieval, explains why each fits, and generates tailored resumes and outreach — with local storage and optional AI-provider connections.',
          summary:
-            "Local-first job intelligence, shipped as a cross-platform desktop app. A Tauri + Rust shell hosts a React workbench and a bundled Python FastAPI sidecar; leads flow through scrape → quality-gate → local CRM → explainable fit-ranking over a graph + vectors, then a generator produces tailored resumes, cover letters and outreach. Nothing leaves your machine. The launch went viral — 380K+ views and 800 → 2,000+ GitHub stars in two weeks.",
+            "Local-first job intelligence, shipped as a cross-platform desktop app. A Tauri + Rust shell hosts a React workbench and a bundled Python FastAPI sidecar; leads flow through scrape → quality-gate → local CRM → explainable fit-ranking over a graph + vectors, then a generator produces tailored resumes, cover letters and outreach. Career data is stored locally; optional AI providers process requests when configured. The launch went viral — 380K+ views and 800 → 2,000+ GitHub stars in two weeks.",
          details: [
             {
                title: 'The problem',
