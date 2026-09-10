@@ -43,3 +43,12 @@ body{isolation:isolate}.layout{position:relative;z-index:1}.theme-revealing,.the
 .hello{gap:16px;font-size:16px;line-height:1.5;color:var(--ink);margin-bottom:24px}
 .hello img{width:72px;height:72px;flex:0 0 72px;object-fit:cover}
 @media(max-width:600px){.hello{font-size:15px;gap:14px;margin-bottom:22px}.hello img{width:64px;height:64px;flex-basis:64px}}
+
+/* Neutral monochrome palette. */
+:root{--page:#000000;--ink:#d6d6d6;--bright:#f5f5f5;--muted:#a6a6a6;--line:#303030;--accent:#c8c8c8;--object:#c8c8c8}
+:root[data-theme=light]{--page:#ffffff;--ink:#333333;--bright:#111111;--muted:#626262;--line:#d8d8d8;--accent:#555555;--object:#777777}
+.navigation [aria-current=page],.intro a{ text-decoration-color:var(--muted)}
+.secret-dot:hover{color:var(--bright)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline-color:var(--accent)}
+.night-note .hello img{box-shadow:0 0 0 3px #88888825}
+.night-note{background-image:radial-gradient(circle at 15% 23%,var(--accent) 0 1px,transparent 1.7px),radial-gradient(circle at 87% 38%,var(--accent) 0 1px,transparent 1.7px),radial-gradient(circle at 8% 68%,var(--accent) 0 1px,transparent 1.7px),radial-gradient(circle at 92% 80%,var(--accent) 0 1px,transparent 1.7px)}
