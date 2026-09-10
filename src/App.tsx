@@ -213,7 +213,7 @@ export default function App() {
          ],
          highlights: [
             '2,000+ GitHub stars from a viral launch (380K+ views)',
-            'Fully local-first — profile graph, vectors, CRM and generated docs never leave your device',
+            'Local storage for career data, with optional external AI-provider processing',
             'Explainable fit-ranking with a bundled, keyless ONNX embedding model',
          ],
          tech: ['Tauri 2', 'Rust', 'React 19', 'TypeScript', 'Python', 'FastAPI', 'SQLite', 'Kuzu', 'LanceDB', 'ONNX'],

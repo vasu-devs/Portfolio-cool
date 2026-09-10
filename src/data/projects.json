@@ -1,7 +1,336 @@
 {
-  "fetchedAt": "2026-06-30T00:00:00.000Z",
+  "fetchedAt": "2026-09-10T00:00:00.000Z",
   "user": "vasu-devs",
   "projects": [
+    {
+      "name": "Svara",
+      "description": "A Windows dictation app that turns speech into text at the active cursor. I built the local speech pipeline, application-aware text insertion, recovery behavior, and desktop release workflow.",
+      "summary": "A Windows dictation app that turns speech into text at the active cursor. I built the local speech pipeline, application-aware text insertion, recovery behavior, and desktop release workflow.",
+      "url": "https://github.com/vasu-devs/Svara",
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-09-05T00:00:00Z",
+      "tech": [
+        "Python",
+        "faster-whisper",
+        "CTranslate2",
+        "Windows APIs",
+        "SQLite",
+        "Ollama"
+      ],
+      "rank": 0.1,
+      "details": [
+        {
+          "title": "The problem",
+          "body": "Dictation needs to work inside the tools people already use. Transcription accuracy alone is not enough: clipped first words, lost recordings, duplicate text, or an accidental Enter in a terminal can make the tool unusable."
+        },
+        {
+          "title": "What I built",
+          "bullets": [
+            "Connected microphone capture, a pre-roll audio buffer, local speech recognition, transcript cleanup, and text insertion into a system-wide Windows workflow.",
+            "Added streaming transcription, configurable CPU/CUDA inference, personal vocabulary, local history, and optional LLM cleanup.",
+            "Built tray controls, recording feedback, settings, packaged releases, and an update flow that waits for the user to restart."
+          ]
+        },
+        {
+          "title": "Engineering decisions",
+          "bullets": [
+            "Kept speech recognition on the device, with CPU support so the app does not require a dedicated GPU.",
+            "Made insertion aware of the target application: terminal-safe text handling, editor-specific paste behavior, and a clipboard fallback when Windows privilege boundaries block input.",
+            "Used temporary local recovery audio to protect unfinished dictation and removed transcript content from ordinary diagnostic logs. Optional cleanup depends on the configured model endpoint."
+          ]
+        },
+        {
+          "title": "Evidence and current status",
+          "body": "Released as an open-source Windows application. Recent commits repair recording lifecycle behavior and engine selection; the repository includes regression tests for cleanup, insertion, configuration, and log redaction. Its benchmark harness measures latency and transcription quality on the user’s hardware. Performance varies by model and device; this case study does not claim a universal speed or accuracy score."
+        }
+      ]
+    },
+    {
+      "name": "Dreamer",
+      "description": "An idea workspace with durable AI research and planning workflows. I built a system where agents propose reviewable document changes, retain their evidence, and recover interrupted work.",
+      "summary": "An idea workspace with durable AI research and planning workflows. I built a system where agents propose reviewable document changes, retain their evidence, and recover interrupted work.",
+      "url": null,
+      "homepage": null,
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-09-10T00:00:00Z",
+      "tech": [
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "React",
+        "React Native",
+        "Docker",
+        "Vitest"
+      ],
+      "rank": 0.2,
+      "details": [
+        {
+          "title": "The problem",
+          "body": "An interesting idea can disappear into a notes app, while a long AI conversation is difficult to audit or resume. I wanted research, planning, and critique to produce a durable document that the owner can review and improve."
+        },
+        {
+          "title": "What I built",
+          "bullets": [
+            "Developed the idea vault, API, web and mobile clients, and a shared worker system for research, planning, critique, and refinement.",
+            "Represented agent edits as attributed section proposals with version history, keeping the owner in control of the working document.",
+            "Added an opt-in discovery workflow that investigates ideas, records supporting and opposing evidence, and applies explicit acceptance rules."
+          ]
+        },
+        {
+          "title": "Engineering decisions",
+          "bullets": [
+            "Used PostgreSQL-backed work records, worker leases, heartbeats, retry policies, and idempotent scheduling to make long-running work recoverable.",
+            "Separated provider routing and usage accounting from the workflow so model changes do not require rebuilding the orchestration layer.",
+            "Added evidence checks and publication quarantine so a model’s recommendation cannot by itself establish commercial viability."
+          ]
+        },
+        {
+          "title": "Evidence and current status",
+          "body": "A private personal project running locally. The source includes unit and database integration tests for document proposals, worker behavior, migrations, and recovery. Local release records document container builds and a database restore drill. Managed staging, broader live-provider checks, and signed mobile-device acceptance remain before a public release. Generated ideas and model scores are not evidence of customers or revenue."
+        }
+      ]
+    },
+    {
+      "name": "Deep Researcher",
+      "description": "An evidence-first research engine that turns a question into a report with traceable claims. I built planning, retrieval, source extraction, claim verification, and resumable execution behind an API and browser dashboard.",
+      "summary": "An evidence-first research engine that turns a question into a report with traceable claims. I built planning, retrieval, source extraction, claim verification, and resumable execution behind an API and browser dashboard.",
+      "url": null,
+      "homepage": null,
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-09-10T00:00:00Z",
+      "tech": [
+        "Python",
+        "FastAPI",
+        "Pydantic",
+        "SQLite",
+        "HTTPX",
+        "pytest"
+      ],
+      "rank": 0.3,
+      "details": [
+        {
+          "title": "The problem",
+          "body": "A report can look well cited while its sources fail to support the actual claims. The engineering challenge was to preserve evidence throughout research and prevent unsupported material from reaching the final report."
+        },
+        {
+          "title": "What I built",
+          "bullets": [
+            "Implemented a planner with bounded specialist workstreams, iterative searches, full-page and PDF extraction, and an adversarial review of missing or contradictory evidence.",
+            "Built a claim ledger containing source references, quoted passages, document locations, and provenance hashes.",
+            "Added SQLite checkpoints, cancellation and restart, live progress events, a REST API, a dashboard, and a command-line interface."
+          ]
+        },
+        {
+          "title": "Engineering decisions",
+          "bullets": [
+            "Separated exact-quote matching from model-based entailment checks: a quote must exist in the retrieved text, and the claim must be supported by that quote in context.",
+            "Selected passages relevant to each question instead of always truncating documents at the beginning.",
+            "Made the pipeline stop when evidence gates fail, while preserving diagnostics and rejected evidence for inspection. Search and model providers remain replaceable."
+          ]
+        },
+        {
+          "title": "Evidence and current status",
+          "body": "A working local research prototype with private source. Tests exercise persisted evidence, fabricated-quote rejection, document passage selection, URL boundaries, and PDF extraction using controlled fixtures and mocked services. Those tests verify pipeline behavior; they do not establish real-world factual accuracy or superiority to other research products. Live research still needs source review."
+        }
+      ]
+    },
+    {
+      "name": "JustHireMe iOS",
+      "description": "A native mobile edition of my job-search workspace. I built SwiftUI flows and a separate account-scoped cloud API, with explicit boundaries between the mobile experience and the existing desktop product.",
+      "summary": "A native mobile edition of my job-search workspace. I built SwiftUI flows and a separate account-scoped cloud API, with explicit boundaries between the mobile experience and the existing desktop product.",
+      "url": null,
+      "homepage": null,
+      "language": "Swift",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-09-10T00:00:00Z",
+      "tech": [
+        "Swift",
+        "SwiftUI",
+        "StoreKit",
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "Supabase"
+      ],
+      "rank": 0.4,
+      "details": [
+        {
+          "title": "The problem",
+          "body": "The desktop app stores career data on one machine. A mobile edition needs authenticated accounts, secure sessions, purchase recovery, and a backend designed for multiple users. Reusing a local desktop API directly would cross the wrong trust boundary."
+        },
+        {
+          "title": "What I built",
+          "bullets": [
+            "Implemented email-code sign-in, profile editing, saved opportunities, application status tracking, reviewable drafts, sharing, account export, and deletion.",
+            "Built native subscription and credit flows with StoreKit and server-side purchase recording, plus recovery of unfinished transactions.",
+            "Created a clearly labelled demo with fictional data so the interface can be explored without an account, payments, or AI requests."
+          ]
+        },
+        {
+          "title": "Engineering decisions",
+          "bullets": [
+            "Kept the mobile cloud service separate from the desktop sidecar and scoped account content through authenticated endpoints.",
+            "Stored session credentials in the iOS Keychain and kept account content in memory with an ephemeral networking session.",
+            "Made purchase completion depend on server acknowledgement. Mobile drafting uses explicit user inputs; desktop discovery and graph/vector matching are not advertised as mobile features."
+          ]
+        },
+        {
+          "title": "Evidence and current status",
+          "body": "Private source; in development. A successful hosted iPhone simulator run verifies native compilation and demo unit/UI tests, including onboarding, tracking, dark mode, and larger text. Real authentication, AI and payment integration, physical-device testing, signing, and TestFlight/App Store release remain separate milestones. This is not yet a released iOS app."
+        }
+      ]
+    },
+    {
+      "name": "Ori no Michi",
+      "description": "An interactive origami learning experience with a custom paper-folding engine. I combined geometry, 3D animation, authored lessons, and narrated tutorials to make each fold understandable.",
+      "summary": "An interactive origami learning experience with a custom paper-folding engine. I combined geometry, 3D animation, authored lessons, and narrated tutorials to make each fold understandable.",
+      "url": null,
+      "homepage": null,
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-09-08T00:00:00Z",
+      "tech": [
+        "TypeScript",
+        "React",
+        "Three.js",
+        "GSAP",
+        "Vinext",
+        "Python"
+      ],
+      "rank": 0.5,
+      "details": [
+        {
+          "title": "The problem",
+          "body": "A static diagram often hides which layer moves, where it should land, and why a fold matters. I wanted learners to inspect a step from different angles, replay it, and pause while following along with real paper."
+        },
+        {
+          "title": "What I built",
+          "bullets": [
+            "Implemented rigid polygon clipping and folding, layer selection, mountain/valley motion, unfolding, and turn-over steps.",
+            "Connected the engine to interactive lessons with crease guides, moving-flap highlights, alignment targets, orbit controls, and geometry-derived previews.",
+            "Built a tutorial theater with sequenced camera motion, chapters, scrubbing, captions, narration, playback speed, and a fold-along pause mode."
+          ]
+        },
+        {
+          "title": "Engineering decisions",
+          "bullets": [
+            "Selected moving layers using the authored crease segment so a fold on one flap does not move unrelated paper across the model.",
+            "Generated previews from the same geometry as the lesson to keep the visual explanation consistent with playback.",
+            "Used separate schematic checkpoints for complex workshops and provided reduced-motion behavior, keyboard controls, and device-local progress."
+          ]
+        },
+        {
+          "title": "Evidence and current status",
+          "body": "A private personal learning app. The source includes tests for paper-area conservation, finite coordinates, rigid edge lengths, layer selection, and tutorial chapter coverage. It also contains original narrated lesson films and caption files. The engine models rigid folds; it is not a general paper-physics or collision simulator, and complex workshop diagrams intentionally simplify hidden layers."
+        }
+      ]
+    },
+    {
+      "name": "LearnAI",
+      "description": "An applied-AI learning handbook with interactive exercises and companion audio/video lessons. I built multiple ways to explore the same concepts, from reading an explanation to experimenting with a simplified model.",
+      "summary": "An applied-AI learning handbook with interactive exercises and companion audio/video lessons. I built multiple ways to explore the same concepts, from reading an explanation to experimenting with a simplified model.",
+      "url": null,
+      "homepage": null,
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-07-07T00:00:00Z",
+      "tech": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Web Audio",
+        "localStorage"
+      ],
+      "rank": 0.6,
+      "details": [
+        {
+          "title": "The problem",
+          "body": "Developers moving into applied AI need to connect familiar software-engineering skills to new concepts such as embeddings, retrieval, tool use, and evaluation. A list of definitions does not show how those ideas behave."
+        },
+        {
+          "title": "What I built",
+          "bullets": [
+            "Created a standalone documentation site with topic navigation, an in-page contents list, themes, and progress tracking.",
+            "Built interactive exercises for token sampling, embedding space, retrieval pipelines, prompt-injection awareness, agent failures, and model-based evaluation.",
+            "Added quizzes and interview practice, plus companion audio/video players with transcripts, episode navigation, playback controls, and saved progress."
+          ]
+        },
+        {
+          "title": "Engineering decisions",
+          "bullets": [
+            "Kept the handbook and playground in plain HTML, CSS, and JavaScript so they can run without a build pipeline or application server.",
+            "Used browser storage for learning progress and media position, supporting short sessions across reading, watching, and listening.",
+            "Used simplified interactive demonstrations to expose cause and effect. They teach concepts; they are not production tokenizers, retrieval engines, or model benchmarks."
+          ]
+        },
+        {
+          "title": "Evidence and current status",
+          "body": "Private personal educational project. The repository contains the handbook, working playground code, media players, and companion lesson assets. Source review confirms the interactive exercises and local progress storage. It has not been evaluated as a formal course, and no learner-outcome or adoption claims are made."
+        }
+      ]
+    },
+    {
+      "name": "EstimateIO",
+      "description": "A browser game for developing an intuition for physical scale. I built direct manipulation, consistent measurement rules, and visual feedback that explains how a guess compares with the answer.",
+      "summary": "A browser game for developing an intuition for physical scale. I built direct manipulation, consistent measurement rules, and visual feedback that explains how a guess compares with the answer.",
+      "url": null,
+      "homepage": null,
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "updatedAt": "2026-09-07T00:00:00Z",
+      "tech": [
+        "TypeScript",
+        "React",
+        "Vinext",
+        "Pointer Events",
+        "Web Audio"
+      ],
+      "rank": 0.7,
+      "details": [
+        {
+          "title": "The problem",
+          "body": "Numbers alone make it difficult to judge size. I wanted players to learn by resizing an object beside a familiar reference, constructing a length, or placing an object on a scale."
+        },
+        {
+          "title": "What I built",
+          "bullets": [
+            "Implemented three game modes: relative size comparison, making a measurement, and placement on a logarithmic size line.",
+            "Built pinch and drag controls with keyboard and button alternatives, unit selection, hints, streaks, and local best scores.",
+            "Made answer reveals overlay the guess and correct silhouette at a shared baseline so the error is visually understandable."
+          ]
+        },
+        {
+          "title": "Engineering decisions",
+          "bullets": [
+            "Stored canonical measurements in centimetres with explicit unit conversion and reference dimensions.",
+            "Scored proportional error symmetrically: guessing half the size and twice the size receives the same score.",
+            "Handled pointer addition, release, cancellation, and near-coincident fingers without sudden jumps or invalid scale values. Rotating challenge sets keep short runs varied."
+          ]
+        },
+        {
+          "title": "Evidence and current status",
+          "body": "A local personal browser game with private source. Logic tests cover score symmetry, conversions, logarithmic mapping, challenge rotation, and gesture transitions. References are attached to measurements; artwork is stylized and screen pixels do not represent life-size units. Its optional browser-tool integration is experimental and was not verified in a browser supporting that API."
+        }
+      ]
+    },
     {
       "name": "Socratis",
       "description": "Voice AI Agent-powered technical interview platform with real-time voice interaction, live code feedback, and intelligent assessment using LiveKit, Deepgram, and Groq.",
@@ -55,7 +384,7 @@
     },
     {
       "name": "Waldo",
-      "description": "A production-grade Retrieval-Augmented Generation system with multimodal support for PDFs containing text, images, tables, and charts.",
+      "description": "A multimodal RAG prototype for question answering over PDFs containing text, tables, and figures.",
       "url": "https://github.com/vasu-devs/Waldo",
       "homepage": null,
       "language": "Python",
@@ -63,11 +392,11 @@
       "forks": 0,
       "topics": [],
       "updatedAt": "2026-01-25T06:56:52Z",
-      "summary": "Production-grade agentic RAG pipeline that ingests complex PDFs with text, tables, charts and diagrams. Figures are transcribed by Gemini VLM, and a LangGraph agent routes, grades and rewrites queries with strict anti-hallucination guardrails.",
+      "summary": "A multimodal RAG prototype that ingests PDF text, tables, and figures. A LangGraph workflow routes, grades, and rewrites retrieval queries, while vision-model captions make figures searchable.",
       "highlights": [
         "Multimodal ingestion — text + tables + figures in a single pipeline",
         "LangGraph agent with query rewriting, relevance grading and retry logic",
-        "Refuses out-of-scope questions instead of hallucinating"
+        "Relevance checks and refusal handling for unsupported questions"
       ],
       "tech": [
         "Python",
@@ -106,7 +435,11 @@
         },
         {
           "title": "Guardrails",
-          "body": "Out-of-scope questions are refused, not fabricated. When Gemini quota runs out, the system falls back to Docling's own captions rather than making something up."
+          "body": "Relevance checks and refusal instructions aim to keep answers grounded in the document. When vision-model quota is unavailable, ingestion can fall back to extracted captions. These controls reduce failure modes but cannot guarantee hallucination-free answers."
+        },
+        {
+          "title": "Current scope",
+          "body": "An assessment prototype with in-memory retrieval and a single-document workflow. It demonstrates multimodal ingestion and retrieval orchestration; production persistence, multi-user isolation, and operational evaluation are outside this version."
         }
       ],
       "rank": 1

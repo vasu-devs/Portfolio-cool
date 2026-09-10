@@ -10,7 +10,7 @@ import { fetchPortfolioGitHubStats, GitHubRepo, GITHUB_USER } from '../../lib/gi
 interface RepoProject {
     name: string;
     description: string;
-    url: string;
+    url: string | null;
     homepage: string | null;
     language: string | null;
     stars: number;
@@ -117,7 +117,7 @@ export const MoreProjects = () => {
 
             return {
                 ...project,
-                description: live.description || project.description,
+                description: project.description || live.description,
                 url: live.url,
                 homepage: live.homepage,
                 language: live.language,
@@ -192,7 +192,7 @@ export const MoreProjects = () => {
                     viewport={{ once: true }}
                     className="font-mono text-[2.5vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[3vw] md:mb-6"
                 >
-                    <span className="text-fg-primary/30">03 /</span> More from GitHub
+                    <span className="text-fg-primary/30">03 /</span> More projects
                 </motion.h2>
                 <motion.p
                     initial={{ opacity: 0, y: 10 }}
@@ -201,9 +201,9 @@ export const MoreProjects = () => {
                     transition={{ delay: 0.1 }}
                     className="text-[4vw] md:text-xl text-fg-secondary leading-relaxed mb-[6vw] md:mb-10 max-w-2xl"
                 >
-                    A selection of my other public work. Click any tile for the full
-                    case study — summary, notable details, and tech stack pulled from
-                    the README.
+                    Recent builds and earlier experiments. Curated case studies cover
+                    the problem, my contribution, engineering decisions, and current
+                    status. Other public repositories include a shorter overview.
                 </motion.p>
 
                 {/* Filter chips */}

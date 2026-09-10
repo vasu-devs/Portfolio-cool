@@ -8,7 +8,7 @@ import { DetailSections, DetailSection } from './DetailSections';
 interface RepoProject {
     name: string;
     description: string;
-    url: string;
+    url: string | null;
     homepage: string | null;
     language: string | null;
     stars: number;
