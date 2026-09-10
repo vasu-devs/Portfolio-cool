@@ -27,3 +27,5 @@ body{background-color:var(--page);color:var(--ink)}h1,.role-name,.project-title 
 .navigation{margin-bottom:62px}.hello{margin-bottom:18px}.hello img{width:48px;height:48px;border-radius:50%}h1{font-size:36px;letter-spacing:-1.2px}.intro{font-size:16px;line-height:1.8}.intro p+p{margin-top:18px}.bench{margin-top:44px}.bench-heading{margin-bottom:12px}.bench h2{font-size:12px;letter-spacing:.02em}.desk-link{padding:18px 0;gap:0}.desk-link>.desk-icon{display:none}.desk-link strong{font-size:16px}.desk-link small{margin-top:4px;font-size:13px}.experience{margin-top:44px}.theme-toggle:hover .sun-icon{transform:none}.sun-icon{transition:none}@media(max-width:600px){.navigation{margin-bottom:43px}h1{font-size:31px}.intro{font-size:15px}.desk-link small{font-size:12px}}
 
 .paper-row .desk-link{padding-right:0}
+
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}::view-transition-new(root){z-index:2}::view-transition-old(root){z-index:1}
