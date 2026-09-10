@@ -52,3 +52,7 @@ body{isolation:isolate}.layout{position:relative;z-index:1}.theme-revealing,.the
 a:focus-visible,summary:focus-visible,button:focus-visible{outline-color:var(--accent)}
 .night-note .hello img{box-shadow:0 0 0 3px #88888825}
 .night-note{background-image:radial-gradient(circle at 15% 23%,var(--accent) 0 1px,transparent 1.7px),radial-gradient(circle at 87% 38%,var(--accent) 0 1px,transparent 1.7px),radial-gradient(circle at 8% 68%,var(--accent) 0 1px,transparent 1.7px),radial-gradient(circle at 92% 80%,var(--accent) 0 1px,transparent 1.7px)}
+
+/* Softer neutral backgrounds with strong reading contrast. */
+:root{--page:#121212;--ink:#d6d6d6;--bright:#f0f0f0;--muted:#a6a6a6;--line:#343434;--accent:#c8c8c8}
+:root[data-theme=light]{--page:#f7f7f7;--ink:#222222;--bright:#111111;--muted:#595959;--line:#d4d4d4;--accent:#555555}

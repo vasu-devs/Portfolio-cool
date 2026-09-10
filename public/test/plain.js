@@ -22,7 +22,7 @@ const themeButton = document.querySelector('.theme-toggle');
 const root = document.documentElement;
 function themeLabel() {
  const light = root.dataset.theme === 'light';
- document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#ffffff' : '#000000');
+ document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#f7f7f7' : '#121212');
  themeButton.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} mode`);
  themeButton.querySelector('.theme-label').textContent = light ? 'dark' : 'light';
  themeButton.querySelector('.sun-icon').textContent = light ? '☾' : '☼';
