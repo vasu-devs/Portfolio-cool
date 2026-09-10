@@ -31,3 +31,11 @@ body{background-color:var(--page);color:var(--ink)}h1,.role-name,.project-title 
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}::view-transition-new(root){z-index:2}::view-transition-old(root){z-index:1}
 
 .sun-icon{width:28px;text-align:center;flex:0 0 28px}.theme-label{width:28px;text-align:left}
+
+::view-transition{pointer-events:none}
+::view-transition-group(root),::view-transition-image-pair(root),::view-transition-old(root),::view-transition-new(root){pointer-events:none}
+
+body{isolation:isolate}.layout{position:relative;z-index:1}.theme-revealing,.theme-revealing body{background-color:var(--reveal-base)}.theme-wave{position:fixed;z-index:0;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}.skip{z-index:5}
+
+.theme-wave-frame{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:strict}.theme-wave{position:absolute}
+.theme-wave-frame{width:100vw;height:100vh;right:auto;bottom:auto}

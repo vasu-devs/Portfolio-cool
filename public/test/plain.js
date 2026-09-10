@@ -27,27 +27,54 @@ function themeLabel() {
  themeButton.querySelector('.sun-icon').textContent = light ? '☾' : '☼';
 }
 themeLabel();
-let changingTheme = false;
-themeButton.addEventListener('click', async () => {
- if (changingTheme) return;
- changingTheme = true;
+let requestedTheme = root.dataset.theme === 'light' ? 'light' : 'dark';
+let activeReveal = null;
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function applyTheme() {
+ root.dataset.theme = requestedTheme;
+ try { localStorage.setItem('vasu-theme', requestedTheme); } catch {}
+ themeLabel();
+}
+function clearReveal() {
+ if (!activeReveal) return;
+ const previous = activeReveal;
+ activeReveal = null;
+ previous.animation?.cancel();
+ previous.frame.remove();
+ root.style.removeProperty('--reveal-base');
+ root.classList.remove('theme-revealing');
+}
+themeButton.addEventListener('click', () => {
+ requestedTheme = requestedTheme === 'light' ? 'dark' : 'light';
+ if (activeReveal) { clearReveal(); applyTheme(); return; }
+ if (reducedMotion.matches) { applyTheme(); return; }
  const rect = themeButton.querySelector('.sun-icon').getBoundingClientRect();
  const x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
- const originX = x / innerWidth * 100;
- const originY = y / innerHeight * 100;
- const radius = Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y));
- const radiusPercent = radius / (Math.hypot(innerWidth, innerHeight) / Math.SQRT2) * 100 + 1;
- const change = () => {
-  root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
-  try { localStorage.setItem('vasu-theme', root.dataset.theme); } catch {}
-  themeLabel();
- };
+ const radius = Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y)) + 2;
+ const oldColor = getComputedStyle(root).getPropertyValue('--page');
+ applyTheme();
+ const color = getComputedStyle(root).getPropertyValue('--page');
+ const layer = document.createElement('div');
+ layer.className = 'theme-wave';
+ layer.setAttribute('aria-hidden', 'true');
+ // Percentage anchors stay aligned at browser zoom and every viewport width.
+ layer.style.left = `${x / innerWidth * 100}%`;
+ layer.style.top = `${y / innerHeight * 100}%`;
+ layer.style.width = layer.style.height = `${radius * 2}px`;
+ layer.style.background = color;
+ root.style.setProperty('--reveal-base', oldColor);
+ root.classList.add('theme-revealing');
+ const frame = document.createElement('div');
+ frame.className = 'theme-wave-frame';
+ frame.setAttribute('aria-hidden', 'true');
+ frame.append(layer);
+ document.body.append(frame);
+ const reveal = {frame, animation:null};
+ activeReveal = reveal;
  try {
-  if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) { change(); return; }
-  const transition = document.startViewTransition(change);
-  await transition.ready;
-  await root.animate({clipPath:[`circle(0% at ${originX}% ${originY}%)`, `circle(${radiusPercent}% at ${originX}% ${originY}%)`]}, {duration:850,easing:'cubic-bezier(.4,0,.2,1)',pseudoElement:'::view-transition-new(root)'}).finished;
-  await transition.finished;
- } catch { /* Theme changes still apply if the reveal is interrupted. */ }
- finally { changingTheme = false; }
+  reveal.animation = layer.animate([{transform:'translate(-50%, -50%) scale(0)'},{transform:'translate(-50%, -50%) scale(1)'}], {duration:500,easing:'cubic-bezier(.4,0,.2,1)'});
+  reveal.animation.finished.then(() => { if(activeReveal === reveal) clearReveal(); }, () => { if(activeReveal === reveal) clearReveal(); });
+ } catch { clearReveal(); }
 });
+window.addEventListener('resize', clearReveal, {passive:true});
+window.addEventListener('pagehide', clearReveal);
