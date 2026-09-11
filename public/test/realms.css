@@ -426,3 +426,27 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 #projects .archive-item{content-visibility:auto;contain-intrinsic-size:auto 190px}
 #projects .project{transition:border-color .18s,background .18s}#projects .project:hover{border-color:var(--accent);background:var(--wash)}
 @media(prefers-reduced-motion:reduce){.availability-links a,#projects .project{transition:none}.availability-links a:hover{transform:none}}
+
+/* Open editorial rows: scenery stays visible; the work carries the hierarchy. */
+#projects .project-list{display:block}
+#projects .project{padding:25px 0;margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;transition:none}
+#projects .project:hover{background:none;border-color:var(--line)}
+#projects .project>summary{display:grid;grid-template-columns:30px minmax(0,1fr) auto;column-gap:18px;row-gap:7px;align-items:baseline}
+#projects .project-number{grid-column:1;grid-row:1/3;font-size:10px;letter-spacing:.04em;opacity:.6}
+#projects .project-title{grid-column:2;grid-row:1}
+#projects .project-title h3{font-size:23px;font-weight:600;line-height:1.35}
+#projects .project-intro{grid-column:2;grid-row:2;max-width:53ch;font-size:14px;line-height:1.75;color:var(--muted)}
+#projects .project .study-cta{grid-column:3;grid-row:1;margin:0;padding:0;font-size:11px;white-space:nowrap;color:var(--muted)}
+#projects .project:hover .project-title h3,#projects .project>summary:focus-visible .project-title h3{color:var(--accent)}
+#projects .projects-intro{max-width:48ch;margin-bottom:28px}
+#projects .work-archive{margin-top:60px}
+#projects .archive-category{font-family:Manrope,sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;margin:34px 0 4px;color:var(--accent)}
+#projects .archive-item{padding:17px 0;contain-intrinsic-size:auto 160px}
+#projects .archive-item h3{font-size:17px}#projects .archive-item p{margin:6px 0;font-size:13px;line-height:1.75;color:var(--muted)}
+#projects .archive-item>small{display:none}
+@media(max-width:600px){#projects .project>summary{grid-template-columns:20px minmax(0,1fr);column-gap:12px}#projects .project-title h3{font-size:21px}#projects .project .study-cta{grid-column:2;grid-row:3;padding-top:4px}#projects .project{padding:21px 0}}
+#projects>h1{font-size:clamp(32px,4.2vw,46px);line-height:1.15}
+#projects .project>summary{grid-template-columns:minmax(0,1fr) auto}
+#projects .project-title,#projects .project-intro{grid-column:1}
+#projects .project .study-cta{grid-column:2}
+@media(max-width:600px){#projects .project>summary{grid-template-columns:1fr}#projects .project .study-cta{grid-column:1;grid-row:3}}

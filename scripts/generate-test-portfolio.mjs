@@ -45,18 +45,21 @@ for (const name of ['Socratis','Waldo','Forge']) {
  projects.push({...p,category:'AI systems',label:'Public source · Prototype'});
 }
 const shortDescriptions = {
-  'JustHireMe': 'Local-first job intelligence. 2,200+ GitHub stars.',
-  'Svara': 'On-device dictation, wherever you work.',
-  'Dreamer': 'An idea vault with durable research agents.',
-  'Deep Researcher': 'Research you can trace back to its sources.',
-  'Ori no Michi': 'Learn origami through interactive 3D folds.',
-  'JustHireMe iOS': 'A native job-search companion. In development.',
-  'LearnAI': 'Applied AI, explained through interactive lessons.',
-  'EstimateIO': 'A playful way to build an intuition for scale.',
-  'Odeon': 'Adversarial simulations for conversational agents.'
+ 'JustHireMe': 'Find jobs, compare them with your experience, and draft applications in one desktop app.',
+ 'Svara': 'Speak instead of typing. Dictation runs on your device.',
+ 'Dreamer': 'A place to save ideas and research them without losing the thread.',
+ 'Deep Researcher': 'Ask a question, explore the sources, and follow how the answer came together.',
+ 'Ori no Michi': 'Learn origami by following folds in an interactive 3D model.',
+ 'JustHireMe iOS': 'Bringing the job-search workflow to iPhone. Still in development.',
+ 'LearnAI': 'Explore AI concepts through lessons you can interact with.',
+ 'EstimateIO': 'Practice estimating scale with short, interactive challenges.',
+ 'Odeon': 'Put a voice agent through difficult conversations and see where it breaks.',
+ 'Socratis': 'Practice a coding interview with a voice agent that can follow your code.',
+ 'Waldo': 'Ask questions about PDFs, including their tables and figures.',
+ 'Forge': 'Build and run AI agent workflows.'
 };
 const projectMarkup = projects.map((p, i) => `<details class="project" name="project-studies" data-category="${p.category}" id="project-${i}">
-  <summary><span class="project-number">${String(i + 1).padStart(2,'0')}</span><div class="project-title"><h3>${escape(p.name)}</h3></div><p class="project-intro">${escape(originalFor(p.name)?.description || archive.find(a=>a.name===p.name)?.summary || p.summary)}</p><span class="expand study-cta">Read case study</span></summary>
+  <summary><span class="project-number">${String(i + 1).padStart(2,'0')}</span><div class="project-title"><h3>${escape(p.name)}</h3></div><p class="project-intro">${escape(shortDescriptions[p.name] || p.summary)}</p><span class="expand study-cta">Read case study</span></summary>
   <div class="case-body"><p class="case-label mono">${escape(p.label)}</p><div class="case-stack">${p.tech.map(t => `<span>${escape(t)}</span>`).join('')}</div><div class="case-sections">${p.details.map(section).join('')}</div>${p.url ? `<a class="text-link" href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Explore the repository ${arrow}</a>` : '<p class="private-note">Personal project · Source kept private</p>'}</div>
 </details>`).join('');
 const roleMarkup = roles.map(r => `<details class="role"><summary><h3>${escape(r.company)}</h3><p class="role-name">${escape(r.role)}</p><span class="role-date mono">${escape(r.dateLabel)}</span><span class="role-hint">Details +</span></summary><div class="role-body"><p>${escape(r.summary)}</p>${r.sections ? r.sections.map(section).join('') : ''}</div></details>`).join('');
