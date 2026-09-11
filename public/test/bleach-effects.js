@@ -6,13 +6,21 @@ export const effectCharacters=Object.keys(effectSpecs);
 const loaded=new Map(), decoded=new Set(), images=new Map();
 export function preloadCharacterEffect(id){
  if(!effectSpecs[id])return Promise.resolve();
- if(!loaded.has(id)){const image=new Image();image.src=`/test/sprites/effects/${id}.webp?v=18`;images.set(id,image);loaded.set(id,image.decode().then(()=>{decoded.add(id);}).catch(()=>{loaded.delete(id);}));}
+ if(!loaded.has(id)){
+  const load=async()=>{
+   for(let attempt=0;attempt<3;attempt++){
+    const image=new Image();image.src=`/test/sprites/effects/${id}.webp?v=18${attempt?'&retry='+attempt:''}`;
+    try{await image.decode();images.set(id,image);decoded.add(id);return;}catch(error){if(attempt===2)throw error;}
+   }
+  };
+  loaded.set(id,load().catch(error=>{loaded.delete(id);throw error;}));
+ }
  return loaded.get(id);
 }
 export function launchCharacterEffect({character,field,x,y,targetX,targetY,slashes}){
  const spec=effectSpecs[character];if(!spec)return false;
  // Never claim an invisible, undecoded image as a successful effect.
- if(!decoded.has(character)){void preloadCharacterEffect(character);return false;}
+ if(!decoded.has(character)){return false;}
  const [baseSize,duration,reach,mode]=spec,dx=targetX-x,dy=targetY-y,distance=Math.hypot(dx,dy),ux=distance?dx/distance:1,uy=distance?dy/distance:0;
  const width=field.clientWidth||innerWidth,height=field.clientHeight||innerHeight;
  const size=Math.min(Math.round(baseSize*.6),width-8,height-8);
@@ -20,7 +28,7 @@ export function launchCharacterEffect({character,field,x,y,targetX,targetY,slash
  const cx=clamp(mode==='target'?targetX:x+ux*(character==='yoruichi'?0:35),width),cy=clamp(mode==='target'?targetY:y,height);
  const travel=Math.min(reach,distance),ex=clamp(cx+ux*travel,width)-cx,ey=clamp(cy+uy*travel,height)-cy,angle=mode?0:Math.atan2(dy,dx);
  const node=document.createElement('div');node.className='soul-effect';node.dataset.effect=character;
- Object.assign(node.style,{position:'absolute',width:size+'px',height:size+'px',left:cx-size/2+'px',top:cy-size/2+'px',transformOrigin:'50% 50%',pointerEvents:'none',backgroundImage:`url("/test/sprites/effects/${character}.webp?v=18")`,backgroundSize:'200% 200%',backgroundRepeat:'no-repeat'});
+ Object.assign(node.style,{position:'absolute',width:size+'px',height:size+'px',left:cx-size/2+'px',top:cy-size/2+'px',transformOrigin:'50% 50%',pointerEvents:'none',backgroundImage:`url("${images.get(character).src}")`,backgroundSize:'200% 200%',backgroundRepeat:'no-repeat'});
  field.append(node);
  // Step each cell interval, not the entire effect timeline (which freezes frame zero).
  const frames=node.animate(['0% 0%','100% 0%','0% 100%','100% 100%','100% 100%'].map((backgroundPosition,i)=>({backgroundPosition,offset:i/4,easing:'steps(1,end)'})),{duration,easing:'linear',fill:'forwards'});

@@ -1,6 +1,6 @@
 import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=controls-64';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
-import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=effects-67';
+import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=real-attacks-68';
 import {roster} from './bleach-roster.js?v=sizes-62';
 // A small, optional cursor companion. Only movement or a slash schedules frames.
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
@@ -65,6 +65,7 @@ card.addEventListener('pointercancel',()=>{swipeStart=undefined;});
 controls.addEventListener('pointerenter',()=>void warmCharacters(),{once:true});
 const updateCompanionName=mountBleachDetails(controls);
 let character='ichigo', characterRequest=0, ready=false;
+const earlyAttacks=[];
 try { const saved=localStorage.getItem('vasu-bleach-character'); if(Object.hasOwn(roster,saved)) character=saved; } catch {}
 const characterAssets=new Map();
 function prepareCharacter(id) {
@@ -107,7 +108,7 @@ async function loadCharacter(id,{entrance=true}={}) {
  label();if(overlay){dockCompanion();if(entrance&&seen)void characterEntrance(host,id);}else if(active()) {
   seen=true;draw();host.classList.add('is-visible');
   if(entrance)void characterEntrance(host,id);
-  if(request===characterRequest && active())park();
+  if(request===characterRequest && active()){park();for(const target of earlyAttacks.splice(0))requestAttack(target.x,target.y);}
  }
 }
 
@@ -298,25 +299,8 @@ document.addEventListener('pointermove', event => {
  }
 }, {passive:true});
 function fire(targetX,targetY) {
- if(launchCharacterEffect({character,field,x:x+facing*18,y,targetX,targetY,slashes}))return;
- const angle = Math.atan2(targetY-y,targetX-x);
- const distance = Math.min(220,Math.max(85,Math.hypot(targetX-x,targetY-y)));
- const dx = Math.cos(angle)*distance, dy = Math.sin(angle)*distance;
- const node = document.createElement('div'); node.className = 'getsuga-slash';
- node.innerHTML = `<svg viewBox="0 0 120 180"><path d="M25 4Q165 88 25 176Q101 89 25 4Z" fill="var(--bright)" stroke="var(--page)" stroke-width="3"/><path d="M28 14Q130 88 28 167" fill="none" stroke="var(--bright)" stroke-width="2"/></svg>`;
- if(character==='ichigo') node.innerHTML='<svg viewBox="0 0 120 180"><path d="M25 4Q165 88 25 176Q101 89 25 4Z" fill="#e3f8ff" stroke="#69ccff" stroke-width="4"/></svg>';
- if(character==='rukia') node.innerHTML='<svg viewBox="0 0 120 180"><path d="M5 90 46 74 64 35 70 77 113 90 68 99 60 143 49 103Z" fill="#ecfcff" stroke="#a5e3f7" stroke-width="3"/></svg>';
- if(character==='renji') node.innerHTML='<svg viewBox="0 0 120 180"><path d="M0 82H100L118 90 100 98H0Z" fill="#414148" stroke="#ddd" stroke-width="2"/><path d="m15 82 12-22v22m10 0 12-22v22m10 0 12-22v22m10 0 12-22v22" fill="#c6c7cc" stroke="#fff" stroke-width="2"/></svg>';
- // The projectile starts at the companion's sword, not the pointer.
- node.style.left = `${x+facing*18}px`; node.style.top = `${y}px`; field.append(node);
- const transform = (progress,scale) => `translate(calc(-50% + ${dx*progress}px),calc(-50% + ${dy*progress}px)) rotate(${angle}rad) scale(${scale})`;
- const frames=character==='renji'
-  ? [{transform:transform(0,.15),opacity:0},{transform:transform(.45,1),opacity:1,offset:.5},{transform:transform(0,.15),opacity:0}]
-  : [{transform:transform(0,.15),opacity:0},{transform:transform(.15,.65),opacity:.9,offset:.2},{transform:transform(1,1.1),opacity:0}];
- const animation = node.animate(frames,{duration:520,easing:'cubic-bezier(.2,.65,.3,1)'});
- const item = {node,animation}; slashes.add(item);
- const cleanup = () => { node.remove(); slashes.delete(item); };
- animation.finished.then(cleanup,cleanup);
+ // Selection only becomes active after the real atlas decodes. No substitute art.
+ launchCharacterEffect({character,field,x:x+facing*18,y,targetX,targetY,slashes});
 }
 
 // Fire on press: dragging or chasing a moving target can suppress a browser click.
@@ -332,6 +316,7 @@ document.addEventListener('pointerdown',pageAttack,{passive:true,capture:true});
 // Keyboard/assistive activation has no pointerdown. Ignore mouse clicks to avoid duplicates.
 document.addEventListener('click',event=>{if(event.detail===0)pageAttack(event);},{passive:true,capture:true});
 function requestAttack(targetX,targetY){
+ if(!ready&&enabled&&supported()&&!document.hidden&&!overlay){if(earlyAttacks.length<3)earlyAttacks.push({x:targetX,y:targetY});else earlyAttacks[2]={x:targetX,y:targetY};return;}
  if(!active())return;
  if(!seen){seen=true;draw();host.classList.add('is-visible');}
  clearTimeout(greetingTimer);greeting=false;reply.textContent='';

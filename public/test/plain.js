@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=effects-67';
+import './soul-cursor.js?v=real-attacks-68';
 
 function showPage() {
   const id = location.hash.slice(1);
