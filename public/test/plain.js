@@ -19,10 +19,10 @@ const themeButton = document.querySelector('.theme-toggle');
 const root = document.documentElement;
 function themeLabel() {
  const light = root.dataset.theme === 'light';
- themeButton.title = light ? 'Seireitei · sunlit stone and slate. Enter Hueco Mundo.' : 'Hueco Mundo · white sands beneath an endless night. Enter Seireitei.';
+ themeButton.title = light ? 'Switch to dark mode' : 'Switch to light mode';
  document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#f4f3ed' : '#0b0e14');
- themeButton.setAttribute('aria-label', `Switch to ${light ? 'Hueco Mundo (dark)' : 'Seireitei (light)'} mode`);
- themeButton.querySelector('.theme-label').textContent = light ? 'Seireitei' : 'Hueco Mundo';
+ themeButton.setAttribute('aria-label', themeButton.title);
+ themeButton.querySelector('.theme-label').textContent = '';
  themeButton.querySelector('.sun-icon').textContent = light ? '☼' : '☾';
 }
 themeLabel();

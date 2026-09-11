@@ -26,3 +26,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 :root[data-theme=light] .theme-toggle{background:rgba(244,243,237,.9)}
 @media(max-width:860px){:root[data-theme=light] body::before{background-position:76% center}:root[data-theme=light] body::after{background:linear-gradient(180deg,rgba(244,243,237,.60),rgba(244,243,237,.76) 45%,rgba(244,243,237,.90))}}
 @media print{body::before,body::after{display:none}}
+
+/* Icon-only theme control, with a full-size accessible click target. */
+.theme-toggle{width:44px;height:44px;min-width:44px;padding:0;gap:0;justify-content:center;border-radius:50%}
+.theme-toggle .theme-label{display:none}
+.theme-toggle .sun-icon{width:28px;flex-basis:28px;font-size:28px}
