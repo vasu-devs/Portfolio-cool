@@ -95,10 +95,14 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 .is-entering .soul-character{animation:none}
 @media(max-width:600px){.navigation .character-name{max-width:70px}}
 
-/* A feathered reading layer softens scenery, never the text or portraits. */
-:root{--reading-tint:rgba(6,19,31,.58)}
-:root[data-theme=light]{--reading-tint:rgba(247,247,239,.66)}
+/* Reading atmosphere: feathered pools of mist, without a boxed panel. */
+:root{--reading-mist:rgba(3,15,27,.72);--reading-shadow:rgba(2,9,17,.8)}
+:root[data-theme=light]{--reading-mist:rgba(250,249,242,.85);--reading-shadow:rgba(255,255,248,.85)}
 main#main{position:relative;isolation:isolate}
-main#main::before{content:"";position:absolute;inset:-24px -28px;z-index:-1;pointer-events:none;background:var(--reading-tint);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:28px;mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
-@media(max-width:600px){main#main::before{inset:-16px -16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 16px),transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 16px),transparent)}}
-@media print{main#main::before{display:none}}
+main#main::before{content:none}
+#home .intro,#home .bleach-note,#home .bench,#home .experience,#home .background,#projects{position:relative;isolation:isolate}
+#home .intro::before,#home .bleach-note::before,#home .bench::before,#home .experience::before,#home .background::before,#projects::before{content:"";position:absolute;inset:-32px -45px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 45% 50%,var(--reading-mist) 0%,var(--reading-mist) 35%,transparent 73%);filter:blur(14px)}
+#home .intro,#projects .projects-intro{text-shadow:0 1px 9px var(--reading-shadow)}
+.identity{position:relative;text-shadow:0 1px 12px var(--reading-shadow)}
+@media(max-width:600px){#home .intro::before,#home .bleach-note::before,#home .bench::before,#home .experience::before,#home .background::before,#projects::before{inset:-24px -18px;filter:blur(9px)}}
+@media print{#home .intro::before,#home .bleach-note::before,#home .bench::before,#home .experience::before,#home .background::before,#projects::before{display:none}}
