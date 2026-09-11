@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=cards-37';
+import './soul-cursor.js?v=fit-38';
 
 function showPage() {
   const id = location.hash.slice(1);

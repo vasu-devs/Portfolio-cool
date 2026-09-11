@@ -181,3 +181,24 @@ body>.layout,body>main{position:relative;z-index:1}
 .navigation .character-card-name{font-size:26px;font-weight:600;letter-spacing:-.04em;margin:4px 0 8px;line-height:1.2}
 .navigation .character-stage{min-height:140px}.navigation .character-art{width:140px;height:140px}
 .navigation .character-card .soul-technique{min-height:0;margin-bottom:4px}
+/* Fit the entire selector; discoveries open separately instead of growing it. */
+.navigation .bleach-drawer{max-height:none;overflow:visible;padding:12px}
+.navigation .bleach-drawer .soul-controls{gap:6px;margin-bottom:6px}
+.navigation .character-card-top{padding-bottom:4px}
+.navigation .character-stage{min-height:110px}.navigation .character-art{width:110px;height:110px}
+.navigation .character-card-name{font-size:23px;margin:2px 0 4px}
+.navigation .character-roster{padding:6px 0;gap:3px}
+.navigation .bleach-drawer>p{margin:6px 0;font-size:10px}
+.navigation .bleach-drawer .character-discover-link{display:block;width:100%;margin:4px 0 0;padding:7px 0;border:0;border-top:1px solid var(--line);border-radius:0;font-size:11px;text-align:left;color:var(--muted)}
+.character-discoveries{padding:24px;max-width:440px;line-height:1.8}.character-discoveries h2{font-size:22px}.character-discoveries ul{list-style:none;padding:0}.character-discoveries button{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:6px;padding:6px 10px;margin:8px 8px 0 0;cursor:pointer}
+@media(max-height:620px) and (min-width:540px){
+ .navigation .bleach-drawer{position:fixed;top:50%;left:50%;right:auto;transform:translate(-50%,-50%);width:min(580px,calc(100vw - 40px))}
+ .navigation .bleach-drawer .soul-controls{grid-template-columns:1fr 1fr;align-items:center;column-gap:16px}
+ .navigation .character-card{grid-row:1/3}.navigation .character-roster{grid-column:2;grid-template-columns:repeat(4,1fr)}
+ .navigation .soul-controls .soul-toggle{grid-column:2;grid-row:2}
+}
+@media(max-height:620px) and (max-width:539px){
+ .navigation .bleach-drawer{position:fixed;top:50%;left:50%;right:auto;transform:translate(-50%,-50%)}
+ .navigation .character-stage{min-height:70px}.navigation .character-art{width:70px;height:70px}
+ .navigation .bleach-drawer>p{display:none}
+}
