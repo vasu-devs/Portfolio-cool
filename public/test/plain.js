@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=attack-press-25';
+import './soul-cursor.js?v=walk-home-28';
 
 function showPage() {
   const id = location.hash.slice(1);

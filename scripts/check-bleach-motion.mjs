@@ -31,19 +31,40 @@ for(const [id,entry] of Object.entries(roster)){
  if(id==='renji'&&!entry.spriteEffect)assert.match(rendered[0],/m15 82 12-22v22/);
 }
 console.log('PASS: all '+Object.keys(roster).length+' assets, run layouts and original/new effect routing');
-const settleSource=source.slice(source.indexOf('function settleInCorner('),source.indexOf("document.documentElement.addEventListener('pointerleave'"));
-const visible=new Set();
+// Exercise actual return, movement and rest code with a controlled frame clock.
+const frames=new Map(),lifecycleHandlers={};let frameId=0;
 const lifecycle=vm.createContext({
- ready:true,enabled:true,supported:()=>true,seen:false,parking:false,
- clear(){visible.clear();},corner:()=>({x:34,y:706}),draw(){},rest(){},
- host:{classList:{add:name=>visible.add(name)}}
+ ready:true,enabled:true,supported:()=>true,active:()=>!lifecycle.hidden,hidden:false,
+ seen:true,parking:false,greeting:false,hovering:false,frame:0,lastTime:0,
+ x:330,y:180,tx:400,ty:200,speed:0,stride:0,state:'run',facing:1,idleTimer:0,
+ character:'ichigo',roster,innerWidth:1280,innerHeight:720,
+ clear(){frames.clear();lifecycle.frame=0;lifecycle.speed=0;lifecycle.hovering=false;lifecycle.state='rest';},
+ draw(){},pose(next){lifecycle.state=next;},cell(){},clearTimeout(){},setTimeout(){return 1;},
+ requestAnimationFrame(fn){frames.set(++frameId,fn);return frameId;},
+ host:{classList:{add(){},contains(){return false;}}},
+ document:{documentElement:{addEventListener(t,fn){lifecycleHandlers[t]=fn;}},addEventListener(t,fn){lifecycleHandlers[t]=fn;}},
+ window:{addEventListener(t,fn){lifecycleHandlers[t]=fn;}},finePointer:{addEventListener(){}},calm:{addEventListener(){}}
 });
-vm.runInContext(settleSource,lifecycle);
-lifecycle.settleInCorner();
-assert.equal(lifecycle.seen,true);
-assert.equal(lifecycle.parking,true);
-assert.equal(lifecycle.x,34);assert.equal(lifecycle.y,706);
-assert.ok(visible.has('is-visible'));
-lifecycle.settleInCorner();
-assert.ok(visible.has('is-visible'));
-console.log('PASS: leaving the page settles visibly without animation frames');
+vm.runInContext(source.slice(source.indexOf('function rest()'),source.indexOf('function park()')),lifecycle);
+vm.runInContext(source.slice(source.indexOf('function wake()'),source.indexOf('function clear()')),lifecycle);
+vm.runInContext(source.slice(source.indexOf('function returnToCorner()'),source.indexOf('label();loadCharacter(character);')),lifecycle);
+let clock=0;
+function step(){clock+=16;const batch=[...frames.values()];frames.clear();for(const fn of batch)fn(clock);}
+for(const event of ['pointerleave','blur']){
+ lifecycle.x=330;lifecycle.y=180;
+ lifecycleHandlers[event]();
+ assert.equal(lifecycle.x,330,event+' must preserve x');assert.equal(lifecycle.y,180,event+' must preserve y');
+ step();assert.equal(lifecycle.state,'run');assert.ok(lifecycle.y>180 && lifecycle.y<684);
+ lifecycle.rest();assert.equal(lifecycle.state,'rest','interruption mid-return cannot sit');
+ for(let i=0;i<800 && frames.size;i++)step();
+ assert.equal(lifecycle.state,'sit');assert.ok(Math.hypot(lifecycle.x-34,lifecycle.y-684)<=.5);
+ assert.equal(frames.size,0,'arrival stops frame loop');
+}
+lifecycle.x=400;lifecycle.y=200;lifecycle.hidden=true;lifecycleHandlers.visibilitychange();
+assert.equal(lifecycle.x,400);assert.equal(lifecycle.y,200);assert.equal(frames.size,0);
+lifecycle.hidden=false;lifecycleHandlers.visibilitychange();step();assert.equal(lifecycle.state,'run');
+// Re-entry changes the target as the pointer handler does, interrupting the return.
+lifecycle.parking=false;lifecycle.tx=700;lifecycle.ty=200;
+for(let i=0;i<800 && frames.size;i++)step();
+assert.equal(lifecycle.state,'rest');assert.ok(lifecycle.x>600);
+console.log('PASS: walk home on leave/blur, sit only on arrival, hidden-tab resume, pointer re-entry');

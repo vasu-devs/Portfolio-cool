@@ -104,7 +104,7 @@ function draw() {
 }
 function rest() {
  speed=0; clearTimeout(idleTimer);
- if(parking) {
+ if(parking && Math.hypot(tx-x,ty-y)<=.5) {
   pose('sit');
   idleTimer=setTimeout(()=>{if(active() && parking && !greeting) pose('sleep');},4500);
  } else pose('rest');
@@ -215,27 +215,24 @@ toggle.addEventListener('click', () => {
  enabled=!enabled; clear(); label();if(active()){seen=true;host.classList.add("is-visible");characterEntrance(host,character).then(()=>{if(active())park();});}
  try { localStorage.setItem('vasu-soul-cursor',enabled?'on':'off'); } catch {}
 });
-// Leaving the browser must never dismiss the companion. Settle synchronously:
- // animation frames may stop as soon as the browser loses focus.
-function settleInCorner() {
+// Return through the movement loop. Hidden tabs pause at their current position
+// and resume on visibility; lifecycle events never teleport the companion.
+function returnToCorner() {
  if(!ready || !enabled || !supported())return;
  clear();
  seen=true;parking=true;
- const home=corner();x=tx=home.x;y=ty=home.y;
- draw();host.classList.add('is-visible');rest();
+ const home=corner();tx=home.x;ty=home.y;
+ draw();host.classList.add('is-visible');wake();
 }
-document.documentElement.addEventListener('pointerleave',settleInCorner);
-window.addEventListener('blur',settleInCorner);
+document.documentElement.addEventListener('pointerleave',returnToCorner);
+window.addEventListener('blur',returnToCorner);
 window.addEventListener('resize',()=>{
- draw();if(parking)settleInCorner();
+ draw();if(parking)returnToCorner();
 },{passive:true});
-window.addEventListener('pagehide',settleInCorner);
-window.addEventListener('pageshow',()=>{if(ready && enabled && supported())settleInCorner();});
-document.addEventListener('visibilitychange',()=>{
- if(document.hidden){settleInCorner();clearTimeout(idleTimer);pose('sleep');}
- else if(ready && enabled && supported())settleInCorner();
-});
+window.addEventListener('pagehide',returnToCorner);
+window.addEventListener('pageshow',returnToCorner);
+document.addEventListener('visibilitychange',returnToCorner);
 for(const query of [finePointer,calm])query.addEventListener('change',()=>{
- label();if(supported() && enabled)settleInCorner();else clear();
+ label();if(supported() && enabled)returnToCorner();else clear();
 });
 label();loadCharacter(character);
