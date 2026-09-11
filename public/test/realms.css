@@ -348,3 +348,22 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 /* Balance the wordmark with a closer face crop at profile size. */
 .identity{gap:22px}.identity .portrait-frame{width:104px;height:104px;border-radius:22px;overflow:hidden;flex-shrink:0}.identity .avatar-slide{transform:scale(1.18);transform-origin:50% 30%}.identity h1{margin-bottom:8px}
 @media(max-width:600px){.identity{gap:16px}.identity .portrait-frame{width:88px;height:88px;border-radius:18px}.identity h1{font-size:clamp(25px,6.5vw,34px)}}
+/* Paired shoji screens, timber lintel and projecting threshold. */
+.bleach-entrance.senkaimon{width:112px;height:90px;left:-56px;top:-59px;border:3px solid #403d35;border-top-width:6px;background:#fffef2;overflow:visible;box-shadow:inset 0 0 0 2px #a49b80,0 3px 5px #0005;animation:senkaimon-presence 1.6s ease both;isolation:isolate}
+.senkaimon .gate-light{inset:0;background:linear-gradient(90deg,#dae7de,#fffef5 35% 65%,#dae7de);box-shadow:0 0 15px 3px #eafaff66;animation:senkaimon-light 1.6s ease both;z-index:-1}
+.senkaimon .gate-door{top:0;bottom:0;width:50%;box-sizing:border-box;border:2px solid #524e42;background:repeating-linear-gradient(0deg,transparent 0 15px,#797360 15px 17px),repeating-linear-gradient(90deg,#e5e2cf 0 15px,#797360 15px 17px);box-shadow:inset 0 0 0 1px #c2baa1,1px 0 2px #0005;animation-duration:1.6s;animation-timing-function:cubic-bezier(.4,0,.2,1)}
+.senkaimon .gate-left{animation-name:senkaimon-left}.senkaimon .gate-right{animation-name:senkaimon-right}
+.senkaimon .gate-door::after{content:"";position:absolute;bottom:6px;top:65%;left:3px;right:3px;background:linear-gradient(90deg,#aaa58e,#cbc5aa);border:1px solid #77725e}
+.senkaimon .gate-lintel{position:absolute;left:-9px;right:-9px;top:-11px;height:7px;background:#655f4c;border-top:2px solid #c0b89e;border-bottom:2px solid #332f29;box-shadow:0 2px 2px #0004}
+.senkaimon .gate-threshold{position:absolute;left:-9px;right:-9px;bottom:-7px;height:6px;background:#a7a18b;border-bottom:3px solid #4b483c;transform:skewX(-12deg)}
+@keyframes senkaimon-left{0%,10%,94%,100%{transform:translateX(0)}35%,73%{transform:translateX(-60%)}}
+@keyframes senkaimon-right{0%,10%,94%,100%{transform:translateX(0)}35%,73%{transform:translateX(60%)}}
+@keyframes senkaimon-presence{0%{opacity:0;scale:.92}10%,90%{opacity:1;scale:1}100%{opacity:0;scale:1}}
+@keyframes senkaimon-light{0%,10%,96%,100%{opacity:0}32%,73%{opacity:1}}
+.bleach-entrance.garganta{width:110px;height:85px;left:-55px;top:-50px;background:#030307;border:0;filter:drop-shadow(0 0 2px #d8e6f0);animation:garganta-rift 1.6s ease both;clip-path:polygon(0 48%,15% 32%,24% 39%,36% 14%,48% 28%,60% 5%,68% 31%,83% 24%,100% 49%,88% 65%,73% 60%,63% 87%,50% 74%,39% 96%,27% 69%,14% 77%)}
+@keyframes garganta-rift{0%,100%{opacity:0;scale:1 .02}20%,78%{opacity:1;scale:1 1}}
+.bleach-entrance.quincy-step{animation-duration:1.6s}
+@media(prefers-reduced-motion:reduce){.bleach-entrance.senkaimon,.bleach-entrance.garganta,.senkaimon .gate-door,.senkaimon .gate-light{animation:none}.senkaimon .gate-left{transform:translateX(-60%)}.senkaimon .gate-right{transform:translateX(60%)}}
+.soul-cursor.is-entering[data-state=rest] .soul-character{animation:senkaimon-step 1.6s ease both}
+@keyframes senkaimon-step{0%,20%{translate:0 -5px;filter:drop-shadow(0 0 3px #fff)}50%,100%{translate:0 0;filter:drop-shadow(0 1px 1px #0005)}}
+@media(prefers-reduced-motion:reduce){.soul-cursor.is-entering[data-state=rest] .soul-character{animation:none}}

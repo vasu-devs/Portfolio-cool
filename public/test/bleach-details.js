@@ -33,8 +33,8 @@ export function mountBleachDetails(controls){
 }
 export function characterEntrance(host,id){
  host.querySelector('.bleach-entrance')?.remove();
- const gate=document.createElement('span');gate.className='bleach-entrance '+(id==='grimmjow'?'garganta':id==='uryu'||id==='yhwach'?'quincy-step':'senkaimon');gate.setAttribute('aria-hidden','true');gate.innerHTML='<i class="gate-light"></i><i class="gate-door gate-left"></i><i class="gate-door gate-right"></i>';host.append(gate);host.classList.add('is-entering');discover('gate');
- return new Promise(resolve=>setTimeout(()=>{const current=host.querySelector('.bleach-entrance')===gate;gate.remove();if(current)host.classList.remove('is-entering');resolve();},1000));
+ const gate=document.createElement('span');gate.className='bleach-entrance '+(id==='grimmjow'?'garganta':id==='uryu'||id==='yhwach'?'quincy-step':'senkaimon');gate.setAttribute('aria-hidden','true');gate.innerHTML='<i class="gate-light"></i><i class="gate-lintel"></i><i class="gate-threshold"></i><i class="gate-door gate-left"></i><i class="gate-door gate-right"></i>';host.append(gate);host.classList.add('is-entering');discover('gate');
+ return new Promise(resolve=>setTimeout(()=>{const current=host.querySelector('.bleach-entrance')===gate;gate.remove();if(current)host.classList.remove('is-entering');resolve();},1600));
 }
 export function idleDetail(host,id){
  host.querySelector('.bleach-idle-detail')?.remove();const detail=document.createElement('span');detail.className='bleach-idle-detail';detail.setAttribute('aria-hidden','true');
