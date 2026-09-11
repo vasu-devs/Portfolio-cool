@@ -18,12 +18,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 :root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(5,18,31,.18),rgba(5,18,31,.72) 28%,rgba(5,18,31,.72) 68%,rgba(5,18,31,.06)),linear-gradient(0deg,rgba(3,5,9,.25),transparent 45%)}
 @media(max-width:860px){:root:not([data-theme=light]) body::before{background-position:right center}:root:not([data-theme=light]) body::after{background:linear-gradient(180deg,rgba(5,18,31,.18),rgba(5,18,31,.48) 45%,rgba(5,18,31,.80))}}
 @media print{body::before,body::after{display:none}}
-:root:not([data-theme=light]) .theme-toggle{background:rgba(3,5,9,.85)}
+
 
 /* Seireitei daylight counterpart. Keep the center bright enough for slate text. */
 :root[data-theme=light] body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:#e9f1f4 url('./backgrounds/seireitei-day-v1.webp') center center/cover no-repeat}
 :root[data-theme=light] body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(244,243,237,.25),rgba(244,243,237,.85) 28%,rgba(244,243,237,.85) 68%,rgba(244,243,237,.16))}
-:root[data-theme=light] .theme-toggle{background:rgba(244,243,237,.9)}
+
 @media(max-width:860px){:root[data-theme=light] body::before{background-position:76% center}:root[data-theme=light] body::after{background:linear-gradient(180deg,rgba(244,243,237,.60),rgba(244,243,237,.76) 45%,rgba(244,243,237,.90))}}
 @media print{body::before,body::after{display:none}}
 
