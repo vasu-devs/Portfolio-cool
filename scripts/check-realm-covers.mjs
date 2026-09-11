@@ -11,7 +11,7 @@ try{
   await page.getByRole('button',{name:`Switch to ${theme} mode`,exact:true}).click();
   const realm=theme==='light'?'seireitei':'hueco';
   const covers=page.locator(`[data-cover-realm="${realm}"]`);
-  assert.equal(await covers.count(),5);
+  assert.equal(await covers.count(),6);
   for(const cover of await covers.all()){
    await cover.scrollIntoViewIfNeeded();await cover.evaluate(img=>img.decode());
    assert.equal(await cover.evaluate(img=>getComputedStyle(img).opacity),'1');
@@ -20,7 +20,12 @@ try{
   await page.locator('#video-title').scrollIntoViewIfNeeded();
   if(process.env.COVER_SCREENSHOTS)await page.screenshot({path:`${process.env.COVER_SCREENSHOTS}/${theme}.png`});
  }
+ await page.locator('.video-link').last().click();
+ await page.locator('.detail-modal[open]').waitFor();
+ assert.ok((await page.locator('#detail-title').textContent()).includes('JustHireMe'));
+ await page.getByRole('button',{name:'Close details',exact:true}).click();
+ await page.locator('.navigation a[data-page=home]').click();
  await page.locator('.video-link').first().click();
  assert.equal(await page.locator('.film-modal[open] iframe').count(),1);
- console.log('PASS: all ten covers load, correct realm artwork across repeated switches, video modal still opens');
+ console.log('PASS: all twelve covers load, correct realm artwork across repeated switches, video modal still opens');
 }finally{await browser.close();}

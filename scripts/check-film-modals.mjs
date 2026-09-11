@@ -16,7 +16,7 @@ assert.ok(!js.includes('?autoplay=1'),'Playback requires user input');
 console.log('PASS: all five film descriptions, external fallback and player cleanup');
 
 assert.equal((html.match(/class="archive-open"/g)||[]).length,39,'Every archive title opens its case study');
-assert.equal((html.match(/class="project-cover"/g)||[]).length,10,'Each demo card has two realm artworks');
+assert.equal((html.match(/class="project-cover"/g)||[]).length,12,'Six project cards each have two realm artworks');
 assert.ok(!html.includes('class="video-play"'),'No generic play badges');
 console.log('PASS: all 39 archive title actions and five project cover cards');
 
