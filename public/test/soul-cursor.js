@@ -1,6 +1,6 @@
 import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=gates-61';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
-import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=likeness-24';
+import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=attacks-63';
 import {roster} from './bleach-roster.js?v=sizes-62';
 // A small, optional cursor companion. Only movement or a slash schedules frames.
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');

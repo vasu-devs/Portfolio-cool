@@ -3,14 +3,16 @@ export const effectSpecs={
  uryu:[150,360,180],orihime:[140,640,0,'local'],chad:[140,380,24],urahara:[160,430,100],yoruichi:[112,400,0,'local'],byakuya:[170,540,70],toshiro:[185,540,100],kenpachi:[155,360,0,'local'],shunsui:[135,480,0,'target'],aizen:[155,680,0,'target'],yhwach:[150,380,0,'local'],grimmjow:[180,480,85],'ichigo-tybw':[170,460,100]
 };
 export const effectCharacters=Object.keys(effectSpecs);
-const loaded=new Map();
+const loaded=new Map(), decoded=new Set();
 export function preloadCharacterEffect(id){
  if(!effectSpecs[id])return Promise.resolve();
- if(!loaded.has(id)){const image=new Image();image.src=`./sprites/effects/${id}.webp?v=18`;loaded.set(id,image.decode().catch(()=>{loaded.delete(id);}));}
+ if(!loaded.has(id)){const image=new Image();image.src=`./sprites/effects/${id}.webp?v=18`;loaded.set(id,image.decode().then(()=>{decoded.add(id);}).catch(()=>{loaded.delete(id);}));}
  return loaded.get(id);
 }
 export function launchCharacterEffect({character,field,x,y,targetX,targetY,slashes}){
  const spec=effectSpecs[character];if(!spec)return false;
+ // Never claim an invisible, undecoded image as a successful effect.
+ if(!decoded.has(character)){void preloadCharacterEffect(character);return false;}
  const [baseSize,duration,reach,mode]=spec,dx=targetX-x,dy=targetY-y,distance=Math.hypot(dx,dy),ux=distance?dx/distance:1,uy=distance?dy/distance:0;
  const width=field.clientWidth||innerWidth,height=field.clientHeight||innerHeight;
  const size=Math.min(Math.round(baseSize*.6),width-8,height-8);

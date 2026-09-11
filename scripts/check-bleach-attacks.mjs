@@ -12,12 +12,15 @@ events=[];queue.push('first');for(let i=0;i<100;i++)queue.push(i);advance(2000);
 assert.deepEqual(events.filter(e=>e[0]==='release').map(e=>e[1]),['first',0,1,99]);assert.equal(timers.size,0);
 events=[];queue.push('cancelled');queue.push('also cancelled');queue.cancel();advance(1000);assert.equal(events.filter(e=>e[0]==='release').length,0);
 queue.push('after switch');advance(400);assert.deepEqual(events.filter(e=>e[0]==='release').map(e=>e[1]),['after switch']);
-const {effectCharacters,launchCharacterEffect}=await load('public/test/bleach-effects.js');
+const {effectCharacters,launchCharacterEffect,preloadCharacterEffect}=await load('public/test/bleach-effects.js');
 const roster=JSON.parse(readFileSync('public/test/bleach-roster.js','utf8').replace(/^export const roster = /,'').replace(/;\s*$/,''));
 assert.deepEqual(effectCharacters.sort(),Object.keys(roster).filter(id=>roster[id].spriteEffect).sort());
 let rendered=[];globalThis.innerWidth=1280;globalThis.innerHeight=720;
 globalThis.document={createElement:()=>({style:{},dataset:{},innerHTML:'',animate(frames,options){rendered.push({art:this.style.backgroundImage,frames,options});return {finished:Promise.resolve(),cancel(){}};},remove(){}})};
+globalThis.Image=class {decode(){return Promise.resolve();}};
 const slashes=new Set();
+assert.equal(launchCharacterEffect({character:"ichigo"}),false,"cold images must use visible fallback");
+await Promise.all(effectCharacters.map(preloadCharacterEffect));
 for(const character of effectCharacters){assert.equal(launchCharacterEffect({character,field:{append(){}},x:100,y:300,targetX:450,targetY:320,slashes}),true);assert.ok(slashes.size<=12);}
 assert.equal(new Set(rendered.map(r=>r.art)).size,16);assert.ok(rendered.every(r=>r.options.duration>=360 && r.options.duration<=680));
 for(const effect of rendered.filter(r=>r.frames[0].backgroundPosition)){
