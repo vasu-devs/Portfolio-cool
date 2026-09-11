@@ -60,11 +60,6 @@ const avatarPause = document.querySelector('.avatar-pause');
 let preferredAvatar='';
 try {preferredAvatar=localStorage.getItem('vasu-tybw-avatar')||'';}catch{}
 avatar.dataset.portraitMode=['seireitei','hueco'].includes(preferredAvatar)?preferredAvatar:'theme';
-avatar.replaceChildren(...['seireitei','hueco'].map(id=>{
- const img=document.createElement('img');img.className='avatar-slide';img.dataset.realm=id;
- img.width=112;img.height=112;img.alt=`Vasudev — ${id==='seireitei'?'Seireitei daylight':'Hueco Mundo moonlight'} anime portrait`;
- img.src=`/test/avatars/vasu-${id}-v2.png`;return img;
-}));
 avatarPause.hidden=true;
 
 
@@ -145,7 +140,7 @@ filmDialog.addEventListener('click',event=>{if(event.target!==filmDialog)return;
 filmDialog.addEventListener('close',()=>{filmDialog.querySelector('.film-player').replaceChildren();document.documentElement.classList.remove('film-open');filmOpener?.focus({preventScroll:true});});
 
 // Navigation belongs to the viewport, outside the content stacking context.
-const bottomNavigation=document.querySelector('.navigation');document.body.append(bottomNavigation);
+const bottomNavigation=document.querySelector('.navigation');
 for(const close of document.querySelectorAll('[aria-label="Close details"],[aria-label="Close video"],[data-resume-close]')){close.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';}
 
 for(const button of document.querySelectorAll('.archive-open'))button.addEventListener('click',()=>openDetail(button.closest('.archive-item').querySelector('.archive-detail')));

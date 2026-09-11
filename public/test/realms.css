@@ -303,7 +303,7 @@ html:not([data-theme="light"]) .realm-covers [data-cover-realm="hueco"],html[dat
 @media(prefers-reduced-motion:reduce){.video-link .realm-covers .project-cover{transition:none}}
 
 /* The wordmark carries the anime lettering; content uses a quieter hierarchy. */
-@font-face{font-family:Bleach Display;src:url('./fonts/bleach-display.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Bleach Display;src:url('./fonts/bleach-display.ttf') format('truetype');font-weight:400;font-style:normal;font-display:block}
 @font-face{font-family:Barlow Condensed;src:url('./fonts/barlow-condensed-semibold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
 .identity h1{font-family:Bleach Display,'Arial Narrow',sans-serif;font-weight:400;font-size:clamp(34px,5.4vw,52px);letter-spacing:.015em;line-height:1.2;text-transform:uppercase}
 #projects>h1,.work-breadth>h2,.video-work>h2,.work-archive>h2,.bench h2,.experience>h2,.resume-toolbar h2,.character-card-name,.resume-content>h2,.resume-content header>h2{font-family:Barlow Condensed,'Arial Narrow',sans-serif;font-weight:600;font-style:normal;letter-spacing:.015em;line-height:1.15;text-transform:none}
