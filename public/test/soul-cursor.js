@@ -133,8 +133,9 @@ function hello() {
  event.stopPropagation();
  // Lock position for the entire press so a moving sprite cannot escape its click.
  hovering=true;cancelAnimationFrame(frame);frame=0;
+ requestAttack(x+facing*120,y);
 });
- hit.addEventListener('click',event=>{event.stopPropagation();requestAttack(x+facing*120,y);});
+ hit.addEventListener('click',event=>{event.stopPropagation();if(event.detail===0)requestAttack(x+facing*120,y);});
 function wake() {
  if (!host.classList.contains('is-entering') && !frame && state !== 'attack' && !greeting && !hovering && active() && seen) { lastTime = 0; frame = requestAnimationFrame(tick); }
 }
@@ -196,10 +197,14 @@ function fire(targetX,targetY) {
  animation.finished.then(cleanup,cleanup);
 }
 
-document.addEventListener('click', event => {
+// Fire on press: dragging or chasing a moving target can suppress a browser click.
+function pageAttack(event) {
  if (!pageAttacksEnabled() || event.button!==0 || event.target.closest('input,textarea,select,[contenteditable="true"],.soul-controls,.soul-hit,.bleach-menu,.bleach-story,.secret-dot,.theme-toggle')) return;
  requestAttack(event.clientX,event.clientY);
-},{passive:true,capture:true});
+}
+document.addEventListener('pointerdown',pageAttack,{passive:true,capture:true});
+// Keyboard/assistive activation has no pointerdown. Ignore mouse clicks to avoid duplicates.
+document.addEventListener('click',event=>{if(event.detail===0)pageAttack(event);},{passive:true,capture:true});
 function requestAttack(targetX,targetY){
  if(!active())return;
  if(!seen){seen=true;draw();host.classList.add('is-visible');}

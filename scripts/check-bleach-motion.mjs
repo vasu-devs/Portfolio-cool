@@ -17,7 +17,7 @@ for(const [id,entry] of Object.entries(roster)) {
  assert.equal(context.sprite.style.backgroundSize,entry.run?'200% 200%':'300% 300%',id+' run layout');
  if(!entry.run)assert.match(context.sprite.style.backgroundImage,/atlas.webp/);
 }
-const fireSource=source.slice(source.indexOf('function fire('),source.indexOf("document.addEventListener('click'"));
+const fireSource=source.slice(source.indexOf('function fire('),source.indexOf("// Fire on press:"));
 let rendered=[];
 const effects=vm.createContext({roster,x:50,y:50,facing:1,slashes:new Set(),
  document:{createElement:()=>({style:{},innerHTML:'',animate(){rendered.push(this.innerHTML);return {finished:Promise.resolve()};},remove(){}})},

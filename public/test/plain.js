@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=likeness-24';
+import './soul-cursor.js?v=attack-press-25';
 
 function showPage() {
   const id = location.hash.slice(1);
