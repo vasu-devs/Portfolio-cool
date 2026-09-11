@@ -152,3 +152,28 @@ if(buildTrack){
  previous.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
  nav.append(previous,count,next);buildTrack.after(nav);buildTrack.addEventListener('scroll',update,{passive:true});update();
 }
+
+// Share the main portfolio's counters and visitor identity; never invent numbers.
+const traffic=document.querySelector('.traffic-stats');
+if(traffic){
+ let tracked=false,busy=false,timer;
+ const local=['localhost','127.0.0.1'].includes(location.hostname);
+ async function refreshTraffic(){
+  if(document.hidden||busy)return;busy=true;
+  const trackView=!tracked&&!local;let trackUnique=false;
+  try{trackUnique=trackView&&localStorage.getItem('portfolio:traffic:unique-tracked')!=='1';}catch{}
+  // A failed response may still have counted: retries are read-only.
+  tracked=true;
+  try{
+   const response=await fetch('/api/traffic',{method:'POST',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify({trackView,trackUnique}),signal:AbortSignal.timeout(8000)});
+   if(!response.ok)throw Error('Traffic unavailable');const stats=await response.json();
+   if(!['totalViews','uniqueVisitors','activeNow'].every(k=>Number.isFinite(stats[k])&&stats[k]>=0))throw Error('Invalid traffic data');
+   for(const node of traffic.querySelectorAll('[data-traffic]'))node.textContent=stats[node.dataset.traffic].toLocaleString();
+   traffic.querySelector('.traffic-status').textContent='Portfolio activity';
+   if(trackUnique)try{localStorage.setItem('portfolio:traffic:unique-tracked','1');}catch{}
+  }catch{traffic.querySelector('.traffic-status').textContent=local?'Activity counts available on the live site':'Activity temporarily unavailable';}
+  finally{busy=false;}
+ }
+ const schedule=()=>{clearInterval(timer);if(!document.hidden){void refreshTraffic();timer=setInterval(refreshTraffic,60000);}};
+ document.addEventListener('visibilitychange',schedule);window.addEventListener('pagehide',()=>clearInterval(timer));schedule();
+}
