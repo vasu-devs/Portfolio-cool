@@ -203,9 +203,9 @@ body>.layout,body>main{position:relative;z-index:1}
  .navigation .bleach-drawer>p{display:none}
 }
 /* Character overlays share the realm's glass, including the reference note. */
-:root{--character-glass:rgba(7,24,39,.62)}
-:root[data-theme=light]{--character-glass:rgba(237,245,240,.58)}
-.navigation .bleach-drawer,.character-discoveries,.bleach-story{background:var(--character-glass);color:var(--ink);border:1px solid var(--modal-edge);backdrop-filter:blur(18px) saturate(115%);-webkit-backdrop-filter:blur(18px) saturate(115%);box-shadow:0 20px 60px #0003,inset 0 1px 0 #ffffff24}
+:root{--character-glass:rgba(7,24,39,.38)}
+:root[data-theme=light]{--character-glass:rgba(237,245,240,.30)}
+.navigation .bleach-drawer,.character-discoveries,.bleach-story{background:var(--character-glass);color:var(--ink);border:1px solid var(--modal-edge);backdrop-filter:blur(24px) saturate(125%);-webkit-backdrop-filter:blur(24px) saturate(125%);box-shadow:0 20px 60px #0003,inset 0 1px 0 #ffffff24}
 .character-discoveries::backdrop,.bleach-story::backdrop{background:var(--modal-shade)}
 .bleach-story h2,.character-discoveries h2{color:var(--bright)}
 .bleach-story small{opacity:1;color:var(--muted)}
