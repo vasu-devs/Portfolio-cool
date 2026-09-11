@@ -79,7 +79,7 @@ a:focus-visible,summary:focus-visible,button:focus-visible{outline-color:var(--a
 .soul-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}.soul-controls[hidden]{display:none}
 .soul-toggle{padding:5px 0;border:0;background:none;color:var(--muted);font:inherit;font-size:12px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
 .soul-controls select{border:1px solid var(--line);border-radius:6px;background:var(--page);color:var(--ink);font-family:inherit;font-size:12px;padding:6px 8px;min-height:32px}
-@media(prefers-reduced-motion:reduce),(pointer:coarse){.soul-cursor,.getsuga-field{display:none}}
+@media(prefers-reduced-motion:reduce){.soul-cursor,.getsuga-field{display:none}}
 
 .zabimaru-extension{position:absolute;height:24px;margin-top:-12px;transform-origin:0 50%;pointer-events:none}.zabimaru-extension svg{display:block;width:100%;height:100%}
 

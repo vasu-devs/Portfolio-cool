@@ -6,13 +6,14 @@ const source=readFileSync('public/test/soul-cursor.js','utf8');
 const handlers={},shots=[],cancelled=[];let now=0,nextId=0,timers=new Map();
 const setTimer=(fn,ms)=>{const id=++nextId;timers.set(id,{fn,at:now+ms});return id;};
 function advance(ms){const end=now+ms;for(;;){const first=[...timers].sort((a,b)=>a[1].at-b[1].at)[0];if(!first||first[1].at>end)break;timers.delete(first[0]);now=first[1].at;first[1].fn();}now=end;}
-const scope=vm.createContext({createAttackQueue:options=>createAttackQueue({...options,setTimer,clearTimer:id=>timers.delete(id)}),pageAttacksEnabled:()=>true,active:()=>true,seen:true,greeting:false,frame:42,state:'run',idleTimer:0,reactionTimer:0,speed:190,parking:false,facing:1,x:50,y:80,tx:1000,ty:600,innerWidth:1280,innerHeight:720,
+let entranceEnds=0;
+const scope=vm.createContext({ready:true,finishEntrance(){entranceEnds++;},createAttackQueue:options=>createAttackQueue({...options,setTimer,clearTimer:id=>timers.delete(id)}),pageAttacksEnabled:()=>true,active:()=>true,seen:true,greeting:false,frame:42,state:'run',idleTimer:0,reactionTimer:0,speed:190,parking:false,facing:1,x:50,y:80,tx:1000,ty:600,innerWidth:1280,innerHeight:720,
  cancelAnimationFrame:id=>cancelled.push(id),clearTimeout(){},setTimeout:setTimer,draw(){},pose(next){scope.state=next;},attackCell(){},fire(x,y){shots.push({x,y});},rest(){scope.state='rest';},armPark(){},wake(){},host:{classList:{add(){}}},greetingTimer:0,reply:{textContent:''},document:{querySelector:()=>null,addEventListener(type,fn,options){handlers[type]=fn;assert.equal(options.capture,true);}}});
 vm.runInContext(source.slice(source.indexOf('const attackQueue='),source.indexOf('function label()')),scope);
 vm.runInContext(source.slice(source.indexOf('function pageAttack('),source.indexOf("toggle.addEventListener('click'")),scope);
 const event={button:0,detail:1,clientX:400,clientY:300,target:{closest:()=>false}};
 handlers.pointerdown(event);
-assert.equal(scope.state,'attack');assert.equal(scope.frame,0);assert.ok(cancelled.includes(42));assert.equal(scope.speed,0);
+assert.equal(entranceEnds,1,'attack finishes an active entrance before swinging');assert.equal(scope.state,'attack');assert.equal(scope.frame,0);assert.ok(cancelled.includes(42));assert.equal(scope.speed,0);
 // Movement/drag may produce no click at all; the press must still release an attack.
 advance(80);assert.equal(shots.length,1);
 handlers.click(event);advance(300);assert.equal(shots.length,1,'mouse click must not duplicate pointerdown');

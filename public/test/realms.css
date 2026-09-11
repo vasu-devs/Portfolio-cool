@@ -542,3 +542,36 @@ main h2{font-size:24px;font-weight:600;line-height:1.4}
 
 /* Quieter sand framing; retain the complete distant fortress. */
 :root:not([data-theme=light]) body::after{opacity:.72}
+
+/* Seireitei: crop the sky from the building-free left side; keep the city grounded below. */
+:root[data-theme=light] body::before{height:clamp(220px,29vw,400px);background-size:max(128%,1100px) auto;background-position:left top;mask-image:linear-gradient(#000 0%,#0009 40%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#0009 40%,transparent 100%)}
+:root[data-theme=light] body::after{height:max(400px,46vw);background-position:center bottom;mask-image:linear-gradient(transparent 0%,#0008 28%,#000 65%);-webkit-mask-image:linear-gradient(transparent 0%,#0008 28%,#000 65%)}
+
+/* Las Noches frames the right edge of the footer; the approved sky above stays separate. */
+:root:not([data-theme=light]) body::after{height:max(420px,55vw);background-image:linear-gradient(90deg,transparent 0%,#06192466 32%,#06192466 68%,transparent 100%),url('./backgrounds/hueco-mundo-anime-v19.webp');background-size:max(100%,850px) auto;background-position:center bottom;opacity:.82;mask-image:linear-gradient(transparent 0%,#0009 18%,#000 42%);-webkit-mask-image:linear-gradient(transparent 0%,#0009 18%,#000 42%)}
+@media(max-width:600px){:root:not([data-theme=light]) body::after{height:350px;background-size:600px auto;background-position:45% bottom}}
+
+/* Dedicated anime sky matching the lower landscape. */
+:root:not([data-theme=light]) body::before{background-image:url('./backgrounds/hueco-mundo-sky-v23.webp')}
+
+/* Quiet reading panels, with hierarchy supplied by type and spacing. */
+.resume-modal{border-radius:12px;box-shadow:0 18px 65px #0004}
+.detail-modal{width:min(760px,calc(100vw - 32px))}
+.resume-toolbar h2,.contact-dialog h2,.character-card-name{font-family:Manrope,Arial,sans-serif;font-weight:600;text-transform:none;letter-spacing:-.025em;line-height:1.35}
+.resume-toolbar h2{font-size:clamp(20px,2.5vw,26px)}
+.modal-kicker{font:12px/1.5 Manrope,Arial,sans-serif;letter-spacing:0;text-transform:none;margin-bottom:6px}
+.detail-modal .resume-content{padding:24px 28px 32px}
+.case-sections h4,.role-body h4,.resume-content h3{font-family:Manrope,Arial,sans-serif;font-size:16px;font-weight:600;letter-spacing:0;text-transform:none}
+.case-sections h4::before{display:none}
+.case-stack{gap:6px 14px}.case-stack span{background:none;border:0;border-radius:0;padding:0;font-size:12px;color:var(--muted)}
+#projects>h1{font-size:clamp(30px,4vw,40px);font-weight:600;line-height:1.2}
+.video-work>h2,.work-archive>h2{font-family:Manrope,Arial,sans-serif;font-size:26px;font-weight:600;text-transform:none;letter-spacing:-.025em;line-height:1.3}
+@media(max-width:600px){
+ body>.navigation .bleach-drawer{position:fixed;top:auto;bottom:calc(100% + 12px);left:50%;right:auto;transform:translateX(-50%);width:calc(100vw - 32px);max-height:min(70dvh,520px);overflow-y:auto;box-sizing:border-box}
+ body>.navigation .bleach-menu>summary{min-height:44px}
+ .bleach-drawer .character-roster button{height:44px;min-width:44px}
+ .detail-modal .resume-content{padding:20px}.resume-modal .resume-toolbar{padding:18px 20px;gap:12px}
+}
+
+.character-card-top{font-size:11px;letter-spacing:0;text-transform:none}
+@media(max-width:600px){.navigation .bleach-drawer .soul-controls{min-width:0;grid-template-columns:minmax(0,1fr)}.character-roster{grid-template-columns:repeat(6,minmax(0,1fr))}.character-card{min-width:0}.character-stage{min-width:0}}

@@ -1,4 +1,4 @@
-import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=controls-64';
+import {mountBleachDetails,characterEntrance,finishEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=entrance-102';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
 import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=real-attacks-68';
 import {roster} from './bleach-roster.js?v=sizes-62';
@@ -36,7 +36,7 @@ technique.setAttribute('aria-live','polite');
 controls.append(chooserLabel,select,toggle,technique);
 const characterIds=Object.keys(roster);
 const card=document.createElement('div');card.className='character-card';
-card.innerHTML='<div class="character-card-top"><span>SOUL COLLECTION</span><span class="character-count"></span></div><div class="character-stage"><button type="button" class="character-prev" aria-label="Previous character">‹</button><span class="character-art" aria-hidden="true"></span><button type="button" class="character-next" aria-label="Next character">›</button></div><h2 class="character-card-name"></h2>';
+card.innerHTML='<div class="character-card-top"><span>Characters</span><span class="character-count"></span></div><div class="character-stage"><button type="button" class="character-prev" aria-label="Previous character">‹</button><span class="character-art" aria-hidden="true"></span><button type="button" class="character-next" aria-label="Next character">›</button></div><h2 class="character-card-name"></h2>';
 controls.prepend(card);card.append(technique);
 const rosterStrip=document.createElement('div');rosterStrip.className='character-roster';rosterStrip.setAttribute('aria-label','Choose a character');
 for(const id of characterIds){
@@ -123,7 +123,7 @@ let atlasURL="", runURL="";
 let x = 70, y = 140, tx = 70, ty = 140, seen = false, lastTime = 0;
 let state = 'rest', facing = 1;
 const slashes = new Set();
-const supported = () => finePointer.matches && !calm.matches;
+const supported = () => !calm.matches;
 let overlay = null;
 const active = () => !overlay && ready && enabled && supported() && !document.hidden;
 // Open panels own the companion until dismissed. A manual popover puts the
@@ -134,6 +134,7 @@ function openPanel() {
 }
 function dockCompanion() {
  if(!overlay)return;
+ finishEntrance(host);
  clear();
  if(!ready||!enabled||!supported()||document.hidden)return;
  const parent=overlay.tagName==='DIALOG'?overlay:document.body;
@@ -176,6 +177,7 @@ function syncPanel() {
  overlay?.classList.remove('has-docked-preview');
  overlay=next;
  if(overlay){dockCompanion();return;}
+ finishEntrance(host);
  if(host.matches(':popover-open'))host.hidePopover();
  host.removeAttribute('popover');host.classList.remove('is-docked');document.body.append(host);
  returnToCorner();
@@ -198,7 +200,7 @@ function label() {
  technique.title=roster[character].form;
  hit.setAttribute('aria-label',`Greet ${roster[character].name}`);
  toggle.title = 'Reacts to your pointer, rests in a corner, and greets you when clicked. Click elsewhere to attack.';
- toggle.setAttribute('aria-pressed', String(enabled)); controls.hidden = !supported();
+ toggle.setAttribute('aria-pressed', String(enabled)); controls.hidden = false;
 }
 function cell(index, running=false) {
  const key=`${running}:${index}`;
@@ -320,6 +322,8 @@ function requestAttack(targetX,targetY){
  if(!active())return;
  if(!seen){seen=true;draw();host.classList.add('is-visible');}
  clearTimeout(greetingTimer);greeting=false;reply.textContent='';
+ // A swing takes over from arrival; never replay the gate during an attack.
+ finishEntrance(host);
  armPark();attackQueue.push({x:targetX,y:targetY});
 }
 toggle.addEventListener('click', () => {

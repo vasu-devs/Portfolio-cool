@@ -11,3 +11,11 @@ const second=ctx.characterEntrance(host,'grimmjow');assert.match(current.classNa
 timers[0]();await first;assert.equal(entering,true,'old entrance cleanup must not cancel newest entrance');assert.ok(current);
 timers[1]();await second;assert.equal(entering,false);assert.equal(current,null);
 console.log('PASS: Senkaimon/Garganta routing and rapid-switch entrance cleanup');
+
+vm.runInContext(source.slice(source.indexOf('export function finishEntrance'),source.indexOf('export function characterEntrance')).replace('export ',''),ctx);
+const interrupted=ctx.characterEntrance(host,'ichigo');
+ctx.finishEntrance(host);assert.equal(current,null);assert.equal(entering,false);
+const replacement=ctx.characterEntrance(host,'rukia');timers[2]();await interrupted;
+assert.ok(current,'interrupted entrance timer must not clear the next character');
+timers[3]();await replacement;assert.equal(current,null);
+console.log('PASS: interrupted arrival cleans up without cancelling a later entrance');
