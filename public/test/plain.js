@@ -9,7 +9,7 @@ function showPage() {
     if (link.dataset.page === page) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   });
-  if(project?.classList.contains('project')) { project.open = true; requestAnimationFrame(() => project.scrollIntoView({block:'start'})); }
+  if(project?.classList.contains('project')) { requestAnimationFrame(() => {project.dispatchEvent(new CustomEvent('open-detail'));}); }
 }
 window.addEventListener('hashchange', showPage);
 showPage();
@@ -93,3 +93,30 @@ if(resumeModal){
  resumeModal.addEventListener('click',event=>{if(event.target!==resumeModal)return;const r=resumeModal.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)resumeModal.close();});
  resumeModal.addEventListener('close',()=>{document.documentElement.classList.remove('resume-open');resumeOpener?.focus();});
 }
+
+// One shared reading dialog; move the original content to retain its links and state.
+const readingDialog=document.createElement('dialog');
+readingDialog.className='resume-modal detail-modal';
+readingDialog.setAttribute('aria-labelledby','detail-title');
+readingDialog.innerHTML='<div class="resume-toolbar"><span>Read more</span><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><h2 id="detail-title"></h2><div class="detail-body"></div></div>';
+document.body.append(readingDialog);
+let detailSource=null,detailOpener=null,detailNodes=[];
+function openDetail(source){
+ if(readingDialog.open)return;
+ const summary=source.querySelector(':scope > summary');
+ detailSource=source;detailOpener=summary;
+ const title=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector('h3').textContent:source.classList.contains('role')?[...summary.querySelectorAll('h3,.role-name')].map(n=>n.textContent).join(' · '):source.classList.contains('project')?summary.querySelector('h3').textContent:summary.textContent;
+ readingDialog.querySelector('#detail-title').textContent=title.trim();
+ detailNodes=[...source.children].filter(n=>n!==summary);
+ readingDialog.querySelector('.detail-body').append(...detailNodes);
+ source.open=false;readingDialog.showModal();document.documentElement.classList.add('detail-open');
+ readingDialog.scrollTop=0;readingDialog.querySelector('button').focus();
+}
+for(const source of document.querySelectorAll('details.project,details.role,details.background,details.archive-detail')){
+ const summary=source.querySelector(':scope > summary');summary.setAttribute('aria-haspopup','dialog');
+ summary.addEventListener('click',event=>{event.preventDefault();openDetail(source);});
+ source.addEventListener('open-detail',()=>openDetail(source));
+}
+readingDialog.querySelector('button').addEventListener('click',()=>readingDialog.close());
+readingDialog.addEventListener('click',event=>{if(event.target!==readingDialog)return;const r=readingDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)readingDialog.close();});
+readingDialog.addEventListener('close',()=>{detailSource?.append(...detailNodes);detailNodes=[];document.documentElement.classList.remove('detail-open');detailOpener?.focus({preventScroll:true});});

@@ -144,3 +144,10 @@ body>.layout,body>main{position:relative;z-index:1}
 .resume-content h4{margin:16px 0 2px}.resume-content header{margin-bottom:20px}.resume-content a{text-decoration:underline;text-underline-offset:3px}.resume-content ul{padding-left:20px}.resume-content dt{font-weight:600}.resume-content dd{margin:0 0 10px}
 @media(max-width:600px){.resume-content{padding:20px}.resume-toolbar{padding:12px;gap:8px}}
 @media print{html.resume-open{overflow:visible}.resume-open body>*:not(.resume-modal){display:none!important}.resume-open body::before,.resume-open body::after{display:none!important}.resume-modal[open]{position:static;display:block;max-height:none;width:auto;margin:0;border:0;box-shadow:none;background:white;color:black;overflow:visible}.resume-modal .resume-toolbar{display:none}.resume-modal::backdrop{display:none}.resume-content{padding:0}.resume-content h2,.resume-content h3{color:black}}
+
+.detail-open{overflow:hidden}.detail-modal .resume-content>h2{margin-bottom:24px}
+.detail-modal .role-body{padding:0;color:var(--ink);font-size:15px}
+.detail-modal .case-body{padding:0}.detail-modal .case-sections p,.detail-modal .case-sections li{color:var(--ink);font-size:15px}
+.detail-modal .case-sections h4{color:var(--bright)}.detail-modal .detail-body>p{margin:12px 0}
+.detail-modal .detail-body section+section{margin-top:26px}
+.detail-modal dt{margin-top:18px}.detail-modal dd{margin-left:0}
