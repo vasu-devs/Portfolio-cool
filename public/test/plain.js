@@ -63,18 +63,6 @@ avatar.dataset.portraitMode=['seireitei','hueco'].includes(preferredAvatar)?pref
 avatarPause.hidden=true;
 
 
-// Progressive enhancement: every archive entry remains readable without JavaScript.
-const workSearch=document.querySelector('#work-search'),workTrack=document.querySelector('#work-track');
-const workItems=[...document.querySelectorAll('.archive-item')];
-function filterWork(){
- const query=workSearch.value.trim().toLocaleLowerCase(),track=workTrack.value;
- let visible=0;
- for(const item of workItems){const match=(!query||item.textContent.toLocaleLowerCase().includes(query))&&(track==='All tracks'||item.dataset.workCategory===track);item.hidden=!match;if(match)visible++;}
- document.querySelector('#archive-count').textContent=`${visible} of ${workItems.length} projects`;
- document.querySelector('#archive-empty').hidden=visible!==0;
-}
-if(workSearch&&workTrack){workSearch.addEventListener('input',filterWork);workTrack.addEventListener('change',filterWork);filterWork();}
-
 const resumeModal=document.querySelector('.resume-modal');
 if(resumeModal){
  let resumeOpener=null;

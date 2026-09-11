@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import vm from 'node:vm';
 const html=readFileSync('public/test/index.html','utf8');
 const archive=JSON.parse(readFileSync('src/data/work-archive.json','utf8')).items;
 assert.equal(new Set(archive.map(x=>x.name)).size,archive.length);
@@ -9,16 +8,10 @@ assert.equal((html.match(/class="project"/g)||[]).length,12);
 assert.equal((html.match(/class="archive-item"/g)||[]).length,39);
 for(const x of archive.filter(x=>x.url))assert.ok(x.url.startsWith('https://github.com/vasu-devs/'));
 for(const id of ['project-9','project-10','project-11'])assert.ok(html.includes(`id="${id}"`));
-const items=[{textContent:'Voice interviews Socratis',dataset:{workCategory:'Voice & AI'}},{textContent:'MapMyRepo repository graph',dataset:{workCategory:'Developer tools'}}];
-const search={value:''},track={value:'All tracks'},count={},empty={};
-const source=readFileSync('public/test/plain.js','utf8');
-const ctx=vm.createContext({workSearch:search,workTrack:track,workItems:items,document:{querySelector:s=>s==='#archive-count'?count:empty}});
-vm.runInContext(source.slice(source.indexOf('function filterWork(){'),source.indexOf('\nif(workSearch&&workTrack)')),ctx);
-ctx.filterWork();assert.equal(count.textContent,'2 of 2 projects');
-search.value='graph';ctx.filterWork();assert.equal(items[0].hidden,true);assert.equal(items[1].hidden,false);
-track.value='Voice & AI';ctx.filterWork();assert.equal(empty.hidden,false);
-search.value='';track.value='All tracks';ctx.filterWork();assert.equal(empty.hidden,true);
-console.log('PASS: 12 case studies, 39 archive entries, stable links, combined search/track filtering and empty-state recovery');
+assert.ok(!html.includes('id="work-search"'));
+assert.ok(!html.includes('id="work-track"'));
+assert.ok((html.match(/class="archive-category"/g)||[]).length>=4);
+console.log('PASS: 12 case studies, 39 grouped archive entries, no search or filters');
 
 assert.equal((html.match(/class="archive-detail"/g)||[]).length,39,'every archive entry has expandable detail');
 const hero=html.slice(html.indexOf('class="hero-contacts"'),html.indexOf('<p class="secret-message"'));
