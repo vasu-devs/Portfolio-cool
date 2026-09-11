@@ -47,7 +47,7 @@ const lifecycle=vm.createContext({
 });
 vm.runInContext(source.slice(source.indexOf('function rest()'),source.indexOf('function park()')),lifecycle);
 vm.runInContext(source.slice(source.indexOf('function wake()'),source.indexOf('function clear()')),lifecycle);
-vm.runInContext(source.slice(source.indexOf('function returnToCorner()'),source.indexOf('label();loadCharacter(character);')),lifecycle);
+vm.runInContext(source.slice(source.indexOf('function returnToCorner()'),source.indexOf('label();loadCharacter(character,')),lifecycle);
 let clock=0;
 function step(){clock+=16;const batch=[...frames.values()];frames.clear();for(const fn of batch)fn(clock);}
 for(const event of ['pointerleave','blur']){

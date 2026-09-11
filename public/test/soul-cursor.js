@@ -37,17 +37,46 @@ controls.append(chooserLabel,select,toggle,technique);
 mountBleachDetails(controls);
 let character='ichigo', characterRequest=0, ready=false;
 try { const saved=localStorage.getItem('vasu-bleach-character'); if(Object.hasOwn(roster,saved)) character=saved; } catch {}
-async function loadCharacter(id) {
+const characterAssets=new Map();
+function prepareCharacter(id) {
+ if(characterAssets.has(id))return characterAssets.get(id);
+ const image=new Image();image.src=new URL(roster[id].atlas,import.meta.url).href;
+ const run=new Image();if(roster[id].run)run.src=new URL(`./sprites/${id}-run.webp`,import.meta.url).href;
+ const assets={image,run,ready:false};
+ assets.promise=Promise.all([image.decode(),roster[id].run?run.decode():Promise.resolve()])
+  .then(()=>{assets.ready=true;return assets;})
+  .catch(error=>{characterAssets.delete(id);throw error;});
+ characterAssets.set(id,assets);return assets;
+}
+let warming=false;
+async function warmCharacters() {
+ if(warming)return;warming=true;
+ const ids=Object.keys(roster);
+ // Two background loaders keep opening the selector inexpensive.
+ const worker=async()=>{while(ids.length){const id=ids.shift();try{await prepareCharacter(id).promise;}catch{}}};
+ await Promise.all([worker(),worker()]);
+}
+select.addEventListener('pointerenter',warmCharacters,{once:true});
+select.addEventListener('focus',warmCharacters,{once:true});
+async function loadCharacter(id,{entrance=false}={}) {
  if(!Object.hasOwn(roster,id))return;
  const request=++characterRequest;
- const image=new Image(); image.src=new URL(roster[id].atlas,import.meta.url).href;
- const run=new Image(); if(roster[id].run) run.src=new URL(`./sprites/${id}-run.webp`,import.meta.url).href;
- try { await image.decode();await preloadCharacterEffect(id);if(roster[id].run) await run.decode(); } catch { if(request===characterRequest) select.value=character; return; }
- if(request!==characterRequest) return;
- clear(); character=id; atlasURL=image.src;runURL=roster[id].run?run.src:image.src; currentCell=-1; cell(0); ready=true; select.value=id;
- try {localStorage.setItem('vasu-bleach-character',id);} catch {}
- label(); if(active()) {seen=true;host.classList.add("is-visible");await characterEntrance(host,id);if(request===characterRequest && active())park();}
+ const assets=prepareCharacter(id);
+ // Effects do not block a character selection; sprite and run art load together.
+ void preloadCharacterEffect(id);
+ try {if(!assets.ready)await assets.promise;}catch{if(request===characterRequest)select.value=character;return;}
+ if(request!==characterRequest)return;
+ clear();host.querySelector('.bleach-entrance')?.remove();host.classList.remove('is-entering');
+ character=id;atlasURL=assets.image.src;runURL=roster[id].run?assets.run.src:assets.image.src;
+ currentCell=-1;cell(0);ready=true;select.value=id;
+ try {localStorage.setItem('vasu-bleach-character',id);}catch{}
+ label();if(active()) {
+  seen=true;draw();host.classList.add('is-visible');
+  if(entrance)await characterEntrance(host,id);
+  if(request===characterRequest && active())park();
+ }
 }
+
 select.value=character;
 select.addEventListener('change',()=>loadCharacter(select.value));
 let enabled = true;
@@ -235,4 +264,4 @@ document.addEventListener('visibilitychange',returnToCorner);
 for(const query of [finePointer,calm])query.addEventListener('change',()=>{
  label();if(supported() && enabled)returnToCorner();else clear();
 });
-label();loadCharacter(character);
+label();loadCharacter(character,{entrance:true});
