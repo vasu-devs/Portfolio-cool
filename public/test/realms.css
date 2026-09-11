@@ -286,3 +286,12 @@ body>.navigation>a,body>.navigation .bleach-menu>summary{color:var(--bright);fon
 @keyframes social-nod{0%,100%{transform:rotate(0)}30%{transform:rotate(-12deg)}65%{transform:rotate(9deg)}}
 @keyframes social-send{0%,100%{transform:translate(0,0)}40%{transform:translate(3px,-4px) rotate(-8deg)}}
 @media(prefers-reduced-motion:reduce){.hero-contacts a{transition:none}.hero-contacts a:is(:hover,:focus-visible),.hero-contacts a:active{transform:none}.hero-contacts a:is(:hover,:focus-visible) svg,.hero-contacts a:is(:hover,:focus-visible)::after{animation:none!important}}
+
+/* Keep the stationary companion above glass panels without a popover box. */
+.soul-cursor.is-docked{margin:0;padding:0;border:0;overflow:visible;background:transparent;color:var(--ink);inset:auto;top:0;left:0;transition:none}
+.soul-cursor.is-docked::backdrop{display:none}
+.has-docked-preview .character-art{visibility:hidden}
+
+/* Character names must not change the bottom navigation or drawer anchor. */
+.navigation .character-name{width:116px;flex:0 0 116px}
+@media(max-width:600px){.navigation .character-name{width:70px;flex-basis:70px}}

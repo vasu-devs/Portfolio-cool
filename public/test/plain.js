@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=fit-38';
+import './soul-cursor.js?v=dock-46';
 
 function showPage() {
   const id = location.hash.slice(1);

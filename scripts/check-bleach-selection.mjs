@@ -6,7 +6,7 @@ const pending=new Map();let entrances=0,decodes=0;
 const ctx=vm.createContext({
  Image:class {decode(){decodes++;return new Promise((resolve,reject)=>pending.set(this.src,{resolve,reject}));}},
  URL,roster:{ichigo:{atlas:'./ichigo.webp',run:true},rukia:{atlas:'./rukia.webp'},renji:{atlas:'./renji.webp'}},
- character:'ichigo',characterRequest:0,atlasURL:'',runURL:'',currentCell:-1,ready:false,seen:false,
+ overlay:null,character:'ichigo',characterRequest:0,atlasURL:'',runURL:'',currentCell:-1,ready:false,seen:false,
  select:{value:'ichigo',addEventListener(){}},preloadCharacterEffect:()=>new Promise(()=>{}),
  clear(){},host:{querySelector(){return null;},classList:{remove(){},add(){}}},cell(){},
  localStorage:{setItem(){}},label(){},active:()=>true,draw(){},park(){},

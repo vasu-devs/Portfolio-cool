@@ -28,7 +28,7 @@ export function mountBleachDetails(controls){
  const toast=document.createElement('span');toast.className='bleach-theme-note';toast.setAttribute('role','status');document.body.append(toast);let toastTimer;
  new MutationObserver(()=>{if(document.documentElement.dataset.theme==='dark'&&found.has('badge')){discover('dark');toast.textContent='BORN IN THE DARK';clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.textContent='',2200);}}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){menu.open=false;summary.focus();}});
- document.addEventListener('pointerdown',e=>{if(menu.open&&!menu.contains(e.target))menu.open=false;});
+ document.addEventListener('pointerdown',e=>{if(menu.open&&!menu.contains(e.target)&&!e.target.closest('.soul-cursor'))menu.open=false;});
  return name=>{summary.querySelector('.character-name').textContent=name;summary.setAttribute('aria-label',`${name}: character settings and discoveries`);};
 }
 export function characterEntrance(host,id){

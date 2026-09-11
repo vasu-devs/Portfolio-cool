@@ -1,4 +1,4 @@
-import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=fit-38';
+import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=dock-46';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
 import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=likeness-24';
 import {roster} from './bleach-roster.js?v=likeness-24';
@@ -97,7 +97,7 @@ async function loadCharacter(id,{entrance=true}={}) {
  character=id;atlasURL=assets.image.src;runURL=roster[id].run?assets.run.src:assets.image.src;
  currentCell=-1;cell(0);ready=true;select.value=id;
  try {localStorage.setItem('vasu-bleach-character',id);}catch{}
- label();if(active()) {
+ label();if(overlay){dockCompanion();if(entrance&&seen)void characterEntrance(host,id);}else if(active()) {
   seen=true;draw();host.classList.add('is-visible');
   if(entrance)void characterEntrance(host,id);
   if(request===characterRequest && active())park();
@@ -116,7 +116,48 @@ let x = 70, y = 140, tx = 70, ty = 140, seen = false, lastTime = 0;
 let state = 'rest', facing = 1;
 const slashes = new Set();
 const supported = () => finePointer.matches && !calm.matches;
-const active = () => ready && enabled && supported() && !document.hidden;
+let overlay = null;
+const active = () => !overlay && ready && enabled && supported() && !document.hidden;
+// Open panels own the companion until dismissed. A manual popover puts the
+// sprite in the top layer; a dialog parent also keeps it outside modal inertness.
+function openPanel() {
+ const dialogs=[...document.querySelectorAll('dialog[open]')];
+ return dialogs.at(-1)||document.querySelector('.bleach-menu[open] .bleach-drawer');
+}
+function dockCompanion() {
+ if(!overlay)return;
+ clear();
+ if(!ready||!enabled||!supported()||document.hidden)return;
+ const parent=overlay.tagName==='DIALOG'?overlay:document.body;
+ if(host.parentElement!==parent){if(host.matches(':popover-open'))host.hidePopover();parent.append(host);}
+ host.setAttribute('popover','manual');
+ host.classList.add('is-docked');
+ if(!host.matches(':popover-open'))host.showPopover();
+ const rect=overlay.getBoundingClientRect();
+ // Prefer a clear side, otherwise use the card's existing preview stage.
+ if(rect.right+88<innerWidth){x=rect.right+48;y=Math.min(innerHeight-64,Math.max(64,rect.top+110));}
+ else if(rect.left>88){x=rect.left-48;y=Math.min(innerHeight-64,Math.max(64,rect.top+110));}
+ else {
+  const stage=overlay.querySelector('.character-stage');
+  const box=(stage||overlay).getBoundingClientRect();
+  x=stage?box.left+box.width/2:box.right-88;
+  y=stage?box.top+box.height/2:box.top+40;
+ }
+ overlay.classList.toggle('has-docked-preview',!!overlay.querySelector('.character-stage')&&rect.left<=88&&rect.right+88>=innerWidth);
+ tx=x;ty=y;facing=1;seen=true;pose('rest');draw();host.classList.add('is-visible');
+}
+function syncPanel() {
+ const next=openPanel();
+ if(next===overlay)return;
+ overlay?.classList.remove('has-docked-preview');
+ overlay=next;
+ if(overlay){dockCompanion();return;}
+ if(host.matches(':popover-open'))host.hidePopover();
+ host.removeAttribute('popover');host.classList.remove('is-docked');document.body.append(host);
+ returnToCorner();
+}
+new MutationObserver(syncPanel).observe(document.body,{subtree:true,attributes:true,attributeFilter:['open']});
+window.addEventListener('resize',()=>{if(overlay)dockCompanion();},{passive:true});
 const attackQueue=createAttackQueue({
  available:()=>active()&&seen&&!greeting,
  start:({x:targetX})=>{cancelAnimationFrame(frame);frame=0;clearTimeout(idleTimer);clearTimeout(reactionTimer);reactionTimer=0;speed=0;parking=false;facing=targetX<x?-1:1;draw();pose('attack');},
@@ -270,12 +311,13 @@ function requestAttack(targetX,targetY){
  armPark();attackQueue.push({x:targetX,y:targetY});
 }
 toggle.addEventListener('click', () => {
- enabled=!enabled; clear(); label();if(active()){seen=true;host.classList.add("is-visible");characterEntrance(host,character).then(()=>{if(active())park();});}
+ enabled=!enabled; clear(); label();if(overlay)dockCompanion();else if(active()){seen=true;host.classList.add("is-visible");characterEntrance(host,character).then(()=>{if(active())park();});}
  try { localStorage.setItem('vasu-soul-cursor',enabled?'on':'off'); } catch {}
 });
 // Return through the movement loop. Hidden tabs pause at their current position
 // and resume on visibility; lifecycle events never teleport the companion.
 function returnToCorner() {
+ if(typeof overlay!=='undefined' && overlay){dockCompanion();return;}
  if(!ready || !enabled || !supported())return;
  clear();
  seen=true;parking=true;
