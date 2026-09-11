@@ -480,3 +480,5 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 .contact-dialog::backdrop{background:var(--modal-shade);backdrop-filter:blur(4px)}
 .contact-dialog header{display:flex;justify-content:space-between;align-items:center;gap:16px}.contact-dialog h2{font-size:25px;margin:0}.contact-dialog header button{border:0;background:none;color:var(--ink);font-size:26px;cursor:pointer;padding:0 6px}.contact-dialog p{font-size:13px;line-height:1.7;color:var(--muted)}
 .contact-options{display:grid;gap:6px;margin-top:18px}.contact-options a{display:flex;align-items:center;gap:14px;padding:12px;border-radius:10px;text-decoration:none;font-size:14px}.contact-options a:hover{background:var(--wash)}
+
+.hero-status{gap:14px;margin-top:8px}.hero-status .traffic-stats{flex:0 0 auto}.hero-status .availability-badge{white-space:nowrap}
