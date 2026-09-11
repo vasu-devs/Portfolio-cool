@@ -80,3 +80,16 @@ function filterWork(){
  document.querySelector('#archive-empty').hidden=visible!==0;
 }
 if(workSearch&&workTrack){workSearch.addEventListener('input',filterWork);workTrack.addEventListener('change',filterWork);filterWork();}
+
+const resumeModal=document.querySelector('.resume-modal');
+if(resumeModal){
+ let resumeOpener=null;
+ document.querySelectorAll('a[href="/resume.html"]').forEach(link=>{
+  link.removeAttribute('target');link.setAttribute('aria-haspopup','dialog');
+  link.addEventListener('click',event=>{event.preventDefault();resumeOpener=link;resumeModal.showModal();document.documentElement.classList.add('resume-open');});
+ });
+ resumeModal.querySelector('[data-resume-close]').addEventListener('click',()=>resumeModal.close());
+ resumeModal.querySelector('[data-resume-print]').addEventListener('click',()=>window.print());
+ resumeModal.addEventListener('click',event=>{if(event.target!==resumeModal)return;const r=resumeModal.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)resumeModal.close();});
+ resumeModal.addEventListener('close',()=>{document.documentElement.classList.remove('resume-open');resumeOpener?.focus();});
+}
