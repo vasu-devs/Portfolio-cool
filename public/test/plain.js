@@ -80,7 +80,7 @@ if(resumeModal){
 const readingDialog=document.createElement('dialog');
 readingDialog.className='resume-modal detail-modal';
 readingDialog.setAttribute('aria-labelledby','detail-title');
-readingDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">Project</span><h2 id="detail-title"></h2></div><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><div class="detail-body"></div></div>';
+readingDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">Project</span><h2 id="detail-title"></h2><p class="detail-deck"></p></div><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><div class="detail-body"></div></div>';
 document.body.append(readingDialog);
 let detailSource=null,detailOpener=null,detailNodes=[];
 function openDetail(source,opener){
@@ -89,6 +89,8 @@ function openDetail(source,opener){
  detailSource=source;detailOpener=opener||summary;
  const title=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector('h3').textContent:source.classList.contains('role')?[...summary.querySelectorAll('h3,.role-name')].map(n=>n.textContent).join(' · '):source.classList.contains('project')?summary.querySelector('h3').textContent:summary.textContent;
  readingDialog.querySelector('#detail-title').textContent=title.trim();
+ const deck=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector(':scope > p')?.textContent:summary.querySelector('.project-intro,.role-preview')?.textContent;
+ readingDialog.querySelector('.detail-deck').textContent=deck||'';
  readingDialog.querySelector('.modal-kicker').textContent=source.classList.contains('role')?'Experience':'Project';
  detailNodes=[...source.children].filter(n=>n!==summary);
  readingDialog.querySelector('.detail-body').append(...detailNodes);
@@ -192,4 +194,11 @@ if(contactDialog&&contactTrigger){
  contactDialog.querySelector('[data-close-contact]').addEventListener('click',()=>contactDialog.close());
  contactDialog.addEventListener('click',event=>{if(event.target!==contactDialog)return;const r=contactDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)contactDialog.close();});
  contactDialog.addEventListener('close',()=>contactTrigger.focus({preventScroll:true}));
+}
+
+// Isolated typography comparison, enabled only by the local preview query.
+const typePreview=new URLSearchParams(location.search).get('type-preview');
+if(['humanist','condensed','editorial'].includes(typePreview)){
+ document.documentElement.dataset.typePreview=typePreview;
+ requestAnimationFrame(()=>document.querySelector('#project-0')?.dispatchEvent(new Event('open-detail')));
 }

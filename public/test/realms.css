@@ -575,3 +575,30 @@ main h2{font-size:24px;font-weight:600;line-height:1.4}
 
 .character-card-top{font-size:11px;letter-spacing:0;text-transform:none}
 @media(max-width:600px){.navigation .bleach-drawer .soul-controls{min-width:0;grid-template-columns:minmax(0,1fr)}.character-roster{grid-template-columns:repeat(6,minmax(0,1fr))}.character-card{min-width:0}.character-stage{min-width:0}}
+
+/* Project reading view: compact title, useful introduction, spacious sections. */
+@font-face{font-family:Case Condensed;src:url('./fonts/barlow-condensed-semibold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:Case Editorial;src:url('./fonts/bodoni-moda-regular.ttf') format('truetype');font-weight:400;font-display:swap}
+:root{--case-heading:'Case Condensed',Arial,sans-serif;--case-body:'Segoe UI',Arial,sans-serif;--case-weight:600}
+:root[data-type-preview=humanist]{--case-heading:'Segoe UI',Arial,sans-serif;--case-weight:600}
+:root[data-type-preview=editorial]{--case-heading:'Case Editorial',Georgia,serif;--case-weight:400}
+.detail-modal{width:min(860px,calc(100vw - 32px));font-family:var(--case-body);background:rgba(9,26,39,.64);border-radius:10px;box-shadow:0 24px 80px #0005;backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px)}
+:root[data-theme=light] .detail-modal{background:rgba(238,245,248,.68)}
+.detail-modal .resume-toolbar{align-items:flex-start;padding:28px 32px 24px;background:transparent;border-bottom:1px solid var(--modal-edge);backdrop-filter:none}
+.detail-modal .modal-kicker{display:none}
+.detail-modal .resume-toolbar h2{font-family:var(--case-heading);font-weight:var(--case-weight);font-size:34px;letter-spacing:-.015em;line-height:1.15;margin:0}
+.detail-deck{font:16px/1.55 var(--case-body);color:var(--muted);max-width:60ch;margin:12px 0 0}.detail-deck:empty{display:none}
+.detail-modal .resume-toolbar>button{width:36px;height:36px;margin-top:-4px}
+.detail-modal .resume-content{padding:24px 32px 32px;font:16px/1.7 var(--case-body)}
+.detail-modal .case-label{font:12px/1.6 var(--case-body);text-transform:none;letter-spacing:0;color:var(--muted);margin:0 0 8px}
+.detail-modal .case-stack{margin:0 0 24px;padding:0 0 20px;border-bottom:1px solid var(--line)}
+.detail-modal .case-stack span{font-family:var(--case-body);font-size:13px}
+.detail-modal .case-sections{max-width:none}
+.detail-modal .case-sections section{display:grid;grid-template-columns:140px minmax(0,1fr);gap:8px 24px;margin:0;padding:22px 0;border-bottom:1px solid var(--line)}
+.detail-modal .case-sections section+section{margin-top:0}
+.detail-modal .case-sections section>:not(h4){grid-column:2;margin:0}
+.detail-modal .case-sections section>h4{grid-column:1;grid-row:1;font:600 15px/1.6 var(--case-body);letter-spacing:0;margin:0}
+.detail-modal .case-sections p,.detail-modal .case-sections li,.detail-modal .role-body{font-family:var(--case-body);font-size:16px;line-height:1.7}
+.detail-modal .case-sections li+li{margin-top:10px}
+.detail-modal .case-body>.text-link{display:inline-block;margin-top:24px;font-size:14px}
+@media(max-width:600px){.detail-modal .resume-toolbar{padding:22px}.detail-modal .resume-toolbar h2{font-size:30px}.detail-deck{font-size:15px}.detail-modal .resume-content{padding:8px 22px 26px}.detail-modal .case-sections section{display:block;padding:20px 0}.detail-modal .case-sections section>h4{margin:0 0 10px}.detail-modal .case-sections p,.detail-modal .case-sections li{font-size:15px}}
