@@ -63,7 +63,7 @@ avatar.dataset.portraitMode=['seireitei','hueco'].includes(preferredAvatar)?pref
 avatar.replaceChildren(...['seireitei','hueco'].map(id=>{
  const img=document.createElement('img');img.className='avatar-slide';img.dataset.realm=id;
  img.width=112;img.height=112;img.alt=`Vasudev — ${id==='seireitei'?'Seireitei daylight':'Hueco Mundo moonlight'} anime portrait`;
- img.src=`/test/avatars/vasu-${id}-v1.webp`;return img;
+ img.src=`/test/avatars/vasu-${id}-v2.png`;return img;
 }));
 avatarPause.hidden=true;
 
