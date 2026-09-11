@@ -98,7 +98,7 @@ if(resumeModal){
 const readingDialog=document.createElement('dialog');
 readingDialog.className='resume-modal detail-modal';
 readingDialog.setAttribute('aria-labelledby','detail-title');
-readingDialog.innerHTML='<div class="resume-toolbar"><span>Read more</span><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><h2 id="detail-title"></h2><div class="detail-body"></div></div>';
+readingDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">PROJECT / PROFILE</span><h2 id="detail-title"></h2></div><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><div class="detail-body"></div></div>';
 document.body.append(readingDialog);
 let detailSource=null,detailOpener=null,detailNodes=[];
 function openDetail(source){
@@ -123,7 +123,7 @@ readingDialog.addEventListener('close',()=>{detailSource?.append(...detailNodes)
 // Project films stay in context; remove the player on close so playback stops.
 const filmDialog=document.createElement('dialog');
 filmDialog.className='resume-modal film-modal';filmDialog.setAttribute('aria-labelledby','film-title');
-filmDialog.innerHTML='<div class="resume-toolbar"><span>FIELD RECORDING</span><button type="button" aria-label="Close video">Close ×</button></div><div class="film-player"></div><div class="resume-content film-description"></div>';
+filmDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">PROJECT WALKTHROUGH</span><h2 id="film-title"></h2></div><button type="button" aria-label="Close video">Close ×</button></div><div class="film-player"></div><div class="resume-content film-description"></div>';
 document.body.append(filmDialog);
 let filmOpener;
 document.addEventListener('click',event=>{
@@ -134,8 +134,8 @@ document.addEventListener('click',event=>{
  if(!id||!/^[\w-]{11}$/.test(id))return;
  const template=document.getElementById(`film-${id}`);if(!template)return;
  event.preventDefault();filmOpener=link;
- const body=filmDialog.querySelector('.film-description');body.replaceChildren(template.content.cloneNode(true));body.querySelector('h2').id='film-title';
- const iframe=document.createElement('iframe');iframe.src=`https://www.youtube-nocookie.com/embed/${id}?rel=0`;iframe.title=`${body.querySelector('h2').textContent} project walkthrough`;iframe.allow='encrypted-media; picture-in-picture; fullscreen';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
+ const body=filmDialog.querySelector('.film-description');body.replaceChildren(template.content.cloneNode(true));const filmName=body.querySelector('h2').textContent;filmDialog.querySelector('#film-title').textContent=filmName;body.querySelector('h2').remove();
+ const iframe=document.createElement('iframe');iframe.src=`https://www.youtube-nocookie.com/embed/${id}?rel=0`;iframe.title=`${filmName} project walkthrough`;iframe.allow='encrypted-media; picture-in-picture; fullscreen';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
  filmDialog.querySelector('.film-player').replaceChildren(iframe);
  const fallback=document.createElement('a');fallback.href=url.href;fallback.target='_blank';fallback.rel='noopener noreferrer';fallback.className='film-fallback';fallback.textContent='Watch on YouTube ↗';body.append(fallback);
  filmDialog.showModal();filmDialog.scrollTop=0;document.documentElement.classList.add('film-open');filmDialog.querySelector('button').focus();
@@ -143,3 +143,7 @@ document.addEventListener('click',event=>{
 filmDialog.querySelector('button').addEventListener('click',()=>filmDialog.close());
 filmDialog.addEventListener('click',event=>{if(event.target!==filmDialog)return;const r=filmDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)filmDialog.close();});
 filmDialog.addEventListener('close',()=>{filmDialog.querySelector('.film-player').replaceChildren();document.documentElement.classList.remove('film-open');filmOpener?.focus({preventScroll:true});});
+
+// Navigation belongs to the viewport, outside the content stacking context.
+const bottomNavigation=document.querySelector('.navigation');document.body.append(bottomNavigation);
+for(const close of document.querySelectorAll('[aria-label="Close details"],[aria-label="Close video"],[data-resume-close]')){close.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';}

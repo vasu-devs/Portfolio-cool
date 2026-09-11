@@ -1,3 +1,6 @@
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { Mail, Github, Linkedin, Youtube, Instagram, CalendarDays, FileText } from 'lucide-react';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -10,6 +13,8 @@ const catalog = read('projects').projects;
 const archive = read('work-archive').items;
 const socials=read('socials'),videos=read('videos');
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+const socialIcons={Email:Mail,GitHub:Github,LinkedIn:Linkedin,YouTube:Youtube,Instagram:Instagram,'Book a call':CalendarDays,'Résumé':FileText};
+const socialIcon=label=>label==='X'?'<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.3l-4.9-7.4L5.3 22H2.1l8.2-9.4L1 2h6.5l4.5 6.8L18.9 2Zm-1.1 18h1.7L6.5 4H4.7L17.8 20Z"/></svg>':renderToStaticMarkup(createElement(socialIcons[label],{size:20,strokeWidth:1.6,'aria-hidden':true}));
 const arrow = '<span aria-hidden="true">↗</span>';
 const section = item => `<section><h4>${escape(item.title)}</h4>${item.body ? `<p>${escape(item.body)}</p>` : ''}${item.bullets ? `<ul>${item.bullets.map(b => `<li>${escape(b)}</li>`).join('')}</ul>` : ''}</section>`;
 const hire = resume.projects.find(p => p.name === 'JustHireMe');
@@ -54,7 +59,7 @@ const projectMarkup = projects.map((p, i) => `<details class="project" name="pro
 const roleMarkup = roles.map(r => `<details class="role"><summary><h3>${escape(r.company)}</h3><p class="role-name">${escape(r.role)}</p><span class="role-date mono">${escape(r.dateLabel)}</span><span class="role-hint">Details +</span></summary><div class="role-body"><p>${escape(r.summary)}</p>${r.sections ? r.sections.map(section).join('') : ''}</div></details>`).join('');
 const replacements = {
   RESUME: `<header><h2 id="resume-title">${escape(resume.name)}</h2><p>${escape(resume.headline)}</p><a href="mailto:${escape(resume.email)}">${escape(resume.email)}</a></header><p>${escape(resume.summary)}</p><h3>Experience</h3>${resume.experience.map(r=>`<section><h4>${escape(r.role)} · ${escape(r.company)}</h4><small>${escape(r.dates)}</small><ul>${r.bullets.map(b=>`<li>${escape(b)}</li>`).join('')}</ul></section>`).join('')}<h3>Selected projects</h3>${resume.projects.map(p=>`<section><h4>${escape(p.name)}</h4><ul>${p.bullets.map(b=>`<li>${escape(b)}</li>`).join('')}</ul>${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Repository ↗</a>`:''}</section>`).join('')}<h3>Skills</h3><dl>${resume.skills.map(s=>`<dt>${escape(s.label)}</dt><dd>${escape(s.text)}</dd>`).join('')}</dl><h3>Education</h3><p>${escape(resume.education.institution)} · ${escape(resume.education.dates)}<br>${escape(resume.education.detail)}</p>`,
-  CONTACTS: socials.map(s=>`<a href="${escape(s.url)}"${s.url.startsWith('mailto:')?'':' target="_blank" rel="noopener noreferrer"'}>${escape(s.label)} <span aria-hidden="true">↗</span></a>`).join(''),
+  CONTACTS: socials.map(s=>`<a href="${escape(s.url)}" aria-label="${escape(s.label)}" title="${escape(s.label)}"${s.url.startsWith('mailto:')?'':' target="_blank" rel="noopener noreferrer"'}>${socialIcon(s.label)}<span class="sr-only">${escape(s.label)}</span></a>`).join(''),
   VIDEOS: videos.map(v=>{
     const p=projects.find(p=>p.name===v.name)||catalog.find(p=>p.name===v.name)||archive.find(p=>p.name===v.name);
     const id=new URL(v.url).searchParams.get('v');
