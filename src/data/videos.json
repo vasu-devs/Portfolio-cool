@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Vaani",
+    "summary": "A walkthrough of the voice-agent prototype.",
+    "url": "https://www.youtube.com/watch?v=VsEfOfwh8XM"
+  },
+  {
+    "name": "Odeon",
+    "summary": "Adversarial simulations and evaluation for conversational agents.",
+    "url": "https://www.youtube.com/watch?v=GFdSe4-c_xQ"
+  },
+  {
+    "name": "MapMyRepo",
+    "summary": "Exploring code as an interactive graph.",
+    "url": "https://www.youtube.com/watch?v=EmTDrPzAo40"
+  },
+  {
+    "name": "BranchGPT",
+    "summary": "Forking and merging AI conversations.",
+    "url": "https://www.youtube.com/watch?v=RB3zvAXbpL0"
+  },
+  {
+    "name": "PolySEE",
+    "summary": "A multilingual campus-assistant demo.",
+    "url": "https://www.youtube.com/watch?v=6weynv_rblI"
+  }
+]

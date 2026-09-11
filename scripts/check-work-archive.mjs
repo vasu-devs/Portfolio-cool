@@ -19,3 +19,9 @@ search.value='graph';ctx.filterWork();assert.equal(items[0].hidden,true);assert.
 track.value='Voice & AI';ctx.filterWork();assert.equal(empty.hidden,false);
 search.value='';track.value='All tracks';ctx.filterWork();assert.equal(empty.hidden,true);
 console.log('PASS: 12 case studies, 39 archive entries, stable links, combined search/track filtering and empty-state recovery');
+
+assert.equal((html.match(/class="archive-detail"/g)||[]).length,39,'every archive entry has expandable detail');
+const hero=html.slice(html.indexOf('class="hero-contacts"'),html.indexOf('<p class="secret-message"'));
+for(const link of JSON.parse(readFileSync('src/data/socials.json','utf8')))assert.ok(hero.includes(link.url),`hero includes ${link.label}`);
+assert.equal((html.match(/class="video-link"/g)||[]).length,5);
+console.log('PASS: all archive details, eight hero contact/social links, and five project videos');

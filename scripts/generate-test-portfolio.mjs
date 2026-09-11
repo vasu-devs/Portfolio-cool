@@ -8,6 +8,7 @@ const resume = read('resume');
 const roles = read('experience').roles;
 const catalog = read('projects').projects;
 const archive = read('work-archive').items;
+const socials=read('socials'),videos=read('videos');
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const arrow = '<span aria-hidden="true">↗</span>';
 const section = item => `<section><h4>${escape(item.title)}</h4>${item.body ? `<p>${escape(item.body)}</p>` : ''}${item.bullets ? `<ul>${item.bullets.map(b => `<li>${escape(b)}</li>`).join('')}</ul>` : ''}</section>`;
@@ -52,8 +53,10 @@ const projectMarkup = projects.map((p, i) => `<details class="project" name="pro
 </details>`).join('');
 const roleMarkup = roles.map(r => `<details class="role"><summary><h3>${escape(r.company)}</h3><p class="role-name">${escape(r.role)}</p><span class="role-date mono">${escape(r.dateLabel)}</span><span class="role-hint">Details +</span></summary><div class="role-body"><p>${escape(r.summary)}</p>${r.sections ? r.sections.map(section).join('') : ''}</div></details>`).join('');
 const replacements = {
+  CONTACTS: socials.map(s=>`<a href="${escape(s.url)}"${s.url.startsWith('mailto:')?'':' target="_blank" rel="noopener noreferrer"'}>${escape(s.label)} <span aria-hidden="true">↗</span></a>`).join(''),
+  VIDEOS: videos.map(v=>`<a class="video-link" href="${escape(v.url)}" target="_blank" rel="noopener noreferrer"><span class="video-play" aria-hidden="true">▷</span><span><strong>${escape(v.name)}</strong><small>${escape(v.summary)}</small></span><span aria-hidden="true">↗</span></a>`).join(''),
   PROJECTS: projectMarkup,
-  ARCHIVE: archive.filter(p=>!projects.some(feature=>feature.name===p.name)).map(p=>`<article class="archive-item" data-work-category="${escape(p.category)}"><div class="archive-item-heading"><h3>${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">${escape(p.name)} ↗</a>`:escape(p.name)}</h3><span>${escape(p.category)}</span></div><p>${escape(p.summary)}</p><small>${escape(p.status)}</small></article>`).join(''),
+  ARCHIVE: archive.filter(p=>!projects.some(feature=>feature.name===p.name)).map(p=>`<article class="archive-item" data-work-category="${escape(p.category)}"><div class="archive-item-heading"><h3>${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">${escape(p.name)} ↗</a>`:escape(p.name)}</h3><span>${escape(p.category)}</span></div><p>${escape(p.summary)}</p><small>${escape(p.status)}</small>${p.details?.length?`<details class="archive-detail"><summary>How it works <span aria-hidden="true">+</span></summary><div class="case-stack">${p.tech.map(t=>`<span>${escape(t)}</span>`).join('')}</div><div class="case-sections">${p.details.map(section).join('')}</div>${p.demo?`<a class="text-link" href="${escape(p.demo)}" target="_blank" rel="noopener noreferrer">Watch the demo ↗</a>`:''}</details>`:''}</article>`).join(''),
   WORKCOUNT: String(projects.length+archive.filter(p=>!projects.some(feature=>feature.name===p.name)).length),
   ROLES: roleMarkup,
   SKILLS: resume.skills.map(s => `<dt>${escape(s.label)}</dt><dd>${escape(s.text)}</dd>`).join(''),

@@ -7,7 +7,22 @@
       "summary": "Live coding interviews combining WebRTC voice, a Monaco editor, and contextual AI feedback.",
       "url": "https://github.com/vasu-devs/Socratis",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Next.js 14",
+        "Python",
+        "LiveKit",
+        "Deepgram",
+        "Groq",
+        "MongoDB",
+        "TypeScript",
+        "Express"
+      ],
+      "details": [
+        {
+          "title": "Real-time code awareness",
+          "body": "Earlier versions hallucinated about the candidate's code. V3's fix was Chat Context Injection: every edit in the Monaco editor pushes an explicit system message into the agent's context, so the model literally sees every diff instead of guessing."
+        }
+      ]
     },
     {
       "name": "Waldo",
@@ -15,7 +30,28 @@
       "summary": "Multimodal PDF retrieval across text, tables, and figures, with query routing and retrieval review.",
       "url": "https://github.com/vasu-devs/Waldo",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Python",
+        "FastAPI",
+        "React",
+        "Vite",
+        "Qdrant",
+        "LangGraph",
+        "Gemini",
+        "Groq",
+        "Docling"
+      ],
+      "details": [
+        {
+          "title": "Ingestion pipeline",
+          "bullets": [
+            "IBM Docling extracts document structure with high fidelity",
+            "RapidOCR falls back for scanned pages",
+            "Gemini VLM transcribes figures to searchable semantic text",
+            "Sentence Transformers (all-MiniLM-L6-v2) embed chunks into Qdrant"
+          ]
+        }
+      ]
     },
     {
       "name": "Vaani",
@@ -23,7 +59,17 @@
       "summary": "A voice-agent prototype with call orchestration, live transcripts, and configurable conversation personas.",
       "url": "https://github.com/vasu-devs/Vaani",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Connects a FastAPI call API to LiveKit voice sessions and a React monitoring interface.",
+            "Explores interruption handling, live transcription, and conversation-event tags. The demo does not establish measured latency or regulatory compliance."
+          ]
+        }
+      ],
+      "demo": "https://www.youtube.com/watch?v=VsEfOfwh8XM"
     },
     {
       "name": "BranchGPT",
@@ -31,7 +77,17 @@
       "summary": "Branch and merge AI conversations while preserving the context of each path.",
       "url": "https://github.com/vasu-devs/BranchGPT",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Stores branched message histories with PostgreSQL and Drizzle.",
+            "Merges branch-specific messages through a generated summary while retaining the shared conversation history."
+          ]
+        }
+      ],
+      "demo": "https://www.youtube.com/watch?v=RB3zvAXbpL0"
     },
     {
       "name": "MapMyRepo",
@@ -39,7 +95,17 @@
       "summary": "Explore repository structure as a D3 graph, with file summaries and contextual questions.",
       "url": "https://github.com/vasu-devs/MapMyRepo",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Imports public GitHub repositories or locally selected folders into a navigable file graph.",
+            "Uses D3 for node layout and Gemini for contextual file summaries and questions."
+          ]
+        }
+      ],
+      "demo": "https://www.youtube.com/watch?v=EmTDrPzAo40"
     },
     {
       "name": "Forge",
@@ -47,7 +113,23 @@
       "summary": "A curated coding-agent workflow plugin with local activity logging and optional cross-session memory.",
       "url": "https://github.com/vasu-devs/Forge",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Claude Code plugin",
+        "Node.js",
+        "JSONL",
+        "ONNX embeddings"
+      ],
+      "details": [
+        {
+          "title": "Falsifiable, not aspirational",
+          "bullets": [
+            "tdd: no production code without a failing test first — watch it fail, delete pre-test code",
+            "debug: after 3 failed fixes, question the architecture",
+            "verify: a claim → required-proof table before 'done' is allowed",
+            "Each skill names the rationalization it forbids, so the agent can't talk itself out of the process"
+          ]
+        }
+      ]
     },
     {
       "name": "LeetBot",
@@ -55,7 +137,16 @@
       "summary": "A browser extension for coding hints, solution planning, and zoomable explanation diagrams.",
       "url": "https://github.com/vasu-devs/LeetBot",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Offers separate hint, tutor, and solution-planning modes in a browser extension.",
+            "Renders Mermaid explanations in a movable, resizable interface alongside the coding problem."
+          ]
+        }
+      ]
     },
     {
       "name": "DryRunVisualised",
@@ -63,7 +154,28 @@
       "summary": "Inspect algorithm execution through editor state, variables, and 2D/3D visualizations.",
       "url": "https://github.com/vasu-devs/DryRunVisualised",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Next.js 16",
+        "React 19",
+        "Three.js",
+        "TypeScript",
+        "Pyodide",
+        "Monaco Editor",
+        "Zustand",
+        "Tailwind"
+      ],
+      "details": [
+        {
+          "title": "Execution pipeline",
+          "bullets": [
+            "Python runs client-side in Pyodide (WebAssembly)",
+            "C++ compiles remotely via Godbolt Compiler Explorer API (GCC 14.1)",
+            "Instrumentation injects `sys.settrace` (Python) and stderr macros (C++)",
+            "Each line emits a JSON snapshot: `{ line, stack, heap, stdout }`",
+            "`vizDetector.ts` classifies variables (array/grid/graph/linked-list/tree/scalar) and routes them"
+          ]
+        }
+      ]
     },
     {
       "name": "PolySEE",
@@ -71,7 +183,27 @@
       "summary": "A team campus-chatbot prototype exploring multilingual answers grounded in university documents.",
       "url": "https://github.com/vasu-devs/PolySEE",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "React",
+        "Tailwind",
+        "FastAPI",
+        "Python",
+        "Gemini Flash 2.0",
+        "Ollama",
+        "ChromaDB"
+      ],
+      "details": [
+        {
+          "title": "RAG pipeline",
+          "bullets": [
+            "Query embedded via local Ollama models",
+            "Semantic search over institutional documents in ChromaDB",
+            "Retrieved context + user query sent to Gemini Flash 2.0",
+            "Response returned with confidence score and source context"
+          ]
+        }
+      ],
+      "demo": "https://www.youtube.com/watch?v=6weynv_rblI"
     },
     {
       "name": "A18-INFINION-",
@@ -79,7 +211,19 @@
       "summary": "A multi-agent static-analysis experiment for specialized C++ and API misuse.",
       "url": "https://github.com/vasu-devs/A18-INFINION-",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Python",
+        "Gemini",
+        "OpenAI",
+        "DeepSeek",
+        "FastMCP"
+      ],
+      "details": [
+        {
+          "title": "Context-first design",
+          "body": "Before any LLM sees the code, the MCP Lookup Agent queries an MCP server (FastMCP + BGE embeddings) against the RDI API documentation and pulls the relevant rules. Only then does the Bug Detector run — with the API manual already in context."
+        }
+      ]
     },
     {
       "name": "SSS",
@@ -87,7 +231,24 @@
       "summary": "Organize screenshots with a local vision model and searchable per-image Markdown notes.",
       "url": "https://github.com/vasu-devs/SSS",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Python",
+        "PyTorch",
+        "Qwen2-VL",
+        "Transformers"
+      ],
+      "details": [
+        {
+          "title": "Pipeline",
+          "bullets": [
+            "Vision model (Qwen2-VL-2B via Transformers/PyTorch) ingests each image → structured understanding",
+            "Classifier routes to one of nine categories — anime, tech, hiring, finance, learning, health, news, memes, misc",
+            "Link extractor pulls every URL in the image",
+            "Text cleaner strips hashtags, emojis, formatting noise",
+            "Per-image .txt log in `./output/extracted/` + master `links.md` index"
+          ]
+        }
+      ]
     },
     {
       "name": "RupeeRoast",
@@ -95,7 +256,27 @@
       "summary": "A bank-statement analysis prototype with transaction categorization, charts, and generated commentary.",
       "url": "https://github.com/vasu-devs/RupeeRoast",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Next.js 15",
+        "React 19",
+        "Tailwind",
+        "Framer Motion",
+        "Recharts",
+        "FastAPI",
+        "Python",
+        "Groq",
+        "Gemini"
+      ],
+      "details": [
+        {
+          "title": "Extraction",
+          "bullets": [
+            "PyMuPDF4LLM as the primary parser — much better than plain PyPDF for complex layouts",
+            "PyPDF as fallback for edge cases",
+            "Pydantic-validated schemas throughout"
+          ]
+        }
+      ]
     },
     {
       "name": "NyaySaathi",
@@ -103,7 +284,25 @@
       "summary": "A legal-information retrieval prototype with document ingestion and corpus-based answers.",
       "url": "https://github.com/vasu-devs/NyaySaathi",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Python",
+        "FastAPI",
+        "Qdrant",
+        "sentence-transformers",
+        "Gemini 2.0 Flash",
+        "React 19"
+      ],
+      "details": [
+        {
+          "title": "Retrieval engine",
+          "bullets": [
+            "Embedded local Qdrant — no server or Docker needed",
+            "Query expansion via a hand-tuned Constitution-to-statute link map (e.g. IT Act 69A → Article 19(2))",
+            "Reranking by exact article/section matches, number proximity and keyword overlap",
+            "13-language layer: script detection + Hinglish heuristics, English-pivot retrieval, translate-back answers"
+          ]
+        }
+      ]
     },
     {
       "name": "EmailDrafter",
@@ -111,7 +310,22 @@
       "summary": "Draft and refine emails from user context, tone, and length preferences.",
       "url": "https://github.com/vasu-devs/EmailDrafter",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "React",
+        "Vite",
+        "Tailwind",
+        "Python",
+        "FastAPI"
+      ],
+      "details": [
+        {
+          "title": "API surface",
+          "bullets": [
+            "POST /api/draft — { prompt, tone?, length? } → { draft }",
+            "POST /api/refine — { draft, instructions } → { draft }"
+          ]
+        }
+      ]
     },
     {
       "name": "Korosuke",
@@ -119,7 +333,23 @@
       "summary": "A PyQt sidebar for chatting with local Ollama models using background inference.",
       "url": "https://github.com/vasu-devs/Korosuke",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Python",
+        "PyQt5",
+        "Ollama",
+        "LLaMA"
+      ],
+      "details": [
+        {
+          "title": "Details",
+          "bullets": [
+            "PyQt5 with smooth slide animations and styled chat bubbles",
+            "Background QThread worker — UI never freezes during generation",
+            "PID-based hotkey toggle: re-running the script flips visibility",
+            "ESC hides the sidebar"
+          ]
+        }
+      ]
     },
     {
       "name": "ASCIIRealTime",
@@ -127,7 +357,21 @@
       "summary": "Convert webcam frames into live ASCII or emoji art with optional background segmentation.",
       "url": "https://github.com/vasu-devs/ASCIIRealTime",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "JavaScript",
+        "Tailwind",
+        "MediaPipe"
+      ],
+      "details": [
+        {
+          "title": "Modes",
+          "bullets": [
+            "ASCII text — `<pre>` with dynamically-sized font",
+            "Emoji — `<canvas>` grid with per-glyph bitmap caching for alignment",
+            "Palettes: Basic, Extended, Blocks, Emoji, Custom"
+          ]
+        }
+      ]
     },
     {
       "name": "PixelForge",
@@ -135,7 +379,17 @@
       "summary": "A JavaFX image-to-ASCII tool with live previews, color rendering, and PNG export.",
       "url": "https://github.com/vasu-devs/PixelForge",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Java 17",
+        "JavaFX",
+        "Maven"
+      ],
+      "details": [
+        {
+          "title": "Output",
+          "body": "Full-color mode samples the original image's pixel colors and applies them per-character, creating the illusion of the original image through typography. Download triggers a dedicated HD render pass at the source image's original resolution — so a 4K input gives you a 4K ASCII PNG, not a screenshot."
+        }
+      ]
     },
     {
       "name": "GitArt",
@@ -143,7 +397,25 @@
       "summary": "Paint a contribution-grid design and export a Git repository assembled in the browser.",
       "url": "https://github.com/vasu-devs/GitArt",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "Tailwind",
+        "isomorphic-git",
+        "memfs",
+        "JSZip"
+      ],
+      "details": [
+        {
+          "title": "Everything runs in the browser",
+          "bullets": [
+            "isomorphic-git on a memfs virtual filesystem",
+            "JSZip packages .git/ + files into a single zip",
+            "No server writes, no GitHub API calls, no fake identities"
+          ]
+        }
+      ]
     },
     {
       "name": "GhostSync",
@@ -151,7 +423,24 @@
       "summary": "A remote-IDE experiment connecting Telegram controls, screenshots, and a private tunnel.",
       "url": "https://github.com/vasu-devs/GhostSync",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Python",
+        "python-telegram-bot",
+        "CustomTkinter",
+        "Cloudflared",
+        "PyAutoGUI"
+      ],
+      "details": [
+        {
+          "title": "How the bridge works",
+          "bullets": [
+            "Auto-downloads `cloudflared.exe` and spawns a Cloudflare Tunnel",
+            "python-telegram-bot listens for authorized commands",
+            "PyAutoGUI automates IDE input (window detection via %LOCALAPPDATA%)",
+            "CustomTkinter GUI; single PyInstaller .exe for non-Python users"
+          ]
+        }
+      ]
     },
     {
       "name": "BranchGPT-Extension",
@@ -159,7 +448,24 @@
       "summary": "Explore branched ChatGPT conversations in a browser side panel with local IndexedDB storage.",
       "url": "https://github.com/vasu-devs/BranchGPT-Extension",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Vite",
+        "React",
+        "TypeScript",
+        "Tailwind",
+        "Dexie.js",
+        "CRXJS"
+      ],
+      "details": [
+        {
+          "title": "Tech",
+          "bullets": [
+            "Vite + CRXJS — Manifest V3 native build",
+            "React + TypeScript + Tailwind",
+            "Dexie.js over IndexedDB for local storage"
+          ]
+        }
+      ]
     },
     {
       "name": "Health-os",
@@ -167,7 +473,18 @@
       "summary": "A mobile-first workout and meal dashboard interface.",
       "url": "https://github.com/vasu-devs/Health-os",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Next.js 14",
+        "TypeScript",
+        "Tailwind",
+        "next-pwa"
+      ],
+      "details": [
+        {
+          "title": "The layout trick",
+          "body": "Whole page is locked to `h-[100dvh]` with `overflow-hidden` on the outer body. Only the workout list and meal list scroll internally. On mobile, `100dvh` handles the browser chrome properly so the app uses the full available screen at all times."
+        }
+      ]
     },
     {
       "name": "Kyoka",
@@ -175,7 +492,28 @@
       "summary": "An experimental multi-agent interface for summarizing public web research into briefing cards.",
       "url": "https://github.com/vasu-devs/Kyoka",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "React",
+        "Vite",
+        "Tailwind",
+        "Framer Motion",
+        "FastAPI",
+        "Python",
+        "LangChain",
+        "Gemini",
+        "DeepSeek",
+        "Tavily"
+      ],
+      "details": [
+        {
+          "title": "Tri-agent pipeline",
+          "bullets": [
+            "Deep Diver (Tavily Search) — OSINT across LinkedIn, GitHub, X, YouTube",
+            "PsychProfiler (DeepSeek-V3 / Gemini) — DISC, Big-Five, archetypes, ego hooks",
+            "Strategist (GPT-4o / Gemini) — Battle Card with DOs, DON'Ts, opening lines"
+          ]
+        }
+      ]
     },
     {
       "name": "Maze-Pathfinder-Visualizer",
@@ -183,7 +521,22 @@
       "summary": "Compare BFS, DFS, Dijkstra, and A* as they explore generated mazes.",
       "url": "https://github.com/vasu-devs/Maze-Pathfinder-Visualizer",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "Python",
+        "Pygame"
+      ],
+      "details": [
+        {
+          "title": "Color coding",
+          "bullets": [
+            "Blue — BFS explored cells",
+            "Red — DFS explored cells",
+            "Green — Dijkstra explored cells",
+            "Yellow — A* explored cells",
+            "Orange — final shortest path"
+          ]
+        }
+      ]
     },
     {
       "name": "weather-dashboard-ai",
@@ -191,7 +544,22 @@
       "summary": "Combine weather data with model-generated clothing and activity suggestions.",
       "url": "https://github.com/vasu-devs/weather-dashboard-ai",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "React 19",
+        "Vite",
+        "Tailwind",
+        "Axios",
+        "FastAPI",
+        "Python",
+        "DeepSeek",
+        "OpenWeatherMap"
+      ],
+      "details": [
+        {
+          "title": "Reliability",
+          "body": "Constrained JSON-only prompting means the LLM can't free-form — parsing the response into typed fields is deterministic."
+        }
+      ]
     },
     {
       "name": "ChatBotUI",
@@ -199,7 +567,18 @@
       "summary": "A college-assistant interface with student chat and document-management views.",
       "url": "https://github.com/vasu-devs/ChatBotUI",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "React",
+        "Vite",
+        "Tailwind",
+        "FastAPI"
+      ],
+      "details": [
+        {
+          "title": "Architecture",
+          "body": "Shared `ThemeContext` and `useTheme` hook keep all three portals visually consistent through dark/light switches. A root layout wraps everything in the theme provider; `AppRouter.jsx` handles portal-level navigation."
+        }
+      ]
     },
     {
       "name": "Arohan",
@@ -207,7 +586,19 @@
       "summary": "A React dashboard experiment with charts and animated interactions.",
       "url": "https://github.com/vasu-devs/Arohan",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "React 19",
+        "Vite",
+        "Tailwind 4",
+        "Recharts",
+        "Motion"
+      ],
+      "details": [
+        {
+          "title": "Honest framing",
+          "body": "An OpenAI listing at ~$1T would be ~6x the largest IPO in history, so the comparables regression is an anchor, not statistics-grade inference — every band is labelled probability-weighted, with wide error bars and caveats baked into each research file. A research exercise, not investment advice."
+        }
+      ]
     },
     {
       "name": "fastapi-cheatsheet",
@@ -215,7 +606,20 @@
       "summary": "A Markdown and PDF reference covering FastAPI routing, validation, security, databases, and testing.",
       "url": "https://github.com/vasu-devs/fastapi-cheatsheet",
       "status": "Public repository",
-      "tech": []
+      "tech": [
+        "FastAPI",
+        "Python",
+        "Markdown"
+      ],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Covers request models, routing, dependencies, authentication examples, middleware, databases, and tests.",
+            "Published in Markdown and PDF; its reference link was merged into EbookFoundation/free-programming-books."
+          ]
+        }
+      ]
     },
     {
       "name": "Folder-Summary-Parser",
@@ -223,7 +627,16 @@
       "summary": "A Tkinter utility for file counts, folder sizes, and extension breakdowns.",
       "url": "https://github.com/vasu-devs/Folder-Summary-Parser",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Recursively counts files and folders and summarizes storage by extension.",
+            "Uses a Tkinter interface and handles inaccessible paths during traversal."
+          ]
+        }
+      ]
     },
     {
       "name": "habiTurtle",
@@ -231,7 +644,16 @@
       "summary": "A PyQt habit tracker with local JSON history, streaks, and a reactive turtle mascot.",
       "url": "https://github.com/vasu-devs/habiTurtle",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Records habit completion in local JSON and derives a daily streak.",
+            "A PyQt mascot changes its visual state with progress."
+          ]
+        }
+      ]
     },
     {
       "name": "RealTimeMemoryAllocationSimulator",
@@ -239,7 +661,16 @@
       "summary": "A single-page browser experiment for visualizing memory allocation.",
       "url": "https://github.com/vasu-devs/RealTimeMemoryAllocationSimulator",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Built as a standalone HTML browser simulation.",
+            "An early systems-learning exercise with no server setup."
+          ]
+        }
+      ]
     },
     {
       "name": "HoleEmAll",
@@ -247,7 +678,16 @@
       "summary": "A Pygame arcade experiment built around cursor movement, collisions, and a countdown.",
       "url": "https://github.com/vasu-devs/HoleEmAll",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Uses a Pygame update loop for mouse movement, collision detection, growth, and scoring.",
+            "A countdown and completion state turn the mechanics into a small playable arcade loop."
+          ]
+        }
+      ]
     },
     {
       "name": "MaintMaster",
@@ -255,7 +695,16 @@
       "summary": "A static interface exploring maintenance scheduling and task tracking.",
       "url": "https://github.com/vasu-devs/MaintMaster",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "A single-page maintenance interface for schedules, checklists, and status.",
+            "An early frontend prototype rather than a released team-management service."
+          ]
+        }
+      ]
     },
     {
       "name": "CultureCompass",
@@ -263,7 +712,16 @@
       "summary": "An early single-page experiment around cultural information and storytelling.",
       "url": "https://github.com/vasu-devs/CultureCompass",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "A single-page cultural-information and storytelling experiment.",
+            "Explores content presentation in static HTML and CSS."
+          ]
+        }
+      ]
     },
     {
       "name": "sidz-cafe",
@@ -271,7 +729,16 @@
       "summary": "A restaurant website with a JSON-backed menu and client-side shopping-cart interface.",
       "url": "https://github.com/vasu-devs/sidz-cafe",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Uses JSON menu data across food-category pages.",
+            "Includes a browser-side cart and a map in a static restaurant website."
+          ]
+        }
+      ]
     },
     {
       "name": "air-aware-website",
@@ -279,7 +746,16 @@
       "summary": "An educational air-quality website with environmental resources and external AQI links.",
       "url": "https://github.com/vasu-devs/air-aware-website",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Presents pollution case studies, practical resources, and links to external AQI information.",
+            "Built in HTML and CSS; it does not fetch live AQI through an application backend."
+          ]
+        }
+      ]
     },
     {
       "name": "password-generator-and-validator",
@@ -287,7 +763,16 @@
       "summary": "A beginner Python exercise in input validation and random string generation.",
       "url": "https://github.com/vasu-devs/password-generator-and-validator",
       "status": "Public repository",
-      "tech": []
+      "tech": [],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Practices branching, input checking, and character-class rules in a Python command-line program.",
+            "An early programming exercise using basic randomness, not a password-security product."
+          ]
+        }
+      ]
     },
     {
       "name": "Reiatsu",
@@ -299,6 +784,15 @@
         "Electron",
         "WebGL",
         "Windows"
+      ],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Attaches wallpaper behind Windows desktop icons and offers a floating scene picker, tray controls, and playback settings.",
+            "Applies WebGL drift, refraction, and lighting to still images, with character-protection masks on selected scenes. These are animated stills, not reconstructed character animation."
+          ]
+        }
       ]
     },
     {
@@ -311,6 +805,15 @@
         "Browser extension",
         "AniList",
         "TVmaze"
+      ],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Uses AniList and TVmaze lookups, with optional TMDB configuration, to surface cast and character information.",
+            "Includes a spoiler-aware presentation mode and a video-player overlay. Website compatibility remains a prototype constraint."
+          ]
+        }
       ]
     },
     {
@@ -322,6 +825,15 @@
       "tech": [
         "Python",
         "JSONL"
+      ],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Collects technical activity into local event records and a generated context document.",
+            "Includes a redaction layer for sharing; exported content still needs review before publication."
+          ]
+        }
       ]
     },
     {
@@ -333,6 +845,15 @@
       "tech": [
         "Python",
         "SQLite"
+      ],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Collects funding stories, company details, and source links into SQLite-backed digests.",
+            "Includes scheduled execution and a web interface; extracted funding facts still require source verification."
+          ]
+        }
       ]
     },
     {
@@ -344,6 +865,15 @@
       "tech": [
         "React",
         "Remotion"
+      ],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Uses React compositions and Remotion timelines to author repeatable demo videos.",
+            "Includes repository analysis, storyboard preparation, rendering, and review workflows."
+          ]
+        }
       ]
     },
     {
@@ -355,6 +885,15 @@
       "tech": [
         "React",
         "FastAPI"
+      ],
+      "details": [
+        {
+          "title": "Inside the project",
+          "bullets": [
+            "Separates the React frontend and FastAPI backend from the Tauri packaging.",
+            "Retains profile-based job matching and reviewable application drafts as an independent web development track."
+          ]
+        }
       ]
     }
   ]
