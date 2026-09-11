@@ -17,7 +17,7 @@ export function mountBleachDetails(controls){
  const hint=document.createElement('p');hint.textContent='Click character to greet · Click page to attack';panel.append(hint);
  const extras=document.createElement('dialog');extras.className='resume-modal character-discoveries';extras.setAttribute('aria-labelledby','discoveries-title');
  const heading=document.createElement('h2');heading.id='discoveries-title';heading.textContent='Discoveries';list=document.createElement('ul');status=document.createElement('p');status.setAttribute('role','status');status.className='bleach-status';extras.append(heading,list,status);document.body.append(extras);
- const discoverButton=button('Discoveries & references ↗',()=>{menu.open=false;extras.showModal();});discoverButton.className='character-discover-link';panel.append(discoverButton);
+ const discoverButton=button('Discoveries & references',()=>{menu.open=false;extras.showModal();});discoverButton.className='character-discover-link';panel.append(discoverButton);
  extras.append(button('Close',()=>extras.close()));extras.addEventListener('close',()=>summary.focus());
  const story=document.createElement('dialog');story.className='bleach-story';story.innerHTML='<p class="bleach-kicker">A PERSONAL NOTE · TYBW REFERENCE</p><h2>THE BLADE IS ME</h2><p>The things I build are a reflection of what I’m curious about.</p><p>Voice, AI, and small experiments that become useful tools. This corner of the site is another one of those experiments—and a nod to Bleach.</p><small>A personal interpretation of the episode title, not dialogue from the series.</small>';
  story.append(button('Close',()=>story.close()));document.body.append(story);
