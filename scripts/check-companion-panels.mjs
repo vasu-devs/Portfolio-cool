@@ -17,7 +17,7 @@ try{
  for(let i=0;i<16;i++){await page.getByRole('button',{name:'Next character',exact:true}).click();await page.waitForTimeout(80);const box=await page.locator('.bleach-drawer').boundingBox();assert.equal(box.x,panelBox.x,'all character names retain horizontal anchor');assert.equal(box.y,panelBox.y,'all character names retain vertical anchor');}
  await page.waitForTimeout(1100);before=await sample();
  await page.mouse.move(700,70);await page.waitForTimeout(400);assert.deepEqual(await sample(),before);
- await page.locator('.bleach-menu summary').click();await page.mouse.move(100,100);await page.waitForTimeout(700);assert.equal((await sample()).top,false);assert.notEqual((await sample()).transform,before.transform,'movement resumes');
+ await page.mouse.click(30,80);assert.equal((await sample()).state,'attack','first outside press must close panel AND attack');await page.waitForTimeout(95);assert.ok(await page.locator('.getsuga-field > *').count(),'attack must render a projectile');await page.waitForTimeout(400);await page.mouse.move(100,100);await page.waitForTimeout(700);assert.equal((await sample()).top,false);assert.notEqual((await sample()).transform,before.transform,'movement resumes');
  await page.getByRole('link',{name:'Résumé',exact:true}).click();await page.waitForTimeout(100);before=await sample();assert.equal(before.parent,'DIALOG');assert.equal(before.top,true);
  await page.mouse.move(650,400);await page.waitForTimeout(400);assert.deepEqual(await sample(),before);
  await page.getByRole('button',{name:'Close résumé',exact:true}).click();await page.waitForTimeout(100);assert.equal((await sample()).parent,'BODY');

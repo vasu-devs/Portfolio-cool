@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=dock-46';
+import './soul-cursor.js?v=attack-47';
 
 function showPage() {
   const id = location.hash.slice(1);

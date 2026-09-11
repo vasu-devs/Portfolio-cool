@@ -299,6 +299,10 @@ function fire(targetX,targetY) {
 // Fire on press: dragging or chasing a moving target can suppress a browser click.
 function pageAttack(event) {
  if (!pageAttacksEnabled() || event.button!==0 || event.target.closest('input,textarea,select,[contenteditable="true"],.soul-controls,.soul-hit,.bleach-menu,.bleach-story,.secret-dot,.theme-toggle')) return;
+ // Close and undock synchronously before this same press starts a swing.
+ // Waiting for the open-attribute observer used to swallow the first attack.
+ const menu=document.querySelector('.bleach-menu[open]');
+ if(menu){menu.open=false;syncPanel();}
  requestAttack(event.clientX,event.clientY);
 }
 document.addEventListener('pointerdown',pageAttack,{passive:true,capture:true});
