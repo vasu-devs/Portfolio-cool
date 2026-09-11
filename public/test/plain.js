@@ -149,20 +149,6 @@ document.querySelector('.video-link[href="#project-0"]')?.addEventListener('clic
  event.preventDefault();document.getElementById('project-0')?.dispatchEvent(new CustomEvent('open-detail'));
 });
 
-// Native swipe/trackpad scrolling plus keyboard-accessible project navigation.
-const buildTrack=document.querySelector('.video-work .video-list');
-if(buildTrack){
- const cards=[...buildTrack.querySelectorAll('.video-link')];
- const nav=document.createElement('nav');nav.className='build-navigation';nav.setAttribute('aria-label','Project walkthroughs');
- const previous=document.createElement('button'),next=document.createElement('button'),count=document.createElement('span');
- previous.type=next.type='button';previous.textContent='Previous';next.textContent='Next';
- let current=0;
- const update=()=>{current=cards.reduce((best,c,i)=>Math.abs(c.offsetLeft-cards[0].offsetLeft-buildTrack.scrollLeft)<Math.abs(cards[best].offsetLeft-cards[0].offsetLeft-buildTrack.scrollLeft)?i:best,0);count.textContent=`${current+1} / ${cards.length}`;previous.disabled=current===0;next.disabled=current===cards.length-1;};
- const move=direction=>{const target=cards[Math.max(0,Math.min(cards.length-1,current+direction))];buildTrack.scrollTo({left:target.offsetLeft-cards[0].offsetLeft});};
- previous.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
- nav.append(previous,count,next);buildTrack.after(nav);buildTrack.addEventListener('scroll',update,{passive:true});update();
-}
-
 // Share the main portfolio's counters and visitor identity; never invent numbers.
 const traffic=document.querySelector('.traffic-stats');
 if(traffic){

@@ -377,20 +377,15 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 .navigation .character-actions .soul-toggle:hover{background:var(--wash)}
 @media(max-height:620px) and (min-width:540px){.character-actions{grid-column:2;grid-row:2}}
 
-/* One project per swipe, with clear manual navigation. */
-.video-work .video-list{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:8px}
-.video-work .video-list::-webkit-scrollbar{display:none}
-.video-work .video-link{flex:0 0 100%;min-width:0;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always;display:block}
+/* Keep every walkthrough in the normal reading flow. */
+.video-work .video-list{display:grid;grid-template-columns:minmax(0,1fr);gap:36px;margin-bottom:24px}
+.video-work .video-link{min-width:0;box-sizing:border-box;display:block}
 .video-work .video-link .realm-covers{width:100%;aspect-ratio:16/9}
 .video-work .video-link strong{display:block;font-size:24px;margin-top:16px}
 .video-work .video-link small{display:block;font-size:14px;line-height:1.7;max-width:65ch}
-.build-navigation{display:flex;align-items:center;justify-content:center;gap:18px;margin:8px 0 20px;font-size:12px;color:var(--muted)}
-.build-navigation button{font:inherit;color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:6px 14px;background:transparent;cursor:pointer}
-.build-navigation button:disabled{opacity:.35;cursor:default}
 :root{--bright:#eef7ff;--ink:#e0ebf4}
 :root[data-theme=light]{--bright:#172d45;--ink:#293e50;--accent:#356a91;--line:#b9cbd7;--page:#f0f5f8;--surface:#e4edf3}
 .identity h1{color:var(--bright)}
-@media(prefers-reduced-motion:reduce){.video-work .video-list{scroll-behavior:auto}}
 
 :root{--heat-0:#193044;--heat-1:#24516a;--heat-2:#397c9e;--heat-3:#6db6d4;--heat-4:#b8ecfa}
 :root[data-theme=light]{--heat-0:#dce8ef;--heat-1:#b0cddd;--heat-2:#7da9c3;--heat-3:#497b9b;--heat-4:#234f72}
