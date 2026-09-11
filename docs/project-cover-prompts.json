@@ -1,0 +1,25 @@
+{
+  "tool": "Built-in image_gen",
+  "prompts": [
+    {
+      "name": "vaani",
+      "prompt": "Create a polished 16:9 landscape anime illustration for a Bleach TYBW inspired personal software portfolio project cover. Cel shaded 2D anime background painting, precise ink contours, restrained luminous spiritual energy, deep petrol blue and moonlit cyan balanced with warm ivory, elegant cinematic negative space. Calm and beautiful rather than explosive. No text, no lettering, no logos, no UI, no border, no collage, no photorealism. One coherent landscape composition with a clearly readable central metaphor at thumbnail size. Voice AI: an elegant black Hell Butterfly above an antique ivory communication receiver on a stone ledge; soft concentric cyan sound ripples drift toward a distant pale Seireitei skyline under blue twilight."
+    },
+    {
+      "name": "odeon",
+      "prompt": "Create a polished 16:9 landscape anime illustration for a Bleach TYBW inspired personal software portfolio project cover. Cel shaded 2D anime background painting, precise ink contours, restrained luminous spiritual energy, deep petrol blue and moonlit cyan balanced with warm ivory, elegant cinematic negative space. Calm and beautiful rather than explosive. No text, no lettering, no logos, no UI, no border, no collage, no photorealism. One coherent landscape composition with a clearly readable central metaphor at thumbnail size. AI evaluation: two opposing flowing ribbons of spiritual light, one pale cyan one muted crimson, meet over a circular stone training courtyard; each ribbon reflected in a still shallow pool, distant white walls and black tiled roofs. Balanced symmetrical composition."
+    },
+    {
+      "name": "mapmyrepo",
+      "prompt": "Create a polished 16:9 landscape anime illustration for a Bleach TYBW inspired personal software portfolio project cover. Cel shaded 2D anime background painting, precise ink contours, restrained luminous spiritual energy, deep petrol blue and moonlit cyan balanced with warm ivory, elegant cinematic negative space. Calm and beautiful rather than explosive. No text, no lettering, no logos, no UI, no border, no collage, no photorealism. One coherent landscape composition with a clearly readable central metaphor at thumbnail size. Code mapping: a luminous branching constellation of cyan pathways with small ivory lantern nodes hovers above an unfurled parchment map on a low stone table; quiet Seireitei courtyard and misty dark blue roof silhouettes behind it. Organic tree topology, graceful clarity."
+    },
+    {
+      "name": "branchgpt",
+      "prompt": "Create a polished 16:9 landscape anime illustration for a Bleach TYBW inspired personal software portfolio project cover. Cel shaded 2D anime background painting, precise ink contours, restrained luminous spiritual energy, deep petrol blue and moonlit cyan balanced with warm ivory, elegant cinematic negative space. Calm and beautiful rather than explosive. No text, no lettering, no logos, no UI, no border, no collage, no photorealism. One coherent landscape composition with a clearly readable central metaphor at thumbnail size. Branching conversations: an elegant ivory tree with three main luminous cyan branches that diverge and reunite like conversation paths, floating translucent paper message slips along the branches, white desert dunes and a crescent moon in deep navy sky. Bleach Hueco Mundo atmosphere."
+    },
+    {
+      "name": "polysee",
+      "prompt": "Create a polished 16:9 landscape anime illustration for a Bleach TYBW inspired personal software portfolio project cover. Cel shaded 2D anime background painting, precise ink contours, restrained luminous spiritual energy, deep petrol blue and moonlit cyan balanced with warm ivory, elegant cinematic negative space. Calm and beautiful rather than explosive. No text, no lettering, no logos, no UI, no border, no collage, no photorealism. One coherent landscape composition with a clearly readable central metaphor at thumbnail size. Multilingual campus knowledge: an open ivory book on a stone reading desk, several luminous paper ribbons rise and converge into a soft cyan sphere above the pages; serene academy courtyard with white walls and tiled roofs, blue dusk and warm window lights. Knowledge and connection."
+    }
+  ]
+}
