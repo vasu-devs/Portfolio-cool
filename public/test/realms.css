@@ -95,14 +95,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 .is-entering .soul-character{animation:none}
 @media(max-width:600px){.navigation .character-name{max-width:70px}}
 
-/* Reading atmosphere: feathered pools of mist, without a boxed panel. */
-:root{--reading-mist:rgba(3,15,27,.72);--reading-shadow:rgba(2,9,17,.8)}
-:root[data-theme=light]{--reading-mist:rgba(250,249,242,.85);--reading-shadow:rgba(255,255,248,.85)}
-main#main{position:relative;isolation:isolate}
-main#main::before{content:none}
-#home .intro,#home .bleach-note,#home .bench,#home .experience,#home .background,#projects{position:relative;isolation:isolate}
-#home .intro::before,#home .bleach-note::before,#home .bench::before,#home .experience::before,#home .background::before,#projects::before{content:"";position:absolute;inset:-32px -45px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 45% 50%,var(--reading-mist) 0%,var(--reading-mist) 35%,transparent 73%);filter:blur(14px)}
-#home .intro,#projects .projects-intro{text-shadow:0 1px 9px var(--reading-shadow)}
-.identity{position:relative;text-shadow:0 1px 12px var(--reading-shadow)}
-@media(max-width:600px){#home .intro::before,#home .bleach-note::before,#home .bench::before,#home .experience::before,#home .background::before,#projects::before{inset:-24px -18px;filter:blur(9px)}}
-@media print{#home .intro::before,#home .bleach-note::before,#home .bench::before,#home .experience::before,#home .background::before,#projects::before{display:none}}
+/* Keep the realm palette intact: soften scenery evenly, without painted patches. */
+body::before{filter:blur(2px);transform:scale(1.015)}
+:root:not([data-theme=light]) .intro,:root:not([data-theme=light]) .projects-intro{color:#edf3f6;text-shadow:0 1px 2px rgba(0,9,18,.65)}
+:root[data-theme=light] .intro,:root[data-theme=light] .projects-intro{color:#202e35;text-shadow:none}
+@media print{body::before{filter:none;transform:none}}
