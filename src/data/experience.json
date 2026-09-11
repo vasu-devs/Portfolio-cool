@@ -7,7 +7,7 @@
             "dateLabel": "Jun 2026 → Present",
             "track": "Internship",
             "contribution": "Applied AI / Voice / Full-stack engineering",
-            "summary": "At withlayer.ai, I work on conversational AI and full-stack engineering: real-time voice behavior, LLM and agent integrations, backend APIs, and React/Next.js interfaces. My work also includes investigating latency, writing regression tests, and checking data-access boundaries.",
+            "summary": "I build conversational AI features at withlayer.ai, from real-time voice interactions to backend APIs and React interfaces. I also investigate latency, handle interruptions and connection changes, and write regression tests to keep those flows reliable.",
             "metrics": [
                 {
                     "value": "Voice",
@@ -96,7 +96,7 @@
             "dateLabel": "2026 → Present",
             "track": "Freelance",
             "contribution": "Contract / Applied AI & backend engineering",
-            "summary": "Working with Python, FastAPI, TypeScript, and MongoDB across applied AI and backend engineering. Focus areas include embeddings, vector retrieval, multimodal AI, data processing, and API integration. Engineering practice spans automated tests, Docker, AWS, and CI/CD.",
+            "summary": "I’m working with a client on AI and backend systems: embeddings, vector retrieval, multimodal inputs, and data-processing APIs. The stack includes Python, FastAPI, TypeScript, and MongoDB, with automated tests and Docker-based delivery.",
             "tech": [
                 "Python",
                 "FastAPI",
@@ -130,7 +130,7 @@
             "dateLabel": "Mar → Apr 2026",
             "track": "Freelance",
             "contribution": "Completed full-stack engagement",
-            "summary": "Full-stack engineering across TypeScript, React, backend APIs, and relational databases. Worked through implementation, validation, and delivery.",
+            "summary": "I delivered full-stack work for a client between March and April 2026, building React interfaces and connecting them to backend APIs and a relational database. I worked through implementation, validation, and delivery. Client and product details are confidential.",
             "tech": [
                 "TypeScript",
                 "React",

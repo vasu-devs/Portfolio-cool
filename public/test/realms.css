@@ -391,3 +391,10 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 :root[data-theme=light]{--bright:#172d45;--ink:#293e50;--accent:#356a91;--line:#b9cbd7;--page:#f0f5f8;--surface:#e4edf3}
 .identity h1{color:var(--bright)}
 @media(prefers-reduced-motion:reduce){.video-work .video-list{scroll-behavior:auto}}
+
+:root{--heat-0:#193044;--heat-1:#24516a;--heat-2:#397c9e;--heat-3:#6db6d4;--heat-4:#b8ecfa}
+:root[data-theme=light]{--heat-0:#dce8ef;--heat-1:#b0cddd;--heat-2:#7da9c3;--heat-3:#497b9b;--heat-4:#234f72}
+.github-activity{margin:48px 0}.github-activity>p{font-size:14px;color:var(--muted)}
+.github-activity svg{display:block;width:100%;height:auto;margin:20px 0 10px;overflow:visible}.github-activity svg text{fill:var(--muted);font:9px sans-serif}.github-activity rect:hover{stroke:var(--bright);stroke-width:1}
+.heatmap-footer{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;color:var(--muted);font-size:10px}.heat-legend{display:flex;gap:4px;align-items:center}.heat-legend i{width:9px;height:9px;border-radius:2px}
+.experience{margin:42px 0}.experience .role{padding:18px 0}
