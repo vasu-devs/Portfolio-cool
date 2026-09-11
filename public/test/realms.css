@@ -527,9 +527,12 @@ main h2{font-size:24px;font-weight:600;line-height:1.4}
 :root:not([data-theme=light]) body::after{height:390px;opacity:.78;background-image:linear-gradient(90deg,transparent 0%,#071421b3 32%,#071421b3 68%,transparent 100%),var(--realm-art);background-position:center bottom;mask-image:linear-gradient(transparent 0%,#0008 45%,#000 100%);-webkit-mask-image:linear-gradient(transparent 0%,#0008 45%,#000 100%)}
 @media(max-width:600px){:root:not([data-theme=light]) body::before{background-size:auto 470px;height:370px;background-position:85% top}:root:not([data-theme=light]) body::after{height:290px;background-size:auto 490px}}
 /* Keep the upper crop strictly above Las Noches; both fades meet the same sky. */
-:root:not([data-theme=light]){--page:#0a223b;--accent:#b0cedb;--muted:#a9bcc9;--line:#344957;--wash:#789aa418;--surface:#172732}
+:root:not([data-theme=light]){--page:#101e2b;--accent:#b0cedb;--muted:#a9bcc9;--line:#344957;--wash:#789aa418;--surface:#172732}
 :root:not([data-theme=light]) body::before{height:clamp(220px,29vw,400px);background-size:max(100%,850px) auto;background-position:right top;opacity:.92;mask-image:linear-gradient(#000 0%,#000e 34%,#0005 67%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#000e 34%,#0005 67%,transparent 100%)}
-:root:not([data-theme=light]) body::after{background-image:linear-gradient(90deg,transparent 0%,#0a223bb3 32%,#0a223bb3 68%,transparent 100%),var(--realm-art)}
+:root:not([data-theme=light]) body::after{background-image:linear-gradient(90deg,transparent 0%,#101e2bb3 32%,#101e2bb3 68%,transparent 100%),var(--realm-art)}
 @media(max-width:600px){:root:not([data-theme=light]) body::before{height:230px;background-size:850px auto;background-position:85% top}}
-/* The middle matches the source sky's sampled lower-cloud colour. */
-:root:not([data-theme=light]) body{background-color:var(--page);background-image:radial-gradient(ellipse at 17px 29px,#a6c4d21c 0 .55px,transparent 1px),radial-gradient(ellipse at 143px 97px,#a6c4d212 0 .6px,transparent 1.1px),radial-gradient(ellipse at 71px 173px,#a6c4d216 0 .45px,transparent .9px);background-size:317px 283px,421px 367px,557px 439px;background-repeat:repeat}
+/* Sparse sand specks across the page, with no texture panel or dune outlines. */
+:root:not([data-theme=light]) body{background-color:var(--page);background-image:radial-gradient(ellipse at 17px 29px,#a6c4d21c 0 .55px,transparent 1px),radial-gradient(ellipse at 143px 97px,#a6c4d212 0 .6px,transparent 1.1px),radial-gradient(ellipse at 71px 173px,#a6c4d216 0 .45px,transparent .9px),radial-gradient(ellipse 52% 210px at -12% 560px,#54829b38,transparent 78%),radial-gradient(ellipse 48% 290px at 111% 990px,#628fa638,transparent 76%),radial-gradient(ellipse 65% 110px at 10% 1250px,#7596a314,transparent 80%),linear-gradient(90deg,#07131d70,transparent 32%,transparent 68%,#07131d70);background-size:317px 283px,421px 367px,557px 439px,100% 1650px,100% 1650px,100% 1650px,100% 100%;background-repeat:repeat}
+
+/* Moonlit blue-grey grading shared by both ends of the desert. */
+:root:not([data-theme=light]) body::before,:root:not([data-theme=light]) body::after{filter:saturate(.68)}
