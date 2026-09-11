@@ -305,7 +305,7 @@ html:not([data-theme="light"]) .realm-covers [data-cover-realm="hueco"],html[dat
 /* The wordmark carries the anime lettering; content uses a quieter hierarchy. */
 @font-face{font-family:Bleach Display;src:url('./fonts/bleach-display.ttf') format('truetype');font-weight:400;font-style:normal;font-display:block}
 @font-face{font-family:Barlow Condensed;src:url('./fonts/barlow-condensed-semibold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
-.identity h1{font-family:Bleach Display,'Arial Narrow',sans-serif;font-weight:400;font-size:clamp(34px,5.4vw,52px);letter-spacing:.015em;line-height:1.2;text-transform:uppercase}
+.identity h1{font-family:Bleach Display,'Arial Narrow',sans-serif;font-weight:400;font-size:clamp(28px,4vw,40px);letter-spacing:.015em;line-height:1.2;text-transform:uppercase}
 #projects>h1,.work-breadth>h2,.video-work>h2,.work-archive>h2,.bench h2,.experience>h2,.resume-toolbar h2,.character-card-name,.resume-content>h2,.resume-content header>h2{font-family:Barlow Condensed,'Arial Narrow',sans-serif;font-weight:600;font-style:normal;letter-spacing:.015em;line-height:1.15;text-transform:none}
 .work-breadth>h2,.video-work>h2,.work-archive>h2,.experience>h2{font-size:clamp(28px,3.6vw,36px)}
 .video-link strong,.project-title h3,.archive-item h3{font-family:Realm Text,Arial,sans-serif;font-size:21px;font-weight:600;letter-spacing:-.025em;line-height:1.4;text-transform:none}
@@ -344,3 +344,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 /* Three featured walkthroughs, with room for a useful project introduction. */
 .video-list{grid-template-columns:repeat(3,minmax(0,1fr))}.video-link small{line-height:1.7}
 @media(max-width:760px){.video-list{grid-template-columns:1fr}}
+
+/* Balance the wordmark with a closer face crop at profile size. */
+.identity{gap:22px}.identity .portrait-frame{width:104px;height:104px;border-radius:22px;overflow:hidden;flex-shrink:0}.identity .avatar-slide{transform:scale(1.18);transform-origin:50% 30%}.identity h1{margin-bottom:8px}
+@media(max-width:600px){.identity{gap:16px}.identity .portrait-frame{width:88px;height:88px;border-radius:18px}.identity h1{font-size:clamp(25px,6.5vw,34px)}}
