@@ -1,0 +1,293 @@
+[
+  {
+    "title": "JustHireMe",
+    "category": "Local-First AI / Open Source",
+    "description": "A local-first AI job-intelligence desktop app with 2,000+ GitHub stars. It scrapes and ranks roles with graph + vector retrieval, explains why each fits, and generates tailored resumes and outreach — with local storage and optional AI-provider connections.",
+    "summary": "Local-first job intelligence, shipped as a cross-platform desktop app. A Tauri + Rust shell hosts a React workbench and a bundled Python FastAPI sidecar; leads flow through scrape → quality-gate → local CRM → explainable fit-ranking over a graph + vectors, then a generator produces tailored resumes, cover letters and outreach. Career data is stored locally; optional AI providers process requests when configured. The launch went viral — 380K+ views and 800 → 2,000+ GitHub stars in two weeks.",
+    "details": [
+      {
+        "title": "The problem",
+        "body": "Job boards drown you in stale, senior-only, spammy postings; black-box 'auto-apply' tools ship your data to the cloud and never explain why a role was recommended. JustHireMe is for any field, in any country — better signal, explainable ranking, and tailored materials without giving up control or privacy."
+      },
+      {
+        "title": "How it works",
+        "bullets": [
+          "Tauri 2 (Rust) shell + React 19 workbench + a bundled Python FastAPI sidecar, bound to 127.0.0.1 behind a runtime-generated token",
+          "Leads flow: source adapter → normalize → deterministic quality gate → local SQLite CRM → fit ranking",
+          "Ranking blends deterministic scoring, an optional LLM evaluator, and semantic vector matching (LanceDB) over a Kuzu profile graph",
+          "A bundled ONNX all-MiniLM embedding model means semantic matching works with no API key"
+        ]
+      },
+      {
+        "title": "Tailored materials",
+        "body": "A customizer emits a tailored resume PDF (with versioning + keyword coverage), a cover letter, and founder / LinkedIn / cold-email outreach — field- and location-agnostic, degrading cleanly on transient vs permanent LLM failure so an untailored doc is never silently marked approved."
+      },
+      {
+        "title": "The launch",
+        "bullets": [
+          "380K+ views and 800 → 2,000+ GitHub stars within ~2 weeks",
+          "Cross-platform installers (Windows / macOS / Linux) built by CI from v* tags across 100+ releases",
+          "620 backend pytest + 71 frontend Vitest tests; a thin ~100 MB installer with a content-versioned runtime pack",
+          "AGPL-3.0 open source and sponsorable, with an MCP server + a reusable agent skill"
+        ]
+      }
+    ],
+    "highlights": [
+      "2,000+ GitHub stars from a viral launch (380K+ views)",
+      "Local storage for career data, with optional external AI-provider processing",
+      "Explainable fit-ranking with a bundled, keyless ONNX embedding model"
+    ],
+    "tech": [
+      "Tauri 2",
+      "Rust",
+      "React 19",
+      "TypeScript",
+      "Python",
+      "FastAPI",
+      "SQLite",
+      "Kuzu",
+      "LanceDB",
+      "ONNX"
+    ],
+    "videoUrl": "",
+    "thumbnailUrl": "/covers/JustHireMe.png",
+    "liveUrl": "https://justhireme.ai"
+  },
+  {
+    "title": "BranchGPT",
+    "category": "Context Optimization / AI",
+    "description": "A Git-like chat interface that treats conversations as a Directed Acyclic Graph (DAG) for context garbage collection. Features include forking branches and merging insights back to keep AI context clean.",
+    "summary": "Conversations are trees, not lists. BranchGPT reimplements chat as a DAG — fork any message into a parallel reality, explore tangents without polluting the main thread, and smart-merge branches back as LLM-generated summaries.",
+    "details": [
+      {
+        "title": "The idea",
+        "body": "Long chat sessions bloat LLM context. Every tangent and dead-end stays in history, burning tokens and diluting relevance. BranchGPT models the conversation as a Git-style DAG — every message is a node, forking spawns a parallel branch that inherits history up to that point, and merging is explicit."
+      },
+      {
+        "title": "Smart merging",
+        "bullets": [
+          "Llama 3.3 summarizes branches before merging, so the parent only absorbs new insight — not the full branch transcript",
+          "Merge logic filters out shared history, appending only what's new",
+          "Merges recorded as distinct system events in the chat stream",
+          "The branch stays intact post-merge — you can keep exploring it"
+        ]
+      },
+      {
+        "title": "Tree navigation",
+        "body": "A visual Git-tree sidebar renders the whole conversation graph. Click any node to jump. Each branch preserves its own history up to the fork point, so context switching is clean and unambiguous."
+      },
+      {
+        "title": "Stack",
+        "bullets": [
+          "Next.js 16 — App Router + Server Actions",
+          "Neon Postgres via Drizzle ORM for tree storage",
+          "Vercel AI SDK wiring to Groq (Llama 3.3) for inference",
+          "Tailwind 4 + glassmorphic UI, full Markdown + LaTeX support"
+        ]
+      }
+    ],
+    "highlights": [
+      "Conversations as DAGs — fork, branch, merge, prune",
+      "LLM-summarized merges retain insight without transcript bloat",
+      "Git-tree sidebar for instant branch navigation"
+    ],
+    "tech": [
+      "Next.js 16",
+      "TypeScript",
+      "Drizzle ORM",
+      "Neon Postgres",
+      "Vercel AI SDK",
+      "Groq",
+      "Tailwind 4"
+    ],
+    "videoUrl": "https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM",
+    "thumbnailUrl": "/covers/branchGPT.png",
+    "liveUrl": "https://branchgpt.siddhvasudev.com/"
+  },
+  {
+    "title": "Vaani",
+    "category": "Voice AI / Fintech",
+    "description": "An intelligent, voice-native debt collection platform powered by LiveKit, Groq, and Deepgram. Features sub-500ms latency, real-time negotiation, and FDCPA compliance guardrails.",
+    "summary": "Voice-native debt-recovery command center. LiveKit handles real-time transport, Groq runs the LLM, Deepgram does both STT and TTS. Two personas — empathetic Rachel and firm Orion — pick up the phone. A 'Sherlock' risk engine watches every second for compliance and intent.",
+    "details": [
+      {
+        "title": "Voice pipeline",
+        "bullets": [
+          "LiveKit Agents for WebRTC transport + SIP outbound calls",
+          "Deepgram Nova-2 for real-time speech-to-text",
+          "Groq Llama 3 for low-latency LLM inference",
+          "Deepgram TTS for natural synthesized speech",
+          "Sub-500 ms end-to-end latency; full-duplex — debtors can interrupt mid-sentence"
+        ]
+      },
+      {
+        "title": "Two personas",
+        "bullets": [
+          "Rachel — empathetic and patient, tuned for hardship cases",
+          "Orion — firm and direct, tuned for strategic defaulters"
+        ]
+      },
+      {
+        "title": "Sherlock risk engine",
+        "body": "Every second of every call is analyzed live for compliance and intent. FDCPA guardrails instantly flag Bankruptcy, Attorney Representation and Cease & Desist triggers. Matrix profiling classifies debtors into quadrants (Hardship Case vs Strategic Defaulter). Outcomes are auto-tagged as Promise to Pay, Refusal, or Dispute."
+      },
+      {
+        "title": "Command Center",
+        "body": "A dark-mode React dashboard streams the live transcript in a hacker-style terminal with risk badges popping in as the AI detects intent. Recovery rates and risk scores aggregate across thousands of calls."
+      },
+      {
+        "title": "Architecture",
+        "bullets": [
+          "Frontend: React 18 + Vite + Tailwind",
+          "API: Python + FastAPI — orchestrates calls and SIP handler",
+          "Agent Worker: LiveKit Agents, runs as a separate process",
+          "Dockerfiles for DigitalOcean App Platform deployment (API + Worker + Frontend)"
+        ]
+      }
+    ],
+    "highlights": [
+      "Sub-500 ms voice latency with full-duplex interruption handling",
+      "Sherlock engine: FDCPA guardrails + debtor-matrix profiling + live PTP/Refusal/Dispute tagging",
+      "Two tuned personas (Rachel / Orion) — dispatch by debtor archetype"
+    ],
+    "tech": [
+      "Python",
+      "FastAPI",
+      "LiveKit Agents",
+      "Groq",
+      "Deepgram",
+      "React 18",
+      "Vite",
+      "Tailwind",
+      "SIP",
+      "Docker"
+    ],
+    "videoUrl": "https://www.youtube.com/watch?v=VsEfOfwh8XM",
+    "thumbnailUrl": "/covers/Vaani.png"
+  },
+  {
+    "title": "Odeon",
+    "category": "Autonomous Agents",
+    "description": "A framework for evolving voice agents through adversarial persona testing. It iteratively self-corrects based on simulation outcomes to improve agent performance.",
+    "summary": "AI agent optimization platform. Generate adversarial personas, run high-fidelity simulations, score each conversation against strict KPIs, and let a meta-agent rewrite the prompt automatically when targets are missed — a self-improving loop that converges on the optimal persona.",
+    "details": [
+      {
+        "title": "The problem",
+        "body": "Prompt tuning is a black box. You tweak, you hope, you ship. Odeon replaces that with a measurable loop: simulate realistic users, score the agent against numerical KPIs, and auto-rewrite the prompt when it fails."
+      },
+      {
+        "title": "Personas generated on the fly",
+        "body": "Odeon spawns diverse user personas per scenario — \"The Lawyer,\" \"The Crying Student,\" \"The Stubborn Defaulter,\" etc. Each persona drives the user-side of the simulation, giving the agent genuinely hard traffic to handle."
+      },
+      {
+        "title": "Strict metric thresholds",
+        "bullets": [
+          "Empathy (1–10)",
+          "Negotiation (1–10)",
+          "Repetition (1–10)",
+          "Agents must meet ALL criteria to pass a scenario — no cherry-picking"
+        ]
+      },
+      {
+        "title": "Self-improving loop",
+        "body": "When the agent fails a threshold, the Optimizer meta-agent reads the failure logs and rewrites the system prompt. The Neural Visual Diffing view renders the prompt change as a Git-style red/green diff — so you can see exactly which words changed to improve empathy or compliance."
+      },
+      {
+        "title": "Live stream",
+        "body": "A bi-directional WebSocket streams every simulation character-by-character to the frontend. SQLite archives every run for replay, analysis, and forking."
+      },
+      {
+        "title": "Stack",
+        "bullets": [
+          "FastAPI + WebSockets backend",
+          "Groq Cloud for ultra-fast LLM inference (Llama 3.1 8B / 70B)",
+          "LangChain for chain management and structured output parsing",
+          "SQLite for history & replay",
+          "React 19 + Vite + TypeScript + Tailwind 4 frontend (neo-brutalist / glassmorphism)"
+        ]
+      }
+    ],
+    "highlights": [
+      "Adversarial persona generation for synthetic stress testing",
+      "Meta-agent auto-rewrites prompts when thresholds fail — self-improving loop",
+      "Git-style red/green diff view shows exactly which words changed"
+    ],
+    "tech": [
+      "Python",
+      "FastAPI",
+      "WebSockets",
+      "Groq",
+      "LangChain",
+      "SQLite",
+      "React 19",
+      "Vite",
+      "TypeScript",
+      "Tailwind 4"
+    ],
+    "videoUrl": "https://youtu.be/GFdSe4-c_xQ",
+    "thumbnailUrl": "/covers/Odeon.png"
+  },
+  {
+    "title": "MapMyRepo",
+    "category": "Knowledge Graph / AI",
+    "description": "Turns any codebase into an interactive knowledge graph. Files and folders become interconnected nodes; Gemini summarizes each, and you can chat with the graph to explore architecture.",
+    "summary": "Transforms any codebase — uploaded locally or fetched from a public GitHub URL — into an interactive D3.js force-directed node graph. Every file and folder is a node, Gemini summarizes each one, and a per-node chat panel lets you ask architectural questions directly.",
+    "details": [
+      {
+        "title": "What it does",
+        "body": "Point it at a GitHub URL or drag a folder in. MapMyRepo parses the tree, filters out noise (node_modules, .git, build artifacts), and renders it as a force-directed graph you can orbit, zoom, and drill into. The goal: understand complex architectures or onboard into unfamiliar codebases in minutes instead of hours."
+      },
+      {
+        "title": "Graph interactions",
+        "bullets": [
+          "Scroll to zoom, drag to pan, click a node to select",
+          "Double-click a folder to expand or collapse its contents",
+          "Hover highlights connected nodes",
+          "Distinct icons and colors per file type + folder"
+        ]
+      },
+      {
+        "title": "AI layer (Gemini)",
+        "bullets": [
+          "Per-node architectural summary generated on demand",
+          "Chat tab per node — \"what does this file do?\", \"where is auth handled?\", \"explain the routing structure\"",
+          "Contextual answers: Gemini sees the file / folder metadata + related nodes",
+          "Markdown-rendered responses via Marked"
+        ]
+      },
+      {
+        "title": "Import paths",
+        "bullets": [
+          "Local upload: drag and drop any folder",
+          "GitHub URL: paste a public repo URL to visualize instantly",
+          "Optional GitHub PAT raises the 60/hr rate limit ceiling for private repos"
+        ]
+      },
+      {
+        "title": "Stack",
+        "bullets": [
+          "React 19 + TypeScript + Vite 6",
+          "D3.js 7 for the force-directed graph",
+          "Google Gemini for per-node summaries and chat",
+          "Tailwind with glassmorphic sidebar + dark/light theming"
+        ]
+      }
+    ],
+    "highlights": [
+      "Interactive force-directed node graph of any codebase",
+      "Gemini-powered per-node summaries + contextual chat",
+      "Load any public GitHub repo by URL — no auth required"
+    ],
+    "tech": [
+      "React 19",
+      "TypeScript",
+      "Vite 6",
+      "D3.js 7",
+      "Google Gemini",
+      "Tailwind"
+    ],
+    "videoUrl": "https://youtu.be/EmTDrPzAo40",
+    "thumbnailUrl": "/covers/MapMyRepo.png",
+    "liveUrl": "https://mapmyrepo.siddhvasudev.com"
+  }
+]

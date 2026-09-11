@@ -147,3 +147,5 @@ filmDialog.addEventListener('close',()=>{filmDialog.querySelector('.film-player'
 // Navigation belongs to the viewport, outside the content stacking context.
 const bottomNavigation=document.querySelector('.navigation');document.body.append(bottomNavigation);
 for(const close of document.querySelectorAll('[aria-label="Close details"],[aria-label="Close video"],[data-resume-close]')){close.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';}
+
+for(const button of document.querySelectorAll('.archive-open'))button.addEventListener('click',()=>openDetail(button.closest('.archive-item').querySelector('.archive-detail')));
