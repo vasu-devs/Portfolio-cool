@@ -209,3 +209,22 @@ body>.layout,body>main{position:relative;z-index:1}
 .character-discoveries::backdrop,.bleach-story::backdrop{background:var(--modal-shade)}
 .bleach-story h2,.character-discoveries h2{color:var(--bright)}
 .bleach-story small{opacity:1;color:var(--muted)}
+/* High-contrast serif title cards and restrained chapter labels. */
+@font-face{font-family:Realm Display;src:url('./fonts/bodoni-moda-regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:Realm Text;src:url('./fonts/manrope-regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:Realm Text;src:url('./fonts/manrope-semibold.ttf') format('truetype');font-weight:600 800;font-display:swap}
+body{font-family:Realm Text,Arial,sans-serif}
+.identity .identity-kicker{font:10px/1.5 Realm Text,Arial,sans-serif;letter-spacing:.28em;color:var(--muted);margin:0 0 8px}
+.identity h1,#projects>h1,.resume-content>h2,.resume-content header>h2{font-family:Realm Display,Georgia,serif;font-weight:400;letter-spacing:-.055em;line-height:1.12}
+.identity h1{font-size:clamp(34px,5.3vw,56px)}
+#projects>h1{font-size:clamp(38px,6vw,66px)}
+.work-breadth>h2,.video-work>h2,.work-archive>h2{font-family:Realm Display,Georgia,serif;font-size:clamp(29px,4vw,40px);font-weight:400;letter-spacing:-.035em;line-height:1.2;margin-bottom:16px}
+.eyebrow,.experience>.label,.bench>.label{font-family:Realm Text,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.experience>.label{padding-bottom:14px;border-bottom:1px solid var(--line)}
+.project-title h3,.archive-item-heading h3{font-weight:600;letter-spacing:-.025em}
+.resume-content>h2,.resume-content header>h2{font-size:clamp(30px,5vw,44px)}
+.resume-content h3,.case-sections h4{font-weight:600;letter-spacing:.055em;font-size:12px;text-transform:uppercase}
+.case-sections h4::before{content:'';display:inline-block;width:16px;height:1px;background:var(--accent);vertical-align:middle;margin-right:9px}
+.film-open{overflow:hidden}.film-modal{width:min(860px,calc(100vw - 28px))}.film-player{aspect-ratio:16/9;background:#05090e}.film-player iframe{display:block;width:100%;height:100%;border:0}
+.film-description .film-summary{font-size:16px;line-height:1.8;margin:18px 0}.film-description .case-stack{margin:18px 0}.film-description .case-sections section+section{margin-top:24px}.film-description .case-sections p,.film-description .case-sections li{font-size:14px;color:var(--ink)}
+.film-fallback{display:block;margin-top:24px;font-size:12px;color:var(--muted)}

@@ -120,3 +120,26 @@ for(const source of document.querySelectorAll('details.project,details.role,deta
 readingDialog.querySelector('button').addEventListener('click',()=>readingDialog.close());
 readingDialog.addEventListener('click',event=>{if(event.target!==readingDialog)return;const r=readingDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)readingDialog.close();});
 readingDialog.addEventListener('close',()=>{detailSource?.append(...detailNodes);detailNodes=[];document.documentElement.classList.remove('detail-open');detailOpener?.focus({preventScroll:true});});
+// Project films stay in context; remove the player on close so playback stops.
+const filmDialog=document.createElement('dialog');
+filmDialog.className='resume-modal film-modal';filmDialog.setAttribute('aria-labelledby','film-title');
+filmDialog.innerHTML='<div class="resume-toolbar"><span>FIELD RECORDING</span><button type="button" aria-label="Close video">Close ×</button></div><div class="film-player"></div><div class="resume-content film-description"></div>';
+document.body.append(filmDialog);
+let filmOpener;
+document.addEventListener('click',event=>{
+ const link=event.target.closest('a[href]');if(!link||filmDialog.contains(link)||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+ let url;try{url=new URL(link.href);}catch{return;}
+ if(!['www.youtube.com','youtube.com','youtu.be'].includes(url.hostname))return;
+ const id=url.hostname==='youtu.be'?url.pathname.slice(1):url.searchParams.get('v');
+ if(!id||!/^[\w-]{11}$/.test(id))return;
+ const template=document.getElementById(`film-${id}`);if(!template)return;
+ event.preventDefault();filmOpener=link;
+ const body=filmDialog.querySelector('.film-description');body.replaceChildren(template.content.cloneNode(true));body.querySelector('h2').id='film-title';
+ const iframe=document.createElement('iframe');iframe.src=`https://www.youtube-nocookie.com/embed/${id}?rel=0`;iframe.title=`${body.querySelector('h2').textContent} project walkthrough`;iframe.allow='encrypted-media; picture-in-picture; fullscreen';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
+ filmDialog.querySelector('.film-player').replaceChildren(iframe);
+ const fallback=document.createElement('a');fallback.href=url.href;fallback.target='_blank';fallback.rel='noopener noreferrer';fallback.className='film-fallback';fallback.textContent='Watch on YouTube ↗';body.append(fallback);
+ filmDialog.showModal();filmDialog.scrollTop=0;document.documentElement.classList.add('film-open');filmDialog.querySelector('button').focus();
+});
+filmDialog.querySelector('button').addEventListener('click',()=>filmDialog.close());
+filmDialog.addEventListener('click',event=>{if(event.target!==filmDialog)return;const r=filmDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)filmDialog.close();});
+filmDialog.addEventListener('close',()=>{filmDialog.querySelector('.film-player').replaceChildren();document.documentElement.classList.remove('film-open');filmOpener?.focus({preventScroll:true});});
