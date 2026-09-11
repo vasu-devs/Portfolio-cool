@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=selection-30';
+import './soul-cursor.js?v=navbar-35';
 
 function showPage() {
   const id = location.hash.slice(1);

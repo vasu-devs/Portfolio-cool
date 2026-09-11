@@ -9,22 +9,22 @@ function render(){if(!list)return;list.replaceChildren();for(const [id,name] of 
 function button(text,fn){const b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',fn);return b;}
 export function mountBleachDetails(controls){
  const menu=document.createElement('details');menu.className='bleach-menu';
- const summary=document.createElement('summary');summary.setAttribute('aria-label','Soul badge — companion settings and discoveries');
- summary.title='Discoveries and settings';summary.textContent='Discoveries & settings';
+ const summary=document.createElement('summary');summary.setAttribute('aria-label','Companion settings and discoveries');
+ summary.title='Choose a companion and adjust its settings';summary.innerHTML='Companion <span aria-hidden="true">⌄</span>';
  const panel=document.createElement('div');panel.className='bleach-drawer';
- const bar=document.createElement('div');bar.className='bleach-inline-controls';bar.append(controls);document.querySelector('.navigation')?.after(bar);
+ panel.append(controls);
  const label=document.createElement('label');label.className='bleach-setting';const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=pageAttacks;checkbox.addEventListener('change',()=>{pageAttacks=checkbox.checked;save('vasu-page-attacks',pageAttacks);});label.append(checkbox,' Attack on page clicks');panel.append(label);
- const hint=document.createElement('p');hint.textContent='Click your companion to attack. It rests when you stop moving.';panel.append(hint);
+ const hint=document.createElement('p');hint.textContent='Click your companion to say hello; click the page to attack. It walks back to rest when you stop moving.';panel.append(hint);
  const heading=document.createElement('h3');heading.textContent='Discoveries';list=document.createElement('ul');status=document.createElement('p');status.setAttribute('role','status');status.className='bleach-status';panel.append(heading,list,status);
  const story=document.createElement('dialog');story.className='bleach-story';story.innerHTML='<p class="bleach-kicker">A PERSONAL NOTE · TYBW REFERENCE</p><h2>THE BLADE IS ME</h2><p>The things I build are a reflection of what I’m curious about.</p><p>Voice, AI, and small experiments that become useful tools. This corner of the site is another one of those experiments—and a nod to Bleach.</p><small>A personal interpretation of the episode title, not dialogue from the series.</small>';
  story.append(button('Close',()=>story.close()));document.body.append(story);
  const openStory=()=>{discover('blade');if(!story.open)story.showModal();};
  panel.append(button('Explore references',()=>{discover('badge');const explain=document.createElement('p');explain.textContent='The badge opens this menu. Changing a companion reveals its entrance. The profile dot opens a personal note. Dark mode and resting companions have their own small details.';explain.className='bleach-explanation';if(!panel.querySelector('.bleach-explanation'))panel.append(explain);}),button('The blade is me',openStory));
- menu.append(summary,panel);bar.append(menu);menu.addEventListener('toggle',()=>{if(menu.open)discover('badge');});render();
+ menu.append(summary,panel);document.querySelector('.navigation')?.insertBefore(menu,document.querySelector('.theme-toggle'));menu.addEventListener('toggle',()=>{if(menu.open)discover('badge');});render();
  document.querySelector('.secret-dot')?.addEventListener('click',openStory);
  const toast=document.createElement('span');toast.className='bleach-theme-note';toast.setAttribute('role','status');document.body.append(toast);let toastTimer;
  new MutationObserver(()=>{if(document.documentElement.dataset.theme==='dark'&&found.has('badge')){discover('dark');toast.textContent='BORN IN THE DARK';clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.textContent='',2200);}}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.open=false;summary.focus();}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){menu.open=false;summary.focus();}});
  document.addEventListener('pointerdown',e=>{if(menu.open&&!menu.contains(e.target))menu.open=false;});
 }
 export function characterEntrance(host,id){

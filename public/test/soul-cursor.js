@@ -1,4 +1,4 @@
-import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=attack-press-25';
+import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=navbar-35';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
 import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=likeness-24';
 import {roster} from './bleach-roster.js?v=likeness-24';
