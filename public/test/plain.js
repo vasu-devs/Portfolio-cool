@@ -68,3 +68,15 @@ avatar.replaceChildren(...['seireitei','hueco'].map(id=>{
 avatarPause.hidden=true;
 avatar.title='View themed portraits';avatar.setAttribute('aria-label','View themed portraits');
 avatar.addEventListener('click',()=>{location.href='/test/tybw.html';});
+
+// Progressive enhancement: every archive entry remains readable without JavaScript.
+const workSearch=document.querySelector('#work-search'),workTrack=document.querySelector('#work-track');
+const workItems=[...document.querySelectorAll('.archive-item')];
+function filterWork(){
+ const query=workSearch.value.trim().toLocaleLowerCase(),track=workTrack.value;
+ let visible=0;
+ for(const item of workItems){const match=(!query||item.textContent.toLocaleLowerCase().includes(query))&&(track==='All tracks'||item.dataset.workCategory===track);item.hidden=!match;if(match)visible++;}
+ document.querySelector('#archive-count').textContent=`${visible} of ${workItems.length} projects`;
+ document.querySelector('#archive-empty').hidden=visible!==0;
+}
+if(workSearch&&workTrack){workSearch.addEventListener('input',filterWork);workTrack.addEventListener('change',filterWork);filterWork();}

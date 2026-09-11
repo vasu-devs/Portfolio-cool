@@ -7,6 +7,7 @@ const read = name => JSON.parse(readFileSync(resolve(root, `src/data/${name}.jso
 const resume = read('resume');
 const roles = read('experience').roles;
 const catalog = read('projects').projects;
+const archive = read('work-archive').items;
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const arrow = '<span aria-hidden="true">↗</span>';
 const section = item => `<section><h4>${escape(item.title)}</h4>${item.body ? `<p>${escape(item.body)}</p>` : ''}${item.bullets ? `<ul>${item.bullets.map(b => `<li>${escape(b)}</li>`).join('')}</ul>` : ''}</section>`;
@@ -30,6 +31,10 @@ const projects = [
     {title:'Current status', body:'An open-source evaluation prototype. Simulated conversations and LLM-judge scores help compare behavior, but do not substitute for human review or measured performance with real users.'}
   ]}
 ];
+for (const name of ['Socratis','Waldo','Forge']) {
+ const p=catalog.find(p=>p.name===name);
+ projects.push({...p,category:'AI systems',label:'Public source · Prototype'});
+}
 const shortDescriptions = {
   'JustHireMe': 'Local-first job intelligence. 2,200+ GitHub stars.',
   'Svara': 'On-device dictation, wherever you work.',
@@ -42,12 +47,14 @@ const shortDescriptions = {
   'Odeon': 'Adversarial simulations for conversational agents.'
 };
 const projectMarkup = projects.map((p, i) => `<details class="project" name="project-studies" data-category="${p.category}" id="project-${i}">
-  <summary><span class="project-number">${String(i + 1).padStart(2,'0')}</span><div class="project-title"><h3>${escape(p.name)}</h3></div><p class="project-intro">${escape(shortDescriptions[p.name])}</p><span class="expand" aria-hidden="true">+</span><span class="sr-only">Read case study</span></summary>
+  <summary><span class="project-number">${String(i + 1).padStart(2,'0')}</span><div class="project-title"><h3>${escape(p.name)}</h3></div><p class="project-intro">${escape(shortDescriptions[p.name] || archive.find(a=>a.name===p.name)?.summary || p.summary)}</p><span class="expand" aria-hidden="true">+</span><span class="sr-only">Read case study</span></summary>
   <div class="case-body"><p class="case-label mono">${escape(p.label)}</p><div class="case-stack">${p.tech.map(t => `<span>${escape(t)}</span>`).join('')}</div><div class="case-sections">${p.details.map(section).join('')}</div>${p.url ? `<a class="text-link" href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Explore the repository ${arrow}</a>` : '<p class="private-note">Personal project · Source kept private</p>'}</div>
 </details>`).join('');
 const roleMarkup = roles.map(r => `<details class="role"><summary><h3>${escape(r.company)}</h3><p class="role-name">${escape(r.role)}</p><span class="role-date mono">${escape(r.dateLabel)}</span><span class="role-hint">Details +</span></summary><div class="role-body"><p>${escape(r.summary)}</p>${r.sections ? r.sections.map(section).join('') : ''}</div></details>`).join('');
 const replacements = {
   PROJECTS: projectMarkup,
+  ARCHIVE: archive.filter(p=>!projects.some(feature=>feature.name===p.name)).map(p=>`<article class="archive-item" data-work-category="${escape(p.category)}"><div class="archive-item-heading"><h3>${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">${escape(p.name)} ↗</a>`:escape(p.name)}</h3><span>${escape(p.category)}</span></div><p>${escape(p.summary)}</p><small>${escape(p.status)}</small></article>`).join(''),
+  WORKCOUNT: String(projects.length+archive.filter(p=>!projects.some(feature=>feature.name===p.name)).length),
   ROLES: roleMarkup,
   SKILLS: resume.skills.map(s => `<dt>${escape(s.label)}</dt><dd>${escape(s.text)}</dd>`).join(''),
   EDUCATION: escape(`${resume.education.institution} · ${resume.education.dates} · ${resume.education.detail}`),

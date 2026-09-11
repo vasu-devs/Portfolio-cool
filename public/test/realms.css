@@ -102,3 +102,22 @@ body>.layout,body>main{position:relative;z-index:1}
 :root[data-theme=light] .intro,:root[data-theme=light] .projects-intro{color:#202e35;text-shadow:none}
 @media print{body::before{filter:none;transform:none}}
 
+
+/* Work breadth stays editorial and uses the existing realm palette. */
+.work-breadth{margin-top:48px;padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.work-breadth h2,.work-archive h2{font-size:22px;letter-spacing:-.5px;color:var(--bright);margin:0 0 12px;font-weight:500}
+.work-breadth p,.archive-intro{color:var(--muted);font-size:14px;line-height:1.8}
+.work-breadth p a{text-decoration:underline;text-underline-offset:4px}
+.breadth-links{display:flex;flex-wrap:wrap;gap:10px 22px;margin:18px 0;font-size:13px;color:var(--ink)}
+.public-contribution{margin-top:20px}
+.work-archive{margin-top:64px}.work-archive .eyebrow{margin-bottom:10px}
+.archive-controls{display:flex;gap:12px;margin:22px 0 10px}
+.archive-controls input,.archive-controls select{min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--page);color:var(--ink);padding:10px 12px;font:inherit;font-size:13px}
+.archive-controls input{flex:1;min-width:0}.archive-controls input::placeholder{color:var(--muted)}
+#archive-count,#archive-empty{font-size:12px;color:var(--muted);margin:12px 0}
+.archive-item{padding:22px 0;border-bottom:1px solid var(--line)}
+.archive-item-heading{display:flex;gap:14px;align-items:baseline;justify-content:space-between}
+.archive-item h3{font-size:17px;font-weight:500;color:var(--bright)}
+.archive-item-heading>span,.archive-item small{font-size:11px;color:var(--muted)}
+.archive-item p{font-size:14px;line-height:1.75;margin:8px 0;color:var(--ink)}
+@media(max-width:600px){.archive-controls{flex-direction:column}.archive-item-heading{flex-wrap:wrap;gap:3px}.work-breadth{margin-top:36px}}

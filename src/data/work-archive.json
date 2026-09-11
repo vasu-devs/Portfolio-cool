@@ -1,0 +1,361 @@
+{
+  "reviewedAt": "2026-09-11",
+  "items": [
+    {
+      "name": "Socratis",
+      "category": "Voice & AI",
+      "summary": "Live coding interviews combining WebRTC voice, a Monaco editor, and contextual AI feedback.",
+      "url": "https://github.com/vasu-devs/Socratis",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Waldo",
+      "category": "Voice & AI",
+      "summary": "Multimodal PDF retrieval across text, tables, and figures, with query routing and retrieval review.",
+      "url": "https://github.com/vasu-devs/Waldo",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Vaani",
+      "category": "Voice & AI",
+      "summary": "A voice-agent prototype with call orchestration, live transcripts, and configurable conversation personas.",
+      "url": "https://github.com/vasu-devs/Vaani",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "BranchGPT",
+      "category": "Developer tools",
+      "summary": "Branch and merge AI conversations while preserving the context of each path.",
+      "url": "https://github.com/vasu-devs/BranchGPT",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "MapMyRepo",
+      "category": "Developer tools",
+      "summary": "Explore repository structure as a D3 graph, with file summaries and contextual questions.",
+      "url": "https://github.com/vasu-devs/MapMyRepo",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Forge",
+      "category": "Developer tools",
+      "summary": "A curated coding-agent workflow plugin with local activity logging and optional cross-session memory.",
+      "url": "https://github.com/vasu-devs/Forge",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "LeetBot",
+      "category": "Developer tools",
+      "summary": "A browser extension for coding hints, solution planning, and zoomable explanation diagrams.",
+      "url": "https://github.com/vasu-devs/LeetBot",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "DryRunVisualised",
+      "category": "Visual & learning",
+      "summary": "Inspect algorithm execution through editor state, variables, and 2D/3D visualizations.",
+      "url": "https://github.com/vasu-devs/DryRunVisualised",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "PolySEE",
+      "category": "Voice & AI",
+      "summary": "A team campus-chatbot prototype exploring multilingual answers grounded in university documents.",
+      "url": "https://github.com/vasu-devs/PolySEE",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "A18-INFINION-",
+      "category": "Developer tools",
+      "summary": "A multi-agent static-analysis experiment for specialized C++ and API misuse.",
+      "url": "https://github.com/vasu-devs/A18-INFINION-",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "SSS",
+      "category": "Desktop & utilities",
+      "summary": "Organize screenshots with a local vision model and searchable per-image Markdown notes.",
+      "url": "https://github.com/vasu-devs/SSS",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "RupeeRoast",
+      "category": "Voice & AI",
+      "summary": "A bank-statement analysis prototype with transaction categorization, charts, and generated commentary.",
+      "url": "https://github.com/vasu-devs/RupeeRoast",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "NyaySaathi",
+      "category": "Voice & AI",
+      "summary": "A legal-information retrieval prototype with document ingestion and corpus-based answers.",
+      "url": "https://github.com/vasu-devs/NyaySaathi",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "EmailDrafter",
+      "category": "Voice & AI",
+      "summary": "Draft and refine emails from user context, tone, and length preferences.",
+      "url": "https://github.com/vasu-devs/EmailDrafter",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Korosuke",
+      "category": "Desktop & utilities",
+      "summary": "A PyQt sidebar for chatting with local Ollama models using background inference.",
+      "url": "https://github.com/vasu-devs/Korosuke",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "ASCIIRealTime",
+      "category": "Visual & learning",
+      "summary": "Convert webcam frames into live ASCII or emoji art with optional background segmentation.",
+      "url": "https://github.com/vasu-devs/ASCIIRealTime",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "PixelForge",
+      "category": "Visual & learning",
+      "summary": "A JavaFX image-to-ASCII tool with live previews, color rendering, and PNG export.",
+      "url": "https://github.com/vasu-devs/PixelForge",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "GitArt",
+      "category": "Developer tools",
+      "summary": "Paint a contribution-grid design and export a Git repository assembled in the browser.",
+      "url": "https://github.com/vasu-devs/GitArt",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "GhostSync",
+      "category": "Desktop & utilities",
+      "summary": "A remote-IDE experiment connecting Telegram controls, screenshots, and a private tunnel.",
+      "url": "https://github.com/vasu-devs/GhostSync",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "BranchGPT-Extension",
+      "category": "Developer tools",
+      "summary": "Explore branched ChatGPT conversations in a browser side panel with local IndexedDB storage.",
+      "url": "https://github.com/vasu-devs/BranchGPT-Extension",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Health-os",
+      "category": "Desktop & utilities",
+      "summary": "A mobile-first workout and meal dashboard interface.",
+      "url": "https://github.com/vasu-devs/Health-os",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Kyoka",
+      "category": "Voice & AI",
+      "summary": "An experimental multi-agent interface for summarizing public web research into briefing cards.",
+      "url": "https://github.com/vasu-devs/Kyoka",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Maze-Pathfinder-Visualizer",
+      "category": "Visual & learning",
+      "summary": "Compare BFS, DFS, Dijkstra, and A* as they explore generated mazes.",
+      "url": "https://github.com/vasu-devs/Maze-Pathfinder-Visualizer",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "weather-dashboard-ai",
+      "category": "Voice & AI",
+      "summary": "Combine weather data with model-generated clothing and activity suggestions.",
+      "url": "https://github.com/vasu-devs/weather-dashboard-ai",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "ChatBotUI",
+      "category": "Visual & learning",
+      "summary": "A college-assistant interface with student chat and document-management views.",
+      "url": "https://github.com/vasu-devs/ChatBotUI",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Arohan",
+      "category": "Visual & learning",
+      "summary": "A React dashboard experiment with charts and animated interactions.",
+      "url": "https://github.com/vasu-devs/Arohan",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "fastapi-cheatsheet",
+      "category": "Developer tools",
+      "summary": "A Markdown and PDF reference covering FastAPI routing, validation, security, databases, and testing.",
+      "url": "https://github.com/vasu-devs/fastapi-cheatsheet",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Folder-Summary-Parser",
+      "category": "Desktop & utilities",
+      "summary": "A Tkinter utility for file counts, folder sizes, and extension breakdowns.",
+      "url": "https://github.com/vasu-devs/Folder-Summary-Parser",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "habiTurtle",
+      "category": "Desktop & utilities",
+      "summary": "A PyQt habit tracker with local JSON history, streaks, and a reactive turtle mascot.",
+      "url": "https://github.com/vasu-devs/habiTurtle",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "RealTimeMemoryAllocationSimulator",
+      "category": "Visual & learning",
+      "summary": "A single-page browser experiment for visualizing memory allocation.",
+      "url": "https://github.com/vasu-devs/RealTimeMemoryAllocationSimulator",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "HoleEmAll",
+      "category": "Visual & learning",
+      "summary": "A Pygame arcade experiment built around cursor movement, collisions, and a countdown.",
+      "url": "https://github.com/vasu-devs/HoleEmAll",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "MaintMaster",
+      "category": "Early explorations",
+      "summary": "A static interface exploring maintenance scheduling and task tracking.",
+      "url": "https://github.com/vasu-devs/MaintMaster",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "CultureCompass",
+      "category": "Early explorations",
+      "summary": "An early single-page experiment around cultural information and storytelling.",
+      "url": "https://github.com/vasu-devs/CultureCompass",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "sidz-cafe",
+      "category": "Early explorations",
+      "summary": "A restaurant website with a JSON-backed menu and client-side shopping-cart interface.",
+      "url": "https://github.com/vasu-devs/sidz-cafe",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "air-aware-website",
+      "category": "Early explorations",
+      "summary": "An educational air-quality website with environmental resources and external AQI links.",
+      "url": "https://github.com/vasu-devs/air-aware-website",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "password-generator-and-validator",
+      "category": "Early explorations",
+      "summary": "A beginner Python exercise in input validation and random string generation.",
+      "url": "https://github.com/vasu-devs/password-generator-and-validator",
+      "status": "Public repository",
+      "tech": []
+    },
+    {
+      "name": "Reiatsu",
+      "category": "Desktop & utilities",
+      "summary": "A Windows wallpaper studio with desktop attachment, scene controls, and WebGL motion applied to still images.",
+      "url": null,
+      "status": "Personal experiment",
+      "tech": [
+        "Electron",
+        "WebGL",
+        "Windows"
+      ]
+    },
+    {
+      "name": "MovieHelper",
+      "category": "Desktop & utilities",
+      "summary": "A browser extension experiment for cast and character lookup over video players, with spoiler-aware presentation.",
+      "url": null,
+      "status": "Personal experiment",
+      "tech": [
+        "Browser extension",
+        "AniList",
+        "TVmaze"
+      ]
+    },
+    {
+      "name": "Digital Twin Agent",
+      "category": "Developer tools",
+      "summary": "A local technical-activity collector that assembles a shareable context document through a redaction layer.",
+      "url": null,
+      "status": "Personal experiment",
+      "tech": [
+        "Python",
+        "JSONL"
+      ]
+    },
+    {
+      "name": "AI Funding Radar",
+      "category": "Voice & AI",
+      "summary": "A scheduled research tool that collects funding news, records sources, and produces a company digest.",
+      "url": null,
+      "status": "Personal experiment",
+      "tech": [
+        "Python",
+        "SQLite"
+      ]
+    },
+    {
+      "name": "Remotion Demo Studio",
+      "category": "Visual & learning",
+      "summary": "A code-first video studio with React compositions, storyboards, and a repository-to-demo workflow.",
+      "url": null,
+      "status": "Personal experiment",
+      "tech": [
+        "React",
+        "Remotion"
+      ]
+    },
+    {
+      "name": "JustHireMe Web",
+      "category": "Voice & AI",
+      "summary": "A separate web edition extracted from the desktop workbench, retaining its React frontend and FastAPI backend.",
+      "url": null,
+      "status": "Personal experiment",
+      "tech": [
+        "React",
+        "FastAPI"
+      ]
+    }
+  ]
+}
