@@ -23,10 +23,30 @@ handlers.click({...event,detail:0});advance(300);assert.equal(shots.length,6,'ke
 scope.pageAttacksEnabled=()=>false;handlers.pointerdown(event);advance(300);assert.equal(shots.length,6);
 scope.pageAttacksEnabled=()=>true;handlers.pointerdown({...event,button:2});handlers.pointerdown({...event,target:{closest:()=>true}});advance(300);assert.equal(shots.length,6);
 const hitHandlers={};const direct=[];
-vm.runInContext(source.slice(source.indexOf("hit.addEventListener('pointerdown'"),source.indexOf('function wake()')),vm.createContext({hit:{addEventListener(type,fn){hitHandlers[type]=fn;}},hovering:false,frame:7,cancelAnimationFrame(){},x:50,y:80,facing:1,requestAttack:(x,y)=>direct.push({x,y})}));
+vm.runInContext(source.slice(source.indexOf("hit.addEventListener('pointerdown'"),source.indexOf('function wake()')),vm.createContext({hit:{addEventListener(type,fn){hitHandlers[type]=fn;}},hovering:false,frame:7,cancelAnimationFrame(){},x:50,y:80,facing:1,hello:()=>direct.push("greet")}));
 hitHandlers.pointerdown({button:0,stopPropagation(){}});assert.equal(direct.length,1);
 hitHandlers.click({detail:1,stopPropagation(){}});assert.equal(direct.length,1);
 hitHandlers.click({detail:0,stopPropagation(){}});assert.equal(direct.length,2);
 console.log('PASS: running interruption, press without click, repeated moving presses, no duplicate mouse attacks, keyboard and direct companion input');
 
 assert.match(readFileSync('public/test/bleach-details.js','utf8'),/read\('vasu-page-attacks',true\)/,'New visitors get page attacks by default');
+
+// Actual greeting displays roster text, waves, and returns home after the timeout.
+const roster=JSON.parse(readFileSync('public/test/bleach-roster.js','utf8').replace(/^export const roster = /,'').replace(/;\s*$/,''));
+let parked=0,cancelCount=0;
+const greet=vm.createContext({active:()=>true,attackQueue:{cancel(){cancelCount++;}},
+ frame:1,idleTimer:0,reactionTimer:0,parkTimer:0,greetingTimer:0,speed:190,greeting:false,
+ cancelAnimationFrame(){},clearTimeout:id=>timers.delete(id),setTimeout:setTimer,
+ slashes:new Set(),pose(next){greet.state=next;},reply:{textContent:''},roster,character:'ichigo',park(){parked++;}
+});
+vm.runInContext(source.slice(source.indexOf('function hello()'),source.indexOf('// Stop to greet')),greet);
+for(const character of Object.keys(roster)){
+ greet.character=character;greet.hello();
+ assert.equal(greet.reply.textContent,roster[character].greeting);
+ assert.equal(greet.state,'wave');assert.equal(greet.greeting,true);
+ advance(800);greet.hello();advance(800);
+ assert.equal(greet.reply.textContent,roster[character].greeting,'repeat press refreshes greeting');
+ advance(801);assert.equal(greet.reply.textContent,'');assert.equal(greet.greeting,false);
+}
+assert.equal(parked,Object.keys(roster).length);assert.ok(cancelCount>0);
+console.log('PASS: all companion greetings, wave, repeated greeting timer and return home');

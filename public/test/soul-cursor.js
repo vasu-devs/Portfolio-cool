@@ -8,7 +8,7 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)');
 const host = document.createElement('div');
 host.className = 'soul-cursor';
 
-host.innerHTML = '<button class="soul-hit" type="button" aria-label="Trigger your Bleach companion attack"><span class="soul-character" aria-hidden="true"></span></button><span class="soul-reply" role="status"></span>';
+host.innerHTML = '<button class="soul-hit" type="button" aria-label="Greet your Bleach companion"><span class="soul-character" aria-hidden="true"></span></button><span class="soul-reply" role="status"></span>';
 const hit=host.querySelector('button'), reply=host.querySelector('.soul-reply');
 const sprite = host.querySelector('.soul-character');
 const field = document.createElement('div');
@@ -73,8 +73,8 @@ function label() {
  toggle.setAttribute('aria-label',enabled?'Turn companion off':'Turn companion on');
  technique.textContent=roster[character].technique;
  technique.title=roster[character].form;
- hit.setAttribute('aria-label',`Attack with ${roster[character].name}`);
- toggle.title = 'Reacts to your pointer, rests in a corner, and attacks when clicked.';
+ hit.setAttribute('aria-label',`Greet ${roster[character].name}`);
+ toggle.title = 'Reacts to your pointer, rests in a corner, and greets you when clicked. Click elsewhere to attack.';
  toggle.setAttribute('aria-pressed', String(enabled)); controls.hidden = !supported();
 }
 function cell(index, running=false) {
@@ -133,9 +133,9 @@ function hello() {
  event.stopPropagation();
  // Lock position for the entire press so a moving sprite cannot escape its click.
  hovering=true;cancelAnimationFrame(frame);frame=0;
- requestAttack(x+facing*120,y);
+ hello();
 });
- hit.addEventListener('click',event=>{event.stopPropagation();if(event.detail===0)requestAttack(x+facing*120,y);});
+ hit.addEventListener('click',event=>{event.stopPropagation();if(event.detail===0)hello();});
 function wake() {
  if (!host.classList.contains('is-entering') && !frame && state !== 'attack' && !greeting && !hovering && active() && seen) { lastTime = 0; frame = requestAnimationFrame(tick); }
 }
