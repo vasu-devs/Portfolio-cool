@@ -1,9 +1,9 @@
-# Portfolio realms
+# Portfolio realm palettes
 
-Seireitei (light) uses sunlit ivory #f5f1e7, slate text #303c44 and vermilion #924733. Fine roof, wall and courtyard outlines evoke its architecture.
+Color-only themes; no scenery, buildings, desert artwork, sun or moon decorations.
 
-Hueco Mundo (dark) uses blue-black #0c1420, pale text #d8e2e9 and moonlight #a8cbdc. A crescent, white-desert contours, distant fortress and quartz-like tree silhouettes reference its landscape.
+Seireitei (light): pale stone #f4f3ed, slate text #303c44, restrained vermilion #924733. Hueco Mundo (dark): near-black night #0b0e14, sand-white text #e2e3df and cold moonlight accent #a8cbdc. The dark palette emphasizes the white desert / perpetual night contrast rather than a saturated navy background.
 
-These are original, restrained interpretations, not official palette hex codes. Sources: [Seireitei](https://bleach.fandom.com/wiki/Seireitei), [Hueco Mundo](https://bleach.fandom.com/wiki/Hueco_Mundo), and [official Bleach terminology](https://bleach-anime.com/keyword/).
+These are UI palette interpretations of the settings, not official universal hex codes; scene lighting varies across the anime. References: [Seireitei](https://bleach.fandom.com/wiki/Seireitei) and [Hueco Mundo](https://bleach.neoseeker.com/wiki/Hueco_Mundo).
 
-The existing light/dark storage preference and reveal transition remain compatible. The companion gallery inherits the selected realm. Decorative SVGs are noninteractive and CSS-only, with reduced visual density on small screens and no new animation loops.
+Existing light/dark preferences and theme transitions remain compatible. The companion gallery inherits the selected palette.

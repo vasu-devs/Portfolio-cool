@@ -1,10 +1,7 @@
 /* Original, restrained interpretations of Seireitei daylight and Hueco Mundo night. */
-:root{color-scheme:dark;--page:#0c1420;--ink:#d8e2e9;--bright:#f3f0e5;--muted:#a0b2c3;--line:#334557;--accent:#a8cbdc;--object:#aac5d0;--surface:#152232;--wash:#213c5140;--realm-mark:#9db8c9;--realm-art:url('./realm-hueco.svg')}
-:root[data-theme=light]{color-scheme:light;--page:#f5f1e7;--ink:#303c44;--bright:#202e37;--muted:#56646b;--line:#c8ccc5;--accent:#924733;--object:#637e89;--surface:#ebe5d7;--wash:#9fbec02b;--realm-mark:#7e929a;--realm-art:url('./realm-seireitei.svg')}
-body{background-color:var(--page);background-image:radial-gradient(ellipse at 100% 0,var(--wash),transparent 60%);background-attachment:fixed;color:var(--ink);isolation:isolate}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:var(--realm-art);background-repeat:no-repeat;background-position:right bottom;background-size:min(600px,50vw) auto;opacity:.18}
-body::after{content:"";position:fixed;right:7vw;top:130px;width:42px;height:42px;border-radius:50%;box-shadow:-9px 4px 0 0 var(--accent);opacity:.35;pointer-events:none;z-index:-1;transform:rotate(-22deg)}
-:root[data-theme=light] body::after{box-shadow:none;background:#c48b56;opacity:.13;transform:none}
+:root{color-scheme:dark;--page:#0b0e14;--ink:#e2e3df;--bright:#f3f0e5;--muted:#a0b2c3;--line:#334557;--accent:#a8cbdc;--object:#aac5d0;--surface:#161c25;--wash:#213c5140}
+:root[data-theme=light]{color-scheme:light;--page:#f4f3ed;--ink:#303c44;--bright:#202e37;--muted:#56646b;--line:#c8ccc5;--accent:#924733;--object:#637e89;--surface:#e9e9e1;--wash:#9fbec02b}
+body{background-color:var(--page);background-image:none;color:var(--ink);isolation:isolate}
 .navigation [aria-current=page]{text-decoration-color:var(--accent)}
 .intro a{text-decoration-color:var(--accent)}
 a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{outline-color:var(--accent)}
@@ -13,5 +10,5 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 .theme-toggle:hover{background:var(--surface)}
 .portrait-frame,:root[data-theme=light] .portrait-frame{background:var(--surface);border-color:var(--line)}
 ::selection{background:var(--accent);color:var(--page)}
-@media(max-width:600px){.theme-label{display:block;min-width:0;font-size:10px}.theme-toggle{padding:4px 9px 4px 4px;gap:3px}.theme-toggle .sun-icon{font-size:21px;width:22px;flex-basis:22px}.navigation{gap:17px}body::before{background-size:85vw;opacity:.10}body::after{right:25px;top:105px;width:26px;height:26px;opacity:.2}}
-@media print{body{background:white;color:black}body::before,body::after{display:none}}
+@media(max-width:600px){.theme-label{display:block;min-width:0;font-size:10px}.theme-toggle{padding:4px 9px 4px 4px;gap:3px}.theme-toggle .sun-icon{font-size:21px;width:22px;flex-basis:22px}.navigation{gap:17px}}
+@media print{body{background:white;color:black}}
