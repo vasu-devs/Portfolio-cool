@@ -1,0 +1,61 @@
+{
+  "tool": "Built-in image_gen",
+  "assets": [
+    {
+      "source": "C:\\Users\\Vasudev Siddh\\.codex\\generated_images\\01a084a3-60a2-7493-b43d-7da189d9cf38\\exec-8cb55385-735b-4b2d-a1d3-d1cba6b234e8.png",
+      "name": "vaani",
+      "realm": "seireitei",
+      "output": "public/test/covers/vaani-seireitei-v3.webp",
+      "prompt": "Edit this existing project thumbnail. Preserve exactly the main project objects, diagram connections, layout and clean detailed anime illustration style. Change the overall color treatment to match a very pale sky-blue portfolio background #e3f0f9. Sky and outer background should be airy ice-blue, architectural whites cool and neutral. Replace beige/brown/orange accents with restrained slate-blue and muted azure; preserve dark outlines and foreground contrast. Keep Seireitei buildings recognizable in the distance, make the scenery subtle, not distracting. No additional objects, labels, title, watermark or border. Landscape 16:9."
+    },
+    {
+      "source": "C:\\Users\\Vasudev Siddh\\.codex\\generated_images\\01a084a3-60a2-7493-b43d-7da189d9cf38\\exec-89e21e5f-81a0-4393-8909-57f276bf4845.png",
+      "name": "vaani",
+      "realm": "hueco",
+      "output": "public/test/covers/vaani-hueco-v4.webp",
+      "prompt": "Edit this existing project thumbnail. Preserve exactly the main project objects, diagram connections, layout and clean detailed anime illustration style. Match a Hueco Mundo portfolio background of deep petrol night #061924 with cool ivory and restrained cyan highlights. Simplify scenery to smooth pale white Las Noches architecture, low silver dunes and sparse angular bare quartz trees, with less busy clouds and less grain. Keep main project subject crisp and prominent. If a moon is present make it a glowing cyan broad crescent, dark circular bite on left, pointed tips close together, broad right band. Outer sky background deep petrol #061924, not saturated royal blue or black. No additional labels, title, watermark or border. Landscape 16:9."
+    },
+    {
+      "source": "C:\\Users\\Vasudev Siddh\\.codex\\generated_images\\01a084a3-60a2-7493-b43d-7da189d9cf38\\exec-5b820239-0c92-4397-85d6-85b0ba7a7a3b.png",
+      "name": "odeon",
+      "realm": "seireitei",
+      "output": "public/test/covers/odeon-seireitei-v3.webp",
+      "prompt": "Edit this existing project thumbnail. Preserve exactly the main project objects, diagram connections, layout and clean detailed anime illustration style. Change the overall color treatment to match a very pale sky-blue portfolio background #e3f0f9. Sky and outer background should be airy ice-blue, architectural whites cool and neutral. Replace beige/brown/orange accents with restrained slate-blue and muted azure; preserve dark outlines and foreground contrast. Keep Seireitei buildings recognizable in the distance, make the scenery subtle, not distracting. No additional objects, labels, title, watermark or border. Landscape 16:9."
+    },
+    {
+      "source": "C:\\Users\\Vasudev Siddh\\.codex\\generated_images\\01a084a3-60a2-7493-b43d-7da189d9cf38\\exec-12adf276-499e-438c-b9e3-5259577c97ed.png",
+      "name": "odeon",
+      "realm": "hueco",
+      "output": "public/test/covers/odeon-hueco-v4.webp",
+      "prompt": "Edit this existing project thumbnail. Preserve exactly the main project objects, diagram connections, layout and clean detailed anime illustration style. Match a Hueco Mundo portfolio background of deep petrol night #061924 with cool ivory and restrained cyan highlights. Simplify scenery to smooth pale white Las Noches architecture, low silver dunes and sparse angular bare quartz trees, with less busy clouds and less grain. Keep main project subject crisp and prominent. If a moon is present make it a glowing cyan broad crescent, dark circular bite on left, pointed tips close together, broad right band. Outer sky background deep petrol #061924, not saturated royal blue or black. No additional labels, title, watermark or border. Landscape 16:9."
+    },
+    {
+      "source": "C:\\Users\\Vasudev Siddh\\.codex\\generated_images\\01a084a3-60a2-7493-b43d-7da189d9cf38\\exec-2874b2e6-2944-4139-83ab-0a9ae4aa469e.png",
+      "name": "branchgpt",
+      "realm": "seireitei",
+      "output": "public/test/covers/branchgpt-seireitei-v3.webp",
+      "prompt": "Edit this existing project thumbnail. Preserve exactly the main project objects, diagram connections, layout and clean detailed anime illustration style. Change the overall color treatment to match a very pale sky-blue portfolio background #e3f0f9. Sky and outer background should be airy ice-blue, architectural whites cool and neutral. Replace beige/brown/orange accents with restrained slate-blue and muted azure; preserve dark outlines and foreground contrast. Keep Seireitei buildings recognizable in the distance, make the scenery subtle, not distracting. No additional objects, labels, title, watermark or border. Landscape 16:9."
+    },
+    {
+      "source": "C:\\Users\\Vasudev Siddh\\.codex\\generated_images\\01a084a3-60a2-7493-b43d-7da189d9cf38\\exec-772d6148-8ee0-4e00-b589-c0c3c2133c42.png",
+      "name": "branchgpt",
+      "realm": "hueco",
+      "output": "public/test/covers/branchgpt-hueco-v4.webp",
+      "prompt": "Edit this existing project thumbnail. Preserve exactly the main project objects, diagram connections, layout and clean detailed anime illustration style. Match a Hueco Mundo portfolio background of deep petrol night #061924 with cool ivory and restrained cyan highlights. Simplify scenery to smooth pale white Las Noches architecture, low silver dunes and sparse angular bare quartz trees, with less busy clouds and less grain. Keep main project subject crisp and prominent. If a moon is present make it a glowing cyan broad crescent, dark circular bite on left, pointed tips close together, broad right band. Outer sky background deep petrol #061924, not saturated royal blue or black. No additional labels, title, watermark or border. Landscape 16:9."
+    },
+    {
+      "source": "C:\\Users\\Vasudev Siddh\\.codex\\generated_images\\01a084a3-60a2-7493-b43d-7da189d9cf38\\exec-ea166ca8-e98e-4e17-8734-353b35fc106a.png",
+      "name": "justhireme",
+      "realm": "seireitei",
+      "output": "public/test/covers/justhireme-seireitei-v3.webp",
+      "prompt": "Edit this existing project thumbnail. Preserve exactly the main project objects, diagram connections, layout and clean detailed anime illustration style. Change the overall color treatment to match a very pale sky-blue portfolio background #e3f0f9. Sky and outer background should be airy ice-blue, architectural whites cool and neutral. Replace beige/brown/orange accents with restrained slate-blue and muted azure; preserve dark outlines and foreground contrast. Keep Seireitei buildings recognizable in the distance, make the scenery subtle, not distracting. No additional objects, labels, title, watermark or border. Landscape 16:9."
+    },
+    {
+      "source": "C:\\Users\\Vasudev Siddh\\.codex\\generated_images\\01a084a3-60a2-7493-b43d-7da189d9cf38\\exec-eed80d1b-6d07-4b1d-8ff2-7e841ba44714.png",
+      "name": "justhireme",
+      "realm": "hueco",
+      "output": "public/test/covers/justhireme-hueco-v4.webp",
+      "prompt": "Edit this existing project thumbnail. Preserve exactly the main project objects, diagram connections, layout and clean detailed anime illustration style. Match a Hueco Mundo portfolio background of deep petrol night #061924 with cool ivory and restrained cyan highlights. Simplify scenery to smooth pale white Las Noches architecture, low silver dunes and sparse angular bare quartz trees, with less busy clouds and less grain. Keep main project subject crisp and prominent. If a moon is present make it a glowing cyan broad crescent, dark circular bite on left, pointed tips close together, broad right band. Outer sky background deep petrol #061924, not saturated royal blue or black. No additional labels, title, watermark or border. Landscape 16:9."
+    }
+  ]
+}
