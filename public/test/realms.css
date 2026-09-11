@@ -468,3 +468,15 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 #projects .project:first-child .study-cta{grid-column:2;grid-row:3;align-self:start}
 #projects .project:not(:first-child) .work-art{max-height:160px}
 @media(max-width:600px){#projects .project-list{grid-template-columns:1fr;gap:0}#projects .project:first-child>summary{display:flex}#projects .project:first-child .work-art{margin-bottom:12px}#projects .project:first-child .project-title h3{font-size:26px}}
+
+.availability-badge i{background:#22c55e;box-shadow:0 0 0 4px #22c55e18}
+.hero-status{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:6px 0}
+.hero-status .availability-badge{background:none;border:0;padding:4px 0;margin:0;font-family:inherit;cursor:pointer;color:var(--ink)}
+.hero-status .traffic-stats{border:0;padding:0;margin:0}
+.hero-status .traffic-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.hero-status .traffic-stats dl{margin:0;gap:12px}.hero-status .traffic-stats dl div{flex-direction:row-reverse;align-items:center;gap:5px}.hero-status .traffic-stats dd,.hero-status .traffic-stats dt{font-size:11px}
+.hero-status .traffic-stats dl div:not(:first-child){display:none}
+.contact-dialog{width:min(340px,calc(100vw - 40px));box-sizing:border-box;padding:24px;border:1px solid var(--modal-edge);border-radius:20px;background:var(--character-glass);color:var(--ink);backdrop-filter:blur(24px) saturate(125%);box-shadow:0 20px 60px #0003}
+.contact-dialog::backdrop{background:var(--modal-shade);backdrop-filter:blur(4px)}
+.contact-dialog header{display:flex;justify-content:space-between;align-items:center;gap:16px}.contact-dialog h2{font-size:25px;margin:0}.contact-dialog header button{border:0;background:none;color:var(--ink);font-size:26px;cursor:pointer;padding:0 6px}.contact-dialog p{font-size:13px;line-height:1.7;color:var(--muted)}
+.contact-options{display:grid;gap:6px;margin-top:18px}.contact-options a{display:flex;align-items:center;gap:14px;padding:12px;border-radius:10px;text-decoration:none;font-size:14px}.contact-options a:hover{background:var(--wash)}

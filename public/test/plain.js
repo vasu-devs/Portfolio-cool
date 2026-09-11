@@ -185,3 +185,11 @@ if(traffic){
  const schedule=()=>{clearInterval(timer);if(!document.hidden){void refreshTraffic();timer=setInterval(refreshTraffic,60000);}};
  document.addEventListener('visibilitychange',schedule);window.addEventListener('pagehide',()=>clearInterval(timer));schedule();
 }
+
+const contactDialog=document.querySelector('.contact-dialog'),contactTrigger=document.querySelector('[data-open-contact]');
+if(contactDialog&&contactTrigger){
+ contactTrigger.addEventListener('click',()=>{contactDialog.showModal();});
+ contactDialog.querySelector('[data-close-contact]').addEventListener('click',()=>contactDialog.close());
+ contactDialog.addEventListener('click',event=>{if(event.target!==contactDialog)return;const r=contactDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)contactDialog.close();});
+ contactDialog.addEventListener('close',()=>contactTrigger.focus({preventScroll:true}));
+}
