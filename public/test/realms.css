@@ -340,3 +340,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 .avatar-rotator{cursor:default}
 @media(max-width:600px){.film-body{display:block;overflow:auto}.film-body .film-description{overflow:visible}.film-body .film-player{aspect-ratio:16/9}.film-modal[open]{height:88dvh}}
 @media print{.resume-modal[open]{display:block;overflow:visible}.resume-modal>.resume-content{overflow:visible}}
+
+/* Three featured walkthroughs, with room for a useful project introduction. */
+.video-list{grid-template-columns:repeat(3,minmax(0,1fr))}.video-link small{line-height:1.7}
+@media(max-width:760px){.video-list{grid-template-columns:1fr}}
