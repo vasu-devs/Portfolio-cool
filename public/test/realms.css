@@ -327,3 +327,16 @@ body>.navigation .theme-toggle .sun-icon,body>.navigation .theme-toggle svg{widt
 /* Preserve native scrolling without a visible scrollbar track or thumb. */
 html,body,.resume-modal,.resume-content,.film-description,.detail-body,.bleach-drawer{scrollbar-width:none;-ms-overflow-style:none}
 html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar,.resume-content::-webkit-scrollbar,.film-description::-webkit-scrollbar,.detail-body::-webkit-scrollbar,.bleach-drawer::-webkit-scrollbar{display:none;width:0;height:0}
+
+/* Headers occupy their own row: scrolling content cannot pass beneath them. */
+.resume-modal[open]{display:flex;flex-direction:column;overflow:hidden}
+.resume-modal .resume-toolbar{position:relative;flex:0 0 auto;min-width:0;z-index:1}
+.resume-modal>.resume-content{min-height:0;overflow:auto;overscroll-behavior:contain}
+.film-modal[open]{display:flex;height:88dvh}
+.film-body{display:grid;grid-template-columns:42% 58%;flex:1;min-height:0;overflow:hidden}
+.film-body .film-description{grid-row:1;grid-column:1;min-height:0;overflow:auto}
+.film-body .film-player{grid-row:1;grid-column:2;min-height:0}
+.film-body{scrollbar-width:none}.film-body::-webkit-scrollbar{display:none}
+.avatar-rotator{cursor:default}
+@media(max-width:600px){.film-body{display:block;overflow:auto}.film-body .film-description{overflow:visible}.film-body .film-player{aspect-ratio:16/9}.film-modal[open]{height:88dvh}}
+@media print{.resume-modal[open]{display:block;overflow:visible}.resume-modal>.resume-content{overflow:visible}}

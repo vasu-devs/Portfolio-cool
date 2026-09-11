@@ -104,6 +104,23 @@
                 "MongoDB",
                 "Docker",
                 "AWS"
+            ],
+            "sections": [
+                {
+                    "title": "Applied AI and backend engineering",
+                    "body": "An ongoing contract covering AI integrations and the backend systems around them. The client and product remain confidential."
+                },
+                {
+                    "title": "My contribution",
+                    "bullets": [
+                        "Work with embeddings, vector retrieval, and multimodal AI.",
+                        "Develop data-processing and API integrations using Python, FastAPI, TypeScript, and MongoDB."
+                    ]
+                },
+                {
+                    "title": "Validation and delivery",
+                    "body": "The engineering workflow includes automated tests, Docker, AWS, and CI/CD. This engagement is ongoing."
+                }
             ]
         },
         {
@@ -119,6 +136,23 @@
                 "React",
                 "Next.js",
                 "PostgreSQL"
+            ],
+            "sections": [
+                {
+                    "title": "Full-stack delivery",
+                    "body": "A completed client engagement from March to April 2026, covering implementation, validation, and delivery. Client and product details are private."
+                },
+                {
+                    "title": "My contribution",
+                    "bullets": [
+                        "Implemented interface work with TypeScript and React.",
+                        "Worked across backend APIs and relational databases; the project stack included Next.js and PostgreSQL."
+                    ]
+                },
+                {
+                    "title": "Delivery",
+                    "body": "Worked through validation and delivery as part of the completed engagement."
+                }
             ]
         }
     ]

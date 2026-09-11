@@ -66,8 +66,7 @@ avatar.replaceChildren(...['seireitei','hueco'].map(id=>{
  img.src=`/test/avatars/vasu-${id}-v1.webp`;return img;
 }));
 avatarPause.hidden=true;
-avatar.title='View themed portraits';avatar.setAttribute('aria-label','View themed portraits');
-avatar.addEventListener('click',()=>{location.href='/test/tybw.html';});
+
 
 // Progressive enhancement: every archive entry remains readable without JavaScript.
 const workSearch=document.querySelector('#work-search'),workTrack=document.querySelector('#work-track');
@@ -107,6 +106,7 @@ function openDetail(source){
  detailSource=source;detailOpener=summary;
  const title=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector('h3').textContent:source.classList.contains('role')?[...summary.querySelectorAll('h3,.role-name')].map(n=>n.textContent).join(' · '):source.classList.contains('project')?summary.querySelector('h3').textContent:summary.textContent;
  readingDialog.querySelector('#detail-title').textContent=title.trim();
+ readingDialog.querySelector('.modal-kicker').textContent=source.classList.contains('role')?'EXPERIENCE / CASE STUDY':'PROJECT / PROFILE';
  detailNodes=[...source.children].filter(n=>n!==summary);
  readingDialog.querySelector('.detail-body').append(...detailNodes);
  source.open=false;readingDialog.showModal();document.documentElement.classList.add('detail-open');
@@ -123,7 +123,7 @@ readingDialog.addEventListener('close',()=>{detailSource?.append(...detailNodes)
 // Project films stay in context; remove the player on close so playback stops.
 const filmDialog=document.createElement('dialog');
 filmDialog.className='resume-modal film-modal';filmDialog.setAttribute('aria-labelledby','film-title');
-filmDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">PROJECT WALKTHROUGH</span><h2 id="film-title"></h2></div><button type="button" aria-label="Close video">Close ×</button></div><div class="film-player"></div><div class="resume-content film-description"></div>';
+filmDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">PROJECT WALKTHROUGH</span><h2 id="film-title"></h2></div><button type="button" aria-label="Close video">Close ×</button></div><div class="film-body"><div class="film-player"></div><div class="resume-content film-description"></div></div>';
 document.body.append(filmDialog);
 let filmOpener;
 document.addEventListener('click',event=>{
