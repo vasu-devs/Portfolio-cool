@@ -12,3 +12,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 ::selection{background:var(--accent);color:var(--page)}
 @media(max-width:600px){.theme-label{display:block;min-width:0;font-size:10px}.theme-toggle{padding:4px 9px 4px 4px;gap:3px}.theme-toggle .sun-icon{font-size:21px;width:22px;flex-basis:22px}.navigation{gap:17px}}
 @media print{body{background:white;color:black}}
+
+/* Hueco Mundo atmosphere: a static painted environment behind a shaded reading area. */
+:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-night-v1.webp') center center/cover no-repeat}
+:root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(8,13,22,.35),rgba(8,13,22,.80) 28%,rgba(8,13,22,.80) 68%,rgba(8,13,22,.12)),linear-gradient(0deg,rgba(8,13,22,.25),transparent 45%)}
+@media(max-width:860px){:root:not([data-theme=light]) body::before{background-position:85% center}:root:not([data-theme=light]) body::after{background:linear-gradient(180deg,rgba(8,13,22,.32),rgba(8,13,22,.55) 45%,rgba(8,13,22,.83))}}
+@media print{body::before,body::after{display:none}}
+:root:not([data-theme=light]) .theme-toggle{background:rgba(8,13,22,.85)}
