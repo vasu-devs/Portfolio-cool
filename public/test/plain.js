@@ -95,7 +95,7 @@ function openDetail(source,opener){
  source.open=false;readingDialog.showModal();document.documentElement.classList.add('detail-open');
  readingDialog.scrollTop=0;readingDialog.querySelector('button').focus();
 }
-for(const source of document.querySelectorAll('details.project,details.role,details.background,details.archive-detail')){
+for(const source of document.querySelectorAll('details.project,details.role,details.archive-detail')){
  const summary=source.querySelector(':scope > summary');summary.setAttribute('aria-haspopup','dialog');
  summary.addEventListener('click',event=>{event.preventDefault();openDetail(source);});
  source.addEventListener('open-detail',()=>openDetail(source));
