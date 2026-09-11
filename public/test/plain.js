@@ -23,7 +23,9 @@ function themeLabel() {
  document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#f4f3ed' : '#0b0e14');
  themeButton.setAttribute('aria-label', themeButton.title);
  themeButton.querySelector('.theme-label').textContent = '';
- themeButton.querySelector('.sun-icon').textContent = light ? '☼' : '☾';
+ themeButton.querySelector('.sun-icon').innerHTML = light
+  ? '<svg viewBox="0 0 32 32" aria-hidden="true"><g class="realm-wings" fill="currentColor"><path d="M15 15C9 2 1 3 3 12c1 4 6 6 10 5-9 0-9 10-4 10 4 0 6-6 6-10Z"/><path d="M17 15C23 2 31 3 29 12c-1 4-6 6-10 5 9 0 9 10 4 10-4 0-6-6-6-10Z"/></g><path d="M16 10v15m0-14-3-5m3 5 3-5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="m6 10 5 3m15-3-5 3" stroke="var(--page)" stroke-width="1.2"/></svg>'
+  : '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 5 16 3l8 2 3 8-3 11-8 5-8-5-3-11Z" fill="currentColor"/><g fill="var(--surface)"><path d="m8 12 6 2-1 4-5-2Zm16 0-6 2 1 4 5-2Z"/><path d="m16 17-2 4h4Z"/></g><path d="m17 4-2 5 3 2-2 4m-5 8v3m5-3v4m5-4v3" fill="none" stroke="var(--surface)" stroke-width="1.3" stroke-linecap="round"/></svg>';
 }
 themeLabel();
 let requestedTheme = root.dataset.theme === 'light' ? 'light' : 'dark';
@@ -35,48 +37,25 @@ function applyTheme() {
  themeLabel();
 }
 function clearReveal() {
- if (!activeReveal) return;
- const previous = activeReveal;
- activeReveal = null;
- previous.animation?.cancel();
- previous.frame.remove();
- root.style.removeProperty('--reveal-base');
- root.classList.remove('theme-revealing');
+ if(!activeReveal)return;
+ const previous=activeReveal;activeReveal=null;
+ previous.skipTransition?.();
 }
 themeButton.addEventListener('click', () => {
  requestedTheme = requestedTheme === 'light' ? 'dark' : 'light';
- if (activeReveal) { clearReveal(); applyTheme(); return; }
- if (reducedMotion.matches) { applyTheme(); return; }
- const rect = themeButton.querySelector('.sun-icon').getBoundingClientRect();
- const x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
- const radius = Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y)) + 2;
- const oldColor = getComputedStyle(root).getPropertyValue('--page');
- applyTheme();
- const color = getComputedStyle(root).getPropertyValue('--page');
- const layer = document.createElement('div');
- layer.className = 'theme-wave';
- layer.setAttribute('aria-hidden', 'true');
- // Percentage anchors stay aligned at browser zoom and every viewport width.
- layer.style.left = `${x / innerWidth * 100}%`;
- layer.style.top = `${y / innerHeight * 100}%`;
- layer.style.width = layer.style.height = `${radius * 2}px`;
- layer.style.background = color;
- root.style.setProperty('--reveal-base', oldColor);
- root.classList.add('theme-revealing');
- const frame = document.createElement('div');
- frame.className = 'theme-wave-frame';
- frame.setAttribute('aria-hidden', 'true');
- frame.append(layer);
- document.body.append(frame);
- const reveal = {frame, animation:null};
- activeReveal = reveal;
+ // Repeated activation always honors the newest choice, without stacked overlays.
+ if(activeReveal){clearReveal();applyTheme();return;}
+ if(reducedMotion.matches || !document.startViewTransition){applyTheme();return;}
  try {
-  reveal.animation = layer.animate([{transform:'translate(-50%, -50%) scale(0)'},{transform:'translate(-50%, -50%) scale(1)'}], {duration:500,easing:'cubic-bezier(.4,0,.2,1)'});
-  reveal.animation.finished.then(() => { if(activeReveal === reveal) clearReveal(); }, () => { if(activeReveal === reveal) clearReveal(); });
- } catch { clearReveal(); }
+  const transition=document.startViewTransition(applyTheme);
+  activeReveal=transition;
+  transition.ready.catch(()=>{});
+  transition.finished.then(()=>{if(activeReveal===transition)activeReveal=null;},()=>{if(activeReveal===transition)activeReveal=null;});
+ } catch {clearReveal();applyTheme();}
 });
-window.addEventListener('resize', clearReveal, {passive:true});
-window.addEventListener('pagehide', clearReveal);
+window.addEventListener('resize',clearReveal,{passive:true});
+window.addEventListener('pagehide',clearReveal);
+reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)clearReveal();});
 
 const avatar = document.querySelector('.avatar-rotator');
 const avatarPause = document.querySelector('.avatar-pause');

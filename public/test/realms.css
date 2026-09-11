@@ -31,3 +31,19 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 .theme-toggle{width:44px;height:44px;min-width:44px;padding:0;gap:0;justify-content:center;border-radius:50%}
 .theme-toggle .theme-label{display:none}
 .theme-toggle .sun-icon{width:28px;flex-basis:28px;font-size:28px}
+
+/* Soul Society butterfly / Hollow mask: original compact vector emblems. */
+.theme-toggle{border-radius:14px;box-shadow:inset 0 0 0 3px var(--page);transition:border-color .2s,box-shadow .2s}
+.theme-toggle .sun-icon{width:28px;height:28px;display:grid;place-items:center}
+.theme-toggle svg{display:block;width:28px;height:28px;overflow:visible}
+.theme-toggle:hover,.theme-toggle:focus-visible{border-color:var(--accent);box-shadow:inset 0 0 0 3px var(--page),0 0 15px var(--wash)}
+.theme-toggle:hover .realm-wings{transform:scaleX(.88);transform-origin:center;transition:transform .2s}
+::view-transition-group(root){animation-duration:650ms}
+::view-transition-old(root),::view-transition-new(root){mix-blend-mode:normal;pointer-events:none}
+::view-transition-old(root){animation:none}
+::view-transition-new(root){animation:realm-rift-open 650ms cubic-bezier(.22,.75,.16,1) both}
+@keyframes realm-rift-open{0%{clip-path:polygon(50% 0,50.3% 24%,49.8% 46%,50.2% 70%,50% 100%,50% 100%,49.7% 70%,50.2% 46%,49.7% 24%,50% 0)}35%{clip-path:polygon(43% 0,58% 24%,48% 46%,62% 70%,55% 100%,44% 100%,35% 70%,41% 46%,40% 24%,43% 0)}100%{clip-path:polygon(0 0,100% 0,100% 45%,100% 75%,100% 100%,0 100%,0 75%,0 45%,0 20%,0 0)}}
+:root[data-theme=light]::view-transition-new(root){animation-name:realm-gate-open}
+@keyframes realm-gate-open{from{clip-path:inset(0 50%)}to{clip-path:inset(0 0)}}
+@media(prefers-reduced-motion:reduce){.theme-toggle,.theme-toggle:hover .realm-wings{transition:none;transform:none}::view-transition-group(root),::view-transition-new(root){animation:none}}
+::view-transition{pointer-events:none}
