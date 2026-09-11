@@ -28,3 +28,5 @@ hitHandlers.pointerdown({button:0,stopPropagation(){}});assert.equal(direct.leng
 hitHandlers.click({detail:1,stopPropagation(){}});assert.equal(direct.length,1);
 hitHandlers.click({detail:0,stopPropagation(){}});assert.equal(direct.length,2);
 console.log('PASS: running interruption, press without click, repeated moving presses, no duplicate mouse attacks, keyboard and direct companion input');
+
+assert.match(readFileSync('public/test/bleach-details.js','utf8'),/read\('vasu-page-attacks',true\)/,'New visitors get page attacks by default');

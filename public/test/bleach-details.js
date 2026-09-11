@@ -1,7 +1,7 @@
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
 const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
 const found=new Set(read('vasu-bleach-discoveries',[]));
-let pageAttacks=read('vasu-page-attacks',false),list,status;
+let pageAttacks=read('vasu-page-attacks',true),list,status;
 const names={badge:'Substitute Shinigami badge',gate:'Between worlds',blade:'THE BLADE IS ME',dark:'BORN IN THE DARK',idle:'Quiet company'};
 export const pageAttacksEnabled=()=>pageAttacks;
 function discover(id){if(found.has(id))return;found.add(id);save('vasu-bleach-discoveries',[...found]);render();if(status)status.textContent='Discovered: '+names[id];}
