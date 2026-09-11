@@ -14,15 +14,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @media print{body{background:white;color:black}}
 
 /* Hueco Mundo atmosphere: a static painted environment behind a shaded reading area. */
-:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-night-v4.webp') center center/cover no-repeat}
-:root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(5,18,31,.18),rgba(5,18,31,.72) 28%,rgba(5,18,31,.72) 68%,rgba(5,18,31,.06)),linear-gradient(0deg,rgba(3,5,9,.25),transparent 45%)}
+:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-night-v4.webp') center center/cover no-repeat}
+:root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(5,18,31,.18),rgba(5,18,31,.72) 28%,rgba(5,18,31,.72) 68%,rgba(5,18,31,.06)),linear-gradient(0deg,rgba(3,5,9,.25),transparent 45%)}
 @media(max-width:860px){:root:not([data-theme=light]) body::before{background-position:right center}:root:not([data-theme=light]) body::after{background:linear-gradient(180deg,rgba(5,18,31,.18),rgba(5,18,31,.48) 45%,rgba(5,18,31,.80))}}
 @media print{body::before,body::after{display:none}}
 :root:not([data-theme=light]) .theme-toggle{background:rgba(3,5,9,.85)}
 
 /* Seireitei daylight counterpart. Keep the center bright enough for slate text. */
-:root[data-theme=light] body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:#e9f1f4 url('./backgrounds/seireitei-day-v1.webp') center center/cover no-repeat}
-:root[data-theme=light] body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(244,243,237,.25),rgba(244,243,237,.85) 28%,rgba(244,243,237,.85) 68%,rgba(244,243,237,.16))}
+:root[data-theme=light] body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:#e9f1f4 url('./backgrounds/seireitei-day-v1.webp') center center/cover no-repeat}
+:root[data-theme=light] body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(244,243,237,.25),rgba(244,243,237,.85) 28%,rgba(244,243,237,.85) 68%,rgba(244,243,237,.16))}
 :root[data-theme=light] .theme-toggle{background:rgba(244,243,237,.9)}
 @media(max-width:860px){:root[data-theme=light] body::before{background-position:76% center}:root[data-theme=light] body::after{background:linear-gradient(180deg,rgba(244,243,237,.60),rgba(244,243,237,.76) 45%,rgba(244,243,237,.90))}}
 @media print{body::before,body::after{display:none}}
@@ -96,7 +96,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @media(max-width:600px){.navigation .character-name{max-width:70px}}
 
 /* Keep the realm palette intact: soften scenery evenly, without painted patches. */
-body::before{filter:blur(2px);transform:scale(1.015)}
+body::before{filter:none;transform:none}
+body>.layout,body>main{position:relative;z-index:1}
 :root:not([data-theme=light]) .intro,:root:not([data-theme=light]) .projects-intro{color:#edf3f6;text-shadow:0 1px 2px rgba(0,9,18,.65)}
 :root[data-theme=light] .intro,:root[data-theme=light] .projects-intro{color:#202e35;text-shadow:none}
 @media print{body::before{filter:none;transform:none}}
+
