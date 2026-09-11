@@ -482,3 +482,11 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 .contact-options{display:grid;gap:6px;margin-top:18px}.contact-options a{display:flex;align-items:center;gap:14px;padding:12px;border-radius:10px;text-decoration:none;font-size:14px}.contact-options a:hover{background:var(--wash)}
 
 .hero-status{gap:14px;margin-top:8px}.hero-status .traffic-stats{flex:0 0 auto}.hero-status .availability-badge{white-space:nowrap}
+/* Size the portrait and its wrapper together; center the complete identity block. */
+.identity{align-items:center;gap:26px}
+.identity .avatar-widget{width:124px;height:124px;flex:0 0 124px}
+.identity .portrait-frame{width:124px;height:124px;border-radius:24px}
+.identity-copy{display:flex;flex-direction:column;justify-content:center}
+.identity h1{margin:0 0 8px}.identity-role{margin:0}.hero-status{margin:10px 0 0;align-items:center}
+@media(max-width:600px){.identity{gap:18px}.identity .avatar-widget{width:100px;height:100px;flex-basis:100px}.identity .portrait-frame{width:100px;height:100px;border-radius:20px}.identity h1{font-size:clamp(24px,6vw,32px)}.hero-status{gap:8px 12px}}
+@media(max-width:360px){.identity{gap:14px}.identity .avatar-widget{width:88px;height:88px;flex-basis:88px}.identity .portrait-frame{width:88px;height:88px;border-radius:18px}.identity h1{font-size:24px}}
