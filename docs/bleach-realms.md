@@ -7,3 +7,6 @@ Seireitei (light): pale stone #f4f3ed, slate text #303c44, restrained vermilion 
 These are UI palette interpretations of the settings, not official universal hex codes; scene lighting varies across the anime. References: [Seireitei](https://bleach.fandom.com/wiki/Seireitei) and [Hueco Mundo](https://bleach.neoseeker.com/wiki/Hueco_Mundo).
 
 Existing light/dark preferences and theme transitions remain compatible. The companion gallery inherits the selected palette.
+
+
+Updated pair: Hueco Mundo v2 uses graphic white dunes and a stark starless black sky; Seireitei v1 introduces sunlit plaster, slate roofs and clear sky. Both are generated anime-inspired environments with static reading overlays. Full prompts: realm-background-prompts-v2.txt.

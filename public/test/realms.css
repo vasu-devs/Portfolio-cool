@@ -14,8 +14,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @media print{body{background:white;color:black}}
 
 /* Hueco Mundo atmosphere: a static painted environment behind a shaded reading area. */
-:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-night-v1.webp') center center/cover no-repeat}
-:root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(8,13,22,.35),rgba(8,13,22,.80) 28%,rgba(8,13,22,.80) 68%,rgba(8,13,22,.12)),linear-gradient(0deg,rgba(8,13,22,.25),transparent 45%)}
-@media(max-width:860px){:root:not([data-theme=light]) body::before{background-position:85% center}:root:not([data-theme=light]) body::after{background:linear-gradient(180deg,rgba(8,13,22,.32),rgba(8,13,22,.55) 45%,rgba(8,13,22,.83))}}
+:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-night-v2.webp') center center/cover no-repeat}
+:root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(3,5,9,.35),rgba(3,5,9,.80) 28%,rgba(3,5,9,.80) 68%,rgba(3,5,9,.12)),linear-gradient(0deg,rgba(3,5,9,.25),transparent 45%)}
+@media(max-width:860px){:root:not([data-theme=light]) body::before{background-position:right center}:root:not([data-theme=light]) body::after{background:linear-gradient(180deg,rgba(3,5,9,.32),rgba(3,5,9,.55) 45%,rgba(3,5,9,.83))}}
 @media print{body::before,body::after{display:none}}
-:root:not([data-theme=light]) .theme-toggle{background:rgba(8,13,22,.85)}
+:root:not([data-theme=light]) .theme-toggle{background:rgba(3,5,9,.85)}
+
+/* Seireitei daylight counterpart. Keep the center bright enough for slate text. */
+:root[data-theme=light] body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:#e9f1f4 url('./backgrounds/seireitei-day-v1.webp') center center/cover no-repeat}
+:root[data-theme=light] body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(244,243,237,.25),rgba(244,243,237,.85) 28%,rgba(244,243,237,.85) 68%,rgba(244,243,237,.16))}
+:root[data-theme=light] .theme-toggle{background:rgba(244,243,237,.9)}
+@media(max-width:860px){:root[data-theme=light] body::before{background-position:76% center}:root[data-theme=light] body::after{background:linear-gradient(180deg,rgba(244,243,237,.60),rgba(244,243,237,.76) 45%,rgba(244,243,237,.90))}}
+@media print{body::before,body::after{display:none}}
