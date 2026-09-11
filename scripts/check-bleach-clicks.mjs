@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {readFileSync} from 'node:fs';
+const source=readFileSync('public/test/soul-cursor.js','utf8');
+const handlers={},shots=[];let capture=false;
+const scope=vm.createContext({pageAttacksEnabled:()=>true,active:()=>true,seen:false,draw(){},host:{classList:{add(){}}},greetingTimer:0,greeting:true,reply:{textContent:'hello'},clearTimeout(){},armPark(){},attackQueue:{push:p=>shots.push(p)},document:{addEventListener(type,fn,options){handlers[type]=fn;capture=options.capture;}}});
+vm.runInContext(source.slice(source.indexOf("document.addEventListener('click'"),source.indexOf("toggle.addEventListener('click'")),scope);
+scope.pageAttacksEnabled=()=>false;
+const event={button:0,detail:0,clientX:123,clientY:234,target:{closest:()=>false}};
+handlers.click(event);assert.equal(shots.length,0);scope.pageAttacksEnabled=()=>true;
+handlers.click(event);assert.equal(shots.length,1);assert.equal(scope.seen,true);assert.equal(scope.greeting,false);assert.equal(capture,true);
+for(let i=0;i<3;i++)handlers.click({...event,detail:i+1});assert.equal(shots.length,4);
+handlers.click({...event,target:{closest:()=>true}});assert.equal(shots.length,4);
+const hit={addEventListener(type,fn){handlers['hit-'+type]=fn;}};
+vm.runInContext(source.slice(source.indexOf("hit.addEventListener('click'"),source.indexOf('function wake()')),vm.createContext({hit,x:50,y:80,facing:1,requestAttack:(x,y)=>shots.push({x,y})}));
+handlers['hit-click']({stopPropagation(){},detail:1});assert.equal(shots.at(-1).x,170);
+console.log('PASS: first click, keyboard click, repeated clicks, captured page events, control exclusion and direct companion attack');

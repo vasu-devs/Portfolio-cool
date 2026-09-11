@@ -1,3 +1,5 @@
+import './soul-cursor.js?v=likeness-24';
+
 function showPage() {
   const id = location.hash.slice(1);
   const project = id.startsWith('project-') ? document.getElementById(id) : null;
@@ -13,11 +15,6 @@ window.addEventListener('hashchange', showPage);
 showPage();
 
 const dot = document.querySelector('.secret-dot');
-dot.addEventListener('click', () => {
-  const active = document.body.classList.toggle('night-note');
-  dot.setAttribute('aria-pressed', String(active));
-  document.querySelector('.secret-message').textContent = active ? 'You found the quiet corner of the internet. Stay a while.' : '';
-});
 const themeButton = document.querySelector('.theme-toggle');
 const root = document.documentElement;
 function themeLabel() {
@@ -82,13 +79,18 @@ window.addEventListener('pagehide', clearReveal);
 
 const avatar = document.querySelector('.avatar-rotator');
 const avatarPause = document.querySelector('.avatar-pause');
+let preferredAvatar='';
+try {preferredAvatar=localStorage.getItem('vasu-tybw-avatar')||'';}catch{}
+const portraitChoices=['warm','cool'].includes(preferredAvatar)?[preferredAvatar]:['warm','cool'];
+avatar.replaceChildren(...portraitChoices.map((id,index)=>{const img=document.createElement('img');img.className='avatar-slide'+(index===0?' is-visible':'');img.width=112;img.height=112;img.alt='Vasudev — Bleach-inspired anime portrait';img.src=`/test/avatars/tybw-${id}-v5.webp`;return img;}));
+avatarPause.hidden=portraitChoices.length===1;
 const slides = [...avatar.querySelectorAll('.avatar-slide')];
 let avatarIndex = 0, avatarTimer = null, avatarPaused = reducedMotion.matches;
 let avatarAnimation = null, avatarBusy = false;
 function stopAvatars() { clearTimeout(avatarTimer); avatarTimer = null; }
 function scheduleAvatar() {
  stopAvatars();
- if (avatarPaused || document.hidden) return;
+ if (slides.length<2 || avatarPaused || document.hidden) return;
  avatarTimer = setTimeout(nextAvatar, 6000);
 }
 async function nextAvatar() {
@@ -114,7 +116,7 @@ function avatarLabel() {
  avatarPause.setAttribute('aria-label', label); avatarPause.title = label;
  avatarPause.textContent = avatarPaused ? '▶' : 'Ⅱ';
 }
-avatar.addEventListener('click', nextAvatar);
+avatar.addEventListener('click',()=>{if(slides.length===1)location.href='/test/tybw.html';else nextAvatar();});
 avatarPause.addEventListener('click', () => { avatarPaused = !avatarPaused; avatarLabel(); scheduleAvatar(); });
 reducedMotion.addEventListener('change', () => { avatarPaused = reducedMotion.matches; avatarAnimation?.finish(); avatarLabel(); scheduleAvatar(); });
 document.addEventListener('visibilitychange', scheduleAvatar);
