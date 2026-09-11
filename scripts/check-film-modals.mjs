@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 const html=readFileSync('public/test/index.html','utf8');
 const videos=JSON.parse(readFileSync('src/data/videos.json','utf8'));
-for(const v of videos.slice(0,3)){
+for(const v of videos.filter(v=>['Vaani','Odeon','BranchGPT'].includes(v.name))){
  const id=new URL(v.url).searchParams.get('v');
  const block=html.match(new RegExp(`<template id="film-${id}">([\\s\\S]*?)</template>`))?.[1];
  assert.ok(block,`${v.name}: description template`);
