@@ -315,14 +315,14 @@ html:not([data-theme="light"]) .realm-covers [data-cover-realm="hueco"],html[dat
 body>.soul-cursor,body>.getsuga-field{z-index:120}
 body>.navigation{gap:20px;align-items:center}
 body>.navigation .bleach-menu{margin:0}
-body>.navigation .character-name{width:84px;flex:0 0 84px;max-width:84px;text-align:right}
-body>.navigation .bleach-menu>summary{gap:6px;padding:0;align-items:center}
+body>.navigation .character-name{width:auto;flex:0 1 auto;max-width:100px;text-align:right}
+body>.navigation .bleach-menu>summary{width:112px;justify-content:flex-end;gap:6px;padding:0;align-items:center}
 body>.navigation .theme-toggle{width:40px;height:44px;padding:4px;display:grid;place-items:center;flex:0 0 40px}
 body>.navigation .theme-toggle .sun-icon,body>.navigation .theme-toggle svg{width:30px;height:30px;flex-basis:30px}
 :root:not([data-theme=light]){--butterfly-wing:#132333;--butterfly-edge:#b2ccd8;--butterfly-vein:#7599ab;--butterfly-body:#d5e7ee;--butterfly-mark:#7192a4}
 :root[data-theme=light]{--butterfly-mark:#93637f}
 :root:not([data-theme=light]) .theme-toggle svg{filter:drop-shadow(0 0 3px #91bed333)}
-@media(max-width:600px){body>.navigation{gap:15px}body>.navigation .character-name{width:70px;flex-basis:70px;max-width:70px}}
+@media(max-width:600px){body>.navigation{gap:15px}body>.navigation .bleach-menu>summary{width:86px}body>.navigation .character-name{max-width:70px}}
 
 /* Preserve native scrolling without a visible scrollbar track or thumb. */
 html,body,.resume-modal,.resume-content,.film-description,.detail-body,.bleach-drawer{scrollbar-width:none;-ms-overflow-style:none}
