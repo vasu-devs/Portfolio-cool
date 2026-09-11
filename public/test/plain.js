@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=controls-64';
+import './soul-cursor.js?v=overlays-66';
 
 function showPage() {
   const id = location.hash.slice(1);

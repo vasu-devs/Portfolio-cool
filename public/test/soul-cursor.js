@@ -141,17 +141,33 @@ function dockCompanion() {
  host.classList.add('is-docked');
  if(!host.matches(':popover-open'))host.showPopover();
  const rect=overlay.getBoundingClientRect();
- // Prefer a clear side, otherwise use the card's existing preview stage.
- if(rect.right+88<innerWidth){x=rect.right+48;y=Math.min(innerHeight-64,Math.max(64,rect.top+110));}
- else if(rect.left>88){x=rect.left-48;y=Math.min(innerHeight-64,Math.max(64,rect.top+110));}
- else {
-  const stage=overlay.querySelector('.character-stage');
-  const box=(stage||overlay).getBoundingClientRect();
-  x=stage?box.left+box.width/2:box.right-88;
-  y=stage?box.top+box.height/2:box.top+40;
+ const margin=34;
+ const clampX=v=>Math.max(margin,Math.min(innerWidth-margin,v));
+ const clampY=v=>Math.max(margin,Math.min(innerHeight-margin,v));
+ const overlaps=x+margin>rect.left&&x-margin<rect.right&&y+margin>rect.top&&y-margin<rect.bottom;
+ let destination={x,y};
+ if(overlaps){
+  const candidates=[{x:rect.left-margin,y:clampY(y)},{x:rect.right+margin,y:clampY(y)},{x:clampX(x),y:rect.top-margin},{x:clampX(x),y:rect.bottom+margin}]
+   .filter(p=>p.x>=margin&&p.x<=innerWidth-margin&&p.y>=margin&&p.y<=innerHeight-margin);
+  candidates.sort((a,b)=>Math.hypot(a.x-x,a.y-y)-Math.hypot(b.x-x,b.y-y));
+  // Full-screen dialogs have no outside space: stay visible in the top layer.
+  destination=candidates[0]||{x:clampX(x),y:clampY(rect.top+24)};
  }
- overlay.classList.toggle('has-docked-preview',!!overlay.querySelector('.character-stage')&&rect.left<=88&&rect.right+88>=innerWidth);
- tx=x;ty=y;facing=1;seen=true;pose('rest');draw();host.classList.add('is-visible');
+ overlay.classList.remove('has-docked-preview');
+ tx=destination.x;ty=destination.y;seen=true;draw();host.classList.add('is-visible');
+ if(Math.hypot(tx-x,ty-y)<1){pose('rest');return;}
+ const owner=overlay;let previous=0,walkTime=0;
+ pose('run');
+ const escapeStep=now=>{
+  frame=0;if(overlay!==owner||!enabled||document.hidden)return;
+  const dt=previous?Math.min((now-previous)/1000,.04):1/60;previous=now;
+  const dx=tx-x,dy=ty-y,distance=Math.hypot(dx,dy),step=Math.min(distance,190*dt);
+  if(distance<=1){x=tx;y=ty;draw();pose('rest');return;}
+  if(Math.abs(dx)>1)facing=dx<0?-1:1;
+  walkTime+=dt;cell(roster[character].drift?0:roster[character].run?Math.floor(walkTime/.125)%4:1+Math.floor(walkTime/.125)%2,true);
+  x+=dx/distance*step;y+=dy/distance*step;draw();frame=requestAnimationFrame(escapeStep);
+ };
+ frame=requestAnimationFrame(escapeStep);
 }
 function syncPanel() {
  const next=openPanel();
@@ -232,7 +248,7 @@ function hello() {
  greetingTimer=setTimeout(()=>{greeting=false;reply.textContent='';park();},1600);
 }
 // Stop to greet the pointer so the small character remains easy to click.
- hit.addEventListener('pointerenter',()=>{hovering=true;cancelAnimationFrame(frame);frame=0;if(state==='run')rest();});
+ hit.addEventListener('pointerenter',()=>{if(overlay)return;hovering=true;cancelAnimationFrame(frame);frame=0;if(state==='run')rest();});
  hit.addEventListener('pointerleave',()=>{hovering=false;if(!greeting)wake();});
  hit.addEventListener('pointerdown',event=>{
  if(event.button!==0)return;
