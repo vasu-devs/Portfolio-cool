@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=attacks-63';
+import './soul-cursor.js?v=controls-64';
 
 function showPage() {
   const id = location.hash.slice(1);
