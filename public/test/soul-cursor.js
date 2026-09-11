@@ -1,4 +1,4 @@
-import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=navbar-36';
+import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=cards-37';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
 import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=likeness-24';
 import {roster} from './bleach-roster.js?v=likeness-24';
@@ -34,6 +34,33 @@ const technique=document.createElement('span');
 technique.className='soul-technique';
 technique.setAttribute('aria-live','polite');
 controls.append(chooserLabel,select,toggle,technique);
+const characterIds=Object.keys(roster);
+const card=document.createElement('div');card.className='character-card';
+card.innerHTML='<div class="character-card-top"><span>SOUL COLLECTION</span><span class="character-count"></span></div><div class="character-stage"><button type="button" class="character-prev" aria-label="Previous character">‹</button><span class="character-art" aria-hidden="true"></span><button type="button" class="character-next" aria-label="Next character">›</button></div><h2 class="character-card-name"></h2>';
+controls.prepend(card);card.append(technique);
+const rosterStrip=document.createElement('div');rosterStrip.className='character-roster';rosterStrip.setAttribute('aria-label','Choose a character');
+for(const id of characterIds){
+ const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',roster[id].name);b.title=roster[id].name;b.dataset.character=id;
+ const art=document.createElement('span');art.style.backgroundImage=`url("${new URL(roster[id].atlas,import.meta.url).href}")`;art.setAttribute('aria-hidden','true');b.append(art);
+ b.addEventListener('click',()=>chooseCharacter(id));rosterStrip.append(b);
+}
+controls.append(rosterStrip);
+function paintCard(id){
+ card.querySelector('.character-art').style.backgroundImage=`url("${new URL(roster[id].atlas,import.meta.url).href}")`;
+ card.querySelector('.character-card-name').textContent=roster[id].name;
+ card.querySelector('.character-count').textContent=`${String(characterIds.indexOf(id)+1).padStart(2,'0')} / ${characterIds.length}`;
+ technique.textContent=roster[id].technique;
+ for(const b of rosterStrip.children)b.setAttribute('aria-pressed',String(b.dataset.character===id));
+}
+function chooseCharacter(id){select.value=id;paintCard(id);void loadCharacter(id);}
+function stepCharacter(offset){const index=characterIds.indexOf(select.value);chooseCharacter(characterIds[(index+offset+characterIds.length)%characterIds.length]);}
+card.querySelector('.character-prev').addEventListener('click',()=>stepCharacter(-1));
+card.querySelector('.character-next').addEventListener('click',()=>stepCharacter(1));
+let swipeStart;
+card.addEventListener('pointerdown',e=>{if(!e.target.closest('button'))swipeStart=e.clientX;});
+card.addEventListener('pointerup',e=>{if(swipeStart!==undefined&&Math.abs(e.clientX-swipeStart)>45)stepCharacter(e.clientX<swipeStart?1:-1);swipeStart=undefined;});
+card.addEventListener('pointercancel',()=>{swipeStart=undefined;});
+controls.addEventListener('pointerenter',()=>void warmCharacters(),{once:true});
 const updateCompanionName=mountBleachDetails(controls);
 let character='ichigo', characterRequest=0, ready=false;
 try { const saved=localStorage.getItem('vasu-bleach-character'); if(Object.hasOwn(roster,saved)) character=saved; } catch {}
@@ -64,7 +91,7 @@ async function loadCharacter(id,{entrance=true}={}) {
  const assets=prepareCharacter(id);
  // Effects do not block a character selection; sprite and run art load together.
  void preloadCharacterEffect(id);
- try {if(!assets.ready)await assets.promise;}catch{if(request===characterRequest)select.value=character;return;}
+ try {if(!assets.ready)await assets.promise;}catch{if(request===characterRequest){select.value=character;paintCard(character);}return;}
  if(request!==characterRequest)return;
  clear();host.querySelector('.bleach-entrance')?.remove();host.classList.remove('is-entering');
  character=id;atlasURL=assets.image.src;runURL=roster[id].run?assets.run.src:assets.image.src;
@@ -78,7 +105,7 @@ async function loadCharacter(id,{entrance=true}={}) {
 }
 
 select.value=character;
-select.addEventListener('change',()=>loadCharacter(select.value));
+select.addEventListener('change',()=>chooseCharacter(select.value));
 let enabled = true;
 try { enabled = localStorage.getItem('vasu-soul-cursor') !== 'off'; } catch {}
 let frame = 0, idleTimer = 0, reactionTimer=0;
@@ -98,8 +125,9 @@ const attackQueue=createAttackQueue({
  finish:()=>{if(active()&&seen){rest();armPark();wake();}}
 });
 function label() {
+ paintCard(character);
  updateCompanionName(roster[character].name);
- toggle.textContent = enabled ? 'on' : 'off';
+ toggle.textContent = enabled ? 'Following · on' : 'Following · off';
  toggle.setAttribute('aria-label',enabled?'Turn companion off':'Turn companion on');
  technique.textContent=roster[character].technique;
  technique.title=roster[character].form;

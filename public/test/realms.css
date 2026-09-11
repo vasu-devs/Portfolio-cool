@@ -153,3 +153,31 @@ body>.layout,body>main{position:relative;z-index:1}
 .detail-modal .case-sections h4{color:var(--bright)}.detail-modal .detail-body>p{margin:12px 0}
 .detail-modal .detail-body section+section{margin-top:26px}
 .detail-modal dt{margin-top:18px}.detail-modal dd{margin-left:0}
+/* Compact character collection: the art leads, settings stay secondary. */
+.navigation .bleach-drawer{width:min(340px,calc(100vw - 48px));padding:16px;background:var(--modal-glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:var(--modal-edge);box-shadow:0 20px 60px #0004}
+.navigation .bleach-drawer .soul-controls{display:grid;grid-template-columns:1fr;margin:0 0 14px;gap:12px}
+.navigation .soul-controls>label,.navigation .soul-controls>select{display:none}
+.character-card{width:100%;text-align:center;touch-action:pan-y}
+.character-card-top{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.16em;color:var(--muted);padding:2px 0 10px}
+.character-stage{display:flex;align-items:center;justify-content:space-between;min-height:165px;background:radial-gradient(ellipse at 50% 70%,var(--wash),transparent 68%);position:relative}
+.character-stage::after{content:'';position:absolute;bottom:12px;left:30%;right:30%;height:12px;border-radius:50%;background:var(--accent);opacity:.12;filter:blur(6px);pointer-events:none}
+.character-art{display:block;width:160px;height:160px;background-size:300% 300%;background-position:0 0;background-repeat:no-repeat;filter:drop-shadow(0 8px 10px #0002)}
+.bleach-drawer .character-stage button{margin:0;border:0;border-radius:50%;font-size:30px;width:40px;height:44px;padding:0;color:var(--accent)}
+.bleach-drawer .character-stage button:hover{background:var(--wash)}
+.character-card-name{font-size:26px;letter-spacing:-.04em;line-height:1.2;margin:8px 0;color:var(--bright)}
+.character-card .soul-technique{display:block;font-size:12px;line-height:1.6;color:var(--muted);min-height:38px}
+.character-roster{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bleach-drawer .character-roster button{margin:0;padding:0;min-width:0;height:38px;border:1px solid transparent;border-radius:6px;transition:background .15s,border-color .15s}
+.character-roster button span{display:block;width:100%;height:100%;background-size:300% 300%;background-position:0 0;background-repeat:no-repeat}
+.bleach-drawer .character-roster button[aria-pressed=true]{background:var(--wash);border-color:var(--accent)}
+.bleach-drawer .character-roster button:hover{background:var(--wash)}
+.navigation .soul-controls .soul-toggle{grid-row:3;margin:0;justify-self:center;font-size:11px;padding:6px 12px;border-radius:20px}
+.bleach-drawer .bleach-setting{font-size:12px}.bleach-drawer>p{color:var(--muted);font-size:11px;margin:8px 0 14px}
+.character-extras{border-top:1px solid var(--line);padding-top:12px}
+.bleach-menu .character-extras>summary{display:flex;width:100%;font-size:11px;justify-content:space-between;color:var(--muted)}
+.character-extras>summary::after{content:'+'}.character-extras[open]>summary::after{content:'−'}
+.character-extras .bleach-status:empty{display:none}
+@media(prefers-reduced-motion:reduce){.character-roster button{transition:none}}
+.navigation .character-card-name{font-size:26px;font-weight:600;letter-spacing:-.04em;margin:4px 0 8px;line-height:1.2}
+.navigation .character-stage{min-height:140px}.navigation .character-art{width:140px;height:140px}
+.navigation .character-card .soul-technique{min-height:0;margin-bottom:4px}
