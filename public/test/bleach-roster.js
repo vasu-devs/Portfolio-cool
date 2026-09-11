@@ -6,7 +6,10 @@ export const roster = {
     "greeting": "Hey!",
     "run": true,
     "atlas": "./sprites/ichigo.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 174,
+    "standingHeightFraction": 0.94141,
+    "standingBottomFraction": 0.96875
   },
   "rukia": {
     "name": "Rukia",
@@ -14,7 +17,10 @@ export const roster = {
     "form": "Shikai · drawn four-frame effect",
     "greeting": "Hello!",
     "atlas": "./sprites/rukia.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 144,
+    "standingHeightFraction": 0.95703,
+    "standingBottomFraction": 0.96094
   },
   "renji": {
     "name": "Renji",
@@ -23,7 +29,10 @@ export const roster = {
     "greeting": "Yo!",
     "run": true,
     "atlas": "./sprites/renji.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 188,
+    "standingHeightFraction": 0.98828,
+    "standingBottomFraction": 0.98828
   },
   "uryu": {
     "name": "Uryū",
@@ -31,7 +40,10 @@ export const roster = {
     "form": "TYBW · Wandenreich uniform",
     "greeting": "Hello.",
     "atlas": "./sprites/tybw-uryu.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 177,
+    "standingHeightFraction": 0.97266,
+    "standingBottomFraction": 1.0
   },
   "orihime": {
     "name": "Orihime",
@@ -39,7 +51,10 @@ export const roster = {
     "form": "TYBW · Hueco Mundo outfit",
     "greeting": "Hi!",
     "atlas": "./sprites/tybw-orihime.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 157,
+    "standingHeightFraction": 0.97266,
+    "standingBottomFraction": 0.99219
   },
   "chad": {
     "name": "Chad",
@@ -47,7 +62,10 @@ export const roster = {
     "form": "TYBW · Fullbring arms",
     "greeting": "Hey.",
     "atlas": "./sprites/tybw-chad.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 197,
+    "standingHeightFraction": 0.98047,
+    "standingBottomFraction": 1.0
   },
   "urahara": {
     "name": "Urahara",
@@ -55,7 +73,10 @@ export const roster = {
     "form": "TYBW · Shikai",
     "greeting": "Welcome!",
     "atlas": "./sprites/tybw-urahara.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 183,
+    "standingHeightFraction": 0.97656,
+    "standingBottomFraction": 1.0
   },
   "yoruichi": {
     "name": "Yoruichi",
@@ -63,7 +84,10 @@ export const roster = {
     "form": "TYBW · combat outfit",
     "greeting": "Too slow!",
     "atlas": "./sprites/tybw-yoruichi.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 156,
+    "standingHeightFraction": 0.97656,
+    "standingBottomFraction": 1.0
   },
   "byakuya": {
     "name": "Byakuya",
@@ -71,7 +95,10 @@ export const roster = {
     "form": "TYBW · Shikai, captain outfit",
     "greeting": "Greetings.",
     "atlas": "./sprites/tybw-byakuya.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 180,
+    "standingHeightFraction": 0.9375,
+    "standingBottomFraction": 0.98047
   },
   "toshiro": {
     "name": "Tōshirō",
@@ -79,7 +106,10 @@ export const roster = {
     "form": "TYBW · youthful Shikai form",
     "greeting": "Stay sharp.",
     "atlas": "./sprites/tybw-toshiro.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 133,
+    "standingHeightFraction": 0.95703,
+    "standingBottomFraction": 0.98047
   },
   "kenpachi": {
     "name": "Kenpachi",
@@ -87,7 +117,10 @@ export const roster = {
     "form": "TYBW · Shikai, eyepatch on",
     "greeting": "Ready?",
     "atlas": "./sprites/tybw-kenpachi.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 202,
+    "standingHeightFraction": 0.92188,
+    "standingBottomFraction": 0.96094
   },
   "shunsui": {
     "name": "Shunsui",
@@ -95,7 +128,10 @@ export const roster = {
     "form": "TYBW · Head Captain, Shikai",
     "greeting": "Take it easy.",
     "atlas": "./sprites/tybw-shunsui.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 192,
+    "standingHeightFraction": 0.93359,
+    "standingBottomFraction": 0.96484
   },
   "aizen": {
     "name": "Aizen",
@@ -104,7 +140,10 @@ export const roster = {
     "greeting": "I see.",
     "drift": true,
     "atlas": "./sprites/tybw-aizen.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 186,
+    "standingHeightFraction": 0.89453,
+    "standingBottomFraction": 0.96875
   },
   "yhwach": {
     "name": "Yhwach",
@@ -112,7 +151,10 @@ export const roster = {
     "form": "TYBW · before Soul King absorption",
     "greeting": "Kneel.",
     "atlas": "./sprites/tybw-yhwach.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 200,
+    "standingHeightFraction": 0.96484,
+    "standingBottomFraction": 0.98438
   },
   "grimmjow": {
     "name": "Grimmjow",
@@ -120,7 +162,10 @@ export const roster = {
     "form": "TYBW · base Arrancar form",
     "greeting": "You ready?",
     "atlas": "./sprites/tybw-grimmjow.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 186,
+    "standingHeightFraction": 0.95312,
+    "standingBottomFraction": 1.0
   },
   "ichigo-tybw": {
     "name": "Ichigo · TYBW",
@@ -128,6 +173,9 @@ export const roster = {
     "form": "TYBW · true Shikai",
     "greeting": "Let’s go!",
     "atlas": "./sprites/tybw-ichigo-tybw.webp",
-    "spriteEffect": true
+    "spriteEffect": true,
+    "heightCm": 181,
+    "standingHeightFraction": 0.95312,
+    "standingBottomFraction": 0.98047
   }
 };

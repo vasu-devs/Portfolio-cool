@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=gates-61';
+import './soul-cursor.js?v=sizes-62';
 
 function showPage() {
   const id = location.hash.slice(1);

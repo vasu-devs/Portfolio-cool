@@ -367,3 +367,6 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 .soul-cursor.is-entering[data-state=rest] .soul-character{animation:senkaimon-step 1.6s ease both}
 @keyframes senkaimon-step{0%,20%{translate:0 -5px;filter:drop-shadow(0 0 3px #fff)}50%,100%{translate:0 0;filter:drop-shadow(0 1px 1px #0005)}}
 @media(prefers-reduced-motion:reduce){.soul-cursor.is-entering[data-state=rest] .soul-character{animation:none}}
+
+/* Compact portals track the selected character, anchored at the threshold. */
+.bleach-entrance.senkaimon,.bleach-entrance.garganta,.bleach-entrance.quincy-step{transform:scale(var(--portal-scale,.64));transform-origin:50% 100%}

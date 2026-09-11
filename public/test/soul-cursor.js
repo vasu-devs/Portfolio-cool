@@ -1,7 +1,7 @@
 import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=gates-61';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
 import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=likeness-24';
-import {roster} from './bleach-roster.js?v=likeness-24';
+import {roster} from './bleach-roster.js?v=sizes-62';
 // A small, optional cursor companion. Only movement or a slash schedules frames.
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
 const calm = matchMedia('(prefers-reduced-motion: reduce)');
@@ -46,6 +46,8 @@ for(const id of characterIds){
 }
 controls.append(rosterStrip);
 function paintCard(id){
+ card.querySelector('.character-art').style.scale=String(roster[id].heightCm/202);
+ card.querySelector('.character-art').style.transformOrigin='50% 100%';
  card.querySelector('.character-art').style.backgroundImage=`url("${new URL(roster[id].atlas,import.meta.url).href}")`;
  card.querySelector('.character-card-name').textContent=roster[id].name;
  card.querySelector('.character-count').textContent=`${String(characterIds.indexOf(id)+1).padStart(2,'0')} / ${characterIds.length}`;
@@ -95,6 +97,11 @@ async function loadCharacter(id,{entrance=true}={}) {
  if(request!==characterRequest)return;
  clear();host.querySelector('.bleach-entrance')?.remove();host.classList.remove('is-entering');
  character=id;atlasURL=assets.image.src;runURL=roster[id].run?assets.run.src:assets.image.src;
+ const bodyHeight=40*roster[id].heightCm/181;
+ const cellSize=bodyHeight/roster[id].standingHeightFraction;
+ sprite.style.width=cellSize+'px';sprite.style.height=cellSize+'px';
+ sprite.style.left=(32-cellSize/2)+'px';sprite.style.top=(56-cellSize*roster[id].standingBottomFraction)+'px';
+ host.style.setProperty('--portal-scale',String(.64*roster[id].heightCm/181));
  currentCell=-1;cell(0);ready=true;select.value=id;
  try {localStorage.setItem('vasu-bleach-character',id);}catch{}
  label();if(overlay){dockCompanion();if(entrance&&seen)void characterEntrance(host,id);}else if(active()) {
