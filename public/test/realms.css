@@ -54,3 +54,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 :root:not([data-theme=light]) .avatar-rotator[data-portrait-mode=theme] [data-realm=hueco],
 .avatar-rotator[data-portrait-mode=seireitei] [data-realm=seireitei],
 .avatar-rotator[data-portrait-mode=hueco] [data-realm=hueco]{opacity:1;visibility:visible}
+
+/* Jigokucho: understated original vector interpretation, not a framed badge. */
+:root{--butterfly-wing:#504660;--butterfly-edge:#b4a8c3;--butterfly-vein:#24202f;--butterfly-body:#16121d}
+:root[data-theme=light]{--butterfly-wing:#393043;--butterfly-edge:#16121d;--butterfly-vein:#19151f;--butterfly-body:#16121d}
+:root .theme-toggle,:root .theme-toggle:hover,:root .theme-toggle:focus-visible{background:transparent;border:0;box-shadow:none;border-radius:8px}
+:root .theme-toggle .sun-icon{width:36px;height:36px;flex-basis:36px}
+:root .theme-toggle svg{width:36px;height:36px;filter:drop-shadow(0 1px 2px #0002)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.butterfly-wings{transform-origin:20px 20px}
+.theme-toggle:hover .butterfly-wings,.theme-toggle:focus-visible .butterfly-wings{animation:jigokucho-flutter 650ms ease-in-out 1}
+@keyframes jigokucho-flutter{0%,100%{transform:scaleX(1)}25%,65%{transform:scaleX(.62)}45%,85%{transform:scaleX(.96)}}
+@media(prefers-reduced-motion:reduce){.theme-toggle .butterfly-wings{animation:none!important}}

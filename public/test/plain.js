@@ -23,9 +23,7 @@ function themeLabel() {
  document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#f4f3ed' : '#0b0e14');
  themeButton.setAttribute('aria-label', themeButton.title);
  themeButton.querySelector('.theme-label').textContent = '';
- themeButton.querySelector('.sun-icon').innerHTML = light
-  ? '<svg viewBox="0 0 32 32" aria-hidden="true"><g class="realm-wings" fill="currentColor"><path d="M15 15C9 2 1 3 3 12c1 4 6 6 10 5-9 0-9 10-4 10 4 0 6-6 6-10Z"/><path d="M17 15C23 2 31 3 29 12c-1 4-6 6-10 5 9 0 9 10 4 10-4 0-6-6-6-10Z"/></g><path d="M16 10v15m0-14-3-5m3 5 3-5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="m6 10 5 3m15-3-5 3" stroke="var(--page)" stroke-width="1.2"/></svg>'
-  : '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 5 16 3l8 2 3 8-3 11-8 5-8-5-3-11Z" fill="currentColor"/><g fill="var(--surface)"><path d="m8 12 6 2-1 4-5-2Zm16 0-6 2 1 4 5-2Z"/><path d="m16 17-2 4h4Z"/></g><path d="m17 4-2 5 3 2-2 4m-5 8v3m5-3v4m5-4v3" fill="none" stroke="var(--surface)" stroke-width="1.3" stroke-linecap="round"/></svg>';
+ themeButton.querySelector('.sun-icon').innerHTML = '<svg class="jigokucho" viewBox="0 0 40 40" aria-hidden="true"><g class="butterfly-wings" fill="var(--butterfly-wing)" stroke="var(--butterfly-edge)" stroke-width=".7" stroke-linejoin="round"><path d="M19 19C15 10 7 4 3 6 1 11 4 19 12 22 5 21 6 29 10 29l1 5 3-4c3-1 5-6 5-11Z"/><path d="M21 19C25 10 33 4 37 6c2 5-1 13-9 16 7-1 6 7 2 7l-1 5-3-4c-3-1-5-6-5-11Z"/><g fill="none" stroke="var(--butterfly-vein)" stroke-width="1.2"><path d="M18 20 6 9m11 12-9-5m10 7-6 5M22 20 34 9m-11 12 9-5m-10 7 6 5"/></g><path d="m9 25 3 1 2-2m17 1-3 1-2-2" fill="none" stroke="#93637f" stroke-width="1.3"/></g><path d="M20 15v15m-1-14c0-5-2-6-4-7m6 7c0-5 2-6 4-7" fill="none" stroke="var(--butterfly-body)" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="20" cy="18" rx="1.5" ry="4" fill="var(--butterfly-body)"/></svg>';
 }
 themeLabel();
 let requestedTheme = root.dataset.theme === 'light' ? 'light' : 'dark';
