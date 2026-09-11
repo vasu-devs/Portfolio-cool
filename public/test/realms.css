@@ -14,9 +14,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @media print{body{background:white;color:black}}
 
 /* Hueco Mundo atmosphere: a static painted environment behind a shaded reading area. */
-:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-night-v3.webp') center center/cover no-repeat}
-:root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(3,5,9,.35),rgba(3,5,9,.80) 28%,rgba(3,5,9,.80) 68%,rgba(3,5,9,.12)),linear-gradient(0deg,rgba(3,5,9,.25),transparent 45%)}
-@media(max-width:860px){:root:not([data-theme=light]) body::before{background-position:right center}:root:not([data-theme=light]) body::after{background:linear-gradient(180deg,rgba(3,5,9,.32),rgba(3,5,9,.55) 45%,rgba(3,5,9,.83))}}
+:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-night-v4.webp') center center/cover no-repeat}
+:root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(5,18,31,.18),rgba(5,18,31,.72) 28%,rgba(5,18,31,.72) 68%,rgba(5,18,31,.06)),linear-gradient(0deg,rgba(3,5,9,.25),transparent 45%)}
+@media(max-width:860px){:root:not([data-theme=light]) body::before{background-position:right center}:root:not([data-theme=light]) body::after{background:linear-gradient(180deg,rgba(5,18,31,.18),rgba(5,18,31,.48) 45%,rgba(5,18,31,.80))}}
 @media print{body::before,body::after{display:none}}
 :root:not([data-theme=light]) .theme-toggle{background:rgba(3,5,9,.85)}
 
