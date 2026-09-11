@@ -14,7 +14,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @media print{body{background:white;color:black}}
 
 /* Hueco Mundo atmosphere: a static painted environment behind a shaded reading area. */
-:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-anime-v5.webp') center center/cover no-repeat}
+:root:not([data-theme=light]) body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:#080d16 url('./backgrounds/hueco-mundo-custom-v6.webp') center center/cover no-repeat}
 :root:not([data-theme=light]) body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(5,18,31,.18),rgba(5,18,31,.72) 28%,rgba(5,18,31,.72) 68%,rgba(5,18,31,.06)),linear-gradient(0deg,rgba(3,5,9,.25),transparent 45%)}
 @media(max-width:860px){:root:not([data-theme=light]) body::before{background-position:right center}:root:not([data-theme=light]) body::after{background:linear-gradient(180deg,rgba(5,18,31,.18),rgba(5,18,31,.48) 45%,rgba(5,18,31,.80))}}
 @media print{body::before,body::after{display:none}}
@@ -492,7 +492,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 @media(max-width:360px){.identity{gap:14px}.identity .avatar-widget{width:88px;height:88px;flex-basis:88px}.identity .portrait-frame{width:88px;height:88px;border-radius:18px}.identity h1{font-size:24px}}
 
 /* Scenery bookends the document; the middle is an uninterrupted sky tone. */
-:root{--page:#091724;--realm-art:url('./backgrounds/hueco-mundo-anime-v5.webp')}
+:root{--page:#091724;--realm-art:url('./backgrounds/hueco-mundo-custom-v6.webp')}
 :root[data-theme=light]{--page:#edf4f8;--realm-art:url('./backgrounds/seireitei-day-v1.webp')}
 body{position:relative;min-height:100dvh;background:var(--page)}
 :root:not([data-theme=light]) body::before,:root[data-theme=light] body::before{position:absolute;inset:0 0 auto;height:400px;background:var(--realm-art) center top/max(100%,850px) auto no-repeat;opacity:.65;mask-image:linear-gradient(#000 0%,#0009 40%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#0009 40%,transparent 100%)}
@@ -527,11 +527,11 @@ main h2{font-size:24px;font-weight:600;line-height:1.4}
 :root:not([data-theme=light]) body::after{height:390px;opacity:.78;background-image:linear-gradient(90deg,transparent 0%,#071421b3 32%,#071421b3 68%,transparent 100%),var(--realm-art);background-position:center bottom;mask-image:linear-gradient(transparent 0%,#0008 45%,#000 100%);-webkit-mask-image:linear-gradient(transparent 0%,#0008 45%,#000 100%)}
 @media(max-width:600px){:root:not([data-theme=light]) body::before{background-size:auto 470px;height:370px;background-position:85% top}:root:not([data-theme=light]) body::after{height:290px;background-size:auto 490px}}
 /* Keep the upper crop strictly above Las Noches; both fades meet the same sky. */
-:root:not([data-theme=light]){--page:#12212c;--accent:#b0cedb;--muted:#a9bcc9;--line:#344957;--wash:#789aa418;--surface:#172732}
+:root:not([data-theme=light]){--page:#0d2037;--accent:#b0cedb;--muted:#a9bcc9;--line:#344957;--wash:#789aa418;--surface:#172732}
 :root:not([data-theme=light]) body::before{height:clamp(220px,29vw,400px);background-size:max(100%,850px) auto;background-position:right top;opacity:.92;mask-image:linear-gradient(#000 0%,#000e 34%,#0005 67%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#000e 34%,#0005 67%,transparent 100%)}
-:root:not([data-theme=light]) body::after{background-image:linear-gradient(90deg,transparent 0%,#12212cb3 32%,#12212cb3 68%,transparent 100%),var(--realm-art)}
+:root:not([data-theme=light]) body::after{background-image:linear-gradient(90deg,transparent 0%,#0d2037b3 32%,#0d2037b3 68%,transparent 100%),var(--realm-art)}
 @media(max-width:600px){:root:not([data-theme=light]) body::before{height:230px;background-size:850px auto;background-position:85% top}}
-/* Empty sky is sampled from the artwork: RGB 18, 33, 44. */
+/* Empty sky is sampled from the artwork: RGB 13, 32, 55. */
 :root:not([data-theme=light]) body{background:var(--page)}
 :root:not([data-theme=light]) body::before{opacity:1;filter:none;mask-image:linear-gradient(#000 0%,#000 52%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#000 52%,transparent 100%)}
 :root:not([data-theme=light]) body::after{opacity:.85;filter:none}
