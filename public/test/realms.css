@@ -583,7 +583,7 @@ main h2{font-size:24px;font-weight:600;line-height:1.4}
 :root[data-type-preview=humanist]{--case-heading:'Segoe UI',Arial,sans-serif;--case-weight:600}
 :root[data-type-preview=editorial]{--case-heading:'Case Editorial',Georgia,serif;--case-weight:400}
 .detail-modal{width:min(860px,calc(100vw - 32px));font-family:var(--case-body);background:rgba(9,26,39,.38);border-radius:10px;box-shadow:0 18px 60px #0003,inset 0 1px 0 #ffffff18;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-:root[data-theme=light] .detail-modal{background:rgba(174,212,239,.42)}
+:root[data-theme=light] .detail-modal{background:rgba(242,247,249,.30)}
 .detail-modal .resume-toolbar{align-items:flex-start;padding:28px 32px 24px;background:transparent;border-bottom:1px solid var(--modal-edge);backdrop-filter:none}
 .detail-modal .modal-kicker{display:none}
 .detail-modal .resume-toolbar h2{font-family:var(--case-heading);font-weight:var(--case-weight);font-size:34px;letter-spacing:-.015em;line-height:1.15;margin:0}
@@ -603,6 +603,6 @@ main h2{font-size:24px;font-weight:600;line-height:1.4}
 .detail-modal .case-body>.text-link{display:inline-block;margin-top:24px;font-size:14px}
 @media(max-width:600px){.detail-modal .resume-toolbar{padding:22px}.detail-modal .resume-toolbar h2{font-size:30px}.detail-deck{font-size:15px}.detail-modal .resume-content{padding:8px 22px 26px}.detail-modal .case-sections section{display:block;padding:20px 0}.detail-modal .case-sections section>h4{margin:0 0 10px}.detail-modal .case-sections p,.detail-modal .case-sections li{font-size:15px}}
 
-/* A sky-coloured veil keeps the page visible while a reading panel is open. */
-:root[data-theme=light]{--modal-glass:rgba(185,217,240,.40);--modal-bar:rgba(171,207,233,.20);--modal-shade:rgba(75,132,176,.14);--character-glass:rgba(185,217,240,.48)}
+/* Neutral translucent overlays preserve the colour of the page underneath. */
+:root[data-theme=light]{--page:#e3f0f9;--modal-glass:rgba(242,247,249,.30);--modal-bar:rgba(242,247,249,.16);--modal-shade:rgba(29,44,49,.08);--character-glass:rgba(242,247,249,.36)}
 .resume-modal::backdrop{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
