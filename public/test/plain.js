@@ -61,45 +61,12 @@ const avatar = document.querySelector('.avatar-rotator');
 const avatarPause = document.querySelector('.avatar-pause');
 let preferredAvatar='';
 try {preferredAvatar=localStorage.getItem('vasu-tybw-avatar')||'';}catch{}
-const portraitChoices=['warm','cool'].includes(preferredAvatar)?[preferredAvatar]:['warm','cool'];
-avatar.replaceChildren(...portraitChoices.map((id,index)=>{const img=document.createElement('img');img.className='avatar-slide'+(index===0?' is-visible':'');img.width=112;img.height=112;img.alt='Vasudev — Bleach-inspired anime portrait';img.src=`/test/avatars/tybw-${id}-v5.webp`;return img;}));
-avatarPause.hidden=portraitChoices.length===1;
-const slides = [...avatar.querySelectorAll('.avatar-slide')];
-let avatarIndex = 0, avatarTimer = null, avatarPaused = reducedMotion.matches;
-let avatarAnimation = null, avatarBusy = false;
-function stopAvatars() { clearTimeout(avatarTimer); avatarTimer = null; }
-function scheduleAvatar() {
- stopAvatars();
- if (slides.length<2 || avatarPaused || document.hidden) return;
- avatarTimer = setTimeout(nextAvatar, 6000);
-}
-async function nextAvatar() {
- if (avatarBusy) return;
- avatarBusy = true; stopAvatars();
- const next = (avatarIndex + 1) % slides.length;
- try {
-  await slides[next].decode();
-  const old = slides[avatarIndex], incoming = slides[next];
-  old.classList.remove('is-visible'); incoming.classList.add('is-visible');
-  avatarIndex = next;
-  if (!reducedMotion.matches) {
-   const options = {duration:550,easing:'cubic-bezier(.22,1,.36,1)'};
-   const outgoing = old.animate([{opacity:1,transform:'translateY(0) scale(1)'},{opacity:0,transform:'translateY(-12px) scale(.96)'}],options);
-   avatarAnimation = incoming.animate([{opacity:0,transform:'translateY(14px) scale(1.04)'},{opacity:1,transform:'translateY(0) scale(1)'}],options);
-   await Promise.allSettled([outgoing.finished,avatarAnimation.finished]);
-  }
- } catch { /* Keep the current avatar when an asset fails to load. */ }
- finally { avatarAnimation = null; avatarBusy = false; scheduleAvatar(); }
-}
-function avatarLabel() {
- const label = avatarPaused ? 'Resume avatar rotation' : 'Pause avatar rotation';
- avatarPause.setAttribute('aria-label', label); avatarPause.title = label;
- avatarPause.textContent = avatarPaused ? '▶' : 'Ⅱ';
-}
-avatar.addEventListener('click',()=>{if(slides.length===1)location.href='/test/tybw.html';else nextAvatar();});
-avatarPause.addEventListener('click', () => { avatarPaused = !avatarPaused; avatarLabel(); scheduleAvatar(); });
-reducedMotion.addEventListener('change', () => { avatarPaused = reducedMotion.matches; avatarAnimation?.finish(); avatarLabel(); scheduleAvatar(); });
-document.addEventListener('visibilitychange', scheduleAvatar);
-window.addEventListener('pagehide', stopAvatars);
-window.addEventListener('pageshow', scheduleAvatar);
-avatarLabel(); scheduleAvatar();
+avatar.dataset.portraitMode=['seireitei','hueco'].includes(preferredAvatar)?preferredAvatar:'theme';
+avatar.replaceChildren(...['seireitei','hueco'].map(id=>{
+ const img=document.createElement('img');img.className='avatar-slide';img.dataset.realm=id;
+ img.width=112;img.height=112;img.alt=`Vasudev — ${id==='seireitei'?'Seireitei daylight':'Hueco Mundo moonlight'} anime portrait`;
+ img.src=`/test/avatars/vasu-${id}-v1.webp`;return img;
+}));
+avatarPause.hidden=true;
+avatar.title='View themed portraits';avatar.setAttribute('aria-label','View themed portraits');
+avatar.addEventListener('click',()=>{location.href='/test/tybw.html';});

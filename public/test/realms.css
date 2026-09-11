@@ -47,3 +47,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @keyframes realm-gate-open{from{clip-path:inset(0 50%)}to{clip-path:inset(0 0)}}
 @media(prefers-reduced-motion:reduce){.theme-toggle,.theme-toggle:hover .realm-wings{transition:none;transform:none}::view-transition-group(root),::view-transition-new(root){animation:none}}
 ::view-transition{pointer-events:none}
+
+ .avatar-rotator[data-portrait-mode] .avatar-slide{visibility:hidden}
+/* Portrait follows the realm in the same scene transition; gallery can pin either. */
+:root[data-theme=light] .avatar-rotator[data-portrait-mode=theme] [data-realm=seireitei],
+:root:not([data-theme=light]) .avatar-rotator[data-portrait-mode=theme] [data-realm=hueco],
+.avatar-rotator[data-portrait-mode=seireitei] [data-realm=seireitei],
+.avatar-rotator[data-portrait-mode=hueco] [data-realm=hueco]{opacity:1;visibility:visible}
