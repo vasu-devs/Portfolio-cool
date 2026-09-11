@@ -68,12 +68,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @media(prefers-reduced-motion:reduce){.theme-toggle .butterfly-wings{animation:none!important}}
 
 /* One quiet frame for navigation; companion tools stay beside the realm switch. */
-.navigation{position:relative;margin-top:28px;padding:7px 12px 7px 18px;border:1px solid var(--line);border-radius:16px;box-shadow:inset 0 0 0 3px var(--page);background:var(--surface);gap:24px;margin-bottom:48px;z-index:10}
+.navigation{position:relative;margin-top:28px;padding:7px 12px 7px 18px;border:1px solid var(--line);border-radius:16px;box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--line) 18%,transparent);background:transparent;gap:24px;margin-bottom:48px;z-index:10}
 .navigation .theme-toggle{margin-left:0;flex-shrink:0}
 .navigation .bleach-menu{margin:0 0 0 auto;position:relative;font-size:12px;max-width:none}
 .navigation .bleach-menu>summary{display:flex;align-items:center;gap:7px;white-space:nowrap;min-height:44px;padding:0 4px;opacity:1;color:var(--muted);text-decoration:none}
 .navigation .bleach-menu>summary:hover,.navigation .bleach-menu[open]>summary{color:var(--bright)}
-.navigation .bleach-menu[open]>summary span{transform:rotate(180deg)}
+.navigation .bleach-menu[open]>summary .menu-chevron{transform:rotate(180deg)}
 .navigation .bleach-drawer{position:absolute;right:0;top:calc(100% + 12px);width:min(340px,calc(100vw - 48px));margin:0;padding:20px;background:var(--page);border:1px solid var(--line);box-shadow:0 12px 35px #0003;border-radius:14px;color:var(--ink);max-height:70vh;overflow:auto}
 .navigation .bleach-drawer .soul-controls{margin:0 0 16px;display:flex;gap:8px;flex-wrap:wrap}
 .navigation .soul-controls label{width:100%}
@@ -81,3 +81,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @media(max-width:600px){.navigation{margin-top:18px;padding:5px 8px 5px 12px;gap:12px;margin-bottom:34px;font-size:12px}.navigation .bleach-menu>summary{font-size:11px;gap:4px}.navigation .bleach-drawer{right:-48px}}
 @media(max-width:360px){.navigation{gap:8px;padding-left:9px}.navigation .bleach-menu>summary{font-size:10px}}
 @media print{.navigation{display:none}}
+
+/* A quiet realm-colored scrollbar, with no opaque browser track. */
+:root{--scroll-thumb:#60859980;scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent}
+:root[data-theme=light]{--scroll-thumb:#8e968580}
+*::-webkit-scrollbar{width:5px;height:5px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:10px}
+*::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+.bleach-drawer{scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent}
+.navigation .character-name{max-width:116px;overflow:hidden;text-overflow:ellipsis}
+/* The character is immediately visible while its entrance opens behind it. */
+.is-entering .soul-character{animation:none}
+@media(max-width:600px){.navigation .character-name{max-width:70px}}

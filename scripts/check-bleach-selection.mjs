@@ -17,7 +17,7 @@ function resolveArt(file){pending.get('https://example.test/test/'+file).resolve
 const first=ctx.loadCharacter('ichigo');
 assert.equal(pending.size,2,'atlas and run start concurrently');
 resolveArt('ichigo.webp');resolveArt('sprites/ichigo-run.webp');await first;
-assert.equal(ctx.character,'ichigo');assert.equal(entrances,0,'selection never waits for entrance or effect');
+assert.equal(ctx.character,'ichigo');assert.equal(entrances,1,'selection starts its entrance without waiting for entrance or effect');
 const before=decodes;ctx.loadCharacter('ichigo');assert.equal(decodes,before,'cached selection does not decode again');
 const slow=ctx.loadCharacter('rukia');const latest=ctx.loadCharacter('renji');
 resolveArt('renji.webp');await latest;resolveArt('rukia.webp');await slow;

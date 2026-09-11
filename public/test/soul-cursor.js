@@ -1,4 +1,4 @@
-import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=navbar-35';
+import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=navbar-36';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
 import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=likeness-24';
 import {roster} from './bleach-roster.js?v=likeness-24';
@@ -34,7 +34,7 @@ const technique=document.createElement('span');
 technique.className='soul-technique';
 technique.setAttribute('aria-live','polite');
 controls.append(chooserLabel,select,toggle,technique);
-mountBleachDetails(controls);
+const updateCompanionName=mountBleachDetails(controls);
 let character='ichigo', characterRequest=0, ready=false;
 try { const saved=localStorage.getItem('vasu-bleach-character'); if(Object.hasOwn(roster,saved)) character=saved; } catch {}
 const characterAssets=new Map();
@@ -58,7 +58,7 @@ async function warmCharacters() {
 }
 select.addEventListener('pointerenter',warmCharacters,{once:true});
 select.addEventListener('focus',warmCharacters,{once:true});
-async function loadCharacter(id,{entrance=false}={}) {
+async function loadCharacter(id,{entrance=true}={}) {
  if(!Object.hasOwn(roster,id))return;
  const request=++characterRequest;
  const assets=prepareCharacter(id);
@@ -72,7 +72,7 @@ async function loadCharacter(id,{entrance=false}={}) {
  try {localStorage.setItem('vasu-bleach-character',id);}catch{}
  label();if(active()) {
   seen=true;draw();host.classList.add('is-visible');
-  if(entrance)await characterEntrance(host,id);
+  if(entrance)void characterEntrance(host,id);
   if(request===characterRequest && active())park();
  }
 }
@@ -98,6 +98,7 @@ const attackQueue=createAttackQueue({
  finish:()=>{if(active()&&seen){rest();armPark();wake();}}
 });
 function label() {
+ updateCompanionName(roster[character].name);
  toggle.textContent = enabled ? 'on' : 'off';
  toggle.setAttribute('aria-label',enabled?'Turn companion off':'Turn companion on');
  technique.textContent=roster[character].technique;

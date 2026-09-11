@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {readFileSync} from 'node:fs';
+const source=readFileSync('public/test/bleach-details.js','utf8');
+const timers=[];let current=null,entering=false;
+const host={querySelector:()=>current,append(gate){current=gate;},classList:{add(){entering=true;},remove(){entering=false;}}};
+const ctx=vm.createContext({document:{createElement(){const gate={setAttribute(){},remove(){if(current===gate)current=null;}};return gate;}},discover(){},setTimeout(fn){timers.push(fn);},Promise});
+vm.runInContext(source.slice(source.indexOf('export function characterEntrance'),source.indexOf('export function idleDetail')).replace('export ',''),ctx);
+const first=ctx.characterEntrance(host,'ichigo');assert.match(current.className,/senkaimon/);
+const second=ctx.characterEntrance(host,'grimmjow');assert.match(current.className,/garganta/);
+timers[0]();await first;assert.equal(entering,true,'old entrance cleanup must not cancel newest entrance');assert.ok(current);
+timers[1]();await second;assert.equal(entering,false);assert.equal(current,null);
+console.log('PASS: Senkaimon/Garganta routing and rapid-switch entrance cleanup');

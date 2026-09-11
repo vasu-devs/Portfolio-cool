@@ -10,7 +10,7 @@ function button(text,fn){const b=document.createElement('button');b.type='button
 export function mountBleachDetails(controls){
  const menu=document.createElement('details');menu.className='bleach-menu';
  const summary=document.createElement('summary');summary.setAttribute('aria-label','Companion settings and discoveries');
- summary.title='Choose a companion and adjust its settings';summary.innerHTML='Companion <span aria-hidden="true">⌄</span>';
+ summary.title='Choose a companion and adjust its settings';summary.innerHTML='<span class="character-name">Ichigo</span> <span class="menu-chevron" aria-hidden="true">⌄</span>';
  const panel=document.createElement('div');panel.className='bleach-drawer';
  panel.append(controls);
  const label=document.createElement('label');label.className='bleach-setting';const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=pageAttacks;checkbox.addEventListener('change',()=>{pageAttacks=checkbox.checked;save('vasu-page-attacks',pageAttacks);});label.append(checkbox,' Attack on page clicks');panel.append(label);
@@ -26,11 +26,12 @@ export function mountBleachDetails(controls){
  new MutationObserver(()=>{if(document.documentElement.dataset.theme==='dark'&&found.has('badge')){discover('dark');toast.textContent='BORN IN THE DARK';clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.textContent='',2200);}}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){menu.open=false;summary.focus();}});
  document.addEventListener('pointerdown',e=>{if(menu.open&&!menu.contains(e.target))menu.open=false;});
+ return name=>{summary.querySelector('.character-name').textContent=name;summary.setAttribute('aria-label',`${name}: character settings and discoveries`);};
 }
 export function characterEntrance(host,id){
  host.querySelector('.bleach-entrance')?.remove();
  const gate=document.createElement('span');gate.className='bleach-entrance '+(id==='grimmjow'?'garganta':id==='uryu'||id==='yhwach'?'quincy-step':'senkaimon');gate.setAttribute('aria-hidden','true');gate.innerHTML='<i class="gate-light"></i><i class="gate-door gate-left"></i><i class="gate-door gate-right"></i>';host.append(gate);host.classList.add('is-entering');discover('gate');
- return new Promise(resolve=>setTimeout(()=>{gate.remove();host.classList.remove('is-entering');resolve();},1000));
+ return new Promise(resolve=>setTimeout(()=>{const current=host.querySelector('.bleach-entrance')===gate;gate.remove();if(current)host.classList.remove('is-entering');resolve();},1000));
 }
 export function idleDetail(host,id){
  host.querySelector('.bleach-idle-detail')?.remove();const detail=document.createElement('span');detail.className='bleach-idle-detail';detail.setAttribute('aria-hidden','true');
