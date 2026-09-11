@@ -83,10 +83,10 @@ readingDialog.setAttribute('aria-labelledby','detail-title');
 readingDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">PROJECT / PROFILE</span><h2 id="detail-title"></h2></div><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><div class="detail-body"></div></div>';
 document.body.append(readingDialog);
 let detailSource=null,detailOpener=null,detailNodes=[];
-function openDetail(source){
+function openDetail(source,opener){
  if(readingDialog.open)return;
  const summary=source.querySelector(':scope > summary');
- detailSource=source;detailOpener=summary;
+ detailSource=source;detailOpener=opener||summary;
  const title=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector('h3').textContent:source.classList.contains('role')?[...summary.querySelectorAll('h3,.role-name')].map(n=>n.textContent).join(' · '):source.classList.contains('project')?summary.querySelector('h3').textContent:summary.textContent;
  readingDialog.querySelector('#detail-title').textContent=title.trim();
  readingDialog.querySelector('.modal-kicker').textContent=source.classList.contains('role')?'EXPERIENCE / CASE STUDY':'PROJECT / PROFILE';
@@ -100,6 +100,14 @@ for(const source of document.querySelectorAll('details.project,details.role,deta
  summary.addEventListener('click',event=>{event.preventDefault();openDetail(source);});
  source.addEventListener('open-detail',()=>openDetail(source));
 }
+// In-page project links open a reading layer without changing page or scroll.
+document.addEventListener('click',event=>{
+ const link=event.target.closest('a[href^="#project-"]');
+ if(!link||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+ const source=document.getElementById(link.getAttribute('href').slice(1));
+ if(!source?.classList.contains('project'))return;
+ event.preventDefault();openDetail(source,link);
+});
 readingDialog.querySelector('button').addEventListener('click',()=>readingDialog.close());
 readingDialog.addEventListener('click',event=>{if(event.target!==readingDialog)return;const r=readingDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)readingDialog.close();});
 readingDialog.addEventListener('close',()=>{detailSource?.append(...detailNodes);detailNodes=[];document.documentElement.classList.remove('detail-open');detailOpener?.focus({preventScroll:true});});

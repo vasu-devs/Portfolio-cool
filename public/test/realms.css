@@ -450,3 +450,21 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,.resume-modal::-webkit-scrollbar
 #projects .project-title,#projects .project-intro{grid-column:1}
 #projects .project .study-cta{grid-column:2}
 @media(max-width:600px){#projects .project>summary{grid-template-columns:1fr}#projects .project .study-cta{grid-column:1;grid-row:3}}
+
+/* A visual lead story, followed by a compact two-column project index. */
+#projects .project-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+#projects .project{padding:25px 0}
+#projects .project:first-child{grid-column:1/-1;padding:0 0 32px;margin-bottom:10px}
+#projects .project>summary{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+#projects .project .study-cta{margin-top:4px;font-size:11px}
+#projects .project-title h3{font-size:22px}
+#projects .project-intro{font-size:14px;line-height:1.75}
+#projects .project .work-art{display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:8px;margin-bottom:5px;position:relative}
+#projects .project:first-child>summary{display:grid;grid-template-columns:1.15fr 1fr;column-gap:28px;row-gap:12px;align-content:center}
+#projects .project:first-child .work-art{grid-column:1;grid-row:1/4;margin:0}
+#projects .project:first-child .project-title{grid-column:2;grid-row:1;align-self:end}
+#projects .project:first-child .project-title h3{font-size:30px}
+#projects .project:first-child .project-intro{grid-column:2;grid-row:2}
+#projects .project:first-child .study-cta{grid-column:2;grid-row:3;align-self:start}
+#projects .project:not(:first-child) .work-art{max-height:160px}
+@media(max-width:600px){#projects .project-list{grid-template-columns:1fr;gap:0}#projects .project:first-child>summary{display:flex}#projects .project:first-child .work-art{margin-bottom:12px}#projects .project:first-child .project-title h3{font-size:26px}}
