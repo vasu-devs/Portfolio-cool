@@ -1,6 +1,6 @@
 import {mountBleachDetails,characterEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=controls-64';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
-import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=attacks-63';
+import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=effects-67';
 import {roster} from './bleach-roster.js?v=sizes-62';
 // A small, optional cursor companion. Only movement or a slash schedules frames.
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
@@ -92,8 +92,8 @@ async function loadCharacter(id,{entrance=true}={}) {
  const request=++characterRequest;
  const assets=prepareCharacter(id);
  // Effects do not block a character selection; sprite and run art load together.
- void preloadCharacterEffect(id);
- try {if(!assets.ready)await assets.promise;}catch{if(request===characterRequest){select.value=character;paintCard(character);}return;}
+ const effectReady=preloadCharacterEffect(id);
+ try {await Promise.all([assets.ready?Promise.resolve():assets.promise,effectReady]);}catch{if(request===characterRequest){select.value=character;paintCard(character);}return;}
  if(request!==characterRequest)return;
  clear();host.querySelector('.bleach-entrance')?.remove();host.classList.remove('is-entering');
  character=id;atlasURL=assets.image.src;runURL=roster[id].run?assets.run.src:assets.image.src;
