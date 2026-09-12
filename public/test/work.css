@@ -154,7 +154,7 @@ body>.navigation.is-docked>a[aria-current=page]{background:var(--bright);color:v
 body>.navigation.is-docked .bleach-menu{margin:0 0 0 6px;padding-left:6px;border-left:1px solid var(--line);position:relative}
 body>.navigation.is-docked .bleach-menu>summary{width:auto;min-width:0;min-height:40px;padding:0 10px 0 4px;gap:8px;border-radius:999px;justify-content:flex-start;align-items:center;color:var(--ink);font:500 13px/1 Geist,Arial,sans-serif;transition:background .16s}
 body>.navigation.is-docked .bleach-menu>summary:hover,body>.navigation.is-docked .bleach-menu[open]>summary{background:var(--wash);color:var(--bright)}
-body>.navigation.is-docked .character-chip{display:block;width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:var(--surface) center/300% 300% no-repeat;background-position:0 0;border:1px solid var(--line);image-rendering:auto}
+body>.navigation.is-docked .character-chip{display:block;width:32px;height:32px;flex:0 0 32px;border-radius:0;background:transparent center/300% 300% no-repeat;background-position:0 0;border:0;image-rendering:auto}
 body>.navigation.is-docked .character-name{width:auto;max-width:96px;flex:0 1 auto;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 body>.navigation.is-docked .menu-chevron{display:block;width:7px;height:7px;margin-top:-4px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);transition:transform .2s;opacity:.7}
 body>.navigation.is-docked .bleach-menu[open] .menu-chevron{transform:rotate(225deg);margin-top:4px}

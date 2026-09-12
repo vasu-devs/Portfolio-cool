@@ -223,7 +223,26 @@ function pose(next) {
  cell(({rest:0,run:1,sit:3,wave:4,sleep:5,attack:6})[next]);
  if(next==='sleep')idleDetail(host,character);
 }
+let protectedControl=null;
+if(!finePointer.matches)hit.style.setProperty('pointer-events','none','important');
+const clickable='a,button,input,textarea,select,summary,label,[role="button"],[role="tab"],[contenteditable="true"],.featured-card,.selected-item,.archive-item';
+function outsideControl(px,py){
+ if(!protectedControl?.isConnected)return {x:px,y:py};
+ const r=protectedControl.getBoundingClientRect(),gap=58;
+ const left=r.left-gap,right=r.right+gap,top=r.top-gap,bottom=r.bottom+gap;
+ if(px<left||px>right||py<top||py>bottom)return {x:px,y:py};
+ const choices=[{x:left,y:py},{x:right,y:py},{x:px,y:top},{x:px,y:bottom}].filter(p=>p.x>=26&&p.x<=innerWidth-26&&p.y>=26&&p.y<=innerHeight-26);
+ choices.sort((a,b)=>Math.hypot(a.x-px,a.y-py)-Math.hypot(b.x-px,b.y-py));
+ return choices[0]||{x:26,y:26};
+}
+document.addEventListener('pointermove',event=>{
+ protectedControl=document.elementsFromPoint(event.clientX,event.clientY).filter(e=>!host.contains(e)).map(e=>e.closest(clickable)).find(Boolean)||null;
+ // Even while walking away, the companion cannot intercept a control's click.
+ hit.style.setProperty('pointer-events',protectedControl||!finePointer.matches?'none':'auto','important');
+ if(protectedControl){hovering=false;const point=outsideControl(x,y);if(point.x!==x||point.y!==y){x=point.x;y=point.y;draw();}}
+},{capture:true,passive:true});
 function draw() {
+ const safe=outsideControl(x,y);x=safe.x;y=safe.y;
  x = Math.max(26, Math.min(innerWidth-26, x));
  y = Math.max(26, Math.min(innerHeight-26, y));
  host.style.transform = `translate3d(${x}px,${y}px,0)`;
@@ -271,7 +290,7 @@ function tick(now) {
  if (!active() || !seen || state === 'attack' || greeting || hovering) return;
  const dt = lastTime ? Math.min((now-lastTime)/1000,.04) : 1/60; lastTime = now;
  const dx = tx-x, dy = ty-y, distance = Math.hypot(dx,dy);
- const stop=parking?0:56;
+ const stop=parking?0:80;
  if(distance<=stop+.5){rest();return;}
  clearTimeout(idleTimer); if(state!=='run') pose('run');
  if (Math.abs(dx)>18) facing = dx<0 ? -1 : 1;
@@ -297,6 +316,7 @@ document.addEventListener('pointermove', event => {
  if(greeting || event.target.closest('.soul-hit'))return;
  parking=false;
  tx = Math.max(32,Math.min(innerWidth-32,event.clientX)); ty = Math.max(42,Math.min(innerHeight-42,event.clientY));
+ const safe=outsideControl(tx,ty);tx=safe.x;ty=safe.y;
  if (!seen) { seen = true; draw(); host.classList.add('is-visible'); rest(); }
  if (Math.hypot(tx-x,ty-y)>90 && !frame && !reactionTimer && state!=='attack') {
   reactionTimer=setTimeout(()=>{reactionTimer=0;wake();},state==='sleep'?420:160);

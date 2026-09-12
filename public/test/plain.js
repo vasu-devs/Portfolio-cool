@@ -1,5 +1,5 @@
 import './tiny-scroll.js?v=180';
-import './soul-cursor.js?v=silent-159';
+import './soul-cursor.js?v=space-181';
 
 function showPage() {
   const id = location.hash.slice(1);
