@@ -107,3 +107,7 @@ body>.navigation.is-docked .theme-toggle{margin:0 4px;width:40px;min-width:40px;
 body>.navigation.is-docked .bleach-drawer{border-radius:18px}
 @media(max-width:600px){body>.layout{padding-top:40px}body>.navigation.is-docked{height:60px;padding:6px;gap:0}body>.navigation.is-docked>a{padding:0 11px;font-size:12px}body>.navigation.is-docked .bleach-menu>summary{min-width:68px;font-size:12px}body>.navigation.is-docked .theme-toggle{margin:0 2px;width:36px;min-width:36px;flex-basis:36px}}
 @media(prefers-reduced-motion:reduce){body>.navigation.is-docked>a{transition:none}}
+
+/* Matching neutral glass for Hueco Mundo. */
+:root:not([data-theme=light]) body>.page-glass{display:block;position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(125deg,rgba(10,11,13,.22),rgba(8,9,10,.48) 48%,rgba(16,17,19,.26));backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+:root:not([data-theme=light]) body footer.site-footer::before{display:none}
