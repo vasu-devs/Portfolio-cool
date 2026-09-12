@@ -14,10 +14,13 @@ assert.ok(work.length>=6&&play.length>=6,'both serious and hobby groups are popu
 assert.ok(!html.includes('id="work-search"')&&!html.includes('id="work-track"'));
 assert.equal((html.match(/class="selected-item"/g)||[]).length,3,'three selected projects on Home');
 assert.ok(html.includes('id="contact" data-panel="contact"'),'contact page rendered');
-assert.equal((html.match(/class="message-form"/g)||[]).length,2,'message form on Home and on the Contact page');
-assert.equal((html.match(/data-cal-link="vasu-devs"/g)||[]).length,2,'call embed on Home and on the Contact page');
+assert.equal((html.match(/class="message-form"/g)||[]).length,1,'message form remains on Home');
+assert.equal((html.match(/data-cal-link="vasu-devs"/g)||[]).length,1,'call embed remains on Home');
 assert.ok((html.match(/class="skill-group"/g)||[]).length===5&&(html.match(/class="skill[ "]/g)||[]).length>=30&&(html.match(/class="role-tech"/g)||[]).length>=3,'skills grid and experience tech rows');
 assert.ok(!html.includes('class="tech-letter"'),'every tech has a real logo');
 const hero=html.slice(html.indexOf('class="hero-contacts"'),html.indexOf('<p class="secret-message"'));
 for(const link of JSON.parse(readFileSync('src/data/socials.json','utf8')))assert.ok(hero.includes(link.url),`hero includes ${link.label}`);
 console.log(`PASS: ${projects.length} projects across ${Object.keys(groups).length} groups, hero contacts, three selected projects, contact page`);
+
+const contact=html.slice(html.indexOf('id="contact" data-panel="contact"'),html.indexOf('</section>',html.indexOf('id="contact" data-panel="contact"')));
+assert.ok(html.includes('class="contact-directory"'),'dedicated directory');
