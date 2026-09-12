@@ -1,4 +1,4 @@
-import {mountSoundscape} from './soundscape.js?v=1';
+import {mountSoundscape} from './soundscape.js?v=2';
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
 const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
 const found=new Set(read('vasu-bleach-discoveries',[]));
@@ -37,7 +37,7 @@ export function finishEntrance(host){
 }
 export function characterEntrance(host,id){
  host.querySelector('.bleach-entrance')?.remove();
- const gate=document.createElement('span');gate.className='bleach-entrance '+(id==='grimmjow'?'garganta':id==='uryu'||id==='yhwach'?'quincy-step':'senkaimon');gate.setAttribute('aria-hidden','true');gate.innerHTML='<i class="gate-light"></i><i class="gate-lintel"></i><i class="gate-threshold"></i><i class="gate-door gate-left"></i><i class="gate-door gate-right"></i>';host.append(gate);host.classList.add('is-entering');discover('gate');
+ const gate=document.createElement('span');gate.className='bleach-entrance '+(id==='grimmjow'?'garganta':id==='uryu'||id==='yhwach'?'quincy-step':'senkaimon');gate.setAttribute('aria-hidden','true');gate.innerHTML='<i class="gate-light"></i><i class="gate-lintel"></i><i class="gate-threshold"></i><i class="gate-door gate-left"></i><i class="gate-door gate-right"></i>';host.append(gate);host.classList.add('is-entering');discover('gate');document.dispatchEvent(new CustomEvent('bleach-audio',{detail:{kind:'entrance',id}}));
  return new Promise(resolve=>setTimeout(()=>{const current=host.querySelector('.bleach-entrance')===gate;gate.remove();if(current)host.classList.remove('is-entering');resolve();},1600));
 }
 export function idleDetail(host,id){
