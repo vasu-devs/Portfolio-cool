@@ -14,7 +14,7 @@ const archive = read('work-archive').items;
 const socials=read('socials'),videos=read('videos');
 const originals=read('main-portfolio-studies');
 const originalFor=name=>originals.find(p=>p.title===name);
-import {projects as content, groups, pageCopy, archiveNames, coverPath, skills, techIcons} from './test-portfolio-content.mjs';
+import {projects as content, groups, pageCopy, archiveNames, coverPath, skillShelves, techIcons} from './test-portfolio-content.mjs';
 import * as si from 'react-icons/si';
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const socialIcons={Email:Mail,GitHub:null,LinkedIn:Linkedin,YouTube:Youtube,Instagram:Instagram,'Book a call':CalendarDays,'Résumé':FileText};
@@ -50,7 +50,7 @@ const workGroups = Object.entries(groups).map(([key, g]) => {
   const cards = items.filter(p => p.featured), rows = items.filter(p => !p.featured);
   return `<section class="work-group" data-group="${key}" aria-labelledby="group-${key}"><header class="work-group-head"><h2 id="group-${key}" class="display">${escape(g.title)}</h2><p>${escape(g.lead)}</p><span class="work-group-count">${items.length} ${items.length===1?'project':'projects'}</span></header>${cards.length ? `<div class="proj-grid">${cards.map(projectCard).join('')}</div>` : ''}${rows.length ? `<div class="proj-rows">${rows.map(projectRow).join('')}</div>` : ''}</section>`;
 }).join('');
-const roleMarkup = roles.map(r => `<details class="role"><summary><h3>${escape(r.company)}</h3><p class="role-name">${escape(r.role)}</p><span class="role-date mono">${escape(r.dateLabel)}</span><p class="role-preview">${escape(r.summary.split('. ').slice(0,2).join('. '))}</p><span class="role-hint">Read about this role <span aria-hidden="true">+</span></span></summary><div class="role-body"><p>${escape(r.summary)}</p>${r.sections ? r.sections.map(section).join('') : ''}</div></details>`).join('');
+const roleMarkup = roles.map(r => `<details class="role"><summary><h3>${escape(r.company)}</h3><p class="role-name">${escape(r.role)}</p><span class="role-date mono">${escape(r.dateLabel)}</span><p class="role-preview">${escape(r.summary.split('. ').slice(0,2).join('. '))}</p>${r.tech?.length?`<div class="role-tech">${techRow(r.tech,9)}</div>`:''}<span class="role-hint">Read about this role <span aria-hidden="true">+</span></span></summary><div class="role-body"><p>${escape(r.summary)}</p>${r.sections ? r.sections.map(section).join('') : ''}</div></details>`).join('');
 const featuredMarkup = ['justhireme','svara','odeon'].map(slug=>{
  const p=bySlug(slug);
  return `<article class="featured-card"><a class="featured-preview" href="#project-${p.slug}" aria-label="Read ${escape(p.name)} case study">${covers(p, `${p.name} product preview`)}</a><div class="featured-copy"><div class="featured-title"><h3><a href="#project-${p.slug}">${escape(p.name)}</a></h3>${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escape(p.name)} source on GitHub">${socialIcon('GitHub')}</a>`:''}</div><p>${escape(p.hook)}</p><p class="proj-stack">${p.tech.slice(0,4).map(escape).join(' · ')}</p><a class="card-study" href="#project-${p.slug}">Read case study</a></div></article>`;
@@ -86,19 +86,7 @@ const replacements = {
     return `<article class="selected-item"><a class="selected-art featured-preview" href="#project-${p.slug}" aria-label="Read ${escape(p.name)} case study">${covers(p, `${p.name} product preview`)}</a><div class="selected-copy"><p class="proj-kicker">${escape(p.kind)}</p><h3><a href="#project-${p.slug}">${escape(p.name)}</a></h3><p class="selected-summary">${escape(p.deck)}</p>${techRow(p.tech,7)}<div class="proj-actions">${iconAction('a',`href="#project-${p.slug}"`,'study','Case study')}${p.url?iconAction('a',`href="${escape(p.url)}" target="_blank" rel="noopener noreferrer"`,'github','Source on GitHub'):''}${p.demo?iconAction('a',`href="${escape(p.demo)}" aria-haspopup="dialog"`,'play','Watch walkthrough'):''}</div></div></article>`;
   }).join(''),
   SELECTEDLEAD: escape(pageCopy.selectedLead),
-  SKILLSGRID: skills.map(([name,dev,icon,hex])=>{
-    let mark;
-    if(dev){
-      const dir=resolve(root,'node_modules/devicon/icons',dev);
-      const file=['-original.svg','-plain.svg','-original-wordmark.svg','-plain-wordmark.svg','-line.svg'].map(suffix=>resolve(dir,dev+suffix)).find(f=>{try{readFileSync(f);return true;}catch{return false;}});
-      if(!file)throw new Error(`No devicon for ${dev}`);
-      mark=readFileSync(file,'utf8').replace(/<\?xml[^>]*>|<!DOCTYPE[^>]*>/g,'').replace(/<svg /,'<svg aria-hidden="true" ');
-    }else{
-      const Icon=si[icon];if(!Icon)throw new Error(`Unknown icon ${icon}`);
-      mark=renderToStaticMarkup(createElement(Icon,{size:24,'aria-hidden':true}));
-    }
-    return `<li${hex?` style="--brand:${hex}"`:''}${dev?'':' class="mono"'}><span class="skill-icon">${mark}</span><span class="skill-name">${escape(name)}</span></li>`;
-  }).join(''),
+  SKILLSGRID: skillShelves.map(([label,names])=>`<div class="shelf"><h3 class="shelf-label">${escape(label)}</h3>${techRow(names,20)}</div>`).join(''),
   HOMECONTACT: contactBlock('home'),
   CONTACTPAGE: (()=>{
     const by=label=>socials.find(s=>s.label===label);

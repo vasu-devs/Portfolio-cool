@@ -319,21 +319,20 @@ export const pageCopy = {
   selectedLead: 'Three I would show first. Each opens a full case study, and two have a recorded walkthrough.',
 };
 
-// Skills shown on Home as one compact icon grid.
-// [label, devicon slug (original multicolour logo) | null, react-icons/si fallback | null, brand hex for the fallback]
-export const skills = [
-  ['Python','python'],['TypeScript','typescript'],['JavaScript','javascript'],['Rust',null,'SiRust',null],['Swift','swift'],
-  ['React','react'],['Next.js',null,'SiNextdotjs',null],['Tauri','tauri'],['Tailwind','tailwindcss'],['Vite','vitejs'],
-  ['FastAPI','fastapi'],['Node.js','nodejs'],['PostgreSQL','postgresql'],['SQLite','sqlite'],['MongoDB','mongodb'],['Supabase','supabase'],
-  ['OpenAI',null,'SiOpenai',null],['Anthropic',null,'SiAnthropic',null],['LangChain',null,'SiLangchain','#1C3C3C'],['Hugging Face',null,'SiHuggingface','#FFD21E'],['PyTorch','pytorch'],
-  ['Docker','docker'],['GitHub Actions','githubactions'],['Vercel',null,'SiVercel',null],['AWS','amazonwebservices'],['pytest','pytest'],['Git','git']
+// Skills shown on Home as labelled shelves of logos; names appear only as tooltips.
+export const skillShelves = [
+  ['Languages', ['Python','TypeScript','JavaScript','Rust','Swift']],
+  ['Interfaces', ['React','Next.js','Tauri','SwiftUI','Electron','Three.js','Tailwind','Vite']],
+  ['Backends & data', ['FastAPI','Node.js','PostgreSQL','SQLite','MongoDB','Redis','Supabase','Drizzle ORM']],
+  ['AI systems', ['OpenAI','Anthropic','LangGraph','Hugging Face','PyTorch','ONNX embeddings','Ollama','LiveKit']],
+  ['Shipping', ['Docker','GitHub Actions','Vercel','AWS','pytest','Vitest','Playwright','Git']]
 ];
-
 // Tech name → logo. devicon slug (multicolour) or ['si','SiName'] (monochrome brand mark). Missing names render as a lettermark.
 export const techIcons = {
   'Python':'python','TypeScript':'typescript','JavaScript':'javascript','Rust':['si','SiRust'],'Swift':'swift','SwiftUI':'swift','Java 17':'java','JavaFX':'java',
   'React':'react','React Native':'react','Next.js':['si','SiNextdotjs'],'Tauri':'tauri','Electron':'electron','Three.js':['si','SiThreedotjs'],'GSAP':['si','SiGreensock'],'HTML':'html5','CSS':'css3','WebGL':['si','SiWebgl'],'D3':['si','SiD3Dotjs'],
   'FastAPI':'fastapi','Node.js':'nodejs','Express':'express','PostgreSQL':'postgresql','Neon Postgres':'postgresql','SQLite':'sqlite','MongoDB':'mongodb','Supabase':'supabase','Drizzle ORM':['si','SiDrizzle'],'Qdrant':null,'WebSockets':'socketio','HTTPX':'python','Pydantic':['si','SiPydantic'],
   'PyTorch':'pytorch','ONNX embeddings':['si','SiOnnx'],'Ollama':['si','SiOllama'],'LangGraph':['si','SiLangchain'],'Gemini':['si','SiGooglegemini'],'Groq':null,'Deepgram':['si','SiDeepgram'],'LiveKit':null,'faster-whisper':['si','SiOpenai'],'CTranslate2':['si','SiOpenai'],'Qwen2-VL':['si','SiAlibabacloud'],'Docling':null,'MediaPipe':['si','SiGoogle'],'Vercel AI SDK':['si','SiVercel'],'Claude Code plugin':['si','SiAnthropic'],'Mermaid':['si','SiMermaid'],
-  'Docker':'docker','pytest':'pytest','Vitest':'vitest','isomorphic-git':'git','JSZip':['si','SiJavascript'],'JSONL':['si','SiJson'],'Pygame':'python','PyQt':'qt','Windows':'windows11','Windows APIs':'windows11','StoreKit':['si','SiApple'],'Browser extension':['si','SiGooglechrome'],'Web Audio':'html5','Pointer Events':'html5','Kuzu':['si','SiGraphql'],'LanceDB':['si','SiApacheparquet']
+  'Docker':'docker','pytest':'pytest','Vitest':'vitest','isomorphic-git':'git','JSZip':['si','SiJavascript'],'JSONL':['si','SiJson'],'Pygame':'python','PyQt':'qt','Windows':'windows11','Windows APIs':'windows11','StoreKit':['si','SiApple'],'Browser extension':['si','SiGooglechrome'],'Web Audio':'html5','Pointer Events':'html5','Kuzu':['si','SiGraphql'],'LanceDB':['si','SiApacheparquet'],
+  'Tailwind':'tailwindcss','Vite':'vitejs','Redis':'redis','OpenAI':['si','SiOpenai'],'Anthropic':['si','SiAnthropic'],'Hugging Face':['si','SiHuggingface'],'GitHub Actions':'githubactions','Vercel':['si','SiVercel'],'AWS':'amazonwebservices','Git':'git','WebRTC':['si','SiWebrtc'],'Playwright':null
 };
