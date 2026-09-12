@@ -216,3 +216,12 @@ if(['humanist','condensed','editorial'].includes(typePreview)){
  document.documentElement.dataset.typePreview=typePreview;
  requestAnimationFrame(()=>document.querySelector('#project-justhireme')?.dispatchEvent(new Event('open-detail')));
 }
+
+// Copy the email address; the button confirms briefly, then resets.
+for(const button of document.querySelectorAll('.copy-mail')){
+ button.addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(button.dataset.copy);button.textContent='Copied';button.classList.add('is-done');}
+  catch{const link=button.previousElementSibling;const range=document.createRange();range.selectNodeContents(link);const sel=getSelection();sel.removeAllRanges();sel.addRange(range);button.textContent='Selected';}
+  setTimeout(()=>{button.textContent='Copy';button.classList.remove('is-done');},1800);
+ });
+}
