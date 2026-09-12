@@ -58,3 +58,22 @@ body{padding-bottom:28px}
 body>.navigation>a,body>.navigation>a[aria-current=page]{border:0;text-decoration:none;box-shadow:none}
 body>.navigation>a::after{display:none}
 body>.navigation>a[aria-current=page]{color:var(--bright);font-weight:650}
+
+/* A quiet sign-off over the realm landscape. */
+body footer.site-footer{display:block;width:100%;margin:76px 0 0;padding:40px 0 12px;border:0;border-top:1px solid var(--line);font:400 13px/1.6 Geist,Arial,sans-serif;color:var(--muted)}
+.site-footer .footer-main{display:flex;justify-content:space-between;gap:40px;padding-bottom:48px}
+body .site-footer .footer-name{display:inline-block;font:600 clamp(32px,5vw,52px)/1.1 Geist,Arial,sans-serif;letter-spacing:-.055em;color:var(--bright);text-decoration:none}
+.site-footer .footer-name span{color:var(--accent)}
+.site-footer .footer-signoff p{margin:14px 0 20px;font-size:14px;color:var(--muted)}
+body .site-footer .footer-email{display:inline-flex;align-items:center;gap:24px;min-height:44px;color:var(--bright);font-size:15px;text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--line)}
+.site-footer .footer-links{display:flex;flex-direction:column;min-width:150px;gap:0}
+.site-footer .footer-links>span{font-size:11px;margin-bottom:12px;color:var(--muted)}
+body .site-footer .footer-links a{display:flex;justify-content:space-between;align-items:center;gap:32px;min-height:38px;color:var(--ink);font-size:13px}
+.site-footer .footer-links a span{color:var(--muted);transition:transform .2s}
+.site-footer .footer-links a:hover span{transform:translate(2px,-2px)}
+.site-footer .footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:11px;min-height:44px}
+.site-footer .footer-bottom a{display:inline-flex;align-items:center;gap:12px;min-height:44px;color:var(--ink)}
+.site-footer .footer-realm{font-style:italic;opacity:.8}
+:root:not([data-theme=light]) .footer-realm-light,:root[data-theme=light] .footer-realm-dark{display:none}
+@media(max-width:600px){body footer.site-footer{margin-top:52px;padding-top:32px}.site-footer .footer-main{gap:28px;flex-direction:column;padding-bottom:32px}.site-footer .footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 18px}.site-footer .footer-links>span{grid-column:1/-1;margin-bottom:4px}body .site-footer .footer-links a{gap:6px;min-height:44px}.site-footer .footer-bottom{flex-wrap:wrap;gap:4px 16px}.site-footer .footer-realm{display:none}.site-footer .footer-bottom a{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){.site-footer .footer-links a span{transition:none}}
