@@ -493,3 +493,17 @@ body .directory-copy small{font-size:12px;color:var(--muted)}
 body .directory-copy-email{margin-top:12px}
 body .directory-copy-email>a{display:none}
 @media(max-width:600px){body .contact-directory{grid-template-columns:1fr;gap:30px}}
+
+/* Equal contact columns and a bounded booking dialog. */
+body .contact-directory li>a{min-height:112px;box-sizing:border-box}
+body .booking-dialog{box-sizing:border-box;width:min(920px,calc(100vw - 24px));height:min(780px,calc(100dvh - 32px));max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--line);border-radius:18px;color:var(--ink);background:var(--bg,#111);overflow:hidden}
+body .booking-dialog[open]{display:flex;flex-direction:column}
+body .booking-dialog header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);flex-shrink:0}
+body .booking-dialog h2{margin:0;font:600 20px/1.4 Geist,Arial,sans-serif}
+body .booking-dialog button{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+body .booking-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}
+body .booking-dialog .cal-embed{margin:0;border:0;border-radius:0;min-height:100%;background:transparent}
+body .booking-dialog footer{flex-shrink:0;padding:12px 20px;font-size:13px;border-top:1px solid var(--line)}
+body:has(.booking-dialog[open]){overflow:hidden}
+:root[data-theme=light] body .booking-dialog{background:#f4f6f5}
+:root:not([data-theme=light]) body .booking-dialog{background:#161719}

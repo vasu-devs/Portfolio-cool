@@ -238,31 +238,31 @@ function ensureCal(onError){
  if(calScriptRequested)return;calScriptRequested=true;
  (function(C,A,L){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];const s=d.createElement('script');s.src=A;s.async=true;s.onerror=onError;d.head.appendChild(s);cal.loaded=true}if(ar[0]===L){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace])}else p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
 }
+const booking=document.createElement('dialog');booking.className='booking-dialog';booking.setAttribute('aria-labelledby','booking-title');
+booking.innerHTML='<header><h2 id="booking-title">Book a call</h2><button type="button" aria-label="Close booking">Close ×</button></header><div class="booking-scroll"><div class="cal-embed" data-cal-link="vasu-devs"><p class="cal-loading" role="status">Loading available times…</p></div></div><footer><a href="https://cal.com/vasu-devs" target="_blank" rel="noopener noreferrer" data-booking-external>Open calendar in a new tab</a></footer>';
+document.body.append(booking);
+let bookingTrigger,bookingReady=false;
+function openBooking(trigger){
+ if(booking.open)return;bookingTrigger=trigger||document.activeElement;booking.showModal();
+ if(bookingReady)return;bookingReady=true;
+ const host=booking.querySelector('.cal-embed');
+ const fail=()=>{const note=host.querySelector('.cal-loading');if(note)note.textContent='Calendar unavailable here. Open it using the link below.';};
+ ensureCal(fail);
+ try{window.Cal('init','booking',{origin:'https://app.cal.com'});window.Cal.ns.booking('inline',{elementOrSelector:host,calLink:'vasu-devs',config:{layout:'month_view',theme:document.documentElement.dataset.theme==='light'?'light':'dark'}});}catch{fail();}
+}
+booking.querySelector('button').addEventListener('click',()=>booking.close());
+booking.addEventListener('close',()=>bookingTrigger?.focus({preventScroll:true}));
+booking.addEventListener('click',e=>{if(e.target!==booking)return;const r=booking.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)booking.close();});
+document.addEventListener('click',e=>{const link=e.target.closest('a[href="https://cal.com/vasu-devs"],a[href="#contact/call"]');if(!link||link.hasAttribute('data-booking-external')||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();e.stopImmediatePropagation();openBooking(link);},true);
+document.addEventListener('contact-page',e=>{if(e.detail.tab==='call')openBooking();});
+if(location.hash==='#contact/call')openBooking();
 for(const block of document.querySelectorAll('.contact-panels')){
  const root=block.closest('section');
- const tabs=[...root.querySelectorAll('.contact-switch [role=tab]')];
- const host=block.querySelector('.cal-embed');
- let calMounted=false;
- const fail=()=>{const note=host.querySelector('.cal-loading');if(note)note.textContent='The calendar could not load here. Use the cal.com link below.';};
- const mountCal=()=>{
-  if(calMounted)return;calMounted=true;
-  ensureCal(fail);
-  try{
-   const ns=host.dataset.calNs;
-   window.Cal('init',ns,{origin:'https://app.cal.com'});
-   window.Cal.ns[ns]('inline',{elementOrSelector:host,calLink:host.dataset.calLink,config:{layout:'month_view',theme:document.documentElement.dataset.theme==='light'?'light':'dark'}});
-   window.Cal.ns[ns]('ui',{hideEventTypeDetails:false,cssVarsPerTheme:{light:{'cal-brand':'#172d45'},dark:{'cal-brand':'#e7e8e9'}}});
-  }catch{fail();}
- };
- const show=name=>{
-  for(const tab of tabs){const on=tab.id.endsWith(`-tab-${name}`);tab.setAttribute('aria-selected',String(on));document.getElementById(tab.getAttribute('aria-controls')).hidden=!on;}
-  if(name==='call')mountCal();
- };
- for(const tab of tabs)tab.addEventListener('click',()=>show(tab.id.endsWith('-tab-call')?'call':'message'));
- if(root.id==='contact'){
-  document.addEventListener('contact-page',event=>show(event.detail.tab));
-  if(location.hash.startsWith('#contact'))show(location.hash==='#contact/call'?'call':'message');
- }
+ const call=root.querySelector('[id$="-tab-call"]');
+ if(call){call.removeAttribute('role');call.removeAttribute('aria-selected');call.removeAttribute('aria-controls');call.setAttribute('aria-haspopup','dialog');call.addEventListener('click',()=>openBooking(call));}
+ root.querySelector('.contact-switch')?.removeAttribute('role');
+ const message=root.querySelector('[id$="-tab-message"]');if(message){message.removeAttribute('role');message.removeAttribute('aria-selected');message.removeAttribute('aria-controls');message.addEventListener('click',()=>block.querySelector('input').focus());}
+ block.querySelector('[id$="-panel-call"]')?.remove();
  const form=block.querySelector('.message-form');
  const status=form.querySelector('.form-status');
  const button=form.querySelector('button[type=submit]');
