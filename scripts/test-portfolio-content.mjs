@@ -2,8 +2,8 @@
 // this file only decides what is said, how, and in which group.
 // group: 'work' (built to ship), 'earlier' (older tools), 'play' (for fun).
 
-export const COVER_VERSION = 'v14';
-export const coverPath = (slug, realm) => `/test/covers/${slug}-product-${realm}-${COVER_VERSION}.svg`;
+export const COVER_VERSION = 'v15';
+export const coverPath = (slug, realm) => `/test/covers/${slug}-scene-${realm}-${COVER_VERSION}.webp`;
 
 export const groups = {
   work: {

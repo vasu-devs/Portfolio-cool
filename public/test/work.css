@@ -51,8 +51,6 @@ body .proj--row .proj-stack{display:flex;flex-wrap:wrap;justify-content:space-be
 body .proj--row .proj-stack .proj-kicker{margin-left:auto}
 body .proj--row .proj-actions{margin-top:2px}
 body .proj--row .proj-actions>*{min-height:28px}
-/* Small thumbnails zoom into the drawing and drop the cover's own label. */
-body .proj--row .proj-art>.project-cover{width:158%;left:auto;right:-3%;object-position:right center}
 
 /* ---------- Home: featured cards reuse the same cover ---------- */
 body .featured-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
@@ -71,9 +69,9 @@ body .detail-modal .resume-toolbar{padding:20px 32px 18px;gap:20px;align-items:c
 body .detail-modal .modal-kicker{margin-bottom:5px;font:400 11px/1.5 'JetBrains Mono',monospace;color:var(--muted)}
 body .detail-modal .resume-toolbar h2{font:600 24px/1.25 Geist,Arial,sans-serif;letter-spacing:-.03em;text-transform:none}
 body .detail-modal .resume-content{padding:0 32px 40px}
-body .detail-cover{display:block;position:relative;aspect-ratio:21/9;margin:24px 0 30px;overflow:hidden;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+body .detail-cover{display:block;position:relative;aspect-ratio:2/1;margin:24px 0 30px;overflow:hidden;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
 body .detail-cover[hidden]{display:none}
-body .detail-cover>.project-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;margin:0;border:0;opacity:0}
+body .detail-cover>.project-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;margin:0;border:0;opacity:0}
 :root:not([data-theme=light]) body .detail-cover>[data-cover-realm=hueco],:root[data-theme=light] body .detail-cover>[data-cover-realm=seireitei]{opacity:1}
 body .detail-layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:36px;align-items:start;padding-top:8px}
 body .detail-layout:has(.detail-meta[hidden]){grid-template-columns:minmax(0,1fr)}
