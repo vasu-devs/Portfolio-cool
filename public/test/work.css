@@ -189,3 +189,11 @@ body>.navigation.is-docked .bleach-drawer>p{margin:8px 0 0;font-size:10.5px;text
  body>.navigation.is-docked .bleach-drawer{bottom:calc(env(safe-area-inset-bottom) + 74px);max-height:calc(100dvh - 100px)}
 }
 @media(prefers-reduced-motion:reduce){body>.navigation.is-docked>a,body>.navigation.is-docked .bleach-menu>summary,body>.navigation.is-docked .menu-chevron{transition:none}}
+
+/* Contact is reachable from the dock on every page. */
+body #work-with-me{scroll-margin-top:48px}
+/* Roster sprites keep their frame's square aspect; never stretched to the cell. */
+body>.navigation.is-docked .bleach-drawer .character-roster{grid-template-columns:repeat(8,minmax(0,1fr));gap:3px}
+body>.navigation.is-docked .bleach-drawer .character-roster button{height:auto;aspect-ratio:1;display:grid;place-items:center;padding:2px;overflow:hidden}
+body>.navigation.is-docked .bleach-drawer .character-roster button span{width:100%;height:100%;aspect-ratio:1;background-size:300% 300%;background-position:0 0}
+body>.navigation.is-docked .character-chip{background-size:300% 300%;background-position:0 0}

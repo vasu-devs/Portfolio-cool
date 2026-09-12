@@ -3,14 +3,17 @@ import './soul-cursor.js?v=mobile-111';
 function showPage() {
   const id = location.hash.slice(1);
   const project = id.startsWith('project-') ? document.getElementById(id) : null;
-  const page = id === 'projects' || project?.classList.contains('proj') ? 'projects' : 'home';
+  const current = document.querySelector('[data-panel]:not([hidden])')?.dataset.panel || 'home';
+  const page = id === 'projects' || project?.classList.contains('proj') ? 'projects' : id === 'work-with-me' ? current : 'home';
   document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== page; });
   document.querySelectorAll('[data-page]').forEach(link => {
-    if (link.dataset.page === (id==='about'?'about':page)) link.setAttribute('aria-current','page');
+    if (link.dataset.page === (id==='about'?'about':id==='work-with-me'?'contact':page)) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   });
   if(id==='projects'||id==='home')requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
   if(id==='about')requestAnimationFrame(()=>document.getElementById('about').scrollIntoView({behavior:'instant',block:'start'}));
+  // Contact lives below both panels; keep the current panel and scroll to it.
+  if(id==='work-with-me')requestAnimationFrame(()=>document.getElementById('work-with-me').scrollIntoView({behavior:'smooth',block:'start'}));
   if(project?.classList.contains('proj')) { requestAnimationFrame(() => {project.dispatchEvent(new CustomEvent('open-detail'));}); }
 }
 window.addEventListener('hashchange', showPage);
