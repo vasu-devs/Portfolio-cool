@@ -202,13 +202,13 @@ body>.navigation.is-docked .character-chip{background-size:300% 300%;background-
 :root{--frost-blur:blur(14px) saturate(130%)}
 :root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .resume-modal.detail-modal,:root:not([data-theme=light]) body .film-modal,:root:not([data-theme=light]) body .contact-dialog{
  --line:rgba(255,255,255,.12);
- background:linear-gradient(160deg,rgba(30,32,36,.44),rgba(14,15,17,.5) 55%,rgba(12,13,15,.54));
+ background:linear-gradient(160deg,rgba(30,32,36,.54),rgba(14,15,17,.6) 55%,rgba(12,13,15,.64));
  border:1px solid rgba(255,255,255,.14);
  box-shadow:0 30px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);
  backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
 :root[data-theme=light] body .resume-modal,:root[data-theme=light] body .resume-modal.detail-modal,:root[data-theme=light] body .film-modal,:root[data-theme=light] body .contact-dialog{
  --line:rgba(23,45,69,.13);
- background:linear-gradient(160deg,rgba(255,255,255,.46),rgba(246,248,249,.52) 55%,rgba(242,245,247,.56));
+ background:linear-gradient(160deg,rgba(255,255,255,.56),rgba(246,248,249,.62) 55%,rgba(242,245,247,.66));
  border:1px solid rgba(255,255,255,.85);
  box-shadow:0 30px 90px rgba(23,45,69,.22),inset 0 1px 0 #fff;
  backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
