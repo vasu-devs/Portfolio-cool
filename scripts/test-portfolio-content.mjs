@@ -319,21 +319,11 @@ export const pageCopy = {
   selectedLead: 'Three I would show first. Each opens a full case study, and two have a recorded walkthrough.',
 };
 
-// Skills shown on Home. icon = react-icons/si export name; null falls back to a lettermark.
+// Skills shown on Home as one icon grid. [label, react-icons/si export, brand hex]
 export const skills = [
-  { title: 'Languages', items: [
-    ['Python','SiPython'],['TypeScript','SiTypescript'],['JavaScript','SiJavascript'],['Rust','SiRust'],['Swift','SiSwift'],['SQL','SiPostgresql']
-  ]},
-  { title: 'Apps and interfaces', items: [
-    ['React','SiReact'],['Next.js','SiNextdotjs'],['Tauri','SiTauri'],['SwiftUI','SiSwift'],['Electron','SiElectron'],['Three.js','SiThreedotjs'],['Tailwind','SiTailwindcss'],['Vite','SiVite']
-  ]},
-  { title: 'Backends and data', items: [
-    ['FastAPI','SiFastapi'],['Node.js','SiNodedotjs'],['PostgreSQL','SiPostgresql'],['SQLite','SiSqlite'],['MongoDB','SiMongodb'],['Redis','SiRedis'],['Supabase','SiSupabase'],['Drizzle','SiDrizzle']
-  ]},
-  { title: 'AI systems', items: [
-    ['LLM apps','SiOpenai'],['RAG and vector search',null],['LangGraph','SiLangchain'],['Whisper and voice AI','SiHuggingface'],['PyTorch','SiPytorch'],['ONNX','SiOnnx'],['Ollama','SiOllama'],['Agent evaluation',null]
-  ]},
-  { title: 'Shipping', items: [
-    ['Docker','SiDocker'],['GitHub Actions','SiGithubactions'],['Vercel','SiVercel'],['AWS','SiAmazonwebservices'],['pytest','SiPytest'],['Vitest','SiVitest'],['Playwright',null],['Git','SiGit']
-  ]}
+  ['Python','SiPython','#3776AB'],['TypeScript','SiTypescript','#3178C6'],['JavaScript','SiJavascript','#F7DF1E'],['Rust','SiRust','#DEA584'],['Swift','SiSwift','#F05138'],
+  ['React','SiReact','#61DAFB'],['Next.js','SiNextdotjs',null],['Tauri','SiTauri','#24C8D8'],['Electron','SiElectron','#47848F'],['Three.js','SiThreedotjs',null],['Tailwind','SiTailwindcss','#06B6D4'],['Vite','SiVite','#646CFF'],
+  ['FastAPI','SiFastapi','#009688'],['Node.js','SiNodedotjs','#5FA04E'],['PostgreSQL','SiPostgresql','#4169E1'],['SQLite','SiSqlite','#003B57'],['MongoDB','SiMongodb','#47A248'],['Redis','SiRedis','#FF4438'],['Supabase','SiSupabase','#3FCF8E'],['Drizzle','SiDrizzle','#C5F74F'],
+  ['OpenAI','SiOpenai',null],['Anthropic','SiAnthropic',null],['LangChain','SiLangchain','#1C3C3C'],['Hugging Face','SiHuggingface','#FFD21E'],['PyTorch','SiPytorch','#EE4C2C'],['ONNX','SiOnnx',null],['Ollama','SiOllama',null],
+  ['Docker','SiDocker','#2496ED'],['GitHub Actions','SiGithubactions','#2088FF'],['Vercel','SiVercel',null],['AWS','SiAmazonwebservices','#FF9900'],['pytest','SiPytest','#0A9EDC'],['Vitest','SiVitest','#6E9F18'],['Git','SiGit','#F05032']
 ];

@@ -75,7 +75,7 @@ const replacements = {
     return `<article class="selected-item"><a class="selected-art featured-preview" href="#project-${p.slug}" aria-label="Read ${escape(p.name)} case study">${covers(p, `${p.name} product preview`)}</a><div class="selected-copy"><p class="proj-kicker">${escape(p.kind)}</p><h3><a href="#project-${p.slug}">${escape(p.name)}</a></h3><p class="selected-summary">${escape(p.deck)}</p><p class="proj-stack">${p.tech.slice(0,5).map(escape).join(' · ')}</p><div class="proj-actions"><a class="card-study" href="#project-${p.slug}">Read case study</a>${p.demo?`<a href="${escape(p.demo)}" aria-haspopup="dialog">Watch walkthrough</a>`:''}${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Source</a>`:''}</div></div></article>`;
   }).join(''),
   SELECTEDLEAD: escape(pageCopy.selectedLead),
-  SKILLSGRID: skills.map(group=>`<div class="skill-group"><h3>${escape(group.title)}</h3><ul>${group.items.map(([name,icon])=>{const Icon=icon&&si[icon];const mark=Icon?renderToStaticMarkup(createElement(Icon,{size:18,'aria-hidden':true})):`<i class="skill-letter" aria-hidden="true">${escape(name[0])}</i>`;return `<li><span class="skill-icon">${mark}</span>${escape(name)}</li>`;}).join('')}</ul></div>`).join(''),
+  SKILLSGRID: skills.map(([name,icon,hex])=>{const Icon=si[icon];if(!Icon)throw new Error(`Unknown icon ${icon}`);const mark=renderToStaticMarkup(createElement(Icon,{size:30,'aria-hidden':true}));return `<li${hex?` style="--brand:${hex}"`:''}><span class="skill-icon">${mark}</span><span class="skill-name">${escape(name)}</span></li>`;}).join(''),
   HOMECONTACT: contactBlock('home'),
   CONTACTPAGE: (()=>{
     const by=label=>socials.find(s=>s.label===label);
