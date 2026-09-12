@@ -232,10 +232,10 @@ body .film-body .film-player{background:rgba(0,0,0,.6)}
 
 /* ---------- Contact: one direct block, no cards, no form ---------- */
 body .work-with-me{margin-top:88px;padding-top:36px;border-top:1px solid var(--line)}
-body .work-with-me .contact-eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 18px;font:400 12px/1.5 'JetBrains Mono',monospace;color:var(--muted)}
-body .work-with-me .contact-eyebrow i{width:7px;height:7px;border-radius:50%;background:#28bc8a;box-shadow:0 0 0 4px rgba(40,188,138,.16)}
+body .contact-eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 18px;font:400 12px/1.5 'JetBrains Mono',monospace;color:var(--muted)}
+body .contact-eyebrow i{width:7px;height:7px;border-radius:50%;background:#28bc8a;box-shadow:0 0 0 4px rgba(40,188,138,.16)}
 body .work-with-me>h2.display{margin:0 0 14px;font-family:'Bleach Display','Arial Narrow',sans-serif;font-weight:400;font-size:clamp(34px,5vw,52px);line-height:1;letter-spacing:.02em;text-transform:uppercase;color:var(--bright)}
-body .work-with-me .contact-lead{margin:0 0 34px;max-width:52ch;font:400 16px/1.7 Geist,Arial,sans-serif;color:var(--ink);text-wrap:pretty}
+body .contact-lead{margin:0 0 34px;max-width:52ch;font:400 16px/1.7 Geist,Arial,sans-serif;color:var(--ink);text-wrap:pretty}
 body .contact-mail{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin:0 0 40px}
 body .contact-mail>a{font:600 clamp(22px,3.4vw,36px)/1.15 Geist,Arial,sans-serif;letter-spacing:-.035em;color:var(--bright);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px;text-decoration-color:var(--line);overflow-wrap:anywhere;transition:text-decoration-color .2s}
 body .contact-mail>a:hover{text-decoration-color:var(--bright)}
@@ -253,5 +253,70 @@ body .contact-ways a:hover .way-label span{transform:translateX(3px);color:var(-
 body .contact-ways .way-note{font:400 13px/1.55 Geist,Arial,sans-serif;color:var(--muted)}
 body .contact-ways a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 @media(max-width:760px){body .contact-ways{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}}
-@media(max-width:600px){body .work-with-me{margin-top:64px;padding-top:28px}body .work-with-me .contact-lead{margin-bottom:26px}body .contact-mail{margin-bottom:30px}body .contact-ways a{padding:14px 0 18px}}
+@media(max-width:600px){body .work-with-me{margin-top:64px;padding-top:28px}body .contact-lead{margin-bottom:26px}body .contact-mail{margin-bottom:30px}body .contact-ways a{padding:14px 0 18px}}
 @media(prefers-reduced-motion:reduce){body .contact-ways a,body .contact-ways .way-label span,body .copy-mail{transition:none}}
+
+/* ---------- Home: selected projects, one column, room for a real summary ---------- */
+body .selected-lead{margin:0 0 22px;max-width:56ch;font:400 15px/1.7 Geist,Arial,sans-serif;color:var(--muted)}
+body .selected-list{display:grid;gap:36px}
+body .selected-item{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:26px;align-items:center}
+body .selected-item .selected-art{display:block;position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:10px;border:1px solid var(--line)}
+body .selected-copy{display:grid;gap:10px;min-width:0}
+body .selected-copy h3{margin:0;font:600 22px/1.25 Geist,Arial,sans-serif;letter-spacing:-.03em}
+body .selected-copy h3 a{color:var(--bright);text-decoration:none}
+body .selected-copy h3 a:hover{text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--muted)}
+body .selected-summary{margin:0;font:400 15px/1.7 Geist,Arial,sans-serif;color:var(--ink);text-wrap:pretty}
+body .selected-copy .proj-actions{margin-top:2px}
+@media(max-width:760px){body .selected-item{grid-template-columns:minmax(0,1fr);gap:14px}body .selected-list{gap:34px}}
+
+/* ---------- Contact page ---------- */
+body #contact>h1.display{margin:0 0 14px;font-family:'Bleach Display','Arial Narrow',sans-serif;font-weight:400;font-size:clamp(40px,6vw,64px);line-height:1;letter-spacing:.02em;text-transform:uppercase;color:var(--bright)}
+body #contact .contact-lead{margin-bottom:28px}
+body .contact-switch{display:inline-flex;gap:4px;padding:4px;margin:0 0 22px;border:1px solid var(--line);border-radius:999px}
+body .contact-switch [role=tab]{appearance:none;border:0;background:transparent;color:var(--muted);padding:0 16px;min-height:36px;border-radius:999px;font:500 13px/1 Geist,Arial,sans-serif;cursor:pointer;transition:background .16s,color .16s}
+body .contact-switch [role=tab][aria-selected=true]{background:var(--bright);color:var(--page)}
+:root[data-theme=light] body .contact-switch [role=tab][aria-selected=true]{background:#172d45;color:#f4f6f5}
+body .contact-switch [role=tab]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+body .contact-panel[hidden]{display:none}
+body .message-form{display:grid;gap:14px;max-width:640px}
+body .message-form .field-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+body .message-form label{display:grid;gap:6px;font:500 12px/1.5 Geist,Arial,sans-serif;color:var(--muted)}
+body .message-form input,body .message-form textarea{width:100%;box-sizing:border-box;min-height:44px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:rgba(127,127,127,.06);color:var(--ink);font:400 15px/1.55 Geist,Arial,sans-serif;transition:border-color .16s,background .16s}
+body .message-form textarea{resize:vertical;min-height:150px}
+body .message-form input::placeholder,body .message-form textarea::placeholder{color:var(--muted);opacity:.7}
+body .message-form input:focus-visible,body .message-form textarea:focus-visible{outline:0;border-color:var(--bright);background:rgba(127,127,127,.1)}
+body .message-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+body .form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+body .form-status{margin:0;font:400 13px/1.5 Geist,Arial,sans-serif;color:var(--muted)}
+body .form-status[data-state=ok]{color:#28bc8a}
+body .form-status[data-state=error]{color:#e07a6a}
+body .form-status a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+body .form-note{margin:0;font:400 12px/1.6 Geist,Arial,sans-serif;color:var(--muted)}
+body .form-note a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+body .button-primary,body .button-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:999px;font:600 14px/1 Geist,Arial,sans-serif;letter-spacing:-.01em;text-decoration:none;cursor:pointer;transition:transform .16s,background .16s,color .16s,border-color .16s}
+body .button-primary{border:1px solid var(--bright);background:var(--bright);color:var(--page)}
+:root[data-theme=light] body .button-primary{background:#172d45;border-color:#172d45;color:#f4f6f5}
+body .button-primary:hover{transform:translateY(-1px);text-decoration:none}
+body .button-primary:disabled{opacity:.6;transform:none;cursor:default}
+body .button-secondary{border:1px solid var(--line);background:transparent;color:var(--bright)}
+body .button-secondary:hover{border-color:var(--bright);text-decoration:none;transform:translateY(-1px)}
+body .button-primary:focus-visible,body .button-secondary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+body .cal-embed{position:relative;min-height:620px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(127,127,127,.05);margin-bottom:12px}
+body .cal-embed iframe{display:block;width:100%;min-height:620px;border:0}
+body .cal-loading{position:absolute;inset:0;display:grid;place-items:center;margin:0;font:400 14px/1.5 Geist,Arial,sans-serif;color:var(--muted)}
+body .contact-details{margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+body .contact-details .contact-mail{margin-bottom:26px}
+body .contact-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 24px;margin:0 0 30px}
+body .contact-facts div{min-width:0}
+body .contact-facts dt{font:400 11px/1.5 'JetBrains Mono',monospace;color:var(--muted);margin-bottom:4px}
+body .contact-facts dd{margin:0;font:400 14px/1.6 Geist,Arial,sans-serif;color:var(--ink)}
+body #contact .contact-ways{grid-template-columns:repeat(5,minmax(0,1fr))}
+body .contact-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+body .contact-mail-inline{font:400 14px/1.5 Geist,Arial,sans-serif;color:var(--muted)}
+body .contact-mail-inline a{color:var(--ink);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line)}
+@media(max-width:760px){body .contact-facts{grid-template-columns:minmax(0,1fr)}body #contact .contact-ways{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){body .message-form .field-row{grid-template-columns:minmax(0,1fr)}body .cal-embed,body .cal-embed iframe{min-height:560px}body .contact-switch{display:flex}body .contact-switch [role=tab]{flex:1}}
+@media(prefers-reduced-motion:reduce){body .button-primary,body .button-secondary,body .contact-switch [role=tab]{transition:none}}
+
+/* The home sign-off is redundant on the contact page itself. */
+body:has(#contact:not([hidden])) .work-with-me{display:none}

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 const html=readFileSync('public/test/index.html','utf8');
 const videos=JSON.parse(readFileSync('src/data/videos.json','utf8'));
-for(const v of videos.filter(v=>['Vaani','Odeon','BranchGPT'].includes(v.name))){
+for(const v of videos.filter(v=>['Vaani','Odeon','BranchGPT','MapMyRepo'].includes(v.name))){
  const id=new URL(v.url).searchParams.get('v');
  const block=html.match(new RegExp(`<template id="film-${id}">([\\s\\S]*?)</template>`))?.[1];
  assert.ok(block,`${v.name}: description template`);
@@ -16,7 +16,7 @@ assert.ok(!js.includes('?autoplay=1'),'Playback requires user input');
 console.log('PASS: all three film descriptions, external fallback and player cleanup');
 
 const projectCount=(html.match(/class="proj proj--(card|row)"/g)||[]).length;
-assert.equal((html.match(/class="project-cover"/g)||[]).length,(projectCount+3+3)*2,'Every project, featured card and walkthrough has paired realm artwork');
+assert.equal((html.match(/class="project-cover"/g)||[]).length,(projectCount+3)*2,'Every project and selected item has paired realm artwork');
 assert.ok(!html.includes('class="video-play"'),'No generic play badges');
 console.log('PASS: paired realm covers on every project surface');
 

@@ -4,13 +4,14 @@ function showPage() {
   const id = location.hash.slice(1);
   const project = id.startsWith('project-') ? document.getElementById(id) : null;
   const current = document.querySelector('[data-panel]:not([hidden])')?.dataset.panel || 'home';
-  const page = id === 'projects' || project?.classList.contains('proj') ? 'projects' : id === 'work-with-me' ? current : 'home';
+  const page = id === 'projects' || project?.classList.contains('proj') ? 'projects' : id === 'work-with-me' ? current : id.startsWith('contact') ? 'contact' : 'home';
   document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== page; });
   document.querySelectorAll('[data-page]').forEach(link => {
     if (link.dataset.page === (id==='about'?'about':id==='work-with-me'?'contact':page)) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   });
-  if(id==='projects'||id==='home')requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
+  if(id==='projects'||id==='home'||id.startsWith('contact'))requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
+  if(id.startsWith('contact'))document.dispatchEvent(new CustomEvent('contact-page',{detail:{tab:id==='contact/call'?'call':'message'}}));
   if(id==='about')requestAnimationFrame(()=>document.getElementById('about').scrollIntoView({behavior:'instant',block:'start'}));
   // Contact lives below both panels; keep the current panel and scroll to it.
   if(id==='work-with-me')requestAnimationFrame(()=>document.getElementById('work-with-me').scrollIntoView({behavior:'smooth',block:'start'}));
@@ -223,5 +224,51 @@ for(const button of document.querySelectorAll('.copy-mail')){
   try{await navigator.clipboard.writeText(button.dataset.copy);button.textContent='Copied';button.classList.add('is-done');}
   catch{const link=button.previousElementSibling;const range=document.createRange();range.selectNodeContents(link);const sel=getSelection();sel.removeAllRanges();sel.addRange(range);button.textContent='Selected';}
   setTimeout(()=>{button.textContent='Copy';button.classList.remove('is-done');},1800);
+ });
+}
+
+// Contact page: message form posts to /api/contact; the call tab embeds cal.com in place.
+const contactPage=document.getElementById('contact');
+if(contactPage){
+ const tabs=[...contactPage.querySelectorAll('[role=tab]')];
+ let calLoaded=false;
+ const show=name=>{
+  for(const tab of tabs){const on=tab.id===`tab-${name}`;tab.setAttribute('aria-selected',String(on));document.getElementById(tab.getAttribute('aria-controls')).hidden=!on;}
+  if(name==='call')loadCal();
+ };
+ for(const tab of tabs)tab.addEventListener('click',()=>{show(tab.id.replace('tab-',''));history.replaceState(null,'',tab.id==='tab-call'?'#contact/call':'#contact');});
+ document.addEventListener('contact-page',event=>show(event.detail.tab));
+ if(location.hash.startsWith('#contact'))show(location.hash==='#contact/call'?'call':'message');
+
+ function loadCal(){
+  if(calLoaded)return;calLoaded=true;
+  const host=contactPage.querySelector('.cal-embed');
+  const fail=()=>{const note=host.querySelector('.cal-loading');if(note)note.textContent='The calendar could not load here. Use the cal.com link below.';};
+  // Official loader: queues calls on a stub until embed.js arrives.
+  (function(C,A,L){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];const s=d.createElement('script');s.src=A;s.async=true;s.onerror=fail;d.head.appendChild(s);cal.loaded=true}if(ar[0]===L){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace])}else p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
+  try{
+   window.Cal('init','portfolio',{origin:'https://app.cal.com'});
+   window.Cal.ns.portfolio('inline',{elementOrSelector:host,calLink:host.dataset.calLink,config:{layout:'month_view',theme:document.documentElement.dataset.theme==='light'?'light':'dark'}});
+   window.Cal.ns.portfolio('ui',{hideEventTypeDetails:false,cssVarsPerTheme:{light:{'cal-brand':'#172d45'},dark:{'cal-brand':'#e7e8e9'}}});
+  }catch(error){fail();}
+ }
+ const form=contactPage.querySelector('.message-form');
+ const status=form.querySelector('.form-status');
+ const button=form.querySelector('button[type=submit]');
+ form.addEventListener('submit',async event=>{
+  event.preventDefault();
+  status.textContent='';status.dataset.state='';
+  if(!form.reportValidity())return;
+  const data=Object.fromEntries(new FormData(form).entries());
+  button.disabled=true;button.textContent='Sending…';
+  try{
+   const response=await fetch('/api/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(data),signal:AbortSignal.timeout(15000)});
+   const result=await response.json().catch(()=>({}));
+   if(!response.ok)throw new Error(result.error||'The message could not be sent.');
+   form.reset();status.dataset.state='ok';status.textContent=`Sent. I’ll reply to ${data.email}.`;
+  }catch(error){
+   status.dataset.state='error';
+   status.innerHTML=`${error.message} You can also <a href="mailto:${form.closest('#contact').querySelector('.contact-mail a').textContent}?subject=${encodeURIComponent('Portfolio message from '+data.name)}&body=${encodeURIComponent(data.message)}">send it from your email app</a>.`;
+  }finally{button.disabled=false;button.textContent='Send message';}
  });
 }

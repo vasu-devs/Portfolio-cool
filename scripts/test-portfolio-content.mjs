@@ -23,7 +23,7 @@ export const groups = {
 
 export const projects = [
   {
-    slug: 'justhireme', name: 'JustHireMe', group: 'work', featured: true,
+    slug: 'justhireme', name: 'JustHireMe', group: 'work', featured: true, selected: true,
     kind: 'Open source · Desktop app', status: '2,200+ stars · Windows, macOS, Linux',
     hook: 'A desktop app that finds jobs, explains why each one fits you, and drafts the application. Your data never leaves your machine.',
     deck: 'Job hunting is mostly tabs. I wanted one place that pulls in leads, scores them against my actual profile, tells me why, and writes the first draft, without shipping my career history to someone else’s server.',
@@ -61,11 +61,11 @@ export const projects = [
     ]
   },
   {
-    slug: 'odeon', name: 'Odeon', group: 'work', featured: true,
+    slug: 'odeon', name: 'Odeon', group: 'work', featured: true, selected: true,
     kind: 'Open source · Agent evaluation', status: 'Prototype · public repository',
     hook: 'Throw hard conversations at a voice agent, score what happened, rewrite the prompt, and run it again.',
     deck: 'Changing a prompt and reading three transcripts is not evaluation. Odeon simulates adversarial callers, judges the results per metric, proposes a revision, and keeps the diff so you can see what actually changed.',
-    url: 'https://github.com/vasu-devs/Odeon',
+    url: 'https://github.com/vasu-devs/Odeon', demo: 'https://www.youtube.com/watch?v=GFdSe4-c_xQ',
     tech: ['Python', 'FastAPI', 'WebSockets', 'React', 'SQLite', 'Groq'],
     sections: [
       { title: 'The loop', bullets: [
@@ -200,9 +200,24 @@ export const projects = [
   { slug: 'vaani', name: 'Vaani', group: 'earlier', kind: 'Public source · Voice agent', status: 'Prototype with demo video',
     hook: 'A phone-call voice agent with live transcripts and two personas that handle a difficult conversation differently.',
     url: 'https://github.com/vasu-devs/Vaani', demo: 'https://www.youtube.com/watch?v=VsEfOfwh8XM', tech: ['LiveKit', 'Deepgram', 'Groq', 'FastAPI', 'React'] },
-  { slug: 'branchgpt', name: 'BranchGPT', group: 'earlier', kind: 'Public source · Chat tool', status: 'Public repository',
+  {
+    slug: 'branchgpt', name: 'BranchGPT', group: 'earlier', selected: true,
+    kind: 'Public source · Chat tool', status: 'Public repository · demo video',
     hook: 'Fork an AI conversation to explore a side thought, then merge it back without losing the main thread.',
-    url: 'https://github.com/vasu-devs/BranchGPT', demo: 'https://www.youtube.com/watch?v=RB3zvAXbpL0', tech: ['Next.js', 'PostgreSQL', 'Drizzle'] },
+    deck: 'Long chats bloat the context window: every tangent and dead end stays in history, burning tokens and diluting what matters. BranchGPT treats a conversation as a Git-style tree instead of a list.',
+    url: 'https://github.com/vasu-devs/BranchGPT', demo: 'https://www.youtube.com/watch?v=RB3zvAXbpL0',
+    tech: ['Next.js', 'TypeScript', 'Drizzle ORM', 'Neon Postgres', 'Vercel AI SDK', 'Groq'],
+    sections: [
+      { title: 'The idea', body: 'Every message is a node. Forking from any message spawns a branch that inherits history up to that point, so you can chase a tangent without polluting the main thread. Merging is explicit, and the branch stays intact afterwards so you can keep exploring it.' },
+      { title: 'Smart merging', bullets: [
+        'Before a merge, Llama 3.3 on Groq summarises the branch, so the parent absorbs only the new insight, not the whole transcript.',
+        'Merge logic filters out shared history and appends only what is new.',
+        'Each merge is recorded as a distinct system event in the chat stream.'
+      ]},
+      { title: 'Tree navigation', body: 'A visual Git-style sidebar renders the whole conversation graph. Click any node to jump; each branch keeps its own history up to the fork point, so switching context is unambiguous.' },
+      { title: 'How it’s built', body: 'Next.js App Router with Server Actions, the conversation tree in Neon Postgres through Drizzle, inference wired through the Vercel AI SDK, and full Markdown and LaTeX rendering in the chat.' }
+    ]
+  },
   { slug: 'mapmyrepo', name: 'MapMyRepo', group: 'earlier', kind: 'Public source · Dev tool', status: 'Public repository',
     hook: 'Drop in a repo and walk it as a graph, with a summary and a few smart questions for every file.',
     url: 'https://github.com/vasu-devs/MapMyRepo', demo: 'https://www.youtube.com/watch?v=EmTDrPzAo40', tech: ['D3', 'Gemini', 'React'] },
@@ -301,6 +316,5 @@ export const archiveNames = {
 export const pageCopy = {
   eyebrow: 'Selected work',
   intro: 'Most of this is AI tooling and desktop software, built end to end by me. Cards open a case study; the ones with a source link are public.',
-  featuredLead: 'Three I would show first.',
-  videosLead: 'Recorded walkthroughs. I talk through the interface, the idea, and how the pieces fit.'
+  selectedLead: 'Three I would show first. Each opens a full case study, and two have a recorded walkthrough.',
 };

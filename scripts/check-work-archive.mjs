@@ -12,7 +12,9 @@ for(const key of Object.keys(groups))assert.ok(html.includes(`data-group="${key}
 const work=projects.filter(p=>p.group==='work'),play=projects.filter(p=>p.group==='play');
 assert.ok(work.length>=6&&play.length>=6,'both serious and hobby groups are populated');
 assert.ok(!html.includes('id="work-search"')&&!html.includes('id="work-track"'));
-assert.equal((html.match(/class="video-link"/g)||[]).length,3);
+assert.equal((html.match(/class="selected-item"/g)||[]).length,3,'three selected projects on Home');
+assert.ok(html.includes('id="contact" data-panel="contact"'),'contact page rendered');
+assert.ok(html.includes('class="message-form"')&&html.includes('data-cal-link="vasu-devs"'),'message form and call embed present');
 const hero=html.slice(html.indexOf('class="hero-contacts"'),html.indexOf('<p class="secret-message"'));
 for(const link of JSON.parse(readFileSync('src/data/socials.json','utf8')))assert.ok(hero.includes(link.url),`hero includes ${link.label}`);
-console.log(`PASS: ${projects.length} projects across ${Object.keys(groups).length} groups, hero contacts, three walkthroughs`);
+console.log(`PASS: ${projects.length} projects across ${Object.keys(groups).length} groups, hero contacts, three selected projects, contact page`);

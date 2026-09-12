@@ -51,19 +51,36 @@ const replacements = {
     const ways=[['Book a call','Pick a slot on cal.com'],['LinkedIn','Connect or send a message'],['GitHub','Source for most of this page'],['Résumé','One page, print or save as PDF']].map(([label,note])=>{const s=by(label);return `<li><a href="${escape(s.url)}"${s.url.startsWith('https')?' target="_blank" rel="noopener noreferrer"':''}><span class="way-label">${escape(label)}<span aria-hidden="true">→</span></span><span class="way-note">${escape(note)}</span></a></li>`;}).join('');
     return `<div class="contact-mail"><a href="mailto:${escape(resume.email)}">${escape(resume.email)}</a><button type="button" class="copy-mail" data-copy="${escape(resume.email)}">Copy</button></div><ul class="contact-ways">${ways}</ul>`;
   })(),
+  FILMSLOT: '',
   RESUME: `<header><h2 id="resume-title">${escape(resume.name)}</h2><p>${escape(resume.headline)}</p><a href="mailto:${escape(resume.email)}">${escape(resume.email)}</a></header><p>${escape(resume.summary)}</p><h3>Experience</h3>${resume.experience.map(r=>`<section><h4>${escape(r.role)} · ${escape(r.company)}</h4><small>${escape(r.dates)}</small><ul>${r.bullets.map(b=>`<li>${escape(b)}</li>`).join('')}</ul></section>`).join('')}<h3>Selected projects</h3>${resume.projects.map(p=>`<section><h4>${escape(p.name)}</h4><ul>${p.bullets.map(b=>`<li>${escape(b)}</li>`).join('')}</ul>${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Repository</a>`:''}</section>`).join('')}<h3>Skills</h3><dl>${resume.skills.map(s=>`<dt>${escape(s.label)}</dt><dd>${escape(s.text)}</dd>`).join('')}</dl><h3>Education</h3><p>${escape(resume.education.institution)} · ${escape(resume.education.dates)}<br>${escape(resume.education.detail)}</p>`,
   CONTACTS: (()=>{
     const link=s=>`<a href="${escape(s.url)}" data-social="${escape(s.label.toLowerCase().replaceAll(' ','-'))}" aria-label="${escape(s.label)}" title="${escape(s.label)}"${s.url.startsWith('mailto:')?'':' target="_blank" rel="noopener noreferrer"'}>${socialIcon(s.label)}<span class="contact-label">${escape(s.label)}</span></a>`;
     return `<div class="social-icon-row">${['X','GitHub','LinkedIn','Email','YouTube','Instagram'].map(label=>socials.find(s=>s.label===label)).filter(Boolean).map(link).join('')}</div><div class="contact-utilities">${['Résumé','Book a call'].map(label=>socials.find(s=>s.label===label)).filter(Boolean).map(link).join('')}</div>`;
   })(),
-  VIDEOS: ['Vaani','Odeon','BranchGPT'].map(name=>videos.find(v=>v.name===name)).map(v=>{
-    const p=projects.find(p=>p.name===v.name);
-    const original=originalFor(v.name);
-    const details=p.sections.length?p.sections:(original?.details||[]);
-    const id=v.url.startsWith('#')?null:new URL(v.url).searchParams.get('v');
-    return `<a class="video-link" href="${escape(v.url)}" aria-haspopup="dialog">${covers(p, `${p.name} product preview`)}<span><strong>${escape(p.name)}</strong><small>${escape(p.hook)}</small><span class="study-cta">Watch the walkthrough</span></span></a>${id?`<template id="film-${id}"><h2>${escape(p.name)}</h2><p class="film-summary">${escape(p.deck)}</p><div class="case-stack">${p.tech.map(t=>`<span>${escape(t)}</span>`).join('')}</div><div class="case-sections">${details.map(section).join('')}</div>${p.url?`<a class="text-link" href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Explore the repository</a>`:''}</template>`:''}`;
+  FILMS: projects.filter(p=>p.demo).map(p=>{
+    let id=null;try{const u=new URL(p.demo);id=u.hostname==='youtu.be'?u.pathname.slice(1):u.searchParams.get('v');}catch{}
+    if(!id)return '';
+    const details=p.sections.length?p.sections:(originalFor(p.name)?.details||[]);
+    return `<template id="film-${id}"><h2>${escape(p.name)}</h2><p class="film-summary">${escape(p.deck)}</p><div class="case-stack">${p.tech.map(t=>`<span>${escape(t)}</span>`).join('')}</div><div class="case-sections">${details.map(section).join('')}</div>${p.url?`<a class="text-link" href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Explore the repository</a>`:''}</template>`;
   }).join(''),
-  WORKGROUPS: workGroups,
+  SELECTED: ['justhireme','branchgpt','odeon'].map(slug=>{
+    const p=bySlug(slug);
+    return `<article class="selected-item"><a class="selected-art featured-preview" href="#project-${p.slug}" aria-label="Read ${escape(p.name)} case study">${covers(p, `${p.name} product preview`)}</a><div class="selected-copy"><p class="proj-kicker">${escape(p.kind)}</p><h3><a href="#project-${p.slug}">${escape(p.name)}</a></h3><p class="selected-summary">${escape(p.deck)}</p><p class="proj-stack">${p.tech.slice(0,5).map(escape).join(' · ')}</p><div class="proj-actions"><a class="card-study" href="#project-${p.slug}">Read case study</a>${p.demo?`<a href="${escape(p.demo)}" aria-haspopup="dialog">Watch walkthrough</a>`:''}${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Source</a>`:''}</div></div></article>`;
+  }).join(''),
+  SELECTEDLEAD: escape(pageCopy.selectedLead),
+  CONTACTPAGE: (()=>{
+    const by=label=>socials.find(s=>s.label===label);
+    const link=(label,note)=>{const s=by(label);return `<li><a href="${escape(s.url)}"${s.url.startsWith('https')?' target="_blank" rel="noopener noreferrer"':''}><span class="way-label">${escape(label)}<span aria-hidden="true">→</span></span><span class="way-note">${escape(note)}</span></a></li>`;};
+    return `<section id="contact" data-panel="contact" hidden><p class="contact-eyebrow"><i aria-hidden="true"></i>Open to work · AI engineering, full-stack, freelance</p><h1 class="display">Contact</h1><p class="contact-lead">Write to me here and it lands in my inbox, or pick a time and the invite goes to both our calendars. Nothing opens a new app.</p>
+<div class="contact-switch" role="tablist" aria-label="How to reach me"><button type="button" role="tab" id="tab-message" aria-controls="panel-message" aria-selected="true">Send a message</button><button type="button" role="tab" id="tab-call" aria-controls="panel-call" aria-selected="false">Book a call</button></div>
+<div class="contact-panels">
+<div class="contact-panel" id="panel-message" role="tabpanel" aria-labelledby="tab-message"><form class="message-form" novalidate><div class="field-row"><label>Your name<input name="name" autocomplete="name" required maxlength="120" placeholder="Ada Lovelace"></label><label>Your email<input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@company.com"></label></div><label>Message<textarea name="message" required minlength="10" maxlength="4000" rows="6" placeholder="The role, the project, the problem. A few lines is plenty."></textarea></label><label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off"></label><div class="form-foot"><button type="submit" class="button-primary">Send message</button><p class="form-status" role="status" aria-live="polite"></p></div><p class="form-note">Goes straight to ${escape(resume.email)}. I reply from there.</p></form></div>
+<div class="contact-panel" id="panel-call" role="tabpanel" aria-labelledby="tab-call" hidden><div class="cal-embed" data-cal-link="vasu-devs" aria-label="Pick a time for a call"><p class="cal-loading">Loading available times…</p></div><p class="form-note">A 30-minute call. The invite goes to both of us the moment you confirm. If the calendar does not load, <a href="${escape(by('Book a call').url)}" target="_blank" rel="noopener noreferrer">open it on cal.com</a>.</p></div>
+</div>
+<div class="contact-details"><div class="contact-mail"><a href="mailto:${escape(resume.email)}">${escape(resume.email)}</a><button type="button" class="copy-mail" data-copy="${escape(resume.email)}">Copy</button></div><dl class="contact-facts"><div><dt>Based in</dt><dd>India · IST (UTC+5:30)</dd></div><div><dt>Looking for</dt><dd>AI engineering and full-stack roles, freelance builds</dd></div><div><dt>Currently</dt><dd>AI Engineering intern at withlayer.ai</dd></div></dl><ul class="contact-ways">${link('LinkedIn','Connect or send a message')}${link('GitHub','Source for most of this page')}${link('X','Short updates')}${link('YouTube','Project walkthroughs')}${link('Résumé','One page, print or save as PDF')}</ul></div>
+</section>`;
+  })(),
+  WORKGROUPS: workGroups+'@@FILMSINLINE@@',
   WORKINTRO: escape(pageCopy.intro),
   WORKEYEBROW: escape(pageCopy.eyebrow),
   VIDEOSLEAD: escape(pageCopy.videosLead),
@@ -80,10 +97,11 @@ const replacements = {
 };
 replacements.WAVE = Array.from({length: 47}, (_, i) => `<i style="--height:${14 + Math.sin(i * 1.7) ** 2 * 100 * Math.sin((i + 1) / 48 * Math.PI)}px;--delay:${-i * .12}s"></i>`).join('');
 const template = readFileSync(resolve(root, 'scripts/plain-portfolio.template.html'), 'utf8');
-const page = template.replace(/@@([A-Z]+)@@/g, (_, key) => {
+let page = template.replace(/@@([A-Z]+)@@/g, (_, key) => {
   if (!(key in replacements)) throw new Error(`Unknown template field: ${key}`);
   return replacements[key];
 });
+page = page.replace('@@FILMSINLINE@@', replacements.FILMS);
 mkdirSync(resolve(root, 'public/test'), {recursive:true});
 writeFileSync(resolve(root, 'public/test/index.html'), page);
 console.log('Generated plain /test portfolio from approved public content.');
