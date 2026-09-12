@@ -32,9 +32,9 @@ body .hero-contacts .secondary-contacts a{color:var(--ink)}
 body .realm-covers>.project-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;margin:0}
 :root:not([data-theme=light]) body .realm-covers>[data-cover-realm=hueco],:root[data-theme=light] body .realm-covers>[data-cover-realm=seireitei]{opacity:1}
 :root:not([data-theme=light]) body .identity .avatar-slide[data-realm=hueco]{transform:none;object-position:center;filter:none}
-/* Color carries project identity and contribution activity; the night stays neutral. */
-:root:not([data-theme=light]){--heat-0:#1a2520;--heat-1:#174b32;--heat-2:#23834d;--heat-3:#43b96a;--heat-4:#8de3a6}
-:root[data-theme=light]{--heat-0:#dce9df;--heat-1:#acd9b5;--heat-2:#6cb980;--heat-3:#358f55;--heat-4:#176538}
+/* Contribution activity follows each realm. */
+:root:not([data-theme=light]){--heat-0:#202224;--heat-1:#45494d;--heat-2:#747b82;--heat-3:#acb4bc;--heat-4:#edf1f5}
+:root[data-theme=light]{--heat-0:#d4e3ed;--heat-1:#aecbdc;--heat-2:#789fb9;--heat-3:#4a7593;--heat-4:#284f6b}
 body .hero-contacts{gap:10px 20px}
 body .contact-utilities{display:flex;align-items:center;gap:16px}
 body .hero-contacts .contact-utilities>a{display:inline-flex;gap:6px;width:auto;height:auto;min-height:44px;padding:0;background:transparent;border:0;border-radius:0;color:var(--ink);font:400 12px/1.5 Geist,Arial,sans-serif;transform:none}
@@ -43,14 +43,18 @@ body .contact-utilities .contact-label{display:inline}
 body .hero-contacts .contact-utilities>a:hover{text-decoration:underline;text-underline-offset:4px}
 @media(max-width:600px){body .hero-contacts{gap:4px 12px}body .contact-utilities{flex-basis:100%;padding-left:10px}}
 /* Top navigation: pages left, realm controls right. */
-body>.navigation{position:fixed;top:0;bottom:auto;left:0;right:0;transform:none;width:100%;max-width:none;height:68px;margin:0;padding:0 max(24px,calc((100vw - 760px)/2));display:flex;gap:24px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:var(--page);box-shadow:none;backdrop-filter:none;z-index:100}
+body>.navigation{position:fixed;top:0;bottom:auto;left:0;right:0;transform:none;width:100%;max-width:none;height:68px;margin:0;padding:0 max(24px,calc((100vw - 760px)/2));display:flex;gap:24px;border:0;border-bottom:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;z-index:100}
 body>.navigation::before{display:none}
 body>.navigation>a{order:0;flex:0 0 auto;display:flex;align-items:center;min-height:44px;font:500 13px/1.5 Geist,Arial,sans-serif}
-body>.navigation .theme-toggle{order:1;margin-left:auto;margin-right:0}
-body>.navigation .bleach-menu{order:2;margin:0;position:relative}
+body>.navigation .theme-toggle{order:2;margin-left:0;margin-right:0}
+body>.navigation .bleach-menu{order:1;margin:0 0 0 auto;position:relative}
 body>.navigation .bleach-menu>summary{width:auto;min-width:88px;min-height:44px;justify-content:flex-end}
 body>.navigation .bleach-drawer{position:absolute;top:calc(100% + 10px);bottom:auto;left:auto;right:0;transform:none;max-height:calc(100dvh - 90px);overflow-y:auto;overscroll-behavior:contain}
 body .layout{padding-top:112px}
 body{padding-bottom:28px}
 #about{scroll-margin-top:96px}
 @media(max-width:600px){body>.navigation{height:60px;padding:0 14px;gap:14px}body>.navigation>a{font-size:12px}body>.navigation .theme-toggle{width:32px;flex-basis:32px}body>.navigation .bleach-menu>summary{min-width:66px;font-size:12px}body>.navigation .bleach-drawer{position:fixed;top:68px;bottom:auto;left:12px;right:12px;transform:none;width:auto;max-height:calc(100dvh - 84px)}body .layout{padding-top:90px}#about{scroll-margin-top:82px}}
+
+body>.navigation>a,body>.navigation>a[aria-current=page]{border:0;text-decoration:none;box-shadow:none}
+body>.navigation>a::after{display:none}
+body>.navigation>a[aria-current=page]{color:var(--bright);font-weight:650}
