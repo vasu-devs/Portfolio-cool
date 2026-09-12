@@ -1,4 +1,4 @@
-import './soul-cursor.js?v=mobile-111';
+import './soul-cursor.js?v=sound-156';
 
 function showPage() {
   const id = location.hash.slice(1);
