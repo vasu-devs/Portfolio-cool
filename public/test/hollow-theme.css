@@ -7,7 +7,7 @@
  --reading-surface:rgba(15,16,17,.94);--reading-edge:rgba(228,228,219,.18);--reading-shade:rgba(0,0,0,.48);
 }
 :root:not([data-theme=light]) body{background:#08090a;color:var(--ink)}
-:root:not([data-theme=light]) body::before{background-image:url('./backgrounds/hueco-clear-sky-v26.webp');background-size:max(100%,1200px) auto;background-position:right top;height:clamp(300px,34vw,460px);opacity:.95;filter:none;mask-image:linear-gradient(#000 0%,#0009 55%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#0009 55%,transparent 100%)}
+:root:not([data-theme=light]) body::before{background-image:url('./backgrounds/hueco-reference-moon-v27.webp');background-size:max(100%,1200px) auto;background-position:right top;height:clamp(300px,34vw,460px);opacity:.95;filter:none;mask-image:linear-gradient(#000 0%,#0009 55%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#0009 55%,transparent 100%)}
 :root:not([data-theme=light]) body::after{background-image:linear-gradient(90deg,transparent,#08090a99 35%,#08090a99 65%,transparent),url('./backgrounds/hueco-charcoal-v24.webp');background-size:max(100%,850px) auto;background-position:right bottom;height:clamp(320px,32vw,600px);opacity:.42;filter:none;mask-image:linear-gradient(transparent,#0008 35%,#000 75%);-webkit-mask-image:linear-gradient(transparent,#0008 35%,#000 75%)}
 :root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .resume-modal.detail-modal,:root:not([data-theme=light]) body .contact-dialog{
  --ink:#d4d4d2;--bright:#f2f2ee;--muted:#a2a3a0;--line:#ffffff1b;--reading-surface:rgba(15,16,17,.94);--reading-edge:#ffffff20;
