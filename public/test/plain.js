@@ -129,10 +129,15 @@ for(const source of document.querySelectorAll('.proj')){
  source.addEventListener('open-detail',()=>openDetail(source));
 }
 document.addEventListener('click',event=>{
+ if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
  const button=event.target.closest('.proj-open');
- if(!button)return;
- const source=button.closest('.proj');if(!source)return;
- openDetail(source,button);
+ if(button){const source=button.closest('.proj');if(source)openDetail(source,button);return;}
+ // Anywhere else on a project card or selected item opens the case study; real links and buttons keep their own job.
+ if(event.target.closest('a,button,summary,input,select,textarea'))return;
+ const card=event.target.closest('.proj');
+ if(card){event.preventDefault();openDetail(card,card.querySelector('.proj-open'));return;}
+ const item=event.target.closest('.selected-item,.featured-card');
+ if(item){const link=item.querySelector('h3 a[href^="#project-"]');const source=link&&document.getElementById(link.getAttribute('href').slice(1));if(source){event.preventDefault();openDetail(source,link);}}
 });
 // In-page project links open a reading layer without changing page or scroll.
 document.addEventListener('click',event=>{
