@@ -1,0 +1,27 @@
+/* Direct contact methods beside an honest email composer. */
+body .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px;align-items:stretch}
+body .contact-methods,body .contact-compose{border:1px solid var(--line);border-radius:12px;min-width:0;background:var(--page);overflow:hidden}
+body .contact-methods{display:flex;flex-direction:column}
+body .contact-methods>header,body .contact-compose{padding:24px}
+body .contact-grid h3{font:600 18px/1.4 Geist,Arial,sans-serif;letter-spacing:-.025em;margin:0 0 8px;color:var(--bright)}
+body .contact-grid p{font:400 14px/1.7 Geist,Arial,sans-serif;color:var(--muted);margin:0}
+body .contact-grid .contact-inline{margin:0;max-width:none}
+body .contact-grid .contact-options a{padding:18px 24px;margin:0;border:0;border-top:1px solid var(--line);min-height:82px;gap:12px}
+body .contact-grid .contact-options strong{font-size:14px}
+body .contact-grid .contact-options small{font-size:12px}
+body .contact-grid .contact-options svg{width:19px;height:19px;color:var(--muted)}
+body .contact-grid .contact-options a:hover{background:var(--wash)}
+body .contact-grid .contact-availability{padding:24px;margin-top:auto;border-top:1px solid var(--line);font-size:12px}
+body .contact-availability>span{display:inline-block;width:6px;height:6px;background:#28bc8a;border-radius:50%;margin-right:7px}
+body .email-compose{display:flex;flex-direction:column;margin-top:20px;gap:8px}
+body .email-compose label{font:500 12px/1.5 Geist,Arial,sans-serif;color:var(--ink)}
+body .email-compose input,body .email-compose textarea{box-sizing:border-box;width:100%;min-height:44px;background:transparent;border:1px solid var(--line);border-radius:7px;padding:10px 12px;color:var(--ink);font:400 14px/1.6 Geist,Arial,sans-serif;margin:0 0 6px}
+body .email-compose textarea{resize:vertical;min-height:110px}
+body .email-compose input::placeholder,body .email-compose textarea::placeholder{color:var(--muted);opacity:.85}
+body .email-compose button{display:flex;align-items:center;justify-content:space-between;min-height:44px;border:1px solid var(--line);border-radius:7px;padding:10px 14px;background:var(--bright);color:var(--page);font:500 14px/1.5 Geist,Arial,sans-serif;cursor:pointer}
+body .email-compose :is(input,textarea,button):focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+body .email-compose small{font:400 11px/1.6 Geist,Arial,sans-serif;color:var(--muted)}
+:root:not([data-theme=light]) body .social-icon-row>a[data-social=linkedin]:hover{color:#82baff}
+:root:not([data-theme=light]) body .social-icon-row>a[data-social=youtube]:hover{color:#ff7272}
+:root:not([data-theme=light]) body .contact-grid{--accent:#a9c7ee}
+@media(max-width:640px){body .contact-grid{grid-template-columns:minmax(0,1fr)}body .contact-methods>header,body .contact-compose{padding:20px}body .contact-grid .contact-options a{padding:18px 20px}}
