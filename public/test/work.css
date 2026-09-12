@@ -439,12 +439,12 @@ body .experience .role>summary:focus-visible{outline:2px solid var(--accent);out
 @media(prefers-reduced-motion:reduce){body .experience .role,body .experience .role-hint,body .experience .role-hint span{transition:none}}
 
 /* ---------- Skills: grouped caption grids ---------- */
-body .skills-groups{display:grid;gap:4px;border-top:1px solid var(--line)}
-body .skill-group{display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+body .skills-groups{display:grid;gap:0}
+body .skill-group{display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px 16px;align-items:start;padding:6px 0}
 body .skill-group-label{margin:0;padding-top:14px;font:400 11px/1.5 'JetBrains Mono',monospace;color:var(--muted)}
 body .skill-group .skills-grid{display:flex;flex-wrap:wrap;gap:2px}
 body .skill-group .skills-grid li{width:76px}
-@media(max-width:600px){body .skill-group{grid-template-columns:minmax(0,1fr);gap:4px;padding:10px 0}body .skill-group-label{padding-top:0}body .skill-group .skills-grid li{width:64px}}
+@media(max-width:600px){body .skill-group{grid-template-columns:minmax(0,1fr);gap:2px;padding:6px 0}body .skill-group-label{padding-top:0}body .skill-group .skills-grid li{width:64px}}
 
 /* ---------- Contact: identity rail beside a frosted panel ---------- */
 body .contact-shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;align-items:start;margin-top:8px}
