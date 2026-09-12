@@ -507,3 +507,18 @@ body .booking-dialog footer{flex-shrink:0;padding:12px 20px;font-size:13px;borde
 body:has(.booking-dialog[open]){overflow:hidden}
 :root[data-theme=light] body .booking-dialog{background:#f4f6f5}
 :root:not([data-theme=light]) body .booking-dialog{background:#161719}
+
+/* Small rounded scrollbar thumbs across the portfolio and its panels. */
+:root{--portfolio-scroll-thumb:rgba(82,103,119,.48);--portfolio-scroll-hover:rgba(82,103,119,.78)}
+:root:not([data-theme=light]){--portfolio-scroll-thumb:rgba(194,202,210,.38);--portfolio-scroll-hover:rgba(220,225,230,.65)}
+html,body,body *{scrollbar-width:thin!important;scrollbar-color:var(--portfolio-scroll-thumb) transparent!important}
+@supports selector(::-webkit-scrollbar){
+ html,body,body *{scrollbar-width:auto!important;scrollbar-color:auto!important}
+ html::-webkit-scrollbar,body::-webkit-scrollbar,body *::-webkit-scrollbar{display:block!important;width:4px!important;height:4px!important}
+ html::-webkit-scrollbar-track,body::-webkit-scrollbar-track,body *::-webkit-scrollbar-track{background:transparent!important;border:0!important}
+ html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb,body *::-webkit-scrollbar-thumb{background:var(--portfolio-scroll-thumb)!important;border:0!important;border-radius:999px!important;min-height:24px;min-width:24px}
+ html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover,body *::-webkit-scrollbar-thumb:hover{background:var(--portfolio-scroll-hover)!important}
+ html::-webkit-scrollbar-button,body::-webkit-scrollbar-button,body *::-webkit-scrollbar-button{display:none!important;width:0!important;height:0!important}
+ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner,body *::-webkit-scrollbar-corner{background:transparent!important}
+}
+@media(forced-colors:active){html,body,body *{scrollbar-color:auto!important}}
