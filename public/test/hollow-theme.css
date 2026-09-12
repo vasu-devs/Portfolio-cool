@@ -89,3 +89,21 @@ body>.navigation.is-docked{position:fixed;top:auto;bottom:max(14px,env(safe-area
 :root[data-theme=light] body>.navigation.is-docked{background:rgba(244,246,245,.90)}
 body>.navigation.is-docked .bleach-drawer{top:auto;bottom:calc(100% + 16px);max-height:calc(100dvh - 110px)}
 @media(max-width:600px){body .identity h1{font-size:32px}body>.navigation.is-docked{padding:0 12px;gap:13px;height:58px}body>.navigation.is-docked .bleach-drawer{position:absolute;left:0;right:0;top:auto;bottom:calc(100% + 14px);width:auto;max-height:calc(100dvh - 110px)}body>.navigation.is-docked .bleach-menu{position:static}}
+
+/* Light-mode glass experiment: one fixed layer behind all content. */
+.page-glass{display:none;pointer-events:none}
+:root[data-theme=light] body>.page-glass{display:block;position:fixed;inset:0;z-index:1;background:linear-gradient(125deg,rgba(255,255,255,.26),rgba(244,246,245,.58) 48%,rgba(255,255,255,.34));backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+body>.layout{z-index:2;padding-top:64px}
+:root[data-theme=light] body footer.site-footer::before{display:none}
+/* Permanent bottom dock, compact with a clear selected page. */
+body>.navigation.is-docked{width:min(520px,calc(100% - 24px));height:64px;padding:8px;gap:4px;border:0;border-radius:32px;background:rgba(19,21,23,.92);box-shadow:0 8px 30px #0003,0 1px 0 #ffffff0a inset}
+:root[data-theme=light] body>.navigation.is-docked{background:rgba(250,251,250,.94);box-shadow:0 8px 32px #172d451c,0 1px 0 #fff inset}
+body>.navigation.is-docked>a{padding:0 16px;min-height:44px;border-radius:24px;font-weight:500;color:var(--muted);transition:background .16s,color .16s}
+body>.navigation.is-docked>a[aria-current=page]{background:rgba(255,255,255,.1);color:var(--bright);font-weight:600}
+:root[data-theme=light] body>.navigation.is-docked>a[aria-current=page]{background:#e5eae9;color:#172d45}
+body>.navigation.is-docked .bleach-menu{margin-left:auto}
+body>.navigation.is-docked .bleach-menu>summary{min-width:76px;padding:0 6px;justify-content:center}
+body>.navigation.is-docked .theme-toggle{margin:0 4px;width:40px;min-width:40px;flex-basis:40px}
+body>.navigation.is-docked .bleach-drawer{border-radius:18px}
+@media(max-width:600px){body>.layout{padding-top:40px}body>.navigation.is-docked{height:60px;padding:6px;gap:0}body>.navigation.is-docked>a{padding:0 11px;font-size:12px}body>.navigation.is-docked .bleach-menu>summary{min-width:68px;font-size:12px}body>.navigation.is-docked .theme-toggle{margin:0 2px;width:36px;min-width:36px;flex-basis:36px}}
+@media(prefers-reduced-motion:reduce){body>.navigation.is-docked>a{transition:none}}
