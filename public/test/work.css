@@ -550,8 +550,8 @@ body>.navigation.is-docked>a,body>.navigation.is-docked .bleach-menu>summary,bod
 /* Quiet navigation: text links over a soft backing, without a boxed dock. */
 body>.navigation.is-docked,:root[data-theme=light] body>.navigation.is-docked{border:0;border-radius:0;box-shadow:none;background:transparent;padding:8px 12px;gap:2px}
 body>.navigation.is-docked::after{inset:-8px -24px;border-radius:0;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-:root[data-theme=light] body>.navigation.is-docked::after{background:rgba(244,246,245,.94)}
-:root:not([data-theme=light]) body>.navigation.is-docked::after{background:rgba(12,14,17,.94)}
+:root[data-theme=light] body>.navigation.is-docked::after{background:rgba(244,246,245,.78)}
+:root:not([data-theme=light]) body>.navigation.is-docked::after{background:rgba(12,14,17,.78)}
 body>.navigation.is-docked>a,:root[data-theme=light] body>.navigation.is-docked>a[aria-current=page],body>.navigation.is-docked>a[aria-current=page]{border-radius:0;background:transparent;color:var(--muted);min-height:44px;padding:0 16px;font-family:Geist,Arial,sans-serif;font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;position:relative}
 body>.navigation.is-docked>a[aria-current=page],:root[data-theme=light] body>.navigation.is-docked>a[aria-current=page]{color:var(--bright);font-weight:650;background:linear-gradient(var(--bright),var(--bright)) center bottom 4px/calc(100% - 32px) 2px no-repeat}
 body>.navigation.is-docked>a:hover{background-color:transparent;color:var(--bright)}
