@@ -1,0 +1,33 @@
+/* Hueco Mundo: neutral night, quartz, and white mineral sand. */
+:root:not([data-theme=light]){
+ --page:#111213;--ink:#d4d4d2;--bright:#f2f2ee;--muted:#a2a3a0;--line:#363737;--accent:#e0e0d9;--object:#c5c6c1;--surface:#1c1d1e;--wash:#ffffff09;
+ --heat-0:#252627;--heat-1:#414342;--heat-2:#686b67;--heat-3:#9ea29a;--heat-4:#d9ddd2;
+ --modal-glass:rgba(24,25,26,.92);--modal-bar:rgba(255,255,255,.02);--modal-edge:#ffffff20;--modal-shade:#0007;--character-glass:rgba(26,27,28,.94);
+ --butterfly-wing:#262726;--butterfly-edge:#c5c7bf;--butterfly-vein:#777a73;--butterfly-body:#d7dad0;--butterfly-mark:#92988a;
+ --reading-surface:rgba(25,26,27,.93);--reading-edge:rgba(228,228,219,.18);--reading-shade:rgba(0,0,0,.48);
+}
+:root:not([data-theme=light]) body{background:#111213;color:var(--ink)}
+:root:not([data-theme=light]) body::before{background-image:url('./backgrounds/hueco-charcoal-v24.webp');background-size:max(100%,1400px) auto;background-position:right top;height:clamp(230px,25vw,350px);opacity:.75;filter:none;mask-image:linear-gradient(#000 0%,#0009 55%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#0009 55%,transparent 100%)}
+:root:not([data-theme=light]) body::after{background-image:linear-gradient(90deg,transparent,#11121399 35%,#11121399 65%,transparent),url('./backgrounds/hueco-charcoal-v24.webp');background-size:max(100%,850px) auto;background-position:right bottom;height:clamp(320px,32vw,600px);opacity:.55;filter:none;mask-image:linear-gradient(transparent,#0008 35%,#000 75%);-webkit-mask-image:linear-gradient(transparent,#0008 35%,#000 75%)}
+:root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .resume-modal.detail-modal,:root:not([data-theme=light]) body .contact-dialog{
+ --ink:#d4d4d2;--bright:#f2f2ee;--muted:#a2a3a0;--line:#ffffff1b;--reading-surface:rgba(25,26,27,.93);--reading-edge:#ffffff20;
+ background:linear-gradient(145deg,#ffffff04,transparent 50%),var(--reading-surface);border-color:var(--reading-edge);box-shadow:0 28px 90px #0008;
+}
+:root:not([data-theme=light]) body .resume-modal .resume-content{scrollbar-color:#61645f transparent}
+:root:not([data-theme=light]) body .detail-modal .resume-toolbar{background:#ffffff02}
+:root:not([data-theme=light]) body .project-cover[data-cover-realm=hueco]{filter:grayscale(1)}
+:root:not([data-theme=light]) body .avatar-slide[data-realm=hueco]{filter:grayscale(1)}
+:root:not([data-theme=light]) body .featured-card,:root:not([data-theme=light]) body .work-card,:root:not([data-theme=light]) body .archive-item{background:#ffffff02}
+body .hero-contacts{display:flex;align-items:center;gap:12px;margin:22px 0 28px}
+body .social-icon-row{display:flex;align-items:center;gap:4px}
+body .social-icon-row>a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:44px;min-height:44px;padding:10px;border:0;border-radius:6px;background:transparent;color:var(--muted);text-decoration:none;transform:none}
+body .social-icon-row>a:hover,body .social-icon-row>a:focus-visible{color:var(--bright);background:var(--wash);transform:none}
+body .social-icon-row .contact-label{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+body .social-icon-row svg{width:20px;height:20px}
+body .hero-contacts .secondary-contacts{font:400 12px/1.5 Geist,Arial,sans-serif;flex-basis:auto;margin:0}
+body .hero-contacts .secondary-contacts summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--muted)}
+body .hero-contacts .secondary-contacts[open]{flex-basis:100%}
+body .hero-contacts .secondary-contacts a{color:var(--ink)}
+@media(max-width:600px){:root:not([data-theme=light]) body::before{background-size:850px auto;height:200px;background-position:right top}:root:not([data-theme=light]) body::after{height:340px;background-size:650px auto;background-position:right bottom}body .hero-contacts{gap:8px}body .social-icon-row{gap:2px}}
+body .realm-covers>.project-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;margin:0}
+:root:not([data-theme=light]) body .realm-covers>[data-cover-realm=hueco],:root[data-theme=light] body .realm-covers>[data-cover-realm=seireitei]{opacity:1}
