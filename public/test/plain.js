@@ -109,7 +109,7 @@ function openDetail(source,opener){
   q('.detail-status').textContent=source.dataset.status||'';
   q('.detail-stack').textContent=source.querySelector('.proj-stack')?.childNodes[0]?.textContent?.trim()||'';
   const links=q('.detail-links');links.replaceChildren();
-  for(const a of source.querySelectorAll('.proj-actions a')){const copy=a.cloneNode(true);links.append(copy);}
+  for(const a of source.querySelectorAll('.proj-actions a')){const copy=a.cloneNode(true);copy.removeAttribute('title');copy.classList.add('icon-action');links.append(copy);}
   meta.hidden=false;
   const study=source.querySelector(':scope > .study');
   detailNodes=[...study.children];
@@ -130,7 +130,7 @@ for(const source of document.querySelectorAll('.proj')){
 }
 document.addEventListener('click',event=>{
  if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
- const button=event.target.closest('.proj-open');
+ const button=event.target.closest('.proj-open,[data-open]');
  if(button){const source=button.closest('.proj');if(source)openDetail(source,button);return;}
  // Anywhere else on a project card or selected item opens the case study; real links and buttons keep their own job.
  if(event.target.closest('a,button,summary,input,select,textarea'))return;
