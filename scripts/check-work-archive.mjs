@@ -14,8 +14,8 @@ assert.ok(work.length>=6&&play.length>=6,'both serious and hobby groups are popu
 assert.ok(!html.includes('id="work-search"')&&!html.includes('id="work-track"'));
 assert.equal((html.match(/class="selected-item"/g)||[]).length,3,'three selected projects on Home');
 assert.ok(html.includes('id="contact" data-panel="contact"'),'contact page rendered');
-assert.equal((html.match(/class="message-form"/g)||[]).length,1,'message form remains on Home');
-assert.equal((html.match(/data-cal-link="vasu-devs"/g)||[]).length,1,'call embed remains on Home');
+assert.equal((html.match(/class="message-form"/g)||[]).length,0,'message form removed');
+assert.equal((html.match(/data-cal-link="vasu-devs"/g)||[]).length,0,'inline calendar removed');
 assert.ok((html.match(/class="skill-group"/g)||[]).length===5&&(html.match(/class="skill[ "]/g)||[]).length>=30&&(html.match(/class="role-tech"/g)||[]).length>=3,'skills grid and experience tech rows');
 assert.ok(!html.includes('class="tech-letter"'),'every tech has a real logo');
 const hero=html.slice(html.indexOf('class="hero-contacts"'),html.indexOf('<p class="secret-message"'));

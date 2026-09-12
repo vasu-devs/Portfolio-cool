@@ -530,3 +530,15 @@ html.tiny-page-scroll::-webkit-scrollbar{display:none!important;width:0!importan
 .page-scroll-dot:hover::after{background:var(--portfolio-scroll-hover)}
 .page-scroll-dot:active{cursor:grabbing}
 .page-scroll-dot[hidden]{display:none}
+
+/* Slightly roomier dock, with space rather than a divider. */
+body>.navigation.is-docked{padding:8px}
+body>.navigation.is-docked>a{min-height:44px;padding:0 20px;font-size:14px}
+body>.navigation.is-docked .bleach-menu{margin-left:18px;padding-left:0;border-left:0}
+body>.navigation.is-docked .bleach-menu>summary{min-height:44px;font-size:14px}
+body>.navigation.is-docked .theme-toggle{width:44px;min-width:44px;height:44px;flex-basis:44px}
+body .home-contact-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+body .home-contact-links a{display:flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid var(--line);border-radius:12px;text-decoration:none}
+body .home-contact-links svg{width:20px;height:20px}
+body .home-contact-links a:hover{background:var(--wash)}
+@media(max-width:600px){body>.navigation.is-docked>a{padding:0 12px;font-size:13px}body>.navigation.is-docked .bleach-menu{margin-left:12px}body>.navigation.is-docked .bleach-menu>summary{padding-right:5px}}
