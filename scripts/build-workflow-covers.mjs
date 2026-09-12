@@ -11,7 +11,7 @@ const projects={
 };
 for(const realm of ['seireitei','hueco']){
  const light=realm==='seireitei';
- const c={bg:light?'#f3f6f7':'#0d0f12',top:light?'#dce9f3':'#202630',ink:light?'#172d45':'#edf1f7',muted:light?'#536c80':'#aab6c6',line:light?'#afc3d3':'#414f60',accent:light?'#476f92':'#b7cce2',card:light?'#ffffff':'#1b222c',soft:light?'#e0ebf3':'#273442'};
+ const c={bg:light?'#f4f6f5':'#08090a',top:light?'#deebf4':'#151719',ink:light?'#172d45':'#f4f5f6',muted:light?'#566a79':'#b4b7bb',line:light?'#a6bece':'#46494e',accent:light?'#456f8d':'#d8dce1',card:light?'#ffffff':'#191b1e',soft:light?'#e2edf3':'#272a2e'};
  const t=(x,y,s,size=26,color=c.ink,weight=400,anchor='start')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-weight="${weight}" text-anchor="${anchor}">${s}</text>`;
  const path=(d,color=c.line,w=3,dash='')=>`<path d="${d}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
  const dot=(x,y,r=9,fill=c.accent)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}"/>`;
@@ -28,14 +28,14 @@ for(const realm of ['seireitei','hueco']){
    art+=`<rect x="920" y="199" width="180" height="204" rx="10" fill="${c.card}" stroke="${c.line}" stroke-width="2"/>`;
    art+=path('M953 239H1037M953 276H1066M953 313H1066M953 350H1012',c.accent,5);
    art+=t(1010,453,'Tailored draft',26,c.ink,600,'middle');
-   art+=t(750,502,'Graph + vector retrieval',25,c.muted,'400','middle');
+   art+=t(750,502,'Kuzu + LanceDB',25,c.muted,'400','middle');
   }else if(key==='odeon'){
    art+=path('M774 146C998 119 1127 391 920 475C711 559 534 302 689 195',c.accent,5);
    art+=path('M784 169C956 161 1067 365 900 446C744 513 590 328 700 220',c.line,1);
    art+=ring(759,153,22)+ring(1025,321,22)+ring(792,488,22);
    art+=t(706,110,'Simulate',31,c.ink,600)+t(1060,318,'Score',31,c.ink,600);
    art+=t(792,554,'Revise prompt',31,c.ink,600,'middle');
-   art+=t(809,300,'Prompt',44,c.ink,600,'middle')+t(809,342,'feedback',29,c.muted,400,'middle');
+   art+=t(809,300,'Prompt',44,c.ink,600,'middle')+t(809,342,'feedback',29,c.muted,400,'middle')+t(809,382,'Groq + FastAPI',22,c.muted,400,'middle');
    art+=t(536,452,'Run again',25,c.muted);
   }else if(key==='vaani'){
    art+=`<rect x="494" y="156" width="644" height="350" rx="38" fill="none" stroke="${c.line}" stroke-width="2"/>`;
@@ -55,10 +55,10 @@ for(const realm of ['seireitei','hueco']){
    art+=dot(1038,325,8);
    art+=t(515,278,'Main',28,c.muted)+t(748,123,'Explore',31,c.ink,600);
    art+=t(660,412,'Fork',27,c.muted)+t(959,390,'Merge',31,c.ink,600);
-   art+=t(818,548,'Only new insights return',26,c.muted,400,'middle');
+   art+=t(818,548,'Neon stores the conversation graph',24,c.muted,400,'middle');
   }
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><title>${p.name} architecture: ${p.note}</title><defs><linearGradient id="wash" x2="0" y2="1"><stop stop-color="${c.top}"/><stop offset="1" stop-color="${c.bg}"/></linearGradient></defs><rect width="1200" height="675" fill="${c.bg}"/><rect width="1200" height="675" fill="url(#wash)" opacity=".55"/><g font-family="Arial,Helvetica,sans-serif">${t(58,87,p.name,55,c.ink,600)}${t(58,235,p.lines[0],35,c.ink)}${t(58,281,p.lines[1],35,c.ink)}${path('M58 330H126',c.accent,4)}${t(58,389,'Architecture',23,c.muted)}${art}${path('M58 602H1142',c.line,1)}${t(58,645,p.stack,25,c.muted)}</g></svg>`;
-  writeFileSync(fileURLToPath(new URL(`../public/test/covers/${key}-architecture-${realm}-v11.svg`,import.meta.url)),svg);
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><title>${p.name} architecture: ${p.note}</title><defs><linearGradient id="wash" x2="0" y2="1"><stop stop-color="${c.top}"/><stop offset=".72" stop-color="${c.bg}"/></linearGradient><radialGradient id="sheen" cx=".7" cy=".25" r=".7"><stop stop-color="${light?'#ffffff':'#d8dce1'}" stop-opacity="${light?'.7':'.035'}"/><stop offset="1" stop-color="${c.bg}" stop-opacity="0"/></radialGradient></defs><rect width="1200" height="675" fill="${c.bg}"/><rect width="1200" height="675" fill="url(#wash)" opacity=".7"/><rect width="1200" height="675" fill="url(#sheen)"/><g font-family="Arial,Helvetica,sans-serif">${t(58,87,p.name,55,c.ink,600)}${t(58,235,p.lines[0],35,c.ink)}${t(58,281,p.lines[1],35,c.ink)}${path('M58 330H126',c.accent,4)}${t(58,389,'Architecture',23,c.muted)}${art}${path('M58 602H1142',c.line,1)}${t(58,645,p.stack,25,c.muted)}</g></svg>`;
+  writeFileSync(fileURLToPath(new URL(`../public/test/covers/${key}-architecture-${realm}-v12.svg`,import.meta.url)),svg);
  }
 }
 console.log('Built eight editorial architecture covers.');
