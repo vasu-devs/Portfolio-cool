@@ -239,7 +239,7 @@ function ensureCal(onError){
  (function(C,A,L){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];const s=d.createElement('script');s.src=A;s.async=true;s.onerror=onError;d.head.appendChild(s);cal.loaded=true}if(ar[0]===L){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace])}else p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
 }
 for(const block of document.querySelectorAll('.contact-panels')){
- const root=block.parentElement;
+ const root=block.closest('section');
  const tabs=[...root.querySelectorAll('.contact-switch [role=tab]')];
  const host=block.querySelector('.cal-embed');
  let calMounted=false;
@@ -266,6 +266,7 @@ for(const block of document.querySelectorAll('.contact-panels')){
  const form=block.querySelector('.message-form');
  const status=form.querySelector('.form-status');
  const button=form.querySelector('button[type=submit]');
+ const buttonContent=button.innerHTML;
  form.addEventListener('submit',async event=>{
   event.preventDefault();
   status.textContent='';status.dataset.state='';
@@ -281,6 +282,6 @@ for(const block of document.querySelectorAll('.contact-panels')){
    status.dataset.state='error';
    const mail=form.querySelector('.form-note a').textContent;
    status.innerHTML=`${error.message} You can also <a href="mailto:${mail}?subject=${encodeURIComponent('Portfolio message from '+data.name)}&body=${encodeURIComponent(data.message)}">send it from your email app</a>.`;
-  }finally{button.disabled=false;button.textContent='Send message';}
+  }finally{button.disabled=false;button.innerHTML=buttonContent;}
  });
 }
