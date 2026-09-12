@@ -9,6 +9,7 @@ function showPage() {
     if (link.dataset.page === page) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   });
+  if(id==='projects'||id==='home')requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
   if(project?.classList.contains('project')) { requestAnimationFrame(() => {project.dispatchEvent(new CustomEvent('open-detail'));}); }
 }
 window.addEventListener('hashchange', showPage);

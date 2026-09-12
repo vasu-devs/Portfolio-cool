@@ -70,3 +70,65 @@ body .experience>.label{border:0;margin-bottom:12px}
 :root:not([data-theme=light]) body .hero-contacts .primary-contacts a[data-social=email]{color:#061924;background:#d2dfe5;border-color:#d2dfe5}
 :root:not([data-theme=light]) body .hero-contacts .primary-contacts a:hover{background:#284351;color:#f1f7fa}
 @media(max-width:600px){body .experience .role-date{grid-row:3}body .experience .role-name{grid-row:1}body .experience .role h3{grid-row:2}body .experience .role-preview{grid-row:4}body .experience .role-hint{grid-row:5}}
+/* Preview-first project cards and an inline experience timeline. */
+body .featured-grid,body #projects>.project-list,body .work-archive>.project-list,body .archive-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+body .bench-heading{display:flex;justify-content:space-between;gap:16px;margin-bottom:20px}
+body .bench-heading h2{margin:0}
+body .bench-heading>a{font-size:13px;text-decoration:underline;text-underline-offset:4px}
+body .featured-card,body .work-card,body .archive-item{min-width:0;border:1px solid var(--line);border-radius:12px;background:rgba(139,173,192,.035);overflow:hidden;box-shadow:none}
+body .featured-preview{display:block;position:relative;aspect-ratio:16/9;overflow:hidden;border-bottom:1px solid var(--line)}
+body .featured-preview .project-cover{width:100%;height:100%;object-fit:cover}
+body .featured-copy{padding:20px}
+body .featured-title{display:flex;align-items:center;justify-content:space-between;gap:12px}
+body .featured-title h3{font:600 18px/1.4 Geist,Arial,sans-serif;letter-spacing:-.025em;margin:0}
+body .featured-title>a{display:grid;place-items:center;min-width:40px;min-height:40px;margin:-8px;color:var(--muted)}
+body .featured-copy>p{font:400 14px/1.7 Geist,Arial,sans-serif;margin:12px 0 18px;color:var(--ink)}
+body .card-tech{display:flex;flex-wrap:wrap;gap:6px 10px;margin:16px 0;font:400 11px/1.6 'JetBrains Mono',monospace;color:var(--muted)}
+body .card-tech span{padding:2px 0;max-width:100%;overflow-wrap:anywhere}
+body .card-study,body .archive-source{font:500 13px/1.5 Geist,Arial,sans-serif;text-decoration:underline;text-underline-offset:4px}
+body .work-card{display:flex;flex-direction:column}
+body .work-card>.project{border:0;flex:1;margin:0}
+body .work-card>.project>summary{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:20px;min-height:100%;list-style:none}
+body .work-card .project-title{margin:0 0 10px}
+body .work-card .project-title h3{font-size:18px}
+body .work-card .project-intro{margin:0;font-size:14px;line-height:1.7}
+body .work-card .project-number{display:none}
+body .work-card .expand.study-cta{display:block;position:static;transform:none;align-self:flex-start;margin:8px 0 0;font:500 13px/1.5 Geist,Arial,sans-serif}
+body .work-card .work-art{display:block;position:relative;aspect-ratio:16/9;width:calc(100% + 40px);height:auto;max-width:none;margin:-20px -20px 20px;border-radius:0;overflow:hidden}
+body .work-card .work-art img{width:100%;height:100%;object-fit:cover}
+body .card-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 20px;border-top:1px solid var(--line);font-size:12px}
+body .card-actions>a{text-decoration:underline;text-underline-offset:4px}
+body .card-actions>span{color:var(--muted);font-size:11px;margin-left:auto}
+body .archive-list{margin-top:20px}
+body .archive-item{padding:20px;margin:0}
+body .archive-item-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}
+body .archive-item-heading>span{font-size:11px}
+body .archive-item>p{margin:12px 0}
+body .archive-item .archive-detail{margin-top:14px}
+body .archive-item .archive-detail>summary{font-size:13px}
+body .experience-timeline{margin-left:5px;border-left:1px solid var(--line)}
+body .experience .role{position:relative;border:0;margin:0 0 26px;padding-left:24px}
+body .experience .role::before{content:'';position:absolute;left:-4px;top:14px;width:7px;height:7px;border-radius:50%;background:var(--muted)}
+body .experience .role:first-child::before{background:#28bc8a;box-shadow:0 0 0 4px #28bc8a18}
+body .experience .role>summary{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 16px;padding:8px 0 12px}
+body .experience .role-name{grid-column:1;grid-row:1;font-size:16px}
+body .experience .role h3{grid-column:1;grid-row:2;font-size:13px}
+body .experience .role-date{grid-column:2;grid-row:1/3;font:400 11px/1.6 Geist,Arial,sans-serif;text-align:right}
+body .experience .role-preview{grid-column:1/-1;grid-row:3;margin:10px 0 0;font-size:14px;line-height:1.8}
+body .experience .role-hint{grid-column:1/-1;grid-row:4;margin-top:8px}
+@media(max-width:600px){
+ body .featured-grid,body #projects>.project-list,body .work-archive>.project-list,body .archive-list{grid-template-columns:minmax(0,1fr);gap:18px}
+ body .experience .role>summary{grid-template-columns:minmax(0,1fr)}
+ body .experience .role-date{grid-column:1;grid-row:3;text-align:left}
+ body .experience .role-preview{grid-row:4}
+ body .experience .role-hint{grid-row:5}
+ body .bench-heading{align-items:center}
+}
+/* Reset the previous featured-row rules inside the new card containers. */
+body #projects .work-card>.project{padding:0;margin:0;border:0}
+body #projects .work-card>.project>summary{display:flex;flex-direction:column;align-items:stretch;align-content:normal;padding:20px;gap:0}
+body #projects .work-card>.project .project-title{align-self:auto;margin:0 0 10px}
+body #projects .work-card>.project .project-title h3{font:600 18px/1.4 Geist,Arial,sans-serif;letter-spacing:-.025em}
+body #projects .work-card>.project .project-intro{margin:0;align-self:auto}
+body #projects .work-card>.project .work-art{width:calc(100% + 40px);max-height:none;aspect-ratio:16/9;margin:-20px -20px 20px;border-radius:0}
+body #projects .work-card>.project .study-cta{align-self:flex-start;margin-top:8px;padding:0;font-size:13px}

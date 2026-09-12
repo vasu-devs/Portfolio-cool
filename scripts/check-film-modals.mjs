@@ -16,7 +16,7 @@ assert.ok(!js.includes('?autoplay=1'),'Playback requires user input');
 console.log('PASS: all three film descriptions, external fallback and player cleanup');
 
 assert.equal((html.match(/class="archive-open"/g)||[]).length,(html.match(/class="archive-item"/g)||[]).length,'Every visible archive title opens its case study');
-assert.equal((html.match(/class="project-cover"/g)||[]).length,10,'Three walkthroughs and two work cards each have two realm artworks');
+assert.equal((html.match(/class="project-cover"/g)||[]).length,14,'Three walkthroughs, two featured cards and two work cards each have paired realm artwork');
 assert.ok(!html.includes('class="video-play"'),'No generic play badges');
 console.log('PASS: curated archive title actions and paired realm covers');
 
