@@ -599,7 +599,7 @@ main h2{font-size:24px;font-weight:600;line-height:1.4}
 @media(max-width:600px){.detail-modal .resume-toolbar{padding:22px}.detail-modal .resume-toolbar h2{font-size:30px}.detail-deck{font-size:15px}.detail-modal .resume-content{padding:8px 22px 26px}.detail-modal .case-sections section{display:block;padding:20px 0}.detail-modal .case-sections section>h4{margin:0 0 10px}.detail-modal .case-sections p,.detail-modal .case-sections li{font-size:15px}}
 
 /* Neutral translucent overlays preserve the colour of the page underneath. */
-:root[data-theme=light]{--page:#e3f0f9;--modal-glass:rgba(242,247,249,.30);--modal-bar:rgba(242,247,249,.16);--modal-shade:rgba(29,44,49,.08);--character-glass:rgba(242,247,249,.36)}
+:root[data-theme=light]{--page:#f4f6f5;--modal-glass:rgba(242,247,249,.30);--modal-bar:rgba(242,247,249,.16);--modal-shade:rgba(29,44,49,.08);--character-glass:rgba(242,247,249,.36)}
 .resume-modal::backdrop{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
 
 /* Visible contact labels and destinations in the hero and footer. */
