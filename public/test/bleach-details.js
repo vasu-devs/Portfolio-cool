@@ -1,4 +1,3 @@
-import {mountSoundscape} from './soundscape.js?v=2';
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
 const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
 const found=new Set(read('vasu-bleach-discoveries',[]));
@@ -18,7 +17,7 @@ export function mountBleachDetails(controls){
  const attack=button('',()=>{pageAttacks=!pageAttacks;save('vasu-page-attacks',pageAttacks);paintAttack();});
  attack.className='soul-toggle attack-toggle';
  function paintAttack(){attack.textContent='Attack · '+(pageAttacks?'on':'off');attack.setAttribute('aria-pressed',String(pageAttacks));attack.setAttribute('aria-label','Attack on page clicks');}
- paintAttack();actions.append(controls.querySelector('.soul-toggle'),attack);controls.append(actions);mountSoundscape(controls);
+ paintAttack();actions.append(controls.querySelector('.soul-toggle'),attack);controls.append(actions);
  const hint=document.createElement('p');hint.textContent='Click character to greet · Click page to attack';panel.append(hint);
  const story=document.createElement('dialog');story.className='bleach-story';story.innerHTML='<p class="bleach-kicker">A PERSONAL NOTE · TYBW REFERENCE</p><h2>THE BLADE IS ME</h2><p>The things I build are a reflection of what I’m curious about.</p><p>Voice, AI, and small experiments that become useful tools. This corner of the site is another one of those experiments—and a nod to Bleach.</p><small>A personal interpretation of the episode title, not dialogue from the series.</small>';
  story.append(button('Close',()=>story.close()));document.body.append(story);
@@ -37,7 +36,7 @@ export function finishEntrance(host){
 }
 export function characterEntrance(host,id){
  host.querySelector('.bleach-entrance')?.remove();
- const gate=document.createElement('span');gate.className='bleach-entrance '+(id==='grimmjow'?'garganta':id==='uryu'||id==='yhwach'?'quincy-step':'senkaimon');gate.setAttribute('aria-hidden','true');gate.innerHTML='<i class="gate-light"></i><i class="gate-lintel"></i><i class="gate-threshold"></i><i class="gate-door gate-left"></i><i class="gate-door gate-right"></i>';host.append(gate);host.classList.add('is-entering');discover('gate');document.dispatchEvent(new CustomEvent('bleach-audio',{detail:{kind:'entrance',id}}));
+ const gate=document.createElement('span');gate.className='bleach-entrance '+(id==='grimmjow'?'garganta':id==='uryu'||id==='yhwach'?'quincy-step':'senkaimon');gate.setAttribute('aria-hidden','true');gate.innerHTML='<i class="gate-light"></i><i class="gate-lintel"></i><i class="gate-threshold"></i><i class="gate-door gate-left"></i><i class="gate-door gate-right"></i>';host.append(gate);host.classList.add('is-entering');discover('gate');
  return new Promise(resolve=>setTimeout(()=>{const current=host.querySelector('.bleach-entrance')===gate;gate.remove();if(current)host.classList.remove('is-entering');resolve();},1600));
 }
 export function idleDetail(host,id){

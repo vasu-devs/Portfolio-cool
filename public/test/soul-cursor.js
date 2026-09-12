@@ -1,6 +1,6 @@
-import {mountBleachDetails,characterEntrance,finishEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=sound-158';
+import {mountBleachDetails,characterEntrance,finishEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=silent-159';
 import {createAttackQueue} from './attack-queue.js?v=likeness-24';
-import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=sound-158';
+import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=silent-159';
 import {roster} from './bleach-roster.js?v=sizes-62';
 // A small, optional cursor companion. Only movement or a slash schedules frames.
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
@@ -56,7 +56,7 @@ function paintCard(id){
  technique.textContent=roster[id].technique;
  for(const b of rosterStrip.children)b.setAttribute('aria-pressed',String(b.dataset.character===id));
 }
-function chooseCharacter(id){document.dispatchEvent(new CustomEvent('bleach-character-change',{detail:{id}}));select.value=id;paintCard(id);void loadCharacter(id);}
+function chooseCharacter(id){select.value=id;paintCard(id);void loadCharacter(id);}
 function stepCharacter(offset){const index=characterIds.indexOf(select.value);chooseCharacter(characterIds[(index+offset+characterIds.length)%characterIds.length]);}
 card.querySelector('.character-prev').addEventListener('click',()=>stepCharacter(-1));
 card.querySelector('.character-next').addEventListener('click',()=>stepCharacter(1));
