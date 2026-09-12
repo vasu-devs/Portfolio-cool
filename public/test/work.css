@@ -522,3 +522,11 @@ html,body,body *{scrollbar-width:thin!important;scrollbar-color:var(--portfolio-
  html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner,body *::-webkit-scrollbar-corner{background:transparent!important}
 }
 @media(forced-colors:active){html,body,body *{scrollbar-color:auto!important}}
+
+html.tiny-page-scroll{scrollbar-width:none!important}
+html.tiny-page-scroll::-webkit-scrollbar{display:none!important;width:0!important}
+.page-scroll-dot{position:fixed;right:0;top:0;width:12px;height:14px;z-index:999;cursor:grab;touch-action:none;user-select:none}
+.page-scroll-dot::after{content:"";position:absolute;right:2px;top:0;width:3px;height:14px;border-radius:999px;background:var(--portfolio-scroll-thumb)}
+.page-scroll-dot:hover::after{background:var(--portfolio-scroll-hover)}
+.page-scroll-dot:active{cursor:grabbing}
+.page-scroll-dot[hidden]{display:none}

@@ -1,3 +1,4 @@
+import './tiny-scroll.js?v=180';
 import './soul-cursor.js?v=silent-159';
 
 function showPage() {
