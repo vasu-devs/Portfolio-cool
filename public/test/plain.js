@@ -227,32 +227,38 @@ for(const button of document.querySelectorAll('.copy-mail')){
  });
 }
 
-// Contact page: message form posts to /api/contact; the call tab embeds cal.com in place.
-const contactPage=document.getElementById('contact');
-if(contactPage){
- const tabs=[...contactPage.querySelectorAll('[role=tab]')];
- let calLoaded=false;
- const show=name=>{
-  for(const tab of tabs){const on=tab.id===`tab-${name}`;tab.setAttribute('aria-selected',String(on));document.getElementById(tab.getAttribute('aria-controls')).hidden=!on;}
-  if(name==='call')loadCal();
- };
- for(const tab of tabs)tab.addEventListener('click',()=>{show(tab.id.replace('tab-',''));history.replaceState(null,'',tab.id==='tab-call'?'#contact/call':'#contact');});
- document.addEventListener('contact-page',event=>show(event.detail.tab));
- if(location.hash.startsWith('#contact'))show(location.hash==='#contact/call'?'call':'message');
-
- function loadCal(){
-  if(calLoaded)return;calLoaded=true;
-  const host=contactPage.querySelector('.cal-embed');
-  const fail=()=>{const note=host.querySelector('.cal-loading');if(note)note.textContent='The calendar could not load here. Use the cal.com link below.';};
-  // Official loader: queues calls on a stub until embed.js arrives.
-  (function(C,A,L){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];const s=d.createElement('script');s.src=A;s.async=true;s.onerror=fail;d.head.appendChild(s);cal.loaded=true}if(ar[0]===L){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace])}else p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
+// Contact blocks (Home and the Contact page): message form posts to /api/contact; the call tab embeds cal.com in place.
+let calScriptRequested=false;
+function ensureCal(onError){
+ if(calScriptRequested)return;calScriptRequested=true;
+ (function(C,A,L){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];const s=d.createElement('script');s.src=A;s.async=true;s.onerror=onError;d.head.appendChild(s);cal.loaded=true}if(ar[0]===L){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==='string'){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,['initNamespace',namespace])}else p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
+}
+for(const block of document.querySelectorAll('.contact-panels')){
+ const root=block.parentElement;
+ const tabs=[...root.querySelectorAll('.contact-switch [role=tab]')];
+ const host=block.querySelector('.cal-embed');
+ let calMounted=false;
+ const fail=()=>{const note=host.querySelector('.cal-loading');if(note)note.textContent='The calendar could not load here. Use the cal.com link below.';};
+ const mountCal=()=>{
+  if(calMounted)return;calMounted=true;
+  ensureCal(fail);
   try{
-   window.Cal('init','portfolio',{origin:'https://app.cal.com'});
-   window.Cal.ns.portfolio('inline',{elementOrSelector:host,calLink:host.dataset.calLink,config:{layout:'month_view',theme:document.documentElement.dataset.theme==='light'?'light':'dark'}});
-   window.Cal.ns.portfolio('ui',{hideEventTypeDetails:false,cssVarsPerTheme:{light:{'cal-brand':'#172d45'},dark:{'cal-brand':'#e7e8e9'}}});
-  }catch(error){fail();}
+   const ns=host.dataset.calNs;
+   window.Cal('init',ns,{origin:'https://app.cal.com'});
+   window.Cal.ns[ns]('inline',{elementOrSelector:host,calLink:host.dataset.calLink,config:{layout:'month_view',theme:document.documentElement.dataset.theme==='light'?'light':'dark'}});
+   window.Cal.ns[ns]('ui',{hideEventTypeDetails:false,cssVarsPerTheme:{light:{'cal-brand':'#172d45'},dark:{'cal-brand':'#e7e8e9'}}});
+  }catch{fail();}
+ };
+ const show=name=>{
+  for(const tab of tabs){const on=tab.id.endsWith(`-tab-${name}`);tab.setAttribute('aria-selected',String(on));document.getElementById(tab.getAttribute('aria-controls')).hidden=!on;}
+  if(name==='call')mountCal();
+ };
+ for(const tab of tabs)tab.addEventListener('click',()=>show(tab.id.endsWith('-tab-call')?'call':'message'));
+ if(root.id==='contact'){
+  document.addEventListener('contact-page',event=>show(event.detail.tab));
+  if(location.hash.startsWith('#contact'))show(location.hash==='#contact/call'?'call':'message');
  }
- const form=contactPage.querySelector('.message-form');
+ const form=block.querySelector('.message-form');
  const status=form.querySelector('.form-status');
  const button=form.querySelector('button[type=submit]');
  form.addEventListener('submit',async event=>{
@@ -268,7 +274,8 @@ if(contactPage){
    form.reset();status.dataset.state='ok';status.textContent=`Sent. I’ll reply to ${data.email}.`;
   }catch(error){
    status.dataset.state='error';
-   status.innerHTML=`${error.message} You can also <a href="mailto:${form.closest('#contact').querySelector('.contact-mail a').textContent}?subject=${encodeURIComponent('Portfolio message from '+data.name)}&body=${encodeURIComponent(data.message)}">send it from your email app</a>.`;
+   const mail=form.querySelector('.form-note a').textContent;
+   status.innerHTML=`${error.message} You can also <a href="mailto:${mail}?subject=${encodeURIComponent('Portfolio message from '+data.name)}&body=${encodeURIComponent(data.message)}">send it from your email app</a>.`;
   }finally{button.disabled=false;button.textContent='Send message';}
  });
 }

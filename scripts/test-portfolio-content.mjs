@@ -318,3 +318,22 @@ export const pageCopy = {
   intro: 'Most of this is AI tooling and desktop software, built end to end by me. Cards open a case study; the ones with a source link are public.',
   selectedLead: 'Three I would show first. Each opens a full case study, and two have a recorded walkthrough.',
 };
+
+// Skills shown on Home. icon = react-icons/si export name; null falls back to a lettermark.
+export const skills = [
+  { title: 'Languages', items: [
+    ['Python','SiPython'],['TypeScript','SiTypescript'],['JavaScript','SiJavascript'],['Rust','SiRust'],['Swift','SiSwift'],['SQL','SiPostgresql']
+  ]},
+  { title: 'Apps and interfaces', items: [
+    ['React','SiReact'],['Next.js','SiNextdotjs'],['Tauri','SiTauri'],['SwiftUI','SiSwift'],['Electron','SiElectron'],['Three.js','SiThreedotjs'],['Tailwind','SiTailwindcss'],['Vite','SiVite']
+  ]},
+  { title: 'Backends and data', items: [
+    ['FastAPI','SiFastapi'],['Node.js','SiNodedotjs'],['PostgreSQL','SiPostgresql'],['SQLite','SiSqlite'],['MongoDB','SiMongodb'],['Redis','SiRedis'],['Supabase','SiSupabase'],['Drizzle','SiDrizzle']
+  ]},
+  { title: 'AI systems', items: [
+    ['LLM apps','SiOpenai'],['RAG and vector search',null],['LangGraph','SiLangchain'],['Whisper and voice AI','SiHuggingface'],['PyTorch','SiPytorch'],['ONNX','SiOnnx'],['Ollama','SiOllama'],['Agent evaluation',null]
+  ]},
+  { title: 'Shipping', items: [
+    ['Docker','SiDocker'],['GitHub Actions','SiGithubactions'],['Vercel','SiVercel'],['AWS','SiAmazonwebservices'],['pytest','SiPytest'],['Vitest','SiVitest'],['Playwright',null],['Git','SiGit']
+  ]}
+];

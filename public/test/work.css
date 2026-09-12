@@ -320,3 +320,25 @@ body .contact-mail-inline a{color:var(--ink);text-decoration:underline;text-unde
 
 /* The home sign-off is redundant on the contact page itself. */
 body:has(#contact:not([hidden])) .work-with-me{display:none}
+
+/* ---------- Skills: grouped rows with brand marks ---------- */
+body .skills{margin-top:52px}
+body .skills>h2{margin-bottom:8px}
+body .skills-lead{margin:0 0 22px;max-width:56ch;font:400 15px/1.7 Geist,Arial,sans-serif;color:var(--muted)}
+body .skills-grid{display:grid;gap:0;border-top:1px solid var(--line)}
+body .skill-group{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px 24px;padding:16px 0;border-bottom:1px solid var(--line);align-items:start}
+body .skill-group h3{margin:0;padding-top:7px;font:400 11px/1.6 'JetBrains Mono',monospace;color:var(--muted);letter-spacing:.01em}
+body .skill-group ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+body .skill-group li{display:inline-flex;align-items:center;gap:8px;min-height:34px;padding:0 12px 0 8px;border:1px solid var(--line);border-radius:999px;font:500 13px/1 Geist,Arial,sans-serif;color:var(--ink);background:rgba(127,127,127,.05);transition:border-color .16s,color .16s}
+body .skill-group li:hover{border-color:var(--muted);color:var(--bright)}
+body .skill-icon{display:grid;place-items:center;width:20px;height:20px;color:var(--bright)}
+body .skill-icon svg{width:17px;height:17px;fill:currentColor}
+body .skill-letter{display:grid;place-items:center;width:18px;height:18px;border-radius:5px;border:1px solid currentColor;font:600 10px/1 Geist,Arial,sans-serif;font-style:normal}
+@media(max-width:600px){body .skills{margin-top:40px}body .skill-group{grid-template-columns:minmax(0,1fr);gap:8px;padding:14px 0}body .skill-group h3{padding-top:0}body .skill-group li{min-height:32px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){body .skill-group li{transition:none}}
+
+/* ---------- Home contact: the real form, in place ---------- */
+body .work-with-me .contact-panels{max-width:680px}
+body .work-with-me .contact-more{margin:26px 0 0;font:400 13px/1.5 Geist,Arial,sans-serif}
+body .work-with-me .contact-more a{color:var(--muted);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line)}
+body .work-with-me .contact-more a:hover{color:var(--bright)}
