@@ -1,17 +1,25 @@
-# Painted cover prompts for /test
+# Project covers for /test
+
+Covers are the project's **real interface** painted into its realm by the Codex CLI image tool.
 
 Pipeline:
 
-1. `node scripts/codex-generate-covers.mjs 4` asks the Codex CLI (model gpt-5.5, image_generation enabled) to paint
-   one backdrop per project and realm into `public/test/covers/gen/<slug>-<realm>.png`. Existing files are skipped,
-   so rerun it to fill gaps or delete a file to repaint it. The focal-object table lives in that script.
-2. `PLAYWRIGHT_MODULE=... node scripts/build-scene-covers.mjs` lays the title card (Bleach Display, Geist, JetBrains
-   Mono) over each painting and writes `public/test/covers/<slug>-scene-<realm>-v15.webp`. Where no painting exists
-   it falls back to the shared realm backgrounds plus a line motif.
-3. `node scripts/generate-test-portfolio.mjs` rebuilds the page.
+1. Put a real screenshot of the app at `public/test/covers/ui/<slug>-ref.png` (a captured screen, a demo-video
+   frame via ffmpeg, or a live-site screenshot). Projects with no capture fall back to a written description of
+   the interface in `scripts/codex-ui-covers.mjs`.
+2. `node scripts/codex-ui-covers.mjs 4` paints `<slug>-hueco.png` and `<slug>-seireitei.png` (model gpt-5.5,
+   image_generation enabled, the screenshot attached as reference). Existing outputs are skipped; delete one to repaint.
+3. `python scripts/png-to-webp.py public/test/covers/ui/ -` converts the PNGs to the WebP files the page loads.
+4. `node scripts/generate-test-portfolio.mjs` rebuilds the page.
 
-The prompts below are the same ones the driver sends, kept here so they can be reused in the Codex app by hand.
-The painting keeps the bottom-left third quiet so the title card has room.
+References currently used: JustHireMe (.smoke-web-ui dashboard), JustHireMe iOS (XCTest Workspace capture),
+Svara (logs/overlay-preview), Dreamer (video recording frame), LeetBot (Icon/Demo.jpg), Ori no Michi
+(work/shots/03-theater), Reiatsu (test-output/studio), PixelForge (SS/pixelforge_native), EstimateIO (local
+vinext dev capture), Odeon (local vite capture), Vaani and MapMyRepo (frames from their demo videos).
+Described only: BranchGPT, Deep Researcher, Waldo, Socratis, Forge, SSS, habiTurtle, Maze Pathfinder, HoleEmAll,
+GitArt, LearnAI, ASCIIRealTime. Capture any of those for real and rerun the two scripts.
+
+The scene-painting prompts below are the earlier approach (symbolic focal objects, no UI), kept for reference.
 
 ## Shared style, both realms
 
