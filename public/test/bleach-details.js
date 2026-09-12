@@ -10,7 +10,7 @@ function button(text,fn){const b=document.createElement('button');b.type='button
 export function mountBleachDetails(controls){
  const menu=document.createElement('details');menu.className='bleach-menu';
  const summary=document.createElement('summary');summary.setAttribute('aria-label','Companion settings');
- summary.title='Choose a companion and adjust its settings';summary.innerHTML='<span class="character-name">Ichigo</span> <span class="menu-chevron" aria-hidden="true">⌄</span>';
+ summary.title='Choose a companion and adjust its settings';summary.innerHTML='<span class="character-chip" aria-hidden="true"></span><span class="character-name">Ichigo</span><span class="menu-chevron" aria-hidden="true"></span>';
  const panel=document.createElement('div');panel.className='bleach-drawer';
  panel.append(controls);
  const actions=document.createElement('div');actions.className='character-actions';

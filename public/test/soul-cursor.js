@@ -49,6 +49,8 @@ function paintCard(id){
  card.querySelector('.character-art').style.scale=String(roster[id].heightCm/202);
  card.querySelector('.character-art').style.transformOrigin='50% 100%';
  card.querySelector('.character-art').style.backgroundImage=`url("${new URL(roster[id].atlas,import.meta.url).href}")`;
+ // The dock shows the chosen companion as a small sprite chip.
+ for(const chip of document.querySelectorAll('.character-chip'))chip.style.backgroundImage=`url("${new URL(roster[id].atlas,import.meta.url).href}")`;
  card.querySelector('.character-card-name').textContent=roster[id].name;
  card.querySelector('.character-count').textContent=`${String(characterIds.indexOf(id)+1).padStart(2,'0')} / ${characterIds.length}`;
  technique.textContent=roster[id].technique;
