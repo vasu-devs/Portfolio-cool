@@ -199,21 +199,21 @@ body>.navigation.is-docked .bleach-drawer .character-roster button span{width:10
 body>.navigation.is-docked .character-chip{background-size:300% 300%;background-position:0 0}
 
 /* ---------- Frosted layers: milky glass, the realm diffuses through rather than shows through ---------- */
-:root{--frost-blur:blur(44px) saturate(160%)}
+:root{--frost-blur:blur(10px) saturate(125%)}
 :root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .resume-modal.detail-modal,:root:not([data-theme=light]) body .film-modal,:root:not([data-theme=light]) body .contact-dialog{
  --line:rgba(255,255,255,.12);
- background:linear-gradient(160deg,rgba(30,32,36,.32),rgba(14,15,17,.38) 55%,rgba(12,13,15,.42));
+ background:linear-gradient(160deg,rgba(30,32,36,.18),rgba(14,15,17,.22) 55%,rgba(12,13,15,.26));
  border:1px solid rgba(255,255,255,.14);
  box-shadow:0 30px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);
  backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
 :root[data-theme=light] body .resume-modal,:root[data-theme=light] body .resume-modal.detail-modal,:root[data-theme=light] body .film-modal,:root[data-theme=light] body .contact-dialog{
  --line:rgba(23,45,69,.13);
- background:linear-gradient(160deg,rgba(255,255,255,.32),rgba(246,248,249,.38) 55%,rgba(242,245,247,.42));
+ background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(246,248,249,.24) 55%,rgba(242,245,247,.28));
  border:1px solid rgba(255,255,255,.85);
  box-shadow:0 30px 90px rgba(23,45,69,.22),inset 0 1px 0 #fff;
  backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
-body .resume-modal::backdrop,body .contact-dialog::backdrop{background:rgba(0,0,0,.16);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
-:root[data-theme=light] body .resume-modal::backdrop,:root[data-theme=light] body .contact-dialog::backdrop{background:rgba(23,45,69,.12)}
+body .resume-modal::backdrop,body .contact-dialog::backdrop{background:rgba(0,0,0,.1);backdrop-filter:none;-webkit-backdrop-filter:none}
+:root[data-theme=light] body .resume-modal::backdrop,:root[data-theme=light] body .contact-dialog::backdrop{background:rgba(23,45,69,.06)}
 body .detail-modal .resume-toolbar,:root:not([data-theme=light]) body .detail-modal .resume-toolbar,body .film-modal .resume-toolbar{background:transparent;border-bottom:1px solid var(--line)}
 body .detail-cover,body .proj-art{background:transparent}
 body .film-body .film-player{background:rgba(0,0,0,.6)}
@@ -222,11 +222,11 @@ body .film-body .film-player{background:rgba(0,0,0,.6)}
 body>.navigation.is-docked{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;isolation:isolate}
 body>.navigation.is-docked::after{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
 :root:not([data-theme=light]) body>.navigation.is-docked{border-color:rgba(255,255,255,.12)}
-:root:not([data-theme=light]) body>.navigation.is-docked::after{background:rgba(19,21,24,.42)}
+:root:not([data-theme=light]) body>.navigation.is-docked::after{background:rgba(19,21,24,.3)}
 :root[data-theme=light] body>.navigation.is-docked{border-color:rgba(255,255,255,.85)}
-:root[data-theme=light] body>.navigation.is-docked::after{background:rgba(246,248,249,.42)}
-:root:not([data-theme=light]) body>.navigation.is-docked .bleach-drawer{background:linear-gradient(160deg,rgba(30,32,36,.36),rgba(12,13,15,.44));border-color:rgba(255,255,255,.14);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur);box-shadow:0 24px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
-:root[data-theme=light] body>.navigation.is-docked .bleach-drawer{background:linear-gradient(160deg,rgba(255,255,255,.36),rgba(242,245,247,.44));border-color:rgba(255,255,255,.85);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
+:root[data-theme=light] body>.navigation.is-docked::after{background:rgba(246,248,249,.3)}
+:root:not([data-theme=light]) body>.navigation.is-docked .bleach-drawer{background:linear-gradient(160deg,rgba(30,32,36,.22),rgba(12,13,15,.3));border-color:rgba(255,255,255,.14);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur);box-shadow:0 24px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+:root[data-theme=light] body>.navigation.is-docked .bleach-drawer{background:linear-gradient(160deg,rgba(255,255,255,.24),rgba(242,245,247,.32));border-color:rgba(255,255,255,.85);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
 /* Contact cards on the page pick up the same treatment. */
 :root:not([data-theme=light]) body .contact-methods,:root:not([data-theme=light]) body .contact-compose{background:rgba(19,21,24,.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-color:rgba(255,255,255,.1)}
 :root[data-theme=light] body .contact-methods,:root[data-theme=light] body .contact-compose{background:rgba(255,255,255,.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-color:rgba(255,255,255,.85)}
