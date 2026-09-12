@@ -80,22 +80,23 @@ if(resumeModal){
 const readingDialog=document.createElement('dialog');
 readingDialog.className='resume-modal detail-modal';
 readingDialog.setAttribute('aria-labelledby','detail-title');
-readingDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">Project</span><h2 id="detail-title"></h2><p class="detail-deck"></p></div><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><div class="detail-body"></div></div>';
+readingDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">Project</span><h2 id="detail-title"></h2><p class="detail-role"></p></div><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><p class="detail-deck"></p><div class="detail-body"></div></div>';
 document.body.append(readingDialog);
 let detailSource=null,detailOpener=null,detailNodes=[];
 function openDetail(source,opener){
  if(readingDialog.open)return;
  const summary=source.querySelector(':scope > summary');
  detailSource=source;detailOpener=opener||summary;
- const title=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector('h3').textContent:source.classList.contains('role')?[...summary.querySelectorAll('h3,.role-name')].map(n=>n.textContent).join(' · '):source.classList.contains('project')?summary.querySelector('h3').textContent:summary.textContent;
+ const title=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector('h3').textContent:source.classList.contains('role')?summary.querySelector('h3').textContent:source.classList.contains('project')?summary.querySelector('h3').textContent:summary.textContent;
  readingDialog.querySelector('#detail-title').textContent=title.trim();
+ readingDialog.querySelector('.detail-role').textContent=source.classList.contains('role')?summary.querySelector('.role-name').textContent:'';
  const deck=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector(':scope > p')?.textContent:summary.querySelector('.project-intro,.role-preview')?.textContent;
  readingDialog.querySelector('.detail-deck').textContent=deck||'';
  readingDialog.querySelector('.modal-kicker').textContent=source.classList.contains('role')?'Experience':'Project';
  detailNodes=[...source.children].filter(n=>n!==summary);
  readingDialog.querySelector('.detail-body').append(...detailNodes);
  source.open=false;readingDialog.showModal();document.documentElement.classList.add('detail-open');
- readingDialog.scrollTop=0;readingDialog.querySelector('button').focus();
+ readingDialog.scrollTop=0;readingDialog.querySelector('.resume-content').scrollTop=0;readingDialog.querySelector('button').focus({preventScroll:true});
 }
 for(const source of document.querySelectorAll('details.project,details.role,details.archive-detail')){
  const summary=source.querySelector(':scope > summary');summary.setAttribute('aria-haspopup','dialog');

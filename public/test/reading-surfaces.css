@@ -47,3 +47,33 @@ body .contact-dialog .contact-options a{padding:18px 2px}
 
 :root[data-theme=light] body .detail-modal{background:var(--reading-surface)}
 body .detail-modal .case-stack span{white-space:nowrap}
+/* Compact titles leave the viewport to the story, including on short screens. */
+body .detail-modal .resume-toolbar{padding:22px 32px 20px;gap:20px}
+body .detail-modal .modal-kicker{margin-bottom:7px}
+body .detail-modal .resume-toolbar h2{font-size:28px;line-height:1.25}
+body .detail-role{font:500 15px/1.5 Satoshi,Arial,sans-serif;color:var(--ink);margin:8px 0 0}
+body .detail-role:empty{display:none}
+body .detail-modal .resume-content{padding:26px 32px 32px;scroll-padding:24px;scrollbar-gutter:stable}
+body .detail-modal .detail-deck{font:400 18px/1.65 Satoshi,Arial,sans-serif;color:var(--bright);margin:0 0 26px;max-width:55ch}
+body .detail-modal .detail-deck:empty{display:none}
+:root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .contact-dialog{
+ --ink:#d2dfe5;--bright:#f1f7fa;--muted:#a6bac5;--line:rgba(167,198,213,.18);
+ --reading-surface:rgba(10,27,38,.92);--reading-edge:rgba(167,198,213,.24);
+ background:linear-gradient(145deg,rgba(30,54,67,.18),transparent 45%),var(--reading-surface);
+ box-shadow:0 32px 100px #0007,inset 0 1px 0 #d3edff0a;
+}
+:root:not([data-theme=light]) body .detail-modal .resume-toolbar{background:rgba(132,178,198,.035)}
+:root:not([data-theme=light]) body .resume-modal .resume-content{scrollbar-color:#536c79 transparent}
+body .detail-modal .case-sections li::marker{color:var(--muted);font-size:.8em}
+@media(max-width:600px){
+ body .detail-modal .resume-toolbar{padding:18px 20px 16px;gap:12px}
+ body .detail-modal .resume-toolbar h2{font-size:25px}
+ body .detail-modal .resume-content{padding:22px 20px 28px}
+ body .detail-modal .detail-deck{font-size:17px;margin-bottom:22px}
+ body .detail-role{font-size:14px}
+}
+body .detail-modal .role-body section{margin-top:28px}
+body .detail-modal .role-body h4{font:700 16px/1.5 Satoshi,Arial,sans-serif;color:var(--bright);margin:0 0 10px}
+body .detail-modal .role-body p,body .detail-modal .role-body li{font:400 16px/1.8 Satoshi,Arial,sans-serif;color:var(--ink)}
+body .detail-modal .role-body p+ul{margin-top:12px}
+@media(max-width:600px){body .detail-modal .role-body p,body .detail-modal .role-body li{font-size:15px;line-height:1.75}}
