@@ -1,20 +1,18 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {projects, groups} from './test-portfolio-content.mjs';
 const html=readFileSync('public/test/index.html','utf8');
-const archive=JSON.parse(readFileSync('src/data/work-archive.json','utf8')).items;
-assert.equal(new Set(archive.map(x=>x.name)).size,archive.length);
 assert.ok(!html.includes('@@'));
-assert.equal((html.match(/class="project"/g)||[]).length,12);
-assert.equal((html.match(/class="archive-item"/g)||[]).length,39);
-for(const x of archive.filter(x=>x.url))assert.ok(x.url.startsWith('https://github.com/vasu-devs/'));
-for(const id of ['project-9','project-10','project-11'])assert.ok(html.includes(`id="${id}"`));
-assert.ok(!html.includes('id="work-search"'));
-assert.ok(!html.includes('id="work-track"'));
-assert.ok((html.match(/class="archive-category"/g)||[]).length>=4);
-console.log('PASS: 12 case studies, 39 grouped archive entries, no search or filters');
-
-assert.equal((html.match(/class="archive-detail"/g)||[]).length,39,'every archive entry has expandable detail');
+assert.equal(new Set(projects.map(p=>p.slug)).size,projects.length,'unique slugs');
+for(const p of projects){
+ assert.ok(html.includes(`id="project-${p.slug}"`),`${p.name} rendered`);
+ if(p.url)assert.ok(p.url.startsWith('https://github.com/vasu-devs/'),`${p.name} source on my GitHub`);
+}
+for(const key of Object.keys(groups))assert.ok(html.includes(`data-group="${key}" aria-labelledby="group-${key}"`),`${key} group rendered`);
+const work=projects.filter(p=>p.group==='work'),play=projects.filter(p=>p.group==='play');
+assert.ok(work.length>=6&&play.length>=6,'both serious and hobby groups are populated');
+assert.ok(!html.includes('id="work-search"')&&!html.includes('id="work-track"'));
+assert.equal((html.match(/class="video-link"/g)||[]).length,3);
 const hero=html.slice(html.indexOf('class="hero-contacts"'),html.indexOf('<p class="secret-message"'));
 for(const link of JSON.parse(readFileSync('src/data/socials.json','utf8')))assert.ok(hero.includes(link.url),`hero includes ${link.label}`);
-assert.equal((html.match(/class="video-link"/g)||[]).length,3);
-console.log('PASS: all archive details, eight hero contact/social links, and three project videos');
+console.log(`PASS: ${projects.length} projects across ${Object.keys(groups).length} groups, hero contacts, three walkthroughs`);

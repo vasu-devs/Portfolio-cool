@@ -15,10 +15,10 @@ assert.ok(js.includes("filmDialog.querySelector('.film-player').replaceChildren(
 assert.ok(!js.includes('?autoplay=1'),'Playback requires user input');
 console.log('PASS: all three film descriptions, external fallback and player cleanup');
 
-assert.equal((html.match(/class="archive-open"/g)||[]).length,(html.match(/class="archive-item"/g)||[]).length,'Every visible archive title opens its case study');
-assert.equal((html.match(/class="project-cover"/g)||[]).length,14,'Three walkthroughs, two featured cards and two work cards each have paired realm artwork');
+const projectCount=(html.match(/class="proj proj--(card|row)"/g)||[]).length;
+assert.equal((html.match(/class="project-cover"/g)||[]).length,(projectCount+3+3)*2,'Every project, featured card and walkthrough has paired realm artwork');
 assert.ok(!html.includes('class="video-play"'),'No generic play badges');
-console.log('PASS: curated archive title actions and paired realm covers');
+console.log('PASS: paired realm covers on every project surface');
 
 assert.ok(!/avatars\/(spellkeeper|cloud|fox|soul-cat)\.webp/.test(html), "No legacy animal avatars in initial HTML");
 assert.ok(html.includes('data-portrait-mode="theme"'), "Themed portraits render before JavaScript");

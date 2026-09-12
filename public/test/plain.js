@@ -3,7 +3,7 @@ import './soul-cursor.js?v=mobile-111';
 function showPage() {
   const id = location.hash.slice(1);
   const project = id.startsWith('project-') ? document.getElementById(id) : null;
-  const page = id === 'projects' || project?.classList.contains('project') ? 'projects' : 'home';
+  const page = id === 'projects' || project?.classList.contains('proj') ? 'projects' : 'home';
   document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== page; });
   document.querySelectorAll('[data-page]').forEach(link => {
     if (link.dataset.page === (id==='about'?'about':page)) link.setAttribute('aria-current','page');
@@ -11,7 +11,7 @@ function showPage() {
   });
   if(id==='projects'||id==='home')requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
   if(id==='about')requestAnimationFrame(()=>document.getElementById('about').scrollIntoView({behavior:'instant',block:'start'}));
-  if(project?.classList.contains('project')) { requestAnimationFrame(() => {project.dispatchEvent(new CustomEvent('open-detail'));}); }
+  if(project?.classList.contains('proj')) { requestAnimationFrame(() => {project.dispatchEvent(new CustomEvent('open-detail'));}); }
 }
 window.addEventListener('hashchange', showPage);
 showPage();
@@ -78,44 +78,73 @@ if(resumeModal){
  resumeModal.addEventListener('close',()=>{document.documentElement.classList.remove('resume-open');resumeOpener?.focus();});
 }
 
-// One shared reading dialog; move the original content to retain its links and state.
+// One shared reading dialog; content is moved in from the source so links keep working.
 const readingDialog=document.createElement('dialog');
 readingDialog.className='resume-modal detail-modal';
 readingDialog.setAttribute('aria-labelledby','detail-title');
-readingDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">Project</span><h2 id="detail-title"></h2><p class="detail-role"></p></div><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><p class="detail-deck"></p><div class="detail-body"></div></div>';
+readingDialog.innerHTML='<div class="resume-toolbar"><div><span class="modal-kicker">Project</span><h2 id="detail-title"></h2><p class="detail-role"></p></div><button type="button" aria-label="Close details">Close ×</button></div><div class="resume-content"><div class="detail-cover realm-covers" hidden></div><div class="detail-layout"><aside class="detail-meta" hidden><p class="detail-status"></p><p class="detail-stack"></p><div class="detail-links"></div></aside><div class="detail-main"><p class="detail-deck"></p><div class="detail-body"></div></div></div></div>';
 document.body.append(readingDialog);
 let detailSource=null,detailOpener=null,detailNodes=[];
+const q=(sel)=>readingDialog.querySelector(sel);
 function openDetail(source,opener){
  if(readingDialog.open)return;
- const summary=source.querySelector(':scope > summary');
- detailSource=source;detailOpener=opener||summary;
- const title=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector('h3').textContent:source.classList.contains('role')?summary.querySelector('h3').textContent:source.classList.contains('project')?summary.querySelector('h3').textContent:summary.textContent;
- readingDialog.querySelector('#detail-title').textContent=title.trim();
- readingDialog.querySelector('.detail-role').textContent=source.classList.contains('role')?summary.querySelector('.role-name').textContent:'';
- const deck=source.classList.contains('archive-detail')?source.closest('.archive-item').querySelector(':scope > p')?.textContent:summary.querySelector('.project-intro,.role-preview')?.textContent;
- readingDialog.querySelector('.detail-deck').textContent=deck||'';
- readingDialog.querySelector('.modal-kicker').textContent=source.classList.contains('role')?'Experience':'Project';
- detailNodes=[...source.children].filter(n=>n!==summary);
- readingDialog.querySelector('.detail-body').append(...detailNodes);
- source.open=false;readingDialog.showModal();document.documentElement.classList.add('detail-open');
- readingDialog.scrollTop=0;readingDialog.querySelector('.resume-content').scrollTop=0;readingDialog.querySelector('button').focus({preventScroll:true});
+ const isRole=source.classList.contains('role');
+ const summary=isRole?source.querySelector(':scope > summary'):null;
+ detailSource=source;detailOpener=opener||summary||source.querySelector('.proj-open');
+ const title=isRole?summary.querySelector('h3').textContent:source.querySelector('h3').textContent;
+ q('#detail-title').textContent=title.trim();
+ q('.detail-role').textContent=isRole?summary.querySelector('.role-name').textContent:'';
+ q('.modal-kicker').textContent=isRole?'Experience':(source.dataset.kicker||'Project');
+ q('.detail-deck').textContent=isRole?(summary.querySelector('.role-preview')?.textContent||''):(source.dataset.deck||'');
+ // Cover strip and side rail only exist for projects.
+ const cover=q('.detail-cover'),meta=q('.detail-meta');
+ cover.replaceChildren();meta.hidden=true;cover.hidden=true;
+ if(!isRole){
+  const art=source.querySelector('.proj-art');
+  if(art){for(const img of art.querySelectorAll('img')){const copy=img.cloneNode();copy.loading='eager';cover.append(copy);}cover.hidden=false;}
+  q('.detail-status').textContent=source.dataset.status||'';
+  q('.detail-stack').textContent=source.querySelector('.proj-stack')?.childNodes[0]?.textContent?.trim()||'';
+  const links=q('.detail-links');links.replaceChildren();
+  for(const a of source.querySelectorAll('.proj-actions a')){const copy=a.cloneNode(true);links.append(copy);}
+  meta.hidden=false;
+  const study=source.querySelector(':scope > .study');
+  detailNodes=[...study.children];
+ }else{
+  detailNodes=[...source.children].filter(n=>n!==summary);
+ }
+ q('.detail-body').append(...detailNodes);
+ if(isRole)source.open=false;
+ readingDialog.showModal();document.documentElement.classList.add('detail-open');
+ readingDialog.scrollTop=0;q('.resume-content').scrollTop=0;q('button').focus({preventScroll:true});
 }
-for(const source of document.querySelectorAll('details.project,details.role,details.archive-detail')){
+for(const source of document.querySelectorAll('details.role')){
  const summary=source.querySelector(':scope > summary');summary.setAttribute('aria-haspopup','dialog');
  summary.addEventListener('click',event=>{event.preventDefault();openDetail(source);});
+}
+for(const source of document.querySelectorAll('.proj')){
  source.addEventListener('open-detail',()=>openDetail(source));
 }
+document.addEventListener('click',event=>{
+ const button=event.target.closest('.proj-open');
+ if(!button)return;
+ const source=button.closest('.proj');if(!source)return;
+ openDetail(source,button);
+});
 // In-page project links open a reading layer without changing page or scroll.
 document.addEventListener('click',event=>{
  const link=event.target.closest('a[href^="#project-"]');
  if(!link||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
  const source=document.getElementById(link.getAttribute('href').slice(1));
- if(!source?.classList.contains('project'))return;
+ if(!source?.classList.contains('proj'))return;
  event.preventDefault();openDetail(source,link);
 });
 readingDialog.querySelector('button').addEventListener('click',()=>readingDialog.close());
 readingDialog.addEventListener('click',event=>{if(event.target!==readingDialog)return;const r=readingDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)readingDialog.close();});
-readingDialog.addEventListener('close',()=>{detailSource?.append(...detailNodes);detailNodes=[];document.documentElement.classList.remove('detail-open');detailOpener?.focus({preventScroll:true});});
+readingDialog.addEventListener('close',()=>{
+ if(detailSource?.classList.contains('proj'))detailSource.querySelector(':scope > .study').append(...detailNodes);
+ else detailSource?.append(...detailNodes);
+ detailNodes=[];document.documentElement.classList.remove('detail-open');detailOpener?.focus({preventScroll:true});
+});
 // Project films stay in context; remove the player on close so playback stops.
 const filmDialog=document.createElement('dialog');
 filmDialog.className='resume-modal film-modal';filmDialog.setAttribute('aria-labelledby','film-title');
@@ -144,13 +173,6 @@ filmDialog.addEventListener('close',()=>{filmDialog.querySelector('.film-player'
 const bottomNavigation=document.querySelector('.navigation');
 for(const close of document.querySelectorAll('[aria-label="Close details"],[aria-label="Close video"],[data-resume-close]')){close.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';}
 
-for(const button of document.querySelectorAll('.archive-open'))button.addEventListener('click',()=>openDetail(button.closest('.archive-item').querySelector('.archive-detail')));
-
-// Open the sixth showcase case study without leaving the showcase grid.
-document.querySelector('.video-link[href="#project-0"]')?.addEventListener('click',event=>{
- if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
- event.preventDefault();document.getElementById('project-0')?.dispatchEvent(new CustomEvent('open-detail'));
-});
 
 // Share the main portfolio's counters and visitor identity; never invent numbers.
 const traffic=document.querySelector('.traffic-stats');
@@ -189,5 +211,5 @@ if(contactDialog&&contactTrigger){
 const typePreview=new URLSearchParams(location.search).get('type-preview');
 if(['humanist','condensed','editorial'].includes(typePreview)){
  document.documentElement.dataset.typePreview=typePreview;
- requestAnimationFrame(()=>document.querySelector('#project-0')?.dispatchEvent(new Event('open-detail')));
+ requestAnimationFrame(()=>document.querySelector('#project-justhireme')?.dispatchEvent(new Event('open-detail')));
 }
