@@ -1,0 +1,72 @@
+/* Compact portfolio rhythm inspired by siddz.com. Fonts are locally hosted. */
+@font-face{font-family:Geist;src:url('./fonts/geist-variable.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('./fonts/jetbrains-mono-variable.ttf') format('truetype');font-weight:100 800;font-style:normal;font-display:swap}
+:root{--case-heading:Geist,Arial,sans-serif;--case-body:Geist,Arial,sans-serif;--case-weight:600}
+body{font-family:Geist,Arial,sans-serif;font-size:15px;line-height:1.7}
+body .layout{width:760px;max-width:calc(100% - 48px);padding-top:72px;margin:0 auto}
+body .identity{gap:20px;align-items:center}
+body .identity .avatar-widget{width:88px;height:88px;flex:0 0 88px}
+body .identity .portrait-frame{width:88px;height:88px;border-radius:18px;border:1px solid var(--line)}
+body .identity h1{font:600 34px/1.2 Geist,Arial,sans-serif;letter-spacing:-.045em;text-transform:none;margin:0 0 7px}
+body .identity-role{font:400 16px/1.5 Geist,Arial,sans-serif;color:var(--muted)}
+body .hero-status{margin-top:8px;gap:10px}
+body .hero-contacts{margin:26px 0 30px}
+body .hero-contacts .primary-contacts a{font-size:13px;border-radius:7px;padding:8px 12px}
+body .intro{max-width:none}
+body .intro p,body .intro .intro-opening{font:400 16px/1.8 Geist,Arial,sans-serif;letter-spacing:0;max-width:none;text-wrap:pretty;margin:0 0 14px}
+body .intro p+p{margin-top:14px}
+body .intro a{text-decoration-color:var(--muted)}
+body .experience,body .bench,body .video-work,body .github-activity,body .work-archive{margin-top:52px}
+body main h2,body .experience>.label,body .bench h2,body .video-work>h2,body .work-archive>h2{font:600 21px/1.4 Geist,Arial,sans-serif;text-transform:none;letter-spacing:-.025em;margin:0 0 22px}
+body .experience>.label{padding-bottom:0}
+body .eyebrow,body .modal-kicker,body .role-date,body .heatmap-footer{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;letter-spacing:0}
+body .eyebrow{margin-bottom:6px;color:var(--muted)}
+body .role summary{padding:20px 0;grid-template-columns:112px minmax(0,1fr);gap:4px 22px}
+body .experience .role-name{font:500 17px/1.45 Geist,Arial,sans-serif;letter-spacing:-.015em}
+body .experience .role h3{font:400 14px/1.5 Geist,Arial,sans-serif}
+body .role-preview{font:400 14px/1.7 Geist,Arial,sans-serif;margin-top:6px}
+body .role-hint{font:500 12px/1.5 Geist,Arial,sans-serif}
+body .bench-heading{align-items:baseline;margin-bottom:0}
+body .bench-heading>span{font:400 12px/1.5 Geist,Arial,sans-serif;color:var(--muted)}
+body .desk-link{padding:20px 0;border-radius:0;box-shadow:none;background:transparent}
+body .desk-link strong,body .video-work .video-link strong,body .project-title h3,body .archive-item h3{font:600 19px/1.4 Geist,Arial,sans-serif;text-transform:none;letter-spacing:-.025em}
+body .desk-link small,body .video-work .video-link small,body .project-intro,body .archive-item>p{font:400 14px/1.7 Geist,Arial,sans-serif;letter-spacing:0}
+body .video-work>p:not(.eyebrow),body .projects-intro{font:400 15px/1.7 Geist,Arial,sans-serif}
+body .video-work .video-list{gap:28px;margin-top:22px}
+body #projects>h1{font:600 30px/1.3 Geist,Arial,sans-serif;text-transform:none;letter-spacing:-.035em}
+body .work-with-me>h2{font:600 25px/1.35 Geist,Arial,sans-serif;text-transform:none;letter-spacing:-.03em}
+body .work-with-me>p{font:400 15px/1.8 Geist,Arial,sans-serif}
+body .contact-options strong{font:500 16px/1.5 Geist,Arial,sans-serif}
+body .contact-options small{font:400 13px/1.6 Geist,Arial,sans-serif}
+body .detail-modal .resume-toolbar h2,body .film-modal .resume-toolbar h2,body .contact-dialog h2{font:600 24px/1.35 Geist,Arial,sans-serif;letter-spacing:-.03em;text-transform:none}
+body .detail-modal .modal-kicker,body .film-modal .modal-kicker{font-family:'JetBrains Mono',monospace;font-size:11px}
+body .detail-modal .detail-deck{font-size:17px;line-height:1.7}
+body .navigation>a{font:500 13px/1.5 Geist,Arial,sans-serif}
+:root[data-theme=light] body::before{opacity:.36}
+:root:not([data-theme=light]) body::before{opacity:.4}
+:root[data-theme=light] body::after,:root:not([data-theme=light]) body::after{opacity:.46}
+@media(max-width:600px){
+ body .layout{max-width:calc(100% - 36px);padding-top:36px}
+ body .identity{gap:16px}
+ body .identity .avatar-widget{width:76px;height:76px;flex-basis:76px}
+ body .identity .portrait-frame{width:76px;height:76px;border-radius:15px}
+ body .identity h1{font-size:28px}
+ body .identity-role{font-size:14px}
+ body .hero-status,body .hero-status button{font-size:12px}
+ body .intro p,body .intro .intro-opening{font-size:15px;line-height:1.8}
+ body .role summary{grid-template-columns:minmax(0,1fr);gap:5px}
+ body .role-date{grid-column:1;grid-row:3;padding:0}
+ body .role-name{grid-column:1;grid-row:1}
+ body .role h3{grid-column:1;grid-row:2}
+ body .role-preview,body .role-hint{grid-column:1}
+ body .experience,body .bench,body .video-work{margin-top:40px}
+ body .detail-modal .resume-toolbar h2,body .film-modal .resume-toolbar h2{font-size:22px}
+}
+body .experience .role>summary{padding:20px 0;row-gap:4px}
+body .experience .role-preview{margin:6px 0 0}
+body .experience .role-hint{margin:10px 0 0}
+body .experience>.label{border:0;margin-bottom:12px}
+:root:not([data-theme=light]) body .hero-contacts .primary-contacts a{color:#d2dfe5;border-color:#385260;background:rgba(149,191,211,.08)}
+:root:not([data-theme=light]) body .hero-contacts .primary-contacts a[data-social=email]{color:#061924;background:#d2dfe5;border-color:#d2dfe5}
+:root:not([data-theme=light]) body .hero-contacts .primary-contacts a:hover{background:#284351;color:#f1f7fa}
+@media(max-width:600px){body .experience .role-date{grid-row:3}body .experience .role-name{grid-row:1}body .experience .role h3{grid-row:2}body .experience .role-preview{grid-row:4}body .experience .role-hint{grid-row:5}}
