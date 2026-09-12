@@ -6,10 +6,11 @@ function showPage() {
   const page = id === 'projects' || project?.classList.contains('project') ? 'projects' : 'home';
   document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== page; });
   document.querySelectorAll('[data-page]').forEach(link => {
-    if (link.dataset.page === page) link.setAttribute('aria-current','page');
+    if (link.dataset.page === (id==='about'?'about':page)) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   });
   if(id==='projects'||id==='home')requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
+  if(id==='about')requestAnimationFrame(()=>document.getElementById('about').scrollIntoView({behavior:'instant',block:'start'}));
   if(project?.classList.contains('project')) { requestAnimationFrame(() => {project.dispatchEvent(new CustomEvent('open-detail'));}); }
 }
 window.addEventListener('hashchange', showPage);

@@ -15,7 +15,7 @@ const socials=read('socials'),videos=read('videos');
 const originals=read('main-portfolio-studies');
 const originalFor=name=>originals.find(p=>p.title===name);
 const updatedCovers = new Set(["Vaani", "Odeon", "BranchGPT", "JustHireMe"]);
-const coverFor=(name,realm)=>updatedCovers.has(name)?`/test/covers/${name.toLowerCase()}-editorial-v1.webp`:`/test/covers/${name.toLowerCase()}-${realm}-v2.webp`;
+const coverFor=(name,realm)=>`/test/covers/${name.toLowerCase()}-${realm}-v${updatedCovers.has(name)?(realm==="hueco"?4:3):2}.webp`;
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const socialIcons={Email:Mail,GitHub:Github,LinkedIn:Linkedin,YouTube:Youtube,Instagram:Instagram,'Book a call':CalendarDays,'Résumé':FileText};
 const socialIcon=label=>label==='X'?'<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.3l-4.9-7.4L5.3 22H2.1l8.2-9.4L1 2h6.5l4.5 6.8L18.9 2Zm-1.1 18h1.7L6.5 4H4.7L17.8 20Z"/></svg>':renderToStaticMarkup(createElement(socialIcons[label],{size:20,strokeWidth:1.6,'aria-hidden':true}));
