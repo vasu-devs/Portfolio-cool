@@ -107,7 +107,7 @@ function openDetail(source,opener){
   const art=source.querySelector('.proj-art');
   if(art){for(const img of art.querySelectorAll('img')){const copy=img.cloneNode();copy.loading='eager';cover.append(copy);}cover.hidden=false;}
   q('.detail-status').textContent=source.dataset.status||'';
-  q('.detail-stack').textContent=source.querySelector('.proj-stack')?.childNodes[0]?.textContent?.trim()||'';
+  const techRow=source.querySelector(':scope > .study .study-tech');q('.detail-stack').replaceChildren();if(techRow)q('.detail-stack').append(techRow.firstElementChild.cloneNode(true));
   const links=q('.detail-links');links.replaceChildren();
   for(const a of source.querySelectorAll('.proj-actions a')){const copy=a.cloneNode(true);copy.removeAttribute('title');copy.classList.add('icon-action');links.append(copy);}
   meta.hidden=false;

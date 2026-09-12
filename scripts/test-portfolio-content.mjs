@@ -328,3 +328,12 @@ export const skills = [
   ['OpenAI',null,'SiOpenai',null],['Anthropic',null,'SiAnthropic',null],['LangChain',null,'SiLangchain','#1C3C3C'],['Hugging Face',null,'SiHuggingface','#FFD21E'],['PyTorch','pytorch'],
   ['Docker','docker'],['GitHub Actions','githubactions'],['Vercel',null,'SiVercel',null],['AWS','amazonwebservices'],['pytest','pytest'],['Git','git']
 ];
+
+// Tech name → logo. devicon slug (multicolour) or ['si','SiName'] (monochrome brand mark). Missing names render as a lettermark.
+export const techIcons = {
+  'Python':'python','TypeScript':'typescript','JavaScript':'javascript','Rust':['si','SiRust'],'Swift':'swift','SwiftUI':'swift','Java 17':'java','JavaFX':'java',
+  'React':'react','React Native':'react','Next.js':['si','SiNextdotjs'],'Tauri':'tauri','Electron':'electron','Three.js':['si','SiThreedotjs'],'GSAP':['si','SiGreensock'],'HTML':'html5','CSS':'css3','WebGL':['si','SiWebgl'],'D3':['si','SiD3Dotjs'],
+  'FastAPI':'fastapi','Node.js':'nodejs','Express':'express','PostgreSQL':'postgresql','Neon Postgres':'postgresql','SQLite':'sqlite','MongoDB':'mongodb','Supabase':'supabase','Drizzle ORM':['si','SiDrizzle'],'Qdrant':null,'WebSockets':'socketio','HTTPX':'python','Pydantic':['si','SiPydantic'],
+  'PyTorch':'pytorch','ONNX embeddings':['si','SiOnnx'],'Ollama':['si','SiOllama'],'LangGraph':['si','SiLangchain'],'Gemini':['si','SiGooglegemini'],'Groq':null,'Deepgram':['si','SiDeepgram'],'LiveKit':null,'faster-whisper':['si','SiOpenai'],'CTranslate2':['si','SiOpenai'],'Qwen2-VL':['si','SiAlibabacloud'],'Docling':null,'MediaPipe':['si','SiGoogle'],'Vercel AI SDK':['si','SiVercel'],'Claude Code plugin':['si','SiAnthropic'],'Mermaid':['si','SiMermaid'],
+  'Docker':'docker','pytest':'pytest','Vitest':'vitest','isomorphic-git':'git','JSZip':['si','SiJavascript'],'JSONL':['si','SiJson'],'Pygame':'python','PyQt':'qt','Windows':'windows11','Windows APIs':'windows11','StoreKit':['si','SiApple'],'Browser extension':['si','SiGooglechrome'],'Web Audio':'html5','Pointer Events':'html5','Kuzu':['si','SiGraphql'],'LanceDB':['si','SiApacheparquet']
+};
