@@ -198,36 +198,41 @@ body>.navigation.is-docked .bleach-drawer .character-roster button{height:auto;a
 body>.navigation.is-docked .bleach-drawer .character-roster button span{width:100%;height:100%;aspect-ratio:1;background-size:300% 300%;background-position:0 0}
 body>.navigation.is-docked .character-chip{background-size:300% 300%;background-position:0 0}
 
-/* ---------- Frosted layers: the realm stays visible through every surface ---------- */
-:root{--frost-blur:blur(28px) saturate(150%)}
+/* ---------- Frosted layers: milky glass, the realm diffuses through rather than shows through ---------- */
+:root{--frost-blur:blur(44px) saturate(160%)}
 :root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .resume-modal.detail-modal,:root:not([data-theme=light]) body .film-modal,:root:not([data-theme=light]) body .contact-dialog{
- --line:rgba(255,255,255,.14);
- background:linear-gradient(160deg,rgba(24,26,29,.58),rgba(10,11,12,.68) 60%,rgba(10,11,12,.74));
- border:1px solid rgba(255,255,255,.16);
- box-shadow:0 30px 90px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12);
+ --line:rgba(255,255,255,.12);
+ background:linear-gradient(160deg,rgba(28,30,34,.84),rgba(14,15,17,.88) 55%,rgba(12,13,15,.9));
+ border:1px solid rgba(255,255,255,.14);
+ box-shadow:0 30px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);
  backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
 :root[data-theme=light] body .resume-modal,:root[data-theme=light] body .resume-modal.detail-modal,:root[data-theme=light] body .film-modal,:root[data-theme=light] body .contact-dialog{
- --line:rgba(23,45,69,.14);
- background:linear-gradient(160deg,rgba(255,255,255,.62),rgba(244,247,248,.68) 60%,rgba(240,244,246,.74));
- border:1px solid rgba(255,255,255,.75);
+ --line:rgba(23,45,69,.13);
+ background:linear-gradient(160deg,rgba(255,255,255,.84),rgba(246,248,249,.88) 55%,rgba(242,245,247,.9));
+ border:1px solid rgba(255,255,255,.85);
  box-shadow:0 30px 90px rgba(23,45,69,.22),inset 0 1px 0 #fff;
  backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
-body .resume-modal::backdrop,body .contact-dialog::backdrop{background:rgba(0,0,0,.22);backdrop-filter:none;-webkit-backdrop-filter:none}
-:root[data-theme=light] body .resume-modal::backdrop,:root[data-theme=light] body .contact-dialog::backdrop{background:rgba(23,45,69,.10)}
+body .resume-modal::backdrop,body .contact-dialog::backdrop{background:rgba(0,0,0,.28);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+:root[data-theme=light] body .resume-modal::backdrop,:root[data-theme=light] body .contact-dialog::backdrop{background:rgba(23,45,69,.12)}
 body .detail-modal .resume-toolbar,:root:not([data-theme=light]) body .detail-modal .resume-toolbar,body .film-modal .resume-toolbar{background:transparent;border-bottom:1px solid var(--line)}
 body .detail-cover,body .proj-art{background:transparent}
 body .film-body .film-player{background:rgba(0,0,0,.6)}
 /* Companion drawer and dock share the same glass. */
-:root:not([data-theme=light]) body>.navigation.is-docked{background:rgba(17,18,20,.62);border-color:rgba(255,255,255,.14);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
-:root[data-theme=light] body>.navigation.is-docked{background:rgba(244,247,248,.62);border-color:rgba(255,255,255,.8);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
-:root:not([data-theme=light]) body>.navigation.is-docked .bleach-drawer{background:linear-gradient(160deg,rgba(24,26,29,.6),rgba(10,11,12,.72));border-color:rgba(255,255,255,.16);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur);box-shadow:0 24px 70px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.1)}
-:root[data-theme=light] body>.navigation.is-docked .bleach-drawer{background:linear-gradient(160deg,rgba(255,255,255,.66),rgba(240,244,246,.74));border-color:rgba(255,255,255,.8);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
+/* The dock's glass lives on a pseudo-element so the drawer's own blur can still reach the page. */
+body>.navigation.is-docked{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;isolation:isolate}
+body>.navigation.is-docked::after{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
+:root:not([data-theme=light]) body>.navigation.is-docked{border-color:rgba(255,255,255,.12)}
+:root:not([data-theme=light]) body>.navigation.is-docked::after{background:rgba(19,21,24,.8)}
+:root[data-theme=light] body>.navigation.is-docked{border-color:rgba(255,255,255,.85)}
+:root[data-theme=light] body>.navigation.is-docked::after{background:rgba(246,248,249,.8)}
+:root:not([data-theme=light]) body>.navigation.is-docked .bleach-drawer{background:linear-gradient(160deg,rgba(28,30,34,.86),rgba(12,13,15,.9));border-color:rgba(255,255,255,.14);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur);box-shadow:0 24px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+:root[data-theme=light] body>.navigation.is-docked .bleach-drawer{background:linear-gradient(160deg,rgba(255,255,255,.86),rgba(242,245,247,.9));border-color:rgba(255,255,255,.85);backdrop-filter:var(--frost-blur);-webkit-backdrop-filter:var(--frost-blur)}
 /* Contact cards on the page pick up the same treatment. */
-:root:not([data-theme=light]) body .contact-methods,:root:not([data-theme=light]) body .contact-compose{background:rgba(17,18,20,.5);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-color:rgba(255,255,255,.12)}
-:root[data-theme=light] body .contact-methods,:root[data-theme=light] body .contact-compose{background:rgba(255,255,255,.5);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-color:rgba(255,255,255,.8)}
+:root:not([data-theme=light]) body .contact-methods,:root:not([data-theme=light]) body .contact-compose{background:rgba(19,21,24,.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-color:rgba(255,255,255,.1)}
+:root[data-theme=light] body .contact-methods,:root[data-theme=light] body .contact-compose{background:rgba(255,255,255,.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-color:rgba(255,255,255,.85)}
 @media(prefers-reduced-transparency:reduce){
- :root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .contact-dialog,:root:not([data-theme=light]) body>.navigation.is-docked,:root:not([data-theme=light]) body>.navigation.is-docked .bleach-drawer{background:#111214}
- :root[data-theme=light] body .resume-modal,:root[data-theme=light] body .contact-dialog,:root[data-theme=light] body>.navigation.is-docked,:root[data-theme=light] body>.navigation.is-docked .bleach-drawer{background:#f4f6f5}
+ :root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .contact-dialog,:root:not([data-theme=light]) body>.navigation.is-docked::after,:root:not([data-theme=light]) body>.navigation.is-docked .bleach-drawer{background:#111214}
+ :root[data-theme=light] body .resume-modal,:root[data-theme=light] body .contact-dialog,:root[data-theme=light] body>.navigation.is-docked::after,:root[data-theme=light] body>.navigation.is-docked .bleach-drawer{background:#f4f6f5}
 }
 
 /* ---------- Contact: one direct block, no cards, no form ---------- */
