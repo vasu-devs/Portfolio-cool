@@ -11,12 +11,19 @@ const projects={
 };
 for(const realm of ['seireitei','hueco']){
  const light=realm==='seireitei';
- const c={bg:light?'#f4f6f5':'#08090a',top:light?'#deebf4':'#151719',ink:light?'#172d45':'#f4f5f6',muted:light?'#566a79':'#b4b7bb',line:light?'#a6bece':'#46494e',accent:light?'#456f8d':'#d8dce1',card:light?'#ffffff':'#191b1e',soft:light?'#e2edf3':'#272a2e'};
+ const c={bg:light?'#fafaf7':'#14181e',top:light?'#ffffff':'#252c36',ink:light?'#182330':'#ffffff',muted:light?'#485665':'#c8d0da',line:light?'#8394a4':'#8493a5',accent:light?'#176e69':'#66d8c4',card:light?'#ffffff':'#303946',soft:light?'#d6efea':'#20453f'};
  const t=(x,y,s,size=26,color=c.ink,weight=400,anchor='start')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-weight="${weight}" text-anchor="${anchor}">${s}</text>`;
- const path=(d,color=c.line,w=3,dash='')=>`<path d="${d}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
+ const path=(d,color=c.line,w=3,dash='')=>`<path d="${d}" fill="none" stroke="${color}" stroke-width="${w*1.4}" stroke-linecap="round" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
  const dot=(x,y,r=9,fill=c.accent)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}"/>`;
- const ring=(x,y,r=18)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c.bg}" stroke="${c.accent}" stroke-width="4"/>`;
+ const ring=(x,y,r=18)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c.soft}" stroke="${c.accent}" stroke-width="5"/>`;
  for(const [key,p] of Object.entries(projects)){
+  const palettes={
+   justhireme:light?['#176e69','#d6efea']:['#66d8c4','#20453f'],
+   odeon:light?['#98551a','#f8e7c9']:['#f2bd68','#4a3823'],
+   vaani:light?['#a14145','#f5dce0']:['#ff9b9b','#4b2c35'],
+   branchgpt:light?['#6945a2','#e9e0f5']:['#c6a8ff','#3b3051']
+  };
+  [c.accent,c.soft]=palettes[key];
   let art='';
   if(key==='justhireme'){
    for(let i=0;i<5;i++){const y=170+i*62;art+=path(`M500 ${y}C610 ${y} 580 295 706 295`,c.line,2)+dot(500,y,6);}
@@ -57,8 +64,8 @@ for(const realm of ['seireitei','hueco']){
    art+=t(660,412,'Fork',27,c.muted)+t(959,390,'Merge',31,c.ink,600);
    art+=t(818,548,'Neon stores the conversation graph',24,c.muted,400,'middle');
   }
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><title>${p.name} architecture: ${p.note}</title><defs><linearGradient id="wash" x2="0" y2="1"><stop stop-color="${c.top}"/><stop offset=".72" stop-color="${c.bg}"/></linearGradient><radialGradient id="sheen" cx=".7" cy=".25" r=".7"><stop stop-color="${light?'#ffffff':'#d8dce1'}" stop-opacity="${light?'.7':'.035'}"/><stop offset="1" stop-color="${c.bg}" stop-opacity="0"/></radialGradient></defs><rect width="1200" height="675" fill="${c.bg}"/><rect width="1200" height="675" fill="url(#wash)" opacity=".7"/><rect width="1200" height="675" fill="url(#sheen)"/><g font-family="Arial,Helvetica,sans-serif">${t(58,87,p.name,55,c.ink,600)}${t(58,235,p.lines[0],35,c.ink)}${t(58,281,p.lines[1],35,c.ink)}${path('M58 330H126',c.accent,4)}${t(58,389,'Architecture',23,c.muted)}${art}${path('M58 602H1142',c.line,1)}${t(58,645,p.stack,25,c.muted)}</g></svg>`;
-  writeFileSync(fileURLToPath(new URL(`../public/test/covers/${key}-architecture-${realm}-v12.svg`,import.meta.url)),svg);
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><title>${p.name} architecture: ${p.note}</title><defs><linearGradient id="wash" x2="0" y2="1"><stop stop-color="${c.top}"/><stop offset=".72" stop-color="${c.bg}"/></linearGradient><radialGradient id="sheen" cx=".7" cy=".25" r=".7"><stop stop-color="${light?'#ffffff':'#d8dce1'}" stop-opacity="${light?'.7':'.035'}"/><stop offset="1" stop-color="${c.bg}" stop-opacity="0"/></radialGradient></defs><rect width="1200" height="675" fill="${c.bg}"/><rect width="1200" height="675" fill="url(#wash)" opacity=".7"/><rect width="1200" height="675" fill="url(#sheen)"/><rect width="1200" height="6" fill="${c.accent}"/><g font-family="Arial,Helvetica,sans-serif">${t(58,87,p.name,55,c.ink,600)}${t(58,235,p.lines[0],35,c.ink)}${t(58,281,p.lines[1],35,c.ink)}${path('M58 330H126',c.accent,4)}${t(58,389,'Architecture',23,c.muted)}${art}${path('M58 602H1142',c.line,1)}${t(58,645,p.stack,25,c.muted)}</g></svg>`;
+  writeFileSync(fileURLToPath(new URL(`../public/test/covers/${key}-architecture-${realm}-v13.svg`,import.meta.url)),svg);
  }
 }
 console.log('Built eight editorial architecture covers.');
