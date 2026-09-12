@@ -319,11 +319,12 @@ export const pageCopy = {
   selectedLead: 'Three I would show first. Each opens a full case study, and two have a recorded walkthrough.',
 };
 
-// Skills shown on Home as one icon grid. [label, react-icons/si export, brand hex]
+// Skills shown on Home as one compact icon grid.
+// [label, devicon slug (original multicolour logo) | null, react-icons/si fallback | null, brand hex for the fallback]
 export const skills = [
-  ['Python','SiPython','#3776AB'],['TypeScript','SiTypescript','#3178C6'],['JavaScript','SiJavascript','#F7DF1E'],['Rust','SiRust','#DEA584'],['Swift','SiSwift','#F05138'],
-  ['React','SiReact','#61DAFB'],['Next.js','SiNextdotjs',null],['Tauri','SiTauri','#24C8D8'],['Electron','SiElectron','#47848F'],['Three.js','SiThreedotjs',null],['Tailwind','SiTailwindcss','#06B6D4'],['Vite','SiVite','#646CFF'],
-  ['FastAPI','SiFastapi','#009688'],['Node.js','SiNodedotjs','#5FA04E'],['PostgreSQL','SiPostgresql','#4169E1'],['SQLite','SiSqlite','#003B57'],['MongoDB','SiMongodb','#47A248'],['Redis','SiRedis','#FF4438'],['Supabase','SiSupabase','#3FCF8E'],['Drizzle','SiDrizzle','#C5F74F'],
-  ['OpenAI','SiOpenai',null],['Anthropic','SiAnthropic',null],['LangChain','SiLangchain','#1C3C3C'],['Hugging Face','SiHuggingface','#FFD21E'],['PyTorch','SiPytorch','#EE4C2C'],['ONNX','SiOnnx',null],['Ollama','SiOllama',null],
-  ['Docker','SiDocker','#2496ED'],['GitHub Actions','SiGithubactions','#2088FF'],['Vercel','SiVercel',null],['AWS','SiAmazonwebservices','#FF9900'],['pytest','SiPytest','#0A9EDC'],['Vitest','SiVitest','#6E9F18'],['Git','SiGit','#F05032']
+  ['Python','python'],['TypeScript','typescript'],['JavaScript','javascript'],['Rust',null,'SiRust',null],['Swift','swift'],
+  ['React','react'],['Next.js',null,'SiNextdotjs',null],['Tauri','tauri'],['Tailwind','tailwindcss'],['Vite','vitejs'],
+  ['FastAPI','fastapi'],['Node.js','nodejs'],['PostgreSQL','postgresql'],['SQLite','sqlite'],['MongoDB','mongodb'],['Supabase','supabase'],
+  ['OpenAI',null,'SiOpenai',null],['Anthropic',null,'SiAnthropic',null],['LangChain',null,'SiLangchain','#1C3C3C'],['Hugging Face',null,'SiHuggingface','#FFD21E'],['PyTorch','pytorch'],
+  ['Docker','docker'],['GitHub Actions','githubactions'],['Vercel',null,'SiVercel',null],['AWS','amazonwebservices'],['pytest','pytest'],['Git','git']
 ];

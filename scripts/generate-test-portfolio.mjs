@@ -75,7 +75,19 @@ const replacements = {
     return `<article class="selected-item"><a class="selected-art featured-preview" href="#project-${p.slug}" aria-label="Read ${escape(p.name)} case study">${covers(p, `${p.name} product preview`)}</a><div class="selected-copy"><p class="proj-kicker">${escape(p.kind)}</p><h3><a href="#project-${p.slug}">${escape(p.name)}</a></h3><p class="selected-summary">${escape(p.deck)}</p><p class="proj-stack">${p.tech.slice(0,5).map(escape).join(' · ')}</p><div class="proj-actions"><a class="card-study" href="#project-${p.slug}">Read case study</a>${p.demo?`<a href="${escape(p.demo)}" aria-haspopup="dialog">Watch walkthrough</a>`:''}${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">Source</a>`:''}</div></div></article>`;
   }).join(''),
   SELECTEDLEAD: escape(pageCopy.selectedLead),
-  SKILLSGRID: skills.map(([name,icon,hex])=>{const Icon=si[icon];if(!Icon)throw new Error(`Unknown icon ${icon}`);const mark=renderToStaticMarkup(createElement(Icon,{size:30,'aria-hidden':true}));return `<li${hex?` style="--brand:${hex}"`:''}><span class="skill-icon">${mark}</span><span class="skill-name">${escape(name)}</span></li>`;}).join(''),
+  SKILLSGRID: skills.map(([name,dev,icon,hex])=>{
+    let mark;
+    if(dev){
+      const dir=resolve(root,'node_modules/devicon/icons',dev);
+      const file=['-original.svg','-plain.svg','-original-wordmark.svg','-plain-wordmark.svg','-line.svg'].map(suffix=>resolve(dir,dev+suffix)).find(f=>{try{readFileSync(f);return true;}catch{return false;}});
+      if(!file)throw new Error(`No devicon for ${dev}`);
+      mark=readFileSync(file,'utf8').replace(/<\?xml[^>]*>|<!DOCTYPE[^>]*>/g,'').replace(/<svg /,'<svg aria-hidden="true" ');
+    }else{
+      const Icon=si[icon];if(!Icon)throw new Error(`Unknown icon ${icon}`);
+      mark=renderToStaticMarkup(createElement(Icon,{size:24,'aria-hidden':true}));
+    }
+    return `<li${hex?` style="--brand:${hex}"`:''}${dev?'':' class="mono"'}><span class="skill-icon">${mark}</span><span class="skill-name">${escape(name)}</span></li>`;
+  }).join(''),
   HOMECONTACT: contactBlock('home'),
   CONTACTPAGE: (()=>{
     const by=label=>socials.find(s=>s.label===label);
