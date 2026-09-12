@@ -43,7 +43,7 @@ body .contact-utilities .contact-label{display:inline}
 body .hero-contacts .contact-utilities>a:hover{text-decoration:underline;text-underline-offset:4px}
 @media(max-width:600px){body .hero-contacts{gap:4px 12px}body .contact-utilities{flex-basis:100%;padding-left:10px}}
 /* Top navigation: pages left, realm controls right. */
-body>.navigation{position:fixed;top:0;bottom:auto;left:0;right:0;transform:none;width:100%;max-width:none;height:68px;margin:0;padding:0 max(24px,calc((100vw - 760px)/2));display:flex;gap:24px;border:0;border-bottom:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;z-index:100}
+body>.navigation{position:absolute;top:0;bottom:auto;left:0;right:0;transform:none;width:100%;max-width:none;height:68px;margin:0;padding:0 max(24px,calc((100vw - 760px)/2));display:flex;gap:24px;border:0;border-bottom:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;z-index:100}
 body>.navigation::before{display:none}
 body>.navigation>a{order:0;flex:0 0 auto;display:flex;align-items:center;min-height:44px;font:500 13px/1.5 Geist,Arial,sans-serif}
 body>.navigation .theme-toggle{order:2;margin-left:0;margin-right:0}
