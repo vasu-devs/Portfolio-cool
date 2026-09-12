@@ -191,3 +191,18 @@ if(['humanist','condensed','editorial'].includes(typePreview)){
  document.documentElement.dataset.typePreview=typePreview;
  requestAnimationFrame(()=>document.querySelector('#project-0')?.dispatchEvent(new Event('open-detail')));
 }
+
+// Keep the same navigation reachable below the hero without duplicating controls.
+const scrollNavigation = document.querySelector('body > .navigation');
+let navigationFrame = 0;
+function updateNavigationDock() {
+  navigationFrame = 0;
+  if (scrollNavigation.querySelector('.bleach-menu[open]')) return;
+  scrollNavigation.classList.toggle('is-docked', window.scrollY > 120);
+}
+window.addEventListener('scroll', () => {
+  if (!navigationFrame) navigationFrame = requestAnimationFrame(updateNavigationDock);
+}, { passive: true });
+scrollNavigation.addEventListener('toggle', updateNavigationDock, true);
+window.addEventListener('pageshow', updateNavigationDock);
+updateNavigationDock();
