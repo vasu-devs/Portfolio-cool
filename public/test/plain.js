@@ -1,3 +1,4 @@
+import './keyboard.js?v=190';
 import './tiny-scroll.js?v=180';
 import './soul-cursor.js?v=space-181';
 

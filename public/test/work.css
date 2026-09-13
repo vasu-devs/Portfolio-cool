@@ -558,3 +558,8 @@ body>.navigation.is-docked>a:hover{background-color:transparent;color:var(--brig
 body>.navigation.is-docked .bleach-menu>summary,body>.navigation.is-docked .theme-toggle{border-radius:0}
 body>.navigation.is-docked .bleach-menu>summary:hover,body>.navigation.is-docked .bleach-menu[open]>summary,body>.navigation.is-docked .theme-toggle:hover{background:transparent}
 @media(max-width:600px){body>.navigation.is-docked{padding:6px;gap:0}body>.navigation.is-docked>a,:root[data-theme=light] body>.navigation.is-docked>a[aria-current=page],body>.navigation.is-docked>a[aria-current=page]{font-size:13px;padding:0 12px}body>.navigation.is-docked>a[aria-current=page]{background-size:calc(100% - 24px) 2px}}
+
+.keyboard-help{font:inherit;font-size:12px;color:inherit;background:none;border:0;padding:4px 0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.keyboard-guide{width:min(520px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto}
+.keyboard-guide dl{margin:20px 0}.keyboard-guide dl>div{display:flex;justify-content:space-between;gap:20px;padding:9px 0}.keyboard-guide dd{margin:0;font-size:14px}.keyboard-guide kbd{font:inherit;font-size:13px;border:1px solid currentColor;border-radius:4px;padding:1px 5px;white-space:nowrap}.keyboard-guide label{display:flex;align-items:center;gap:8px;font-size:13px}
+@media(max-width:480px){.keyboard-guide dl>div{flex-direction:column;gap:6px}}
