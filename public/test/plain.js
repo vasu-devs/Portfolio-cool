@@ -26,6 +26,7 @@ const themeButton = document.querySelector('.theme-toggle');
 const root = document.documentElement;
 function themeLabel() {
  const light = root.dataset.theme === 'light';
+ document.getElementById('theme-favicon').href = light ? '/test/avatars/vasu-seireitei-v2.png' : '/test/avatars/vasu-hueco-v4.png';
  themeButton.title = light ? 'Switch to dark mode' : 'Switch to light mode';
  document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#f4f3ed' : '#0b0e14');
  themeButton.setAttribute('aria-label', themeButton.title);
