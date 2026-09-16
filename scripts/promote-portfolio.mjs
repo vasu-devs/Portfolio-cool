@@ -1,0 +1,11 @@
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+const output = new URL('../dist/', import.meta.url);
+const current = readFileSync(new URL('index.html', output), 'utf8');
+if (!current.includes('id="root"')) throw new Error('Expected the built legacy portfolio before promotion.');
+mkdirSync(new URL('old/', output), { recursive: true });
+const legacy = current.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://www.siddhvasudev.com/old/" />').replace('</head>', '<meta name="robots" content="noindex,follow" /></head>');
+writeFileSync(new URL('old/index.html', output), legacy);
+const modern = readFileSync(new URL('test/index.html', output), 'utf8');
+if (!modern.includes('theme-favicon')) throw new Error('The newer portfolio was not generated.');
+writeFileSync(new URL('index.html', output), modern.replace('<meta name="robots" content="noindex,follow">', '<meta name="robots" content="index,follow"><link rel="canonical" href="https://www.siddhvasudev.com/">'));
+console.log('Published newer portfolio at / and preserved legacy portfolio at /old/.');

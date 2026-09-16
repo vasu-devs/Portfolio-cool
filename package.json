@@ -10,6 +10,7 @@
         "prebuild": "node scripts/generate-test-portfolio.mjs",
         "dev": "vite",
         "build": "tsc && vite build",
+        "postbuild": "node scripts/promote-portfolio.mjs",
         "preview": "vite preview",
         "fetch-repos": "node scripts/fetch-repos.mjs",
         "fetch-readmes": "node scripts/fetch-readmes.mjs",
