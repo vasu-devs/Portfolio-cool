@@ -564,14 +564,6 @@ body>.navigation.is-docked .bleach-menu>summary:hover,body>.navigation.is-docked
 .keyboard-guide dl{margin:20px 0}.keyboard-guide dl>div{display:flex;justify-content:space-between;gap:20px;padding:9px 0}.keyboard-guide dd{margin:0;font-size:14px}.keyboard-guide kbd{font:inherit;font-size:13px;border:1px solid currentColor;border-radius:4px;padding:1px 5px;white-space:nowrap}.keyboard-guide label{display:flex;align-items:center;gap:8px;font-size:13px}
 @media(max-width:480px){.keyboard-guide dl>div{flex-direction:column;gap:6px}}
 
-/* The opening wordmark lands in the real hero as the curtain lifts. */
-.portfolio-opening{position:fixed;inset:0;z-index:2147483646;pointer-events:none;overflow:hidden;color:#f4f3ef;animation:opening-failsafe 4s step-end forwards}
-.opening-landscape{position:absolute;inset:0;background:linear-gradient(#101113e8,#101113b8),url('./backgrounds/hueco-charcoal-v24.webp') center bottom/cover}
-:root[data-theme=light] .portfolio-opening{color:#1b3040}:root[data-theme=light] .opening-landscape{background:linear-gradient(#edf3f5e8,#edf3f5b8),url('./backgrounds/seireitei-day-v1.webp') center bottom/cover}
-.portfolio-opening>strong{position:absolute;font-family:'Bleach Display','Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;white-space:nowrap;transform-origin:top left;opacity:0}
-.opening-caption{position:absolute;top:59%;left:0;right:0;text-align:center;font:13px Geist,Arial,sans-serif;opacity:0}
-@keyframes opening-failsafe{to{visibility:hidden}}
-@media(prefers-reduced-motion:reduce){.portfolio-opening{display:none}}
 body .contact-utilities a[href*="cal.com"],body .home-contact-links a[href*="cal.com"]{display:inline-flex;position:relative;align-items:center;gap:10px;background:none;color:var(--bright);border:0;border-radius:0;padding:12px 0;font-weight:600;text-decoration:none;box-shadow:none}
 body .contact-utilities a[href*="cal.com"]::after,body .home-contact-links a[href*="cal.com"]::after{content:'';position:absolute;left:0;bottom:5px;width:100%;height:2px;background:currentColor;transform-origin:left;transition:transform .25s}
 body .contact-utilities a[href*="cal.com"] svg,body .home-contact-links a[href*="cal.com"] svg{display:none}
@@ -581,3 +573,16 @@ body .contact-directory a[href*="cal.com"]{border:0;border-radius:0;background:n
 body .contact-directory a[href*="cal.com"] strong{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
 body a[href*="cal.com"]:focus-visible{outline:2px solid var(--bright);outline-offset:5px}
 @media(hover:hover){body .contact-utilities a[href*="cal.com"]:hover,body .home-contact-links a[href*="cal.com"]:hover{background:none}body .contact-utilities a[href*="cal.com"]:hover::after,body .home-contact-links a[href*="cal.com"]:hover::after{transform:scaleX(.65)}}
+
+/* Restore the original portfolio's opposing shutters and oversized name. */
+.portfolio-opening{position:fixed;inset:0;z-index:2147483646;pointer-events:none;overflow:hidden;animation:opening-failsafe 4s step-end forwards}
+.opening-shutter{position:absolute;left:0;width:100%;height:50%;display:flex;justify-content:center;overflow:hidden;will-change:transform}
+.opening-top{top:0;align-items:flex-end;background:#eeede7;color:#101113;border-bottom:1px solid #10111318}
+.opening-bottom{bottom:0;align-items:flex-start;background:#101113;color:#eeede7;border-top:1px solid #ffffff12}
+:root[data-theme=light] .opening-top{background:#1b3040;color:#eff5f7}:root[data-theme=light] .opening-bottom{background:#eff5f7;color:#1b3040}
+.opening-word{overflow:hidden;padding:0 4vw}.opening-word strong{display:block;font-family:Geist,Arial,sans-serif;font-weight:900;font-size:clamp(90px,23vw,340px);letter-spacing:-.075em;line-height:.92;transform:translateY(105%)}
+.opening-bottom strong{transform:translateY(-105%)}
+@keyframes opening-failsafe{to{visibility:hidden}}
+@media(prefers-reduced-motion:reduce){.portfolio-opening{display:none}}
+body .detail-cover.has-video{aspect-ratio:16/9;background:#000}
+body .detail-cover.has-video iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}

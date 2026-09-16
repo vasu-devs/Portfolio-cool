@@ -108,7 +108,21 @@ function openDetail(source,opener){
  cover.replaceChildren();meta.hidden=true;cover.hidden=true;
  if(!isRole){
   const art=source.querySelector('.proj-art');
-  if(art){for(const img of art.querySelectorAll('img')){const copy=img.cloneNode();copy.loading='eager';cover.append(copy);}cover.hidden=false;}
+  let videoId;
+  for(const link of source.querySelectorAll('.proj-actions a[href]')){
+   try{const url=new URL(link.href);const id=url.hostname==='youtu.be'?url.pathname.slice(1):['www.youtube.com','youtube.com'].includes(url.hostname)?url.searchParams.get('v'):null;if(id&&/^[\w-]{11}$/.test(id)){videoId=id;break;}}catch{}
+  }
+  cover.classList.toggle('has-video',Boolean(videoId));
+  if(videoId){
+   const frame=document.createElement('iframe');
+   frame.title=`${title.trim()} — project demo`;
+   frame.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
+   frame.allowFullscreen=true;
+   frame.referrerPolicy='strict-origin-when-cross-origin';
+   // Muted inline playback is allowed by browsers that block audible autoplay.
+   frame.src=`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0`;
+   cover.append(frame);cover.hidden=false;
+  }else if(art){for(const img of art.querySelectorAll('img')){const copy=img.cloneNode();copy.loading='eager';cover.append(copy);}cover.hidden=false;}
   q('.detail-status').textContent=source.dataset.status||'';
   const techRow=source.querySelector(':scope > .study .study-tech');q('.detail-stack').replaceChildren();if(techRow)q('.detail-stack').append(techRow.firstElementChild.cloneNode(true));
   const links=q('.detail-links');links.replaceChildren();
@@ -153,6 +167,7 @@ document.addEventListener('click',event=>{
 readingDialog.querySelector('button').addEventListener('click',()=>readingDialog.close());
 readingDialog.addEventListener('click',event=>{if(event.target!==readingDialog)return;const r=readingDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)readingDialog.close();});
 readingDialog.addEventListener('close',()=>{
+ q('.detail-cover').replaceChildren();q('.detail-cover').classList.remove('has-video');
  if(detailSource?.classList.contains('proj'))detailSource.querySelector(':scope > .study').append(...detailNodes);
  else detailSource?.append(...detailNodes);
  detailNodes=[];document.documentElement.classList.remove('detail-open');detailOpener?.focus({preventScroll:true});
