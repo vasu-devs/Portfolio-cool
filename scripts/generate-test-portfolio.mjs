@@ -118,6 +118,7 @@ let page = template.replace(/@@([A-Z]+)@@/g, (_, key) => {
   return replacements[key];
 });
 page = page.replace('@@FILMSINLINE@@', replacements.FILMS);
+page = page.replaceAll('Book a call', 'Book a free call').replaceAll('book a call', 'book a free call');
 mkdirSync(resolve(root, 'public/test'), {recursive:true});
 writeFileSync(resolve(root, 'public/test/index.html'), page);
 console.log('Generated plain /test portfolio from approved public content.');

@@ -563,3 +563,23 @@ body>.navigation.is-docked .bleach-menu>summary:hover,body>.navigation.is-docked
 .keyboard-guide{width:min(520px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto}
 .keyboard-guide dl{margin:20px 0}.keyboard-guide dl>div{display:flex;justify-content:space-between;gap:20px;padding:9px 0}.keyboard-guide dd{margin:0;font-size:14px}.keyboard-guide kbd{font:inherit;font-size:13px;border:1px solid currentColor;border-radius:4px;padding:1px 5px;white-space:nowrap}.keyboard-guide label{display:flex;align-items:center;gap:8px;font-size:13px}
 @media(max-width:480px){.keyboard-guide dl>div{flex-direction:column;gap:6px}}
+
+/* A brief signature reveal; never blocks interaction or waits for network assets. */
+.portfolio-opening{position:fixed;inset:0;z-index:2147483646;pointer-events:none;overflow:hidden;animation:opening-done 1.8s step-end forwards;--opening-bg:#101113;--opening-ink:#f5f5f1;--opening-glow:rgba(240,240,232,.065)}
+:root[data-theme=light] .portfolio-opening{--opening-bg:#f3f6f7;--opening-ink:#1b3040;--opening-glow:rgba(167,198,214,.18)}
+.opening-door{position:absolute;top:0;bottom:0;width:50.1%;background:radial-gradient(ellipse at center,var(--opening-glow),transparent 70%),var(--opening-bg);animation:opening-part 850ms cubic-bezier(.76,0,.24,1) 850ms forwards}
+.opening-left{left:0;border-right:1px solid color-mix(in srgb,var(--opening-ink) 15%,transparent);--opening-direction:-101%}.opening-right{right:0;--opening-direction:101%}
+.opening-signature{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--opening-ink);animation:opening-signature 1.2s ease forwards}
+.opening-signature strong{font-family:'Bleach Display','Arial Narrow',sans-serif;font-weight:400;font-size:clamp(46px,10vw,112px);line-height:1.25;letter-spacing:.015em;text-transform:uppercase}
+.opening-realm,.opening-caption{font:11px Geist,Arial,sans-serif;letter-spacing:.18em}.opening-realm{text-transform:uppercase;margin-bottom:20px;opacity:.6}.opening-caption{opacity:.65;margin-top:20px;letter-spacing:.08em}.opening-rule{width:50px;height:1px;background:currentColor;opacity:.45;margin-top:18px}
+.opening-day{display:none}:root[data-theme=light] .opening-day{display:block}:root[data-theme=light] .opening-night{display:none}
+@keyframes opening-part{to{transform:translateX(var(--opening-direction))}}
+@keyframes opening-signature{0%{opacity:0;transform:translateY(8px)}25%,65%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-8px)}}
+@keyframes opening-done{to{visibility:hidden}}
+@media(prefers-reduced-motion:reduce){.portfolio-opening{display:none}}
+body .contact-utilities a[href*="cal.com"],body .home-contact-links a[href*="cal.com"]{background:var(--bright);color:var(--bg,#101113);border:1px solid var(--bright);border-radius:7px;padding:11px 17px;font-weight:650;text-decoration:none;transition:transform .2s}
+:root[data-theme=light] body .contact-utilities a[href*="cal.com"],:root[data-theme=light] body .home-contact-links a[href*="cal.com"]{color:#fff;background:#1b3040;border-color:#1b3040}
+:root:not([data-theme=light]) body .contact-utilities a[href*="cal.com"],:root:not([data-theme=light]) body .home-contact-links a[href*="cal.com"]{color:#141517;background:#f3f3ee}
+body .contact-directory a[href*="cal.com"]{border:1px solid var(--line);background:color-mix(in srgb,var(--bright) 7%,transparent);border-radius:7px;padding:16px}
+body a[href*="cal.com"]:focus-visible{outline:2px solid var(--bright);outline-offset:4px}
+@media(hover:hover){body .contact-utilities a[href*="cal.com"]:hover,body .home-contact-links a[href*="cal.com"]:hover{transform:translateY(-2px)}}
