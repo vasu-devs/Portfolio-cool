@@ -574,15 +574,5 @@ body .contact-directory a[href*="cal.com"] strong{text-decoration:underline;text
 body a[href*="cal.com"]:focus-visible{outline:2px solid var(--bright);outline-offset:5px}
 @media(hover:hover){body .contact-utilities a[href*="cal.com"]:hover,body .home-contact-links a[href*="cal.com"]:hover{background:none}body .contact-utilities a[href*="cal.com"]:hover::after,body .home-contact-links a[href*="cal.com"]:hover::after{transform:scaleX(.65)}}
 
-/* Restore the original portfolio's opposing shutters and oversized name. */
-.portfolio-opening{position:fixed;inset:0;z-index:2147483646;pointer-events:none;overflow:hidden;animation:opening-failsafe 4s step-end forwards}
-.opening-shutter{position:absolute;left:0;width:100%;height:50%;display:flex;justify-content:center;overflow:hidden;will-change:transform}
-.opening-top{top:0;align-items:flex-end;background:#eeede7;color:#101113;border-bottom:1px solid #10111318}
-.opening-bottom{bottom:0;align-items:flex-start;background:#101113;color:#eeede7;border-top:1px solid #ffffff12}
-:root[data-theme=light] .opening-top{background:#1b3040;color:#eff5f7}:root[data-theme=light] .opening-bottom{background:#eff5f7;color:#1b3040}
-.opening-word{overflow:hidden;padding:0 4vw}.opening-word strong{display:block;font-family:Geist,Arial,sans-serif;font-weight:900;font-size:clamp(90px,23vw,340px);letter-spacing:-.075em;line-height:.92;transform:translateY(105%)}
-.opening-bottom strong{transform:translateY(-105%)}
-@keyframes opening-failsafe{to{visibility:hidden}}
-@media(prefers-reduced-motion:reduce){.portfolio-opening{display:none}}
 body .detail-cover.has-video{aspect-ratio:16/9;background:#000}
 body .detail-cover.has-video iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
