@@ -4,19 +4,28 @@
   "location": "India",
   "email": "siddhvasudev1402@gmail.com",
   "links": [
-    {"label": "siddhvasudev.com", "url": "https://siddhvasudev.com"},
-    {"label": "github.com/vasu-devs", "url": "https://github.com/vasu-devs"},
-    {"label": "linkedin.com/in/vasu-devs", "url": "https://www.linkedin.com/in/vasu-devs/"}
+    {
+      "label": "siddhvasudev.com",
+      "url": "https://siddhvasudev.com"
+    },
+    {
+      "label": "github.com/vasu-devs",
+      "url": "https://github.com/vasu-devs"
+    },
+    {
+      "label": "linkedin.com/in/vasu-devs",
+      "url": "https://www.linkedin.com/in/vasu-devs/"
+    }
   ],
-  "summary": "AI engineering intern and open-source developer working across real-time voice, LLM applications, and full-stack systems. Creator of JustHireMe, an AI job-intelligence workbench with 2,200+ GitHub stars.",
+  "summary": "AI engineering intern who builds LLM, voice AI, and full-stack products with Python and TypeScript, from first prototype to tested release. Creator of JustHireMe, an open-source AI job-search app with 2,200+ GitHub stars.",
   "experience": [
     {
       "role": "AI Engineering Intern",
       "company": "withlayer.ai",
       "dates": "Jun 2026 - Present",
       "bullets": [
-        "Work across conversational AI, real-time voice, and full-stack development using Python, TypeScript, React, Next.js, PostgreSQL, and WebRTC.",
-        "Contribute to LLM integration, async processing, evaluations, regression testing, and data-access controls."
+        "Use Python, TypeScript, React, Next.js, and WebRTC to build real-time voice AI, so users can hold natural, low-delay conversations with an AI assistant.",
+        "Add automated evaluations and regression tests so LLM changes are checked before they reach users; build data-access controls that limit who sees which data."
       ]
     },
     {
@@ -24,8 +33,8 @@
       "company": "Confidential client",
       "dates": "2026 - Present",
       "bullets": [
-        "Work on applied AI and backend development using Python, FastAPI, TypeScript, Node.js, and MongoDB; focus on embeddings, vector retrieval, and multimodal AI.",
-        "Contribute to API integration, automated testing, containerized workflows, and CI/CD using Docker and AWS."
+        "Use Python, FastAPI, MongoDB, and vector search to build AI search that finds relevant results from both text and images.",
+        "Set up automated tests and CI/CD with Docker and AWS, so every change is tested and deployed the same way."
       ]
     }
   ],
@@ -36,8 +45,8 @@
       "url": "https://github.com/vasu-devs/JustHireMe",
       "tech": "Tauri / Rust / React / Python / FastAPI",
       "bullets": [
-        "Built a local-first desktop workbench for discovering jobs, explaining role fit, and preparing tailored application drafts; grew the public project to 2,200+ GitHub stars.",
-        "Combined graph and vector retrieval, deterministic lead-quality checks, and human review of generated documents."
+        "Built an open-source desktop app with Python, FastAPI, React, and Rust that finds jobs, explains how well each one fits you, and drafts tailored applications; 2,200+ GitHub stars.",
+        "Ranked jobs with graph and vector search plus quality checks, with human review before any generated document is used."
       ]
     },
     {
@@ -46,8 +55,8 @@
       "url": "https://github.com/vasu-devs/Odeon",
       "tech": "Python / FastAPI / WebSockets / React / SQLite",
       "bullets": [
-        "Built an evaluation loop that simulates adversarial conversations, scores agent behavior with an LLM judge, and rewrites prompts against per-metric thresholds.",
-        "Streamed simulation results over WebSockets; added persisted run history and word-level prompt diffs to inspect each optimization cycle."
+        "Built a tool with Python, FastAPI, and React that tests an AI agent with difficult simulated conversations, has an LLM grade its behavior, and rewrites its prompt until the scores pass.",
+        "Streams each run live with a word-by-word diff of every prompt change, so it is easy to see what changed."
       ]
     },
     {
@@ -56,15 +65,24 @@
       "url": "https://github.com/vasu-devs/Waldo",
       "tech": "Python / LangGraph / Docling / Gemini / Qdrant",
       "bullets": [
-        "Built PDF retrieval across text, tables, and figures using OCR, vision-model descriptions, and embeddings linked to page and image metadata.",
-        "Implemented relevance grading, bounded query-rewrite retries, and a no-context refusal path; surfaced supporting figures in a React chat interface."
+        "Built a chat tool with Python, LangGraph, Gemini, and Qdrant that answers questions about PDFs, including their tables and figures, and shows the source figure with each answer.",
+        "Checks if retrieved content is relevant, retries with a rewritten question, and says it does not know rather than guessing."
       ]
     }
   ],
   "skills": [
-    {"label": "Languages & applications", "text": "Python, TypeScript, JavaScript, SQL, React, Next.js, FastAPI, Node.js"},
-    {"label": "AI & data", "text": "Large language models (LLMs), retrieval-augmented generation (RAG), LangGraph, embeddings, vector search, voice AI, PostgreSQL, MongoDB"},
-    {"label": "Engineering", "text": "Docker, AWS, GitHub Actions, automated testing, AI evaluations, Git, API design"}
+    {
+      "label": "Languages & applications",
+      "text": "Python, TypeScript, JavaScript, SQL, React, Next.js, FastAPI, Node.js"
+    },
+    {
+      "label": "AI & data",
+      "text": "Machine learning, large language models (LLMs), retrieval-augmented generation (RAG), LangGraph, embeddings, vector search, voice AI, PostgreSQL, MongoDB"
+    },
+    {
+      "label": "Engineering",
+      "text": "Docker, AWS, GitHub Actions, CI/CD, automated testing, AI evaluations, Git, REST APIs"
+    }
   ],
   "education": {
     "degree": "Bachelor of Technology (B.Tech), Computer Science & Engineering",
