@@ -10,7 +10,7 @@ const files=Promise.all(families.map(async family=>[family,await Promise.all(Arr
 const button=document.createElement('button');button.type='button';button.className='sound-toggle';
 button.innerHTML='<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#e6c5a8" d="M4 9h4l5-4v14l-5-4H4Z"/><path class="sound-waves" d="M16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-slash" d="m16 9 5 6m0-6-5 6"/></svg><span>Sound</span>';
 document.querySelector('.navigation').append(button);
-function sync(){const active=enabled&&ctx?.state==='running'&&!!bank;button.dataset.enabled=String(active);button.dataset.audioState=ctx?.state||'inactive';button.setAttribute('aria-pressed',String(active));button.setAttribute('aria-label',active?'Mute keyboard sounds':'Enable keyboard sounds');button.querySelector('span').textContent=active?'Sound':'Enable sound';button.title=active?'Soft key sounds on · click to mute':'Enable soft key sounds'}sync();
+function sync(){const active=enabled&&ctx?.state==='running'&&!!bank;button.dataset.enabled=String(enabled);button.dataset.audioState=ctx?.state||'inactive';button.setAttribute('aria-pressed',String(enabled));button.setAttribute('aria-label',enabled?'Mute keyboard sounds':'Enable keyboard sounds');button.querySelector('span').textContent=enabled?'Sound on':'Sound off';button.title=enabled?(active?'Soft key sounds on · click to mute':'Sound on · starts with your first tap or key press'):'Soft key sounds off · click to enable'}sync();
 function fade(voice){if(voice.stopping)return;voice.stopping=true;const t=ctx.currentTime;voice.gain.gain.cancelScheduledValues(t);voice.gain.gain.setValueAtTime(voice.gain.gain.value,t);voice.gain.gain.linearRampToValueAtTime(0,t+.012);try{voice.source.stop(t+.015)}catch{}}
 function stop(){epoch++;for(const voice of voices)fade(voice)}
 async function ready(){if(!enabled||!unlocked||document.hidden)return false;try{
@@ -55,8 +55,8 @@ export async function keySound(kind='click',level=2,x=innerWidth/2){
 function activate(event){if(!event.isTrusted||event.ctrlKey||event.metaKey||event.altKey||event.target.closest('.sound-toggle,.sound-test'))return;unlocked=true;if(enabled)void ready()}
 document.addEventListener('pointerdown',activate,{capture:true,passive:true});
 document.addEventListener('keydown',activate,{capture:true});
-button.addEventListener('click',async()=>{const active=enabled&&ctx?.state==='running'&&!!bank;unlocked=true;enabled=!active;try{localStorage.setItem('vasu-paper-sound',enabled?'on':'off')}catch{}
- if(enabled){lastAction=-Infinity;await keySound('click')}else stop();sync()});
+button.addEventListener('click',async()=>{unlocked=true;enabled=!enabled;try{localStorage.setItem('vasu-paper-sound',enabled?'on':'off')}catch{}
+ sync();if(enabled){lastAction=-Infinity;await keySound('click')}else stop();sync()});
 const test=document.createElement('button');test.type='button';test.className='sound-test';test.textContent='Test sound';test.setAttribute('aria-label','Test keyboard sounds');document.querySelector('.footer-bottom').append(test);
 const status=document.createElement('span');status.className='sound-test-status';status.setAttribute('role','status');test.after(status);
 test.addEventListener('click',async()=>{enabled=true;unlocked=true;try{localStorage.setItem('vasu-paper-sound','on')}catch{}lastAction=-Infinity;await keySound('click');sync();status.textContent=ctx?.state==='running'&&bank?'Playing test…':'Sound could not start — try again';if(!analyser)return;let peak=0;for(const delay of [15,40,80,160])setTimeout(()=>{const data=new Float32Array(analyser.fftSize);analyser.getFloatTimeDomainData(data);for(const v of data)peak=Math.max(peak,Math.abs(v));test.dataset.outputPeak=String(peak);if(delay===160)status.textContent=peak>.001?'Test played':'No audio output — try again'},delay)});
@@ -65,5 +65,5 @@ function hover(target,x){const now=performance.now();if(now-(targetTimes.get(tar
 document.addEventListener('pointerover',event=>{if(event.pointerType!=='mouse'||!matchMedia('(hover:hover)').matches)return;const target=event.target.closest(hoverTargets);if(!target||target.closest('.sound-toggle,.sound-test')||target.disabled||target.contains(event.relatedTarget))return;hover(target,event.clientX)});
 document.addEventListener('focusin',event=>{if(event.target.matches(':focus-visible')&&event.target.closest(hoverTargets)&&!event.target.closest('.sound-toggle,.sound-test'))hover(event.target,innerWidth/2)});
 // Scrolling does not mute pointer feedback. Only entering an actual target plays sound.
-document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();if(ctx?.state==='running')void ctx.suspend().catch(()=>{})}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();if(ctx?.state==='running')void ctx.suspend().catch(()=>{})}else if(enabled&&unlocked)void ready()});
 window.addEventListener('pagehide',()=>{stop();if(ctx?.state==='running')void ctx.suspend().catch(()=>{})});

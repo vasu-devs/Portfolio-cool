@@ -1,0 +1,14 @@
+Generated with the built-in image generation tool on 24 September 2026.
+Reference assets: public/paper/assets/avatar.png and sage-paper.png.
+Output: public/paper/assets/social-paper-v1.png (1730 x 909).
+
+Create one finished website social-sharing card, wide landscape 1200 x 630 pixels (approximately 1.905:1), for siddhvasudev.com.
+Use the attached portrait as the EXACT character/identity reference and the second image as the sage-green paper texture/palette reference. This is a brand extension, not a new avatar design. Preserve the portrait's elongated oval face with full apple cheeks, SMALL ears, thick black swept layered-paper hair, strong brows, ivory translucent rectangular glasses, short shaped black beard and moustache, friendly simple eyes, black shirt. Keep him youthful. It must remain flat, tactile cut-paper illustration with torn paper edges and fine paper fibers. NO realism, no wool/felt/crochet, no 3D plastic rendering.
+Composition: tasteful, minimal editorial portfolio cover. Left 58% holds beautifully typeset black text, right 36% holds a large bust of the approved paper avatar, elegantly framed by a rough sage-paper circle, entirely within the card. Both name and portrait unmistakable even at small thumbnail size. 70px safe margin around content. Sage paper backdrop subtly fading to warm ivory near the bottom, little dark sage torn-paper layers along the very bottom edge for scenic depth. One restrained peach paper dash/underline accent. Airy layout, restrained material shadows, premium handmade stationery feeling.
+Text must read EXACTLY:
+"Vasu-Devs" (large, dark black classic serif like Times New Roman bold, no decorative distortion)
+"AI Engineer" (smaller, crisp black)
+"I build AI agents, voice tools"
+"& useful software." (short readable introduction, two lines)
+"siddhvasudev.com" (small but readable along lower left)
+Only those words. No badges, fake UI, extra slogans, network diagrams, chart icons, robots, circuitry, social platform logos, borders or watermarks. The character must very closely retain the approved portrait and not become wider, older or more realistic. Produce the actual flat image card, not a screenshot or a mockup.

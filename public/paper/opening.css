@@ -1,0 +1,20 @@
+/* The existing paper texture supplies all scenery; no extra image download. */
+#paper-opening{position:fixed;inset:0;z-index:1000;overflow:hidden;pointer-events:none;isolation:isolate;color:#22231f;background:#a2ad92 url('/paper/assets/sage-paper.webp') center/760px;animation:paper-welcome-away .55s 1.3s ease-in-out both}
+#paper-opening .opening-art{position:absolute;inset:0;background:linear-gradient(180deg,#a3ae9520 10%,#f8f4e580 100%)}
+#paper-opening .opening-sun{position:absolute;width:clamp(120px,24vw,280px);aspect-ratio:1;left:50%;top:17%;border-radius:49% 51% 48% 52%;background:#f9f0d7;opacity:.6;transform:translateX(-50%);box-shadow:0 2px 0 #525d4020;animation:paper-sun-rise 1.6s cubic-bezier(.16,1,.3,1) both}
+#paper-opening .opening-title{position:absolute;top:38%;left:0;right:0;text-align:center;animation:paper-title-in .65s .08s both}
+#paper-opening .opening-title>span{display:block;font:700 clamp(42px,7vw,76px)/1.15 'Times New Roman',serif;letter-spacing:-.035em}
+#paper-opening .opening-title small{display:block;margin-top:12px;font:400 15px/1.5 Arial,sans-serif;letter-spacing:.09em}
+#paper-opening .opening-title i{display:block;width:46px;height:5px;margin:20px auto;background:#e5a582;clip-path:polygon(0 30%,97% 0,100% 75%,3% 100%);transform:rotate(-3deg)}
+#paper-opening .opening-hill{position:absolute;left:-5%;right:-5%;bottom:-3%;height:39%;background-image:url('/paper/assets/sage-paper.webp');background-size:700px;background-blend-mode:multiply;animation:paper-hills-arrive 1s cubic-bezier(.16,1,.3,1) both;clip-path:polygon(0 33%,3% 31%,6% 34%,9% 32%,12% 38%,16% 37%,20% 46%,24% 48%,28% 56%,32% 57%,36% 61%,40% 62%,44% 67%,48% 64%,52% 65%,56% 56%,60% 54%,64% 44%,68% 43%,72% 31%,76% 28%,80% 17%,84% 20%,88% 10%,92% 12%,96% 3%,100% 0,100% 100%,0 100%)}
+#paper-opening .opening-hill-far{background-color:#8c9a78;height:45%;opacity:.85}
+#paper-opening .opening-hill-mid{background-color:#5b7054;height:34%;transform:scaleX(-1);animation-delay:.08s}
+#paper-opening .opening-hill-near{background-color:#344837;height:22%;animation-delay:.16s}
+#paper-opening .opening-skip{position:absolute;right:max(22px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));pointer-events:auto;min-width:110px;min-height:44px;padding:10px 16px;border:1px solid #f8f2e77a;border-radius:3px;background:#f8f2e7;color:#252923;font:14px/1.4 Arial,sans-serif;cursor:pointer}
+#paper-opening .opening-skip:hover{background:#fffaf0}#paper-opening .opening-skip:focus-visible{outline:3px solid #efb18b;outline-offset:4px}
+@keyframes paper-welcome-away{from{opacity:1}to{opacity:0;visibility:hidden}}
+@keyframes paper-title-in{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+@keyframes paper-sun-rise{from{translate:0 14px;opacity:.35}to{translate:0 0;opacity:.6}}
+@keyframes paper-hills-arrive{from{translate:0 38px}to{translate:0 0}}
+@media(max-height:500px){#paper-opening .opening-title{top:27%}#paper-opening .opening-sun{top:8%;width:120px}#paper-opening .opening-title>span{font-size:40px}#paper-opening .opening-title i{margin:12px auto}}
+@media(prefers-reduced-motion:reduce){#paper-opening{display:none!important;animation:none!important}#paper-opening *{animation:none!important}}

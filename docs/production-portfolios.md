@@ -12,6 +12,8 @@ After building, run `node scripts/check-production.cjs` with Playwright installe
 
 See `paper-sound-design.md` and `public/paper/assets/foley/provenance.json` for sound behavior and source attribution.
 
+See `paper-welcome-sharing.md` for the scenic opening, default-on sound preference, public social card and crawler metadata. The opening and sharing checks run with `node scripts/check-opening-sharing.cjs` after building.
+
 ## Phone refinement — 24 September 2026
 
 `public/paper/mobile.css` provides touch-sized controls, safe-area spacing for the bottom navigation, readable single-column project rows, and dialogs with a fixed toolbar and independently scrolling content. Phone landscape uses the same touch controls. Zoom remains enabled. Desktop structure and the Bleach archive are unchanged.
