@@ -5,7 +5,9 @@ if (!current.includes('id="root"')) throw new Error('Expected the built legacy p
 mkdirSync(new URL('old/', output), { recursive: true });
 const legacy = current.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://www.siddhvasudev.com/old/" />').replace('</head>', '<meta name="robots" content="noindex,follow" /></head>');
 writeFileSync(new URL('old/index.html', output), legacy);
-const modern = readFileSync(new URL('test/index.html', output), 'utf8');
-if (!modern.includes('theme-favicon')) throw new Error('The newer portfolio was not generated.');
-writeFileSync(new URL('index.html', output), modern.replace('<meta name="robots" content="noindex,follow">', '<meta name="robots" content="index,follow"><link rel="canonical" href="https://www.siddhvasudev.com/">'));
-console.log('Published newer portfolio at / and preserved legacy portfolio at /old/.');
+const paper = readFileSync(new URL('paper/index.html', output), 'utf8');
+const bleach = readFileSync(new URL('bleach/index.html', output), 'utf8');
+if (!paper.includes('/paper/paper-v4.css') || !paper.includes('/paper/paper-v6.js')) throw new Error('Paper portfolio assets are missing.');
+if (!bleach.includes('/test/hollow-theme.css') || !bleach.includes('/test/plain.js')) throw new Error('The preserved Bleach portfolio is missing.');
+writeFileSync(new URL('index.html', output), paper);
+console.log('Published paper portfolio at /, preserved Bleach at /bleach/ and legacy React portfolio at /old/.');

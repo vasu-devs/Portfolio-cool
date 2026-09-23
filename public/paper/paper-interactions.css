@@ -1,0 +1,23 @@
+/* Motion follows the physical paper treatment; reading and pointer targets stay still. */
+.skill-icon,.social-icon-row a,.contact-utilities a,.home-contact-links a,.icon-action,.navigation>a,.sound-toggle{transition:transform 180ms ease,box-shadow 180ms ease,background-color 180ms ease}
+.paper-cover{transition:transform 260ms cubic-bezier(.2,.7,.2,1),box-shadow 260ms ease;transform-origin:center;backface-visibility:hidden}
+.paper-cover.is-tilting{box-shadow:2px 5px 9px #34452a25}
+.sound-toggle{display:flex;align-items:center;justify-content:center;gap:7px;border:0;border-left:1px solid #b5bea4;background:none;padding:0 12px;min-height:40px;min-width:42px;color:#49553c;font-size:11px;flex-shrink:0}
+.sound-toggle[data-enabled=true] .sound-slash,.sound-toggle[data-enabled=false] .sound-waves{display:none}
+.sound-toggle[data-enabled=false]{color:#6c715f}.sound-toggle:hover{background:#e6ecdc}.sound-toggle:focus-visible{outline-offset:1px}
+@media(hover:hover) and (pointer:fine){
+ .skill:hover .skill-icon{transform:translateY(-4px) rotate(-4deg)}
+ .skill:nth-child(even):hover .skill-icon{transform:translateY(-4px) rotate(4deg)}
+ .tech:hover,.tech:focus-visible{transform:translateY(-2px)}
+ .social-icon-row a:hover{transform:translateY(-3px) rotate(-3deg)}
+ .contact-utilities a:hover,.home-contact-links a:hover,.icon-action:hover{transform:translateY(-2px);box-shadow:2px 4px 0 #40512c20;text-decoration:none}
+ .navigation>a:hover{transform:translateY(-1px)}
+ .portrait-frame:hover .paper-avatar{transform:rotate(-4deg)}
+ .paper-avatar{transition:transform 230ms ease}
+}
+.navigation>a:active,.sound-toggle:active{transform:translateY(1px)}
+.role>summary:hover .role-hint,.role>summary:focus-visible .role-hint{color:#a36340;text-decoration-thickness:2px}
+.proj:focus-within .paper-cover,.selected-item:focus-within .paper-cover{outline:2px solid #a9b697;outline-offset:3px}
+@media(max-width:600px){.sound-toggle span{display:none}.sound-toggle{padding:0 8px;min-width:36px}.navigation{gap:2px}.navigation>a{padding:0 10px;gap:6px}}
+@media(max-width:350px){.navigation>a{padding:0 8px;gap:4px;font-size:11px}.navigation>a svg{width:16px;height:16px}.sound-toggle{padding:0 6px;min-width:32px}}
+@media(prefers-reduced-motion:reduce){.paper-cover,.skill-icon,.social-icon-row a,.contact-utilities a,.home-contact-links a,.icon-action,.navigation>a,.sound-toggle,.paper-avatar,.tech{transform:none!important;transition:none!important;animation:none!important}}

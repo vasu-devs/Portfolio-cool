@@ -1,0 +1,225 @@
+{
+  "source": "Keyboard Soundpack #1 by unicaegames",
+  "license": "CC0",
+  "source_url": "https://opengameart.org/content/keyboard-soundpack-1-typing-and-single-keystrokes",
+  "download_mirror": "https://github.com/latent-spaces/brag/tree/main/skills/brag/assets/sfx/keyboard",
+  "processing": "DC removal; onset trim; 95Hz high-pass; family-specific 1.9\u20132.8kHz low-pass; soft body EQ; 3ms attack/35ms release; active-energy matching; soft transient saturation. Six disjoint recordings per family.",
+  "samples": [
+    {
+      "file": "hover-0.wav",
+      "source": "key-002.wav",
+      "source_sha256": "f58f93430c1ad434feb341a89b89740ccad75e7a775d778d91b7f206e0acbe8e",
+      "duration": 0.115,
+      "peak": 0.1801,
+      "rms": 0.0235,
+      "centroid_hz": 1264
+    },
+    {
+      "file": "hover-1.wav",
+      "source": "key-005.wav",
+      "source_sha256": "619eb7e26571657b76fc9e1e3d99e85c3fc2259fa91c4c45f57384a85774ac24",
+      "duration": 0.115,
+      "peak": 0.188,
+      "rms": 0.0212,
+      "centroid_hz": 1683
+    },
+    {
+      "file": "hover-2.wav",
+      "source": "key-009.wav",
+      "source_sha256": "25595c1d1e0e18aada04dce3a651dc2c499f1fbc2647c1ab0b3c4e718275b16b",
+      "duration": 0.115,
+      "peak": 0.1879,
+      "rms": 0.0213,
+      "centroid_hz": 1149
+    },
+    {
+      "file": "hover-3.wav",
+      "source": "key-012.wav",
+      "source_sha256": "79de7a9cc035ca4204600a52281129be9f258b1d903c88279b1e7128e57ba86c",
+      "duration": 0.115,
+      "peak": 0.1713,
+      "rms": 0.0201,
+      "centroid_hz": 1229
+    },
+    {
+      "file": "hover-4.wav",
+      "source": "key-018.wav",
+      "source_sha256": "784622e91e8797605fa76c43c0e4745663688c9faf455ff2a951d79f5f4dac65",
+      "duration": 0.115,
+      "peak": 0.2039,
+      "rms": 0.0199,
+      "centroid_hz": 1419
+    },
+    {
+      "file": "hover-5.wav",
+      "source": "key-020.wav",
+      "source_sha256": "056b14dea2cc590e817851d93f910b0ba918cd9179bbb4d2b39b4db92c0d505f",
+      "duration": 0.115,
+      "peak": 0.1744,
+      "rms": 0.0196,
+      "centroid_hz": 1322
+    },
+    {
+      "file": "press-0.wav",
+      "source": "key-001.wav",
+      "source_sha256": "7b873548c399b9aa0efbe63052fe1344c5317a9b23455b8be3523f47d434daf1",
+      "duration": 0.205,
+      "peak": 0.2958,
+      "rms": 0.0227,
+      "centroid_hz": 2211
+    },
+    {
+      "file": "press-1.wav",
+      "source": "key-004.wav",
+      "source_sha256": "29e1aea1fb841a0663ce75e9d83e675ddc7ae5cef00c623bdda65a72604fde7e",
+      "duration": 0.205,
+      "peak": 0.2705,
+      "rms": 0.0192,
+      "centroid_hz": 2217
+    },
+    {
+      "file": "press-2.wav",
+      "source": "key-006.wav",
+      "source_sha256": "419bde001e7ed1cae63b84f60c803fb024a0254e1afe65e59d8c6d8ad4196eb7",
+      "duration": 0.205,
+      "peak": 0.286,
+      "rms": 0.0235,
+      "centroid_hz": 1891
+    },
+    {
+      "file": "press-3.wav",
+      "source": "key-013.wav",
+      "source_sha256": "a73d12a22403fe7b63a3da41ff07f13f956e3a30b397196288262d467f1e28c3",
+      "duration": 0.205,
+      "peak": 0.2921,
+      "rms": 0.0205,
+      "centroid_hz": 1910
+    },
+    {
+      "file": "press-4.wav",
+      "source": "key-017.wav",
+      "source_sha256": "0f8d80d3f64328936bb699eade15cc89de12b7464833459e539bcf001101e431",
+      "duration": 0.205,
+      "peak": 0.2852,
+      "rms": 0.0248,
+      "centroid_hz": 1906
+    },
+    {
+      "file": "press-5.wav",
+      "source": "key-019.wav",
+      "source_sha256": "9cdb32c0074eaa114f8740e80bdfc28b1b44b4c6789371e1ec872e185e92d49e",
+      "duration": 0.205,
+      "peak": 0.3171,
+      "rms": 0.0229,
+      "centroid_hz": 2248
+    },
+    {
+      "file": "open-0.wav",
+      "source": "key-003.wav",
+      "source_sha256": "d67cf9547d99fc65c815c4c68fa9181e0af71419761cbb1d1f0a10eb8491a8d2",
+      "duration": 0.235,
+      "peak": 0.2262,
+      "rms": 0.0271,
+      "centroid_hz": 1398
+    },
+    {
+      "file": "open-1.wav",
+      "source": "key-007.wav",
+      "source_sha256": "522834f471e6c2935fd1e6a28042c0864925556efbec32c36d7c7a98026d4bfc",
+      "duration": 0.235,
+      "peak": 0.2424,
+      "rms": 0.017,
+      "centroid_hz": 1269
+    },
+    {
+      "file": "open-2.wav",
+      "source": "key-010.wav",
+      "source_sha256": "3a65bf93ec554b068b0a64d11d2bb521cd54e7a9e7ef3362a670efb1e410f0dc",
+      "duration": 0.198,
+      "peak": 0.2468,
+      "rms": 0.0251,
+      "centroid_hz": 1562
+    },
+    {
+      "file": "open-3.wav",
+      "source": "key-014.wav",
+      "source_sha256": "b2069e29be488a7e55b151ef458e3314ec8f138f6d5a34fe19189f4810cba098",
+      "duration": 0.235,
+      "peak": 0.2334,
+      "rms": 0.0241,
+      "centroid_hz": 1566
+    },
+    {
+      "file": "open-4.wav",
+      "source": "key-021.wav",
+      "source_sha256": "209c16dabc4f687a210db16db590a9e1ac40bfc2740ce569d2a9382d1e79acc7",
+      "duration": 0.2049,
+      "peak": 0.2429,
+      "rms": 0.0197,
+      "centroid_hz": 1476
+    },
+    {
+      "file": "open-5.wav",
+      "source": "key-022.wav",
+      "source_sha256": "8cf602c150e338a94e9c19dcf68b1d80af5adb311c84ec20590a6ab0359b91c5",
+      "duration": 0.2166,
+      "peak": 0.2359,
+      "rms": 0.0183,
+      "centroid_hz": 1488
+    },
+    {
+      "file": "close-0.wav",
+      "source": "key-008.wav",
+      "source_sha256": "c2ab8722a81a2f1cab66cd863a09a9ec00392e2ede61362b3707a7bcc0eee506",
+      "duration": 0.18,
+      "peak": 0.1908,
+      "rms": 0.0217,
+      "centroid_hz": 1120
+    },
+    {
+      "file": "close-1.wav",
+      "source": "key-011.wav",
+      "source_sha256": "72e79b249040bff166be863dd75f5c50d6e22bf904bd7e0adab1b30941e19968",
+      "duration": 0.18,
+      "peak": 0.1977,
+      "rms": 0.024,
+      "centroid_hz": 1160
+    },
+    {
+      "file": "close-2.wav",
+      "source": "key-015.wav",
+      "source_sha256": "39df76e16d6daa76619f17b724ed4fdcfacc3d0c311103f6d45dc23ec3634678",
+      "duration": 0.18,
+      "peak": 0.1962,
+      "rms": 0.0262,
+      "centroid_hz": 1650
+    },
+    {
+      "file": "close-3.wav",
+      "source": "key-016.wav",
+      "source_sha256": "181e3c5d28d2a1ed0e953f5668391ef1f9b7cd577d33058fb62bd18473b45791",
+      "duration": 0.18,
+      "peak": 0.2032,
+      "rms": 0.0188,
+      "centroid_hz": 1219
+    },
+    {
+      "file": "close-4.wav",
+      "source": "key-023.wav",
+      "source_sha256": "b7395018288bc4842af0983a97d790e9db84ab65dc8ae57629dc6a9ba31ff62c",
+      "duration": 0.18,
+      "peak": 0.2291,
+      "rms": 0.022,
+      "centroid_hz": 1433
+    },
+    {
+      "file": "close-5.wav",
+      "source": "key-024.wav",
+      "source_sha256": "39f3a508a9be3bbf31f630ccf9a9413f02068965babd3885771d6060f58b388e",
+      "duration": 0.18,
+      "peak": 0.193,
+      "rms": 0.0239,
+      "centroid_hz": 1204
+    }
+  ]
+}

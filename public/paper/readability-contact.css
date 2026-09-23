@@ -1,0 +1,19 @@
+/* Dark charcoal stays legible over both the sage paper and ivory sections. */
+:root{--ink:#20261d;--bright:#161c13;--muted:#26301f;--accent:#304523}
+.selected-lead,.selected-summary,.projects-intro,.work-group-head p,.proj-hook,.contact-lead{color:#26301f;font-size:16px;line-height:1.8}
+.proj-kicker,.eyebrow,.work-group-head>span{color:#26301f;font-size:13px;font-weight:550;line-height:1.6}
+.bench-heading>a,.selected-actions,.proj-actions,.role h3,.role-date,.role-hint,.background{font-size:14px;color:#26301f}
+.skill-group-label,.skill{color:#26301f;font-size:13px}.skill-group-label{font-weight:550}
+.identity-role{color:#20261d}.traffic-stats,.traffic-stats[data-state=unavailable] .traffic-status{color:#26301f;font-size:13px}
+.heatmap-footer,.github-activity>p,.graph-readout,.graph-readout-hint{color:#26301f;font-size:13px}
+.site-footer{color:#20261d}.footer-name{color:#161c13;font-size:34px}
+.footer-signoff p,.footer-email,.footer-links,.footer-bottom,.keyboard-help,.sound-test,.sound-test-status{font-size:14px;line-height:1.7;color:#26301f}
+.footer-links>span{color:#26301f;font-size:13px;font-weight:600}.footer-links{gap:9px}
+.footer-bottom{gap:15px 24px}.footer-bottom>a{font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.directory-address,.directory-copy small,.contact-facts{font-size:14px;color:#26301f}
+::selection{background:#f4bd96;color:#171e12;text-shadow:none}
+/* The call action keeps a small paper lift, with no gesture illustration. */
+a[href^="https://cal.com/"]{transition:transform 150ms ease,box-shadow 150ms ease}
+a[href^="https://cal.com/"]:hover{transform:translateY(-2px)}
+@media(max-width:600px){.selected-summary,.selected-lead,.proj-hook,.work-group-head p{font-size:15px}.footer-main{gap:25px}.footer-name{font-size:31px}.footer-bottom{gap:14px 20px}.identity-role{font-size:14px}.skill{font-size:12px}.skill-group-label{font-size:13px}}
+@media(prefers-reduced-motion:reduce){a[href^="https://cal.com/"]{transition:none}a[href^="https://cal.com/"]:hover{transform:none}}
