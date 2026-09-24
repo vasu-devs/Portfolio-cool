@@ -48,8 +48,8 @@ const out=path.resolve(__dirname,'../.cache/opening-qa');fs.mkdirSync(out,{recur
     const meta=await p.locator('meta[property],meta[name^="twitter:"]').evaluateAll(es=>Object.fromEntries(es.map(e=>[e.getAttribute('property')||e.name,e.content])));
     assert.equal(meta['twitter:card'],'summary_large_image');assert.equal(meta['og:title'],'Vasu-Devs — AI Engineer');
     assert.equal(meta['og:image'],meta['twitter:image']);assert(meta['og:image'].startsWith('https://www.siddhvasudev.com/'));
-    const res=await p.request.get(base+new URL(meta['og:image']).pathname);assert.equal(res.status(),200);assert(res.headers()['content-type'].includes('image/png'));
-    const bytes=await res.body();assert(bytes.length<5*1024*1024);assert.equal(bytes.readUInt32BE(16),+meta['og:image:width']);assert.equal(bytes.readUInt32BE(20),+meta['og:image:height']);
+    const res=await p.request.get(base+new URL(meta['og:image']).pathname);assert.equal(res.status(),200);assert(res.headers()['content-type'].includes('image/jpeg'));
+    const bytes=await res.body();assert(bytes.length<500*1024);assert.equal(bytes.readUInt16BE(0),0xffd8);const dimensions=await p.evaluate(async url=>{const img=new Image();img.src=url;await img.decode();return [img.naturalWidth,img.naturalHeight]},base+new URL(meta['og:image']).pathname);assert.deepEqual(dimensions,[+meta['og:image:width'],+meta['og:image:height']]);
     assert(meta['og:description'].includes('AI agents'));assert(meta['og:image:alt'].includes('portrait'));
     assert.equal(await p.locator('meta[property="og:image"]').count(),1);
    }
@@ -65,6 +65,6 @@ const out=path.resolve(__dirname,'../.cache/opening-qa');fs.mkdirSync(out,{recur
   await sound.click();const count=await p.evaluate(()=>audioStarts);await p.locator('.navigation [data-page=projects]').click();assert.equal(await p.evaluate(()=>audioStarts),count,'Muted navigation played sound');
   await c.close();
   const fresh=await context({reducedMotion:'reduce'}),first=await fresh.newPage();await first.goto(base);await first.locator('.navigation [data-page=projects]').click();await first.waitForFunction(()=>document.querySelector('.sound-toggle').dataset.lastSound);assert.equal(await first.locator('.sound-toggle').getAttribute('data-audio-state'),'running');await fresh.close();
-  assert.deepEqual(errors,[]);const result={openingViewports:[1280,390,844],autoDismiss:true,playsEveryReload:true,skip:true,keyboardAndScrollDismiss:true,reducedMotion:true,deepLink:true,noJavaScript:true,blockedStylesFailOpen:true,staticSocialMetadata:true,imageDimensions:[1730,909],soundDefaultOn:true,firstGestureStartsAudio:true,mutePersists:true,errors};fs.writeFileSync(path.join(out,'qa.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+  assert.deepEqual(errors,[]);const result={openingViewports:[1280,390,844],autoDismiss:true,playsEveryReload:true,skip:true,keyboardAndScrollDismiss:true,reducedMotion:true,deepLink:true,noJavaScript:true,blockedStylesFailOpen:true,staticSocialMetadata:true,imageDimensions:[1200,630],soundDefaultOn:true,firstGestureStartsAudio:true,mutePersists:true,errors};fs.writeFileSync(path.join(out,'qa.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
  }finally{await browser?.close();server.closeAllConnections();await new Promise(r=>server.close(r))}
 })().catch(e=>{console.error(e);process.exitCode=1});

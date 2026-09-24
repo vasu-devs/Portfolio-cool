@@ -7,6 +7,6 @@ function createServer(){return http.createServer((req,res)=>{
  if(p.startsWith('/_vercel/')){res.writeHead(200,{'content-type':'text/javascript'}).end('');return}
  if(p==='/')p='/index.html';const file=path.resolve(root,'.'+decodeURIComponent(p));
  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404).end();return}
- res.writeHead(200,{'content-type':({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.ttf':'font/ttf','.wav':'audio/wav'})[path.extname(file)]||'application/octet-stream'});fs.createReadStream(file).pipe(res);
+ res.writeHead(200,{'content-type':({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.ttf':'font/ttf','.wav':'audio/wav'})[path.extname(file)]||'application/octet-stream'});fs.createReadStream(file).pipe(res);
 })}
 module.exports={createServer};
