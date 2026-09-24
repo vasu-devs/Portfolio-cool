@@ -2,9 +2,17 @@
 #paper-opening{position:fixed;inset:0;z-index:1000;overflow:hidden;pointer-events:none;isolation:isolate;--opening-ease:cubic-bezier(.87,0,.13,1)}
 #paper-opening .opening-shutter{position:absolute;left:0;width:100%;height:calc(50% + 2px);display:flex;justify-content:center;overflow:hidden;background-image:url('/paper/assets/sage-paper.webp');background-size:760px;will-change:transform}
 #paper-opening .opening-shutter-top{top:0;z-index:2;align-items:flex-end;background-color:#9da98b;color:#20221e;animation:paper-shutter-up 1.5s 1s var(--opening-ease) both;clip-path:polygon(0 0,100% 0,100% calc(100% - 2px),94% 100%,89% calc(100% - 1px),83% 100%,77% calc(100% - 3px),69% calc(100% - 1px),62% 100%,54% calc(100% - 2px),47% 100%,40% calc(100% - 1px),33% calc(100% - 3px),27% 100%,19% calc(100% - 2px),12% 100%,5% calc(100% - 1px),0 100%)}
-#paper-opening .opening-shutter-bottom{bottom:0;z-index:1;align-items:flex-start;background-color:#30322c;background-blend-mode:multiply;color:#f8f1df;animation:paper-shutter-down 1.5s 1s var(--opening-ease) both}
+#paper-opening .opening-shutter-bottom{bottom:0;z-index:1;align-items:flex-start;background-color:#63715c;background-blend-mode:multiply;color:#f8f1df;animation:paper-shutter-down 1.5s 1s var(--opening-ease) both}
 #paper-opening .opening-word-mask{overflow:hidden;padding:0 20px}
-#paper-opening .opening-word{display:block;font:700 clamp(80px,15vw,210px)/.94 'Times New Roman',serif;letter-spacing:-.055em;padding-right:.055em;text-align:center}
+#paper-opening .opening-word{display:block;font:700 clamp(64px,10.5vw,148px)/1.08 'Times New Roman',serif;letter-spacing:-.045em;padding:5px .07em;text-align:center}
+#paper-opening .opening-letter{display:inline-block;position:relative;transform:rotate(-1.4deg);filter:url('#opening-paper-grain') drop-shadow(.45px .7px 0 #c0b79b) drop-shadow(1px 2px 1px #22271d55)}
+#paper-opening .opening-letter:nth-child(2){transform:translateY(.015em) rotate(.8deg)}
+#paper-opening .opening-letter:nth-child(3){transform:translateY(-.012em) rotate(-.6deg)}
+#paper-opening .opening-letter:nth-child(4){transform:rotate(.7deg)}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+ #paper-opening .opening-letter{background-image:linear-gradient(#20231ee0,#20231ee0),url('/paper/assets/sage-paper.webp');background-position:30% 40%;background-size:180px;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+ #paper-opening .opening-shutter-bottom .opening-letter{background-image:linear-gradient(#fff4dce8,#fff4dce8),url('/paper/assets/sage-paper.webp');filter:url('#opening-paper-grain') drop-shadow(.6px 1px 0 #c3b69a) drop-shadow(1px 2px 1.2px #1e291c65)}
+}
 #paper-opening .opening-shutter-top .opening-word-mask{padding-bottom:12px}
 #paper-opening .opening-shutter-bottom .opening-word-mask{padding-top:12px}
 #paper-opening .opening-shutter-top .opening-word{animation:paper-word-top 2.5s var(--opening-ease) both}
@@ -16,6 +24,6 @@
 @keyframes paper-word-top{0%{transform:translateY(105%);opacity:0}28%,40%{transform:translateY(0);opacity:1}100%{transform:translateY(45%);opacity:1}}
 @keyframes paper-word-bottom{0%{transform:translateY(-105%);opacity:0}28%,40%{transform:translateY(0);opacity:1}100%{transform:translateY(-45%);opacity:1}}
 @keyframes paper-skip-away{to{opacity:0;visibility:hidden}}
-@media(max-width:600px){#paper-opening .opening-word{font-size:clamp(76px,23vw,138px)}}
-@media(max-height:500px){#paper-opening .opening-word{font-size:clamp(64px,22vh,110px)}}
+@media(max-width:600px){#paper-opening .opening-word{font-size:clamp(60px,18vw,108px)}}
+@media(max-height:500px){#paper-opening .opening-word{font-size:clamp(54px,18vh,86px)}}
 @media(prefers-reduced-motion:reduce){#paper-opening{display:none!important;animation:none!important}#paper-opening *{animation:none!important}}
