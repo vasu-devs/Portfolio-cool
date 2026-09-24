@@ -16,7 +16,16 @@ const out=path.resolve(__dirname,'../.cache/opening-qa');fs.mkdirSync(out,{recur
    assert.equal(await p.locator('#paper-opening').evaluate(e=>getComputedStyle(e).pointerEvents),'none');
    const box=await p.locator('.opening-skip').boundingBox();assert(box.height>=44&&box.x>=0&&box.x+box.width<=viewport.width);
    assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
-   await p.waitForTimeout(450);await p.screenshot({path:path.join(out,`welcome-${viewport.width}.png`)});
+   assert.deepEqual(await p.locator('.opening-word').allTextContents(),['VASU','DEVS']);
+   await p.locator('#paper-opening').evaluate(e=>{for(const a of e.getAnimations({subtree:true})){a.pause();a.currentTime=800}});
+   await p.screenshot({path:path.join(out,`welcome-${viewport.width}.png`)});
+   const closed=await p.locator('.opening-shutter').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return{top:r.top,bottom:r.bottom}}));
+   assert(closed[0].top===0&&closed[0].bottom>=viewport.height/2&&closed[1].top<=viewport.height/2,'Shutters do not cover the initial viewport');
+   await p.locator('#paper-opening').evaluate(e=>{for(const a of e.getAnimations({subtree:true}))a.currentTime=1750});
+   await p.screenshot({path:path.join(out,`split-${viewport.width}.png`)});
+   const split=await p.locator('.opening-shutter').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return{top:r.top,bottom:r.bottom}}));
+   assert(split[0].top<0&&split[0].bottom<viewport.height/2&&split[1].top>viewport.height/2,'Shutters must separate up and down');
+   await p.locator('#paper-opening').evaluate(e=>{for(const a of e.getAnimations({subtree:true}))a.play()});
    await p.locator('#paper-opening').waitFor({state:'detached',timeout:3000});
    assert(await p.locator('#home .identity h1').isVisible());
    await p.reload();assert.equal(await p.locator('#paper-opening').count(),0,'Session replayed intro');

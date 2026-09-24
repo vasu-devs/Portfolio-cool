@@ -3,9 +3,9 @@
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const navigation=performance.getEntriesByType('navigation')[0];
  if(reduced.matches||document.hidden||(location.hash&&location.hash!=='#home')||navigation?.type==='back_forward')return;
- try{if(sessionStorage.getItem('vasu-paper-welcome-v1'))return;sessionStorage.setItem('vasu-paper-welcome-v1','seen')}catch{}
+ try{if(sessionStorage.getItem('vasu-paper-welcome-v2'))return;sessionStorage.setItem('vasu-paper-welcome-v2','seen')}catch{}
  const scene=document.createElement('div');scene.id='paper-opening';
- scene.innerHTML='<div class="opening-art" aria-hidden="true"><div class="opening-sun"></div><div class="opening-title"><span>Vasu-Devs</span><small>AI Engineer</small><i></i></div><div class="opening-hill opening-hill-far"></div><div class="opening-hill opening-hill-mid"></div><div class="opening-hill opening-hill-near"></div></div><button type="button" class="opening-skip" aria-label="Skip opening animation">Skip intro <span aria-hidden="true">↗</span></button>';
+ scene.innerHTML='<div class="opening-shutter opening-shutter-top" aria-hidden="true"><div class="opening-word-mask"><span class="opening-word">VASU</span></div></div><div class="opening-shutter opening-shutter-bottom" aria-hidden="true"><div class="opening-word-mask"><span class="opening-word">DEVS</span></div></div><button type="button" class="opening-skip" aria-label="Skip opening animation">Skip intro <span aria-hidden="true">↗</span></button>';
  document.body.prepend(scene);
  // Failed or blocked CSS must never leave an unstyled scene in the document.
  if(getComputedStyle(scene).position!=='fixed'){scene.remove();return}
@@ -20,9 +20,9 @@
  // Keep the actual skip button alive through its native click/keyboard activation.
  const interact=event=>{if(event.target.closest?.('.opening-skip')&&event.type!=='wheel')return;finish()};
  const hidden=()=>{if(document.hidden)finish()};
- const timer=setTimeout(finish,2050);
+ const timer=setTimeout(finish,2750);
  scene.querySelector('button').addEventListener('click',finish);
- scene.addEventListener('animationend',event=>{if(event.target===scene)finish()});
+ scene.addEventListener('animationend',event=>{if(event.animationName==='paper-shutter-down')finish()});
  for(const type of ['pointerdown','keydown','wheel','touchmove'])document.addEventListener(type,interact,{capture:true,passive:true});
  document.addEventListener('visibilitychange',hidden);window.addEventListener('pagehide',finish);reduced.addEventListener('change',finish);
 })();
