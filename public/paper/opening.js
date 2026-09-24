@@ -2,8 +2,7 @@
 (()=>{
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const navigation=performance.getEntriesByType('navigation')[0];
- if(reduced.matches||document.hidden||(location.hash&&location.hash!=='#home')||navigation?.type==='back_forward')return;
- try{if(sessionStorage.getItem('vasu-paper-welcome-v3'))return;sessionStorage.setItem('vasu-paper-welcome-v3','seen')}catch{}
+ if(reduced.matches||document.hidden||navigation?.type==='back_forward')return;
  const scene=document.createElement('div');scene.id='paper-opening';
  scene.innerHTML='<div class="opening-shutter opening-shutter-top" aria-hidden="true"><div class="opening-word-mask"><span class="opening-word">VASU</span></div></div><div class="opening-shutter opening-shutter-bottom" aria-hidden="true"><div class="opening-word-mask"><span class="opening-word">DEVS</span></div></div><button type="button" class="opening-skip" aria-label="Skip opening animation">Skip intro <span aria-hidden="true">↗</span></button>';
  scene.insertAdjacentHTML('afterbegin','<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="opening-paper-grain" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".58" numOctaves="2" seed="8" result="grain"/><feColorMatrix in="grain" type="saturate" values="0"/><feComponentTransfer><feFuncR type="linear" slope=".28" intercept=".72"/><feFuncG type="linear" slope=".28" intercept=".72"/><feFuncB type="linear" slope=".28" intercept=".72"/></feComponentTransfer><feBlend in2="SourceGraphic" mode="multiply"/><feComposite in2="SourceAlpha" operator="in" result="paper"/><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="12" result="edge"/><feDisplacementMap in="paper" in2="edge" scale="1.1" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>');

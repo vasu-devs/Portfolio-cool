@@ -28,16 +28,16 @@ const out=path.resolve(__dirname,'../.cache/opening-qa');fs.mkdirSync(out,{recur
    await p.locator('#paper-opening').evaluate(e=>{for(const a of e.getAnimations({subtree:true}))a.play()});
    await p.locator('#paper-opening').waitFor({state:'detached',timeout:3000});
    assert(await p.locator('#home .identity h1').isVisible());
-   await p.reload();assert.equal(await p.locator('#paper-opening').count(),0,'Session replayed intro');
+   await p.reload();await p.locator('#paper-opening').waitFor({state:'attached'});await p.locator('#paper-opening').waitFor({state:'detached',timeout:3000});
    await c.close();
   }
   for(const scenario of ['skip','keyboard','scroll','deep-link','reduced','no-js','blocked-css']){
    const c=await context({viewport:{width:390,height:844},reducedMotion:scenario==='reduced'?'reduce':'no-preference',javaScriptEnabled:scenario!=='no-js'});const p=await c.newPage();
    if(scenario==='blocked-css')await p.route('**/paper/opening.css',r=>r.abort());
    await p.goto(base+(scenario==='deep-link'?'#projects':''),{waitUntil:'domcontentloaded'});
-   if(['skip','keyboard','scroll'].includes(scenario)){
+   if(['skip','keyboard','scroll','deep-link'].includes(scenario)){
     await p.locator('#paper-opening').waitFor({state:'attached'});
-    if(scenario==='skip')await p.locator('.opening-skip').click();
+    if(scenario==='skip'||scenario==='deep-link')await p.locator('.opening-skip').click();
     if(scenario==='keyboard')await p.keyboard.press('Escape');
     if(scenario==='scroll')await p.mouse.wheel(0,300);
    }
@@ -65,6 +65,6 @@ const out=path.resolve(__dirname,'../.cache/opening-qa');fs.mkdirSync(out,{recur
   await sound.click();const count=await p.evaluate(()=>audioStarts);await p.locator('.navigation [data-page=projects]').click();assert.equal(await p.evaluate(()=>audioStarts),count,'Muted navigation played sound');
   await c.close();
   const fresh=await context({reducedMotion:'reduce'}),first=await fresh.newPage();await first.goto(base);await first.locator('.navigation [data-page=projects]').click();await first.waitForFunction(()=>document.querySelector('.sound-toggle').dataset.lastSound);assert.equal(await first.locator('.sound-toggle').getAttribute('data-audio-state'),'running');await fresh.close();
-  assert.deepEqual(errors,[]);const result={openingViewports:[1280,390,844],autoDismiss:true,sessionOnce:true,skip:true,keyboardAndScrollDismiss:true,reducedMotion:true,deepLink:true,noJavaScript:true,blockedStylesFailOpen:true,staticSocialMetadata:true,imageDimensions:[1730,909],soundDefaultOn:true,firstGestureStartsAudio:true,mutePersists:true,errors};fs.writeFileSync(path.join(out,'qa.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+  assert.deepEqual(errors,[]);const result={openingViewports:[1280,390,844],autoDismiss:true,playsEveryReload:true,skip:true,keyboardAndScrollDismiss:true,reducedMotion:true,deepLink:true,noJavaScript:true,blockedStylesFailOpen:true,staticSocialMetadata:true,imageDimensions:[1730,909],soundDefaultOn:true,firstGestureStartsAudio:true,mutePersists:true,errors};fs.writeFileSync(path.join(out,'qa.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
  }finally{await browser?.close();server.closeAllConnections();await new Promise(r=>server.close(r))}
 })().catch(e=>{console.error(e);process.exitCode=1});
