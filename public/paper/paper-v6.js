@@ -1,9 +1,12 @@
 import './paper-keyboard-v4.js';
+let navigationRequested=false;
 function showPage() {
   const id = location.hash.slice(1);
   const project = id.startsWith('project-') ? document.getElementById(id) : null;
   const current = document.querySelector('[data-panel]:not([hidden])')?.dataset.panel || 'home';
   const page = id === 'projects' || project?.classList.contains('proj') ? 'projects' : id === 'work-with-me' ? current : id.startsWith('contact') ? 'contact' : 'home';
+  document.title=page==='home'?'Vasu-Devs — AI Engineer':(page==='projects'?'Work':'Contact')+' — Vasu-Devs';
+  const fromNavigation=navigationRequested||document.activeElement?.closest('.navigation');navigationRequested=false;
   document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== page; });
   document.querySelectorAll('[data-page]').forEach(link => {
     if (link.dataset.page === (id==='about'?'about':id==='work-with-me'?'contact':page)) link.setAttribute('aria-current','page');
@@ -15,9 +18,12 @@ function showPage() {
   // Contact lives below both panels; keep the current panel and scroll to it.
   if(id==='work-with-me')requestAnimationFrame(()=>document.getElementById('work-with-me').scrollIntoView({behavior:'smooth',block:'start'}));
   if(project?.classList.contains('proj')) { requestAnimationFrame(() => {project.dispatchEvent(new CustomEvent('open-detail'));}); }
+  if(fromNavigation&&!project)requestAnimationFrame(()=>{const heading=document.querySelector('[data-panel="'+page+'"] h1,[data-panel="'+page+'"] h2');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}});
 }
 window.addEventListener('hashchange', showPage);
+document.querySelector('.navigation')?.addEventListener('click',event=>{const link=event.target.closest('a[data-page]');if(!link||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;navigationRequested=true;if(link.hash===location.hash)queueMicrotask(showPage)},true);
 showPage();
+document.querySelector('.skip')?.addEventListener('click',event=>{event.preventDefault();document.querySelector('#main').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'})});
 
 
 const resumeModal=document.querySelector('.resume-modal');
@@ -191,10 +197,15 @@ if(['humanist','condensed','editorial'].includes(typePreview)){
 }
 
 // Copy the email address; the button confirms briefly, then resets.
+const contactEmail=document.querySelector('#contact .contact-directory a[href^="mailto:"]');
+if(contactEmail){const copy=document.createElement('button');copy.type='button';copy.className='copy-mail';copy.dataset.copy=decodeURIComponent(contactEmail.getAttribute('href').slice(7));copy.textContent='Copy';copy.setAttribute('aria-label','Copy email address');contactEmail.parentElement.classList.add('directory-email-row');contactEmail.after(copy)}
+const copyFeedback=document.createElement('span');copyFeedback.className='sr-only';copyFeedback.setAttribute('role','status');copyFeedback.setAttribute('aria-live','polite');document.body.append(copyFeedback);
 for(const button of document.querySelectorAll('.copy-mail')){
  button.addEventListener('click',async()=>{
+  button.classList.remove('is-done');copyFeedback.textContent='';
   try{await navigator.clipboard.writeText(button.dataset.copy);button.textContent='Copied';button.classList.add('is-done');}
-  catch{const link=button.closest('.directory-copy-email')?document.querySelector('.contact-directory .directory-address'):button.previousElementSibling;const range=document.createRange();range.selectNodeContents(link);const sel=getSelection();sel.removeAllRanges();sel.addRange(range);button.textContent='Selected';}
-  setTimeout(()=>{button.textContent='Copy';button.classList.remove('is-done');},1800);
+  catch{const link=button.closest('li')?.querySelector('.directory-address')||button.previousElementSibling;const range=document.createRange();range.selectNodeContents(link);const sel=getSelection();sel.removeAllRanges();sel.addRange(range);button.textContent='Selected';}
+  copyFeedback.textContent=button.classList.contains('is-done')?'Email address copied.':'Email address selected. Use your device’s copy command.';
+  setTimeout(()=>{button.textContent='Copy';button.classList.remove('is-done');copyFeedback.textContent='';},1800);
  });
 }
