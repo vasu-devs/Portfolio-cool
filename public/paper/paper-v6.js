@@ -73,8 +73,8 @@ function openDetail(source,opener){
    frame.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
    frame.allowFullscreen=true;
    frame.referrerPolicy='strict-origin-when-cross-origin';
-   // Muted inline playback is allowed by browsers that block audible autoplay.
-   frame.src=`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0`;
+   // Request audible playback after opening; native player controls remain available if autoplay is blocked.
+   frame.src=`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0`;
    cover.append(frame);cover.hidden=false;
   }else if(art){const copy=art.cloneNode(true);copy.removeAttribute('aria-hidden');cover.append(copy);cover.hidden=false;}
   q('.detail-status').textContent=source.dataset.status||'';
@@ -142,7 +142,7 @@ document.addEventListener('click',event=>{
  const template=document.getElementById(`film-${id}`);if(!template)return;
  event.preventDefault();filmOpener=link;
  const body=filmDialog.querySelector('.film-description');body.replaceChildren(template.content.cloneNode(true));const filmName=body.querySelector('h2').textContent;filmDialog.querySelector('#film-title').textContent=filmName;body.querySelector('h2').remove();
- const iframe=document.createElement('iframe');iframe.src=`https://www.youtube-nocookie.com/embed/${id}?rel=0`;iframe.title=`${filmName} project walkthrough`;iframe.allow='encrypted-media; picture-in-picture; fullscreen';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
+ const iframe=document.createElement('iframe');iframe.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=0&playsinline=1&rel=0`;iframe.title=`${filmName} project walkthrough`;iframe.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
  filmDialog.querySelector('.film-player').replaceChildren(iframe);
  const fallback=document.createElement('a');fallback.href=url.href;fallback.target='_blank';fallback.rel='noopener noreferrer';fallback.className='film-fallback';fallback.textContent='Watch on YouTube';body.append(fallback);
  filmDialog.showModal();filmDialog.scrollTop=0;document.documentElement.classList.add('film-open');filmDialog.querySelector('button').focus();

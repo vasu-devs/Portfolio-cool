@@ -6,3 +6,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
 #main:focus{outline:none}
 [data-panel] :is(h1,h2)[tabindex="-1"]:focus{outline:2px solid #63774c;outline-offset:5px}
 @media(forced-colors:active){a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline-color:Highlight}.paper-avatar,.paper-cover img{forced-color-adjust:none}}
+/* The complete clickable project surface gets the same paper feedback. */
+:is(.proj,.selected-item,.featured-card){cursor:pointer;transition:background-color .18s ease,box-shadow .18s ease,outline-color .18s ease;outline:1px solid transparent;outline-offset:6px}
+:is(.proj,.selected-item,.featured-card):focus-within{outline:2px solid #586d43;outline-offset:6px;background-color:#f7f2e2;box-shadow:4px 5px 0 #62734b20}
+@media(hover:hover) and (pointer:fine){:is(.proj,.selected-item,.featured-card):hover{background-color:#f7f2e2;outline-color:#879776;box-shadow:4px 5px 0 #62734b25}:is(.proj,.selected-item,.featured-card):hover h3{text-decoration:underline;text-decoration-color:#a66f4b;text-decoration-thickness:1px;text-underline-offset:5px}}
+:is(.proj,.selected-item,.featured-card):active{background-color:#ecebdc;box-shadow:1px 2px 0 #62734b20}
+a[href],button:not(:disabled),summary,[role="button"]{cursor:pointer}button:disabled,[aria-disabled="true"]{cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){:is(.proj,.selected-item,.featured-card){transition:none}}
+@media(forced-colors:active){:is(.proj,.selected-item,.featured-card):hover,:is(.proj,.selected-item,.featured-card):focus-within{outline-color:Highlight}}
