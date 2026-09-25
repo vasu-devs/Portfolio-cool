@@ -21,3 +21,8 @@ a[href],button:not(:disabled),summary,[role="button"]{cursor:pointer}button:disa
  .resume-modal>.resume-content,.resume-modal>.film-body{flex:1 1 auto;min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain}
  .film-body .resume-content{max-height:none;overflow:visible}
 }
+/* Give the paper surface breathing room in every interaction state. */
+.selected-item,.featured-card{padding:24px}
+.proj--card{padding:22px}
+.proj--row{padding:22px 20px}
+@media(max-width:600px){.selected-item,.featured-card,.proj--card,.proj--row{padding:16px}}
