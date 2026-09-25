@@ -76,7 +76,7 @@ function openDetail(source,opener){
    // Request audible playback after opening; native player controls remain available if autoplay is blocked.
    frame.src=`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0`;
    cover.append(frame);cover.hidden=false;
-  }else if(art){const copy=art.cloneNode(true);copy.removeAttribute('aria-hidden');cover.append(copy);cover.hidden=false;}
+  }else if(art){const copy=art.cloneNode(true);copy.removeAttribute('aria-hidden');for(const img of copy.querySelectorAll('img')){img.loading='eager';img.sizes='(max-width: 600px) calc(100vw - 72px), 900px'}cover.append(copy);cover.hidden=false;}
   q('.detail-status').textContent=source.dataset.status||'';
   const techRow=source.querySelector(':scope > .study .study-tech');q('.detail-stack').replaceChildren();if(techRow)q('.detail-stack').append(techRow.firstElementChild.cloneNode(true));
   const links=q('.detail-links');links.replaceChildren();
