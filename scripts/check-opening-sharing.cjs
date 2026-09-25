@@ -35,9 +35,9 @@ const out=path.resolve(__dirname,'../.cache/opening-qa');fs.mkdirSync(out,{recur
    const c=await context({viewport:{width:390,height:844},reducedMotion:scenario==='reduced'?'reduce':'no-preference',javaScriptEnabled:scenario!=='no-js'});const p=await c.newPage();
    if(scenario==='blocked-css')await p.route('**/paper/opening.css',r=>r.abort());
    await p.goto(base+(scenario==='deep-link'?'#projects':''),{waitUntil:'domcontentloaded'});
-   if(['skip','keyboard','scroll','deep-link'].includes(scenario)){
+   if(['skip','keyboard','scroll','deep-link','blocked-css'].includes(scenario)){
     await p.locator('#paper-opening').waitFor({state:'attached'});
-    if(scenario==='skip'||scenario==='deep-link')await p.locator('.opening-skip').click();
+    if(scenario==='skip'||scenario==='deep-link'||scenario==='blocked-css')await p.locator('.opening-skip').click();
     if(scenario==='keyboard')await p.keyboard.press('Escape');
     if(scenario==='scroll')await p.mouse.wheel(0,300);
    }
