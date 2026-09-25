@@ -14,3 +14,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
 a[href],button:not(:disabled),summary,[role="button"]{cursor:pointer}button:disabled,[aria-disabled="true"]{cursor:not-allowed}
 @media(prefers-reduced-motion:reduce){:is(.proj,.selected-item,.featured-card){transition:none}}
 @media(forced-colors:active){:is(.proj,.selected-item,.featured-card):hover,:is(.proj,.selected-item,.featured-card):focus-within{outline-color:Highlight}}
+/* One scroll owner per reading dialog, at every viewport size. */
+@media screen{
+ .resume-modal[open]{display:flex;flex-direction:column;overflow:hidden}
+ .resume-modal>.resume-toolbar{flex:none}
+ .resume-modal>.resume-content,.resume-modal>.film-body{flex:1 1 auto;min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain}
+ .film-body .resume-content{max-height:none;overflow:visible}
+}
