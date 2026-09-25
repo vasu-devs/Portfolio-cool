@@ -14,7 +14,7 @@ function sync(){const active=enabled&&ctx?.state==='running'&&!!bank;button.data
 function fade(voice){if(voice.stopping)return;voice.stopping=true;const t=ctx.currentTime;voice.gain.gain.cancelScheduledValues(t);voice.gain.gain.setValueAtTime(voice.gain.gain.value,t);voice.gain.gain.linearRampToValueAtTime(0,t+.012);try{voice.source.stop(t+.015)}catch{}}
 function stop(){epoch++;for(const voice of voices)fade(voice)}
 async function ready(){if(!enabled||!unlocked||document.hidden)return false;try{
- if(!ctx){const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return false;ctx=new Audio({latencyHint:'interactive'});master=ctx.createGain();master.gain.value=.9;
+ if(!ctx){const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return false;ctx=new Audio({latencyHint:'interactive'});master=ctx.createGain();master.gain.value=.45;
  const limiter=ctx.createDynamicsCompressor();limiter.threshold.value=-10;limiter.knee.value=10;limiter.ratio.value=3;limiter.attack.value=.003;limiter.release.value=.1;
  analyser=ctx.createAnalyser();analyser.fftSize=2048;master.connect(limiter);limiter.connect(analyser);analyser.connect(ctx.destination);ctx.addEventListener('statechange',sync)}
  if(ctx.state==='suspended')await ctx.resume();
@@ -62,7 +62,7 @@ const status=document.createElement('span');status.className='sound-test-status'
 test.addEventListener('click',async()=>{enabled=true;unlocked=true;try{localStorage.setItem('vasu-paper-sound','on')}catch{}lastAction=-Infinity;await keySound('click');sync();status.textContent=ctx?.state==='running'&&bank?'Playing test…':'Sound could not start — try again';if(!analyser)return;let peak=0;for(const delay of [15,40,80,160])setTimeout(()=>{const data=new Float32Array(analyser.fftSize);analyser.getFloatTimeDomainData(data);for(const v of data)peak=Math.max(peak,Math.abs(v));test.dataset.outputPeak=String(peak);if(delay===160)status.textContent=peak>.001?'Test played':'No audio output — try again'},delay)});
 const hoverTargets='a[href],button,summary,.skill,.tech';
 function hover(target,x){const now=performance.now();if(now-(targetTimes.get(target)??-Infinity)<80)return;targetTimes.set(target,now);void keySound('hover',2,x)}
-document.addEventListener('pointerover',event=>{if(event.pointerType!=='mouse'||!matchMedia('(hover:hover)').matches)return;const target=event.target.closest(hoverTargets);if(!target||target.closest('.sound-toggle,.sound-test')||target.disabled||target.contains(event.relatedTarget))return;hover(target,event.clientX)});
+document.addEventListener('pointerover',event=>{if(event.pointerType!=='mouse'||!matchMedia('(hover:hover)').matches)return;const target=event.target.closest('.proj,.selected-item,.featured-card')||event.target.closest(hoverTargets);if(!target||target.closest('.sound-toggle,.sound-test')||target.disabled||target.contains(event.relatedTarget))return;hover(target,event.clientX)});
 document.addEventListener('focusin',event=>{if(event.target.matches(':focus-visible')&&event.target.closest(hoverTargets)&&!event.target.closest('.sound-toggle,.sound-test'))hover(event.target,innerWidth/2)});
 // Scrolling does not mute pointer feedback. Only entering an actual target plays sound.
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();if(ctx?.state==='running')void ctx.suspend().catch(()=>{})}else if(enabled&&unlocked)void ready()});
