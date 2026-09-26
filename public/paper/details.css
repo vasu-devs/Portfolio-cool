@@ -26,3 +26,10 @@ a[href],button:not(:disabled),summary,[role="button"]{cursor:pointer}button:disa
 .proj--card{padding:22px}
 .proj--row{padding:22px 20px}
 @media(max-width:600px){.selected-item,.featured-card,.proj--card,.proj--row{padding:16px}}
+
+/* Available status and readable, keyboard-accessible visitor activity. */
+.availability-badge i{background:#168a36;box-shadow:0 0 0 3px #168a3618;width:7px;height:7px}
+.traffic-trigger{border:0;border-bottom:1px dotted #536148;background:none;padding:4px 2px;text-align:left;min-height:36px;color:var(--ink)}
+.traffic-trigger:hover{background:var(--surface)}
+.traffic-dialog{width:min(480px,calc(100% - 32px));max-height:calc(100dvh - 40px);overflow:auto;padding:26px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:4px;box-shadow:0 12px 40px #20261d25}
+.traffic-dialog::backdrop{background:#20261d66}.traffic-dialog header{display:flex;align-items:center;justify-content:space-between;gap:16px}.traffic-dialog h2{font:700 27px var(--serif)}.traffic-dialog header button{min-width:44px;min-height:44px;background:none;border:1px solid var(--line);font-size:25px}.traffic-dialog dl{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0}.traffic-dialog dl>div{padding:12px 0;border-top:1px solid var(--line)}.traffic-dialog dt{font-size:13px}.traffic-dialog dd{margin:5px 0 0;font:700 30px var(--serif)}.traffic-dialog p{font-size:13px;line-height:1.6;margin-top:12px}.traffic-feedback{font-weight:550}

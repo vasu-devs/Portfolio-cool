@@ -90,50 +90,40 @@ export default async function handler(req, res) {
     const shouldTrackView = Boolean(body.trackView) && !isBot;
     const shouldTrackUnique = shouldTrackView && Boolean(body.trackUnique);
 
-    let totalViews = 0;
-    let uniqueVisitors = 0;
-    let activeNow = 0;
-    let trackedUniqueVisitor = false;
+    const validId = value => typeof value === 'string' && /^[a-f0-9-]{36}$/i.test(value);
+    const visitorId = validId(body.visitorId) && !isBot ? body.visitorId : '';
+    const viewId = validId(body.viewId) ? body.viewId : '';
+    const script = `
+      local viewsKey,uniqueKey,registry,sequence,active,viewKey=unpack(KEYS)
+      local id,trackView,trackUnique,now,heartbeat=unpack(ARGV)
+      local number=false
+      if id~='' then
+        number=redis.call('HGET',registry,id)
+        if not number then
+          number=redis.call('INCR',sequence)
+          redis.call('HSET',registry,id,number)
+          if trackUnique=='1' then redis.call('INCR',uniqueKey) end
+        end
+        if heartbeat=='1' then redis.call('ZADD',active,now,id) end
+      elseif trackView=='1' and trackUnique=='1' then
+        redis.call('INCR',uniqueKey)
+      end
+      if trackView=='1' then
+        if viewKey=='' or redis.call('SET',viewKey,'1','EX',86400,'NX') then redis.call('INCR',viewsKey) end
+      end
+      redis.call('ZREMRANGEBYSCORE',active,'-inf',tonumber(now)-90000)
+      return {tonumber(redis.call('GET',viewsKey) or 0),tonumber(redis.call('GET',uniqueKey) or 0),redis.call('ZCARD',active),tonumber(number) or 0}
+    `;
+    const [result] = await redisPipeline([['EVAL',script,6,VIEWS_KEY,UNIQUE_KEY,
+      'portfolio:traffic:visitor-registry-v1','portfolio:traffic:visitor-sequence-v1',
+      'portfolio:traffic:active-v1',viewId?'portfolio:traffic:view:'+viewId:'',
+      visitorId,shouldTrackView?'1':'0',shouldTrackUnique?'1':'0',String(Date.now()),
+      visitorId && body.heartbeat === true ? '1':'0']]);
+    const [totalViews,uniqueVisitors,activeNow,visitorNumber]=result.map(toCount);
+    return sendJson(res,200,{totalViews,uniqueVisitors,activeNow,visitorNumber:visitorNumber||null,
+      activeWindowSeconds:90,visitorNumberScope:'Since September 26, 2026',service:'upstash-redis',
+      tracked:{view:shouldTrackView,uniqueVisitor:shouldTrackUnique,activeSession:!!visitorId && body.heartbeat===true}});
 
-    if (shouldTrackView) {
-      const commands = [
-        ['INCR', VIEWS_KEY],
-      ];
-
-      if (shouldTrackUnique) {
-        commands.push(['INCR', UNIQUE_KEY]);
-      } else {
-        commands.push(['GET', UNIQUE_KEY]);
-      }
-
-      const [views, currentUniqueVisitors] = await redisPipeline(commands);
-
-      totalViews = toCount(views);
-      uniqueVisitors = toCount(currentUniqueVisitors);
-      activeNow = 1;
-      trackedUniqueVisitor = shouldTrackUnique;
-    } else {
-      const [views, currentUniqueVisitors] = await redisPipeline([
-        ['GET', VIEWS_KEY],
-        ['GET', UNIQUE_KEY],
-      ]);
-
-      totalViews = toCount(views);
-      uniqueVisitors = toCount(currentUniqueVisitors);
-      activeNow = 0;
-    }
-
-    return sendJson(res, 200, {
-      totalViews,
-      uniqueVisitors,
-      activeNow,
-      service: 'upstash-redis',
-      tracked: {
-        view: shouldTrackView,
-        uniqueVisitor: trackedUniqueVisitor,
-        activeSession: shouldTrackView,
-      },
-    });
   } catch (error) {
     console.error('Traffic API failed:', error);
     return sendJson(res, 500, { error: 'Traffic data unavailable' });

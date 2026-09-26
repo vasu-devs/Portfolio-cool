@@ -156,29 +156,35 @@ const bottomNavigation=document.querySelector('.navigation');
 for(const close of document.querySelectorAll('[aria-label="Close details"],[aria-label="Close video"],[data-resume-close]')){close.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';}
 
 
-// Share the main portfolio's counters and visitor identity; never invent numbers.
+// Browser-scoped counts; no fingerprinting or invented active totals.
 const traffic=document.querySelector('.traffic-stats');
 if(traffic){
- let tracked=false,busy=false,timer;
  const local=['localhost','127.0.0.1'].includes(location.hostname);
+ const trigger=document.createElement('button');trigger.type='button';trigger.className='traffic-trigger';trigger.setAttribute('aria-haspopup','dialog');trigger.setAttribute('aria-label','View visitor statistics');traffic.before(trigger);trigger.append(traffic);
+ const panel=document.createElement('dialog');panel.className='traffic-dialog';panel.setAttribute('aria-labelledby','traffic-title');
+ panel.innerHTML='<header><h2 id="traffic-title">A little foot traffic</h2><button type="button" aria-label="Close visitor statistics">×</button></header><dl><div><dt>Your visitor number</dt><dd data-stat="visitorNumber">—</dd></div><div><dt>Total page views</dt><dd data-stat="totalViews">—</dd></div><div><dt>Unique browsers</dt><dd data-stat="uniqueVisitors">—</dd></div><div><dt>Active now</dt><dd data-stat="activeNow">—</dd></div></dl><p>Unique visitors are counted by browser, not by person. Clearing browser storage or switching devices can count again.</p><p>Active now means a visible page checked in during the last 90 seconds. Visitor numbers start from September 26, 2026; earlier visits have no number.</p><p class="traffic-feedback" role="status">Loading activity…</p>';
+ document.body.append(panel);panel.querySelector('button').onclick=()=>panel.close();panel.addEventListener('close',()=>trigger.focus({preventScroll:true}));panel.addEventListener('click',e=>{if(e.target===panel){const r=panel.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)panel.close()}});
+ let visitorId,storage=true;try{visitorId=localStorage.getItem('portfolio:visitor-id');if(!/^[a-f0-9-]{36}$/i.test(visitorId||'')){visitorId=crypto.randomUUID();localStorage.setItem('portfolio:visitor-id',visitorId)}}catch{storage=false;visitorId=crypto.randomUUID()}
+ const viewId=crypto.randomUUID();let tracked=false,busy=false,timer;
  async function refreshTraffic(){
   if(document.hidden||busy)return;busy=true;
-  const trackView=!tracked&&!local;let trackUnique=false;
-  try{trackUnique=trackView&&localStorage.getItem('portfolio:traffic:unique-tracked')!=='1';}catch{}
-  // A failed response may still have counted: retries are read-only.
-  tracked=true;
+  const trackView=!tracked&&!local;let trackUnique=trackView;
+  try{trackUnique=trackView&&localStorage.getItem('portfolio:traffic:unique-tracked')!=='1'}catch{}
   try{
-   const response=await fetch('/api/traffic',{method:'POST',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify({trackView,trackUnique}),signal:AbortSignal.timeout(8000)});
-   if(!response.ok)throw Error('Traffic unavailable');const stats=await response.json();
-   if(!['totalViews','uniqueVisitors','activeNow'].every(k=>Number.isFinite(stats[k])&&stats[k]>=0))throw Error('Invalid traffic data');
+   const response=await fetch('/api/traffic',{method:'POST',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify({trackView,trackUnique,visitorId:local?undefined:visitorId,viewId,heartbeat:!local}),signal:AbortSignal.timeout(8000)});
+   if(!response.ok)throw Error();const stats=await response.json();
+   if(!['totalViews','uniqueVisitors','activeNow'].every(k=>Number.isFinite(stats[k])&&stats[k]>=0))throw Error();
+   tracked=true;
    for(const node of traffic.querySelectorAll('[data-traffic]'))node.textContent=stats[node.dataset.traffic].toLocaleString();
+   for(const node of panel.querySelectorAll('[data-stat]')){const value=stats[node.dataset.stat];node.textContent=Number.isFinite(value)?(node.dataset.stat==='visitorNumber'?'#':'')+value.toLocaleString():'—'}
    traffic.dataset.state='available';traffic.querySelector('.traffic-status').textContent='Portfolio activity';
-   if(trackUnique)try{localStorage.setItem('portfolio:traffic:unique-tracked','1');}catch{}
-  }catch{traffic.dataset.state='unavailable';traffic.querySelector('.traffic-status').textContent='Views unavailable';traffic.title=local?'Live view counts are not connected in this local preview':'Activity temporarily unavailable';}
-  finally{busy=false;}
+   panel.querySelector('.traffic-feedback').textContent=storage?'Updated just now · refreshes every 30 seconds.':'Browser storage unavailable; your visitor number will reset on reload.';
+   if(trackUnique)try{localStorage.setItem('portfolio:traffic:unique-tracked','1')}catch{}
+  }catch{traffic.dataset.state='unavailable';traffic.querySelector('.traffic-status').textContent='Views unavailable';panel.querySelector('.traffic-feedback').textContent='Live activity is unavailable. Please try again shortly.';for(const node of panel.querySelectorAll('[data-stat]'))node.textContent='—'}finally{busy=false}
  }
- const schedule=()=>{clearInterval(timer);if(!document.hidden){void refreshTraffic();timer=setInterval(refreshTraffic,60000);}};
- document.addEventListener('visibilitychange',schedule);window.addEventListener('pagehide',()=>clearInterval(timer));schedule();
+ trigger.onclick=()=>{panel.showModal();void refreshTraffic()};
+ const schedule=()=>{clearInterval(timer);if(!document.hidden){void refreshTraffic();timer=setInterval(refreshTraffic,30000)}};
+ document.addEventListener('visibilitychange',schedule);window.addEventListener('pagehide',()=>clearInterval(timer));window.addEventListener('pageshow',schedule);schedule();
 }
 
 const contactDialog=document.querySelector('.contact-dialog'),contactTrigger=document.querySelector('[data-open-contact]');
