@@ -159,7 +159,7 @@ for(const close of document.querySelectorAll('[aria-label="Close details"],[aria
 // Browser-scoped counts; no fingerprinting or invented active totals.
 const traffic=document.querySelector('.traffic-stats');
 if(traffic){
- const local=['localhost','127.0.0.1'].includes(location.hostname);
+ const local=['localhost','127.0.0.1'].includes(location.hostname)||new URLSearchParams(location.search).has('font-preview');
  const trigger=document.createElement('button');trigger.type='button';trigger.className='traffic-trigger';trigger.setAttribute('aria-haspopup','dialog');trigger.setAttribute('aria-label','View visitor statistics');traffic.before(trigger);trigger.append(traffic);
  const panel=document.createElement('dialog');panel.className='traffic-dialog';panel.setAttribute('aria-labelledby','traffic-title');
  panel.innerHTML='<header><h2 id="traffic-title">A little foot traffic</h2><button type="button" aria-label="Close visitor statistics">×</button></header><dl><div><dt>Your visitor number</dt><dd data-stat="visitorNumber">—</dd></div><div><dt>Total page views</dt><dd data-stat="totalViews">—</dd></div><div><dt>Unique browsers</dt><dd data-stat="uniqueVisitors">—</dd></div><div><dt>Active now</dt><dd data-stat="activeNow">—</dd></div></dl><p>Unique visitors are counted by browser, not by person. Clearing browser storage or switching devices can count again.</p><p>Active now means a visible page checked in during the last 90 seconds. Visitor numbers start from September 26, 2026; earlier visits have no number.</p><p class="traffic-feedback" role="status">Loading activity…</p>';
@@ -215,3 +215,4 @@ for(const button of document.querySelectorAll('.copy-mail')){
   setTimeout(()=>{button.textContent='Copy';button.classList.remove('is-done');copyFeedback.textContent='';},1800);
  });
 }
+
