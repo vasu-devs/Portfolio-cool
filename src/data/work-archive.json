@@ -206,10 +206,10 @@
       "demo": "https://www.youtube.com/watch?v=6weynv_rblI"
     },
     {
-      "name": "A18-INFINION-",
+      "name": "A18 C++ analysis",
       "category": "Developer tools",
       "summary": "A multi-agent static-analysis experiment for specialized C++ and API misuse.",
-      "url": "https://github.com/vasu-devs/A18-INFINION-",
+      "url": "",
       "status": "Public repository",
       "tech": [
         "Python",

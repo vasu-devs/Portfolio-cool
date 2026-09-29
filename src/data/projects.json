@@ -549,16 +549,16 @@
       "rank": 1
     },
     {
-      "name": "A18-INFINION-",
+      "name": "A18 C++ analysis",
       "description": "",
-      "url": "https://github.com/vasu-devs/A18-INFINION-",
+      "url": "",
       "homepage": null,
       "language": "Python",
       "stars": 0,
       "forks": 0,
       "topics": [],
       "updatedAt": "2026-03-06T09:08:05Z",
-      "summary": "Multi-agent static bug detector for specialized C++ (Infineon RDI API). A central Orchestrator dispatches Code Parser, MCP Lookup, Bug Detector and Bug Describer agents through a two-layer detection strategy that boosts confidence when pattern matching and LLM reasoning agree.",
+      "summary": "Multi-agent static bug detector for specialized C++ (specialized C++ API). A central Orchestrator dispatches Code Parser, MCP Lookup, Bug Detector and Bug Describer agents through a two-layer detection strategy that boosts confidence when pattern matching and LLM reasoning agree.",
       "highlights": [
         "Context-first — pulls API docs via MCP before inspecting the code",
         "Two-layer detection (pattern + LLM) with consensus-based confidence",
@@ -574,7 +574,7 @@
       "details": [
         {
           "title": "The task",
-          "body": "Generic linters miss domain-specific mistakes in specialized C++ because they don't know the API's rules. The Infineon A18 Challenge was to build a reviewer that does."
+          "body": "Generic linters miss domain-specific mistakes in specialized C++ because they don't know the API's rules. The A18 challenge was to build a reviewer that does."
         },
         {
           "title": "Context-first design",

@@ -10,7 +10,7 @@
         "prebuild": "node scripts/sync-opening.cjs && node scripts/generate-test-portfolio.mjs",
         "dev": "vite",
         "build": "tsc && vite build",
-        "postbuild": "node scripts/promote-portfolio.mjs",
+        "postbuild": "node scripts/optimize-paper-delivery.mjs && node scripts/promote-portfolio.mjs",
         "preview": "vite preview",
         "fetch-repos": "node scripts/fetch-repos.mjs",
         "fetch-readmes": "node scripts/fetch-readmes.mjs",

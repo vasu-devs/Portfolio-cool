@@ -17,7 +17,7 @@
       "url": "https://www.linkedin.com/in/vasu-devs/"
     }
   ],
-  "summary": "AI engineering intern who builds LLM, voice AI, and full-stack products with Python and TypeScript, from first prototype to tested release. Creator of JustHireMe, an open-source AI job-search app with 2,200+ GitHub stars.",
+  "summary": "AI engineer who builds production voice agents and LLM systems, from prototype to tested release. Creator of JustHireMe (2,249★ open source).",
   "experience": [
     {
       "role": "AI Engineering Intern",
@@ -29,12 +29,14 @@
       ]
     },
     {
-      "role": "AI & Full-Stack Engineer (Contract)",
+      "role": "AI & Full-Stack Engineer (contract)",
       "company": "Confidential client",
-      "dates": "2026 - Present",
+      "dates": "",
       "bullets": [
-        "Use Python, FastAPI, MongoDB, and vector search to build AI search that finds relevant results from both text and images.",
-        "Set up automated tests and CI/CD with Docker and AWS, so every change is tested and deployed the same way."
+        "Rebuilt an AI assistant backend and took it to production; golden-eval pass rate improved from 32/54 to 52/54.",
+        "Reduced time to first results from 72–122 s to under 10 s.",
+        "Reduced search latency from 10.6 s to 53 ms.",
+        "Built a multi-million-vector retrieval index answering in ~15–21 ms."
       ]
     }
   ],
@@ -45,28 +47,28 @@
       "url": "https://github.com/vasu-devs/JustHireMe",
       "tech": "Tauri / Rust / React / Python / FastAPI",
       "bullets": [
-        "Built an open-source desktop app with Python, FastAPI, React, and Rust that finds jobs, explains how well each one fits you, and drafts tailored applications; 2,200+ GitHub stars.",
-        "Ranked jobs with graph and vector search plus quality checks, with human review before any generated document is used."
+        "Built a local-first job-intelligence desktop app; 2,249★ open source.",
+        "Shipped 102 releases with 620 backend tests; the launch reached 380K views."
       ]
     },
     {
-      "name": "Odeon",
-      "label": "Solo build / Agent evaluation",
-      "url": "https://github.com/vasu-devs/Odeon",
-      "tech": "Python / FastAPI / WebSockets / React / SQLite",
+      "name": "Svara",
+      "label": "Open source / On-device dictation",
+      "url": "https://github.com/vasu-devs/Svara",
+      "tech": "Python / faster-whisper / CUDA",
       "bullets": [
-        "Built a tool with Python, FastAPI, and React that tests an AI agent with difficult simulated conversations, has an LLM grade its behavior, and rewrites its prompt until the scores pass.",
-        "Streams each run live with a word-by-word diff of every prompt change, so it is easy to see what changed."
+        "Built fully on-device dictation with 8.33% WER on CPU.",
+        "Streamed speech into text with 754 ms to first word."
       ]
     },
     {
-      "name": "Waldo",
-      "label": "Solo build / Multimodal RAG",
-      "url": "https://github.com/vasu-devs/Waldo",
-      "tech": "Python / LangGraph / Docling / Gemini / Qdrant",
+      "name": "Fintech P&L platform",
+      "label": "Freelance / Confidential client",
+      "url": "",
+      "tech": "",
       "bullets": [
-        "Built a chat tool with Python, LangGraph, Gemini, and Qdrant that answers questions about PDFs, including their tables and figures, and shows the source figure with each answer.",
-        "Checks if retrieved content is relevant, retries with a rewritten question, and says it does not know rather than guessing."
+        "Built solo in 18 days with 5 payment/commerce integrations.",
+        "Delivered ~4,500× faster attribution and recovered 641 orphaned orders."
       ]
     }
   ],

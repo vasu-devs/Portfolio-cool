@@ -1,0 +1,9 @@
+/* Content hierarchy uses the existing paper surfaces and type families. */
+.identity-handle{font-size:14px;margin:5px 0;color:var(--muted)}
+.identity-role{max-width:54ch}.hero-proof{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.hero-proof .availability-badge{font-size:12px;line-height:1.6;white-space:normal}
+.availability-copy{font-size:14px;line-height:1.75;margin:0 0 20px;max-width:70ch}.hero-contacts{margin-bottom:14px}
+.project-result{font-size:14px;font-weight:550;line-height:1.7;margin-top:12px;color:var(--ink)}
+.selected-art .paper-cover{display:block;position:relative;aspect-ratio:16/9;width:100%;height:auto}
+.skills-groups{gap:18px}.skills-grid{gap:14px 16px}.skills{margin-bottom:36px}
+#home>.background{margin-top:40px}#home>.work-with-me{margin-bottom:130px}
+@media(max-width:600px){.hero-proof{gap:7px;margin-top:18px}.hero-proof .availability-badge{min-height:0;padding:6px 8px}.availability-copy{font-size:14px}.identity h1{font-size:clamp(29px,8vw,38px)}.identity{align-items:flex-start}.skills-grid{gap:14px 8px}#home>.work-with-me{margin-bottom:calc(130px + env(safe-area-inset-bottom))}}

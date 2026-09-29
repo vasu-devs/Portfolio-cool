@@ -62,7 +62,7 @@
             "sort": "2026-01",
             "type": "ship",
             "title": "Recruitment take-homes, all shipped",
-            "blurb": "Socratis (voice interviewer), Waldo (multimodal RAG), RupeeRoast (fintech forensics), and the Infineon A18 agentic C++ bug detector — each a complete product."
+            "blurb": "Socratis (voice interviewer), Waldo (multimodal RAG), RupeeRoast (fintech forensics), and the A18 agentic C++ bug detector — each a complete product."
         },
         {
             "id": "visualdsa",

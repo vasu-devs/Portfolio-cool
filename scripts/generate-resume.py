@@ -7,6 +7,8 @@ import html
 import json
 from pathlib import Path
 from reportlab.lib import colors
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
@@ -24,7 +26,7 @@ experience = ''.join(
     for e in data['experience']
 )
 projects = ''.join(
-    f'<article><div class="entry-heading"><h3><a href="{esc(p["url"])}">{esc(p["name"])}</a> <span class="company">/ {esc(p["label"])}</span></h3></div><p class="stack">{esc(p["tech"])}</p>{bullets(p["bullets"])}</article>'
+    f'<article><div class="entry-heading"><h3><a href="{esc(p["url"] or '#')}">{esc(p["name"])}</a> <span class="company">/ {esc(p["label"])}</span></h3></div><p class="stack">{esc(p["tech"])}</p>{bullets(p["bullets"])}</article>'
     for p in data['projects']
 )
 links = ' <span aria-hidden="true">/</span> '.join(f'<a href="{esc(l["url"])}">{esc(l["label"])}</a>' for l in data['links'])
@@ -65,8 +67,14 @@ styles = {
     'meta': ParagraphStyle('meta', fontName='Helvetica', fontSize=9, leading=11, textColor=muted, spaceAfter=3),
     'bullet': ParagraphStyle('bullet', fontName='Helvetica', fontSize=10, leading=12.5, textColor=ink, leftIndent=9, firstLineIndent=-7, spaceAfter=2),
 }
+symbol_fonts = [Path('C:/Windows/Fonts/seguisym.ttf'), Path('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')]
+symbol_font = next((path for path in symbol_fonts if path.exists()), None)
+if symbol_font is None:
+    raise RuntimeError('Install a Unicode font with star support before generating the resume.')
+pdfmetrics.registerFont(TTFont('ResumeSymbols', str(symbol_font)))
+
 def p(text, style='body'):
-    return Paragraph(text, styles[style])
+    return Paragraph(text.replace('★', '<font name="ResumeSymbols">★</font>'), styles[style])
 def section(title):
     return [p(title.upper(), 'heading'), HRFlowable(width='100%', thickness=.5, color=colors.HexColor('#d8e1e6'), spaceAfter=5)]
 story = [p(esc(data['name']), 'name'), p(esc(data['headline']), 'headline'), p(f'{esc(data["location"])} / <link href="mailto:{esc(data["email"])}">{esc(data["email"])}</link>', 'contact'), p(' / '.join(f'<link href="{esc(l["url"])}">{esc(l["label"])}</link>' for l in data['links']), 'contact'), Spacer(1,8), HRFlowable(width='100%', thickness=1.2, color=accent), Spacer(1,8), p(esc(data['summary']))]
@@ -77,7 +85,10 @@ for e in data['experience']:
     story += [KeepTogether(group), Spacer(1,5)]
 story += section('Selected projects')
 for item in data['projects']:
-    group = [p(f'<link href="{esc(item["url"])}">{esc(item["name"])}</link> / {esc(item["label"])}', 'entry'),p(esc(item['tech']), 'meta')]
+    name = f'<link href="{esc(item["url"])}">{esc(item["name"])}</link>' if item['url'] else esc(item['name'])
+    group = [p(f'{name} / {esc(item["label"])}', 'entry')]
+    if item['tech']:
+        group.append(p(esc(item['tech']), 'meta'))
     group += [p('- '+esc(b), 'bullet') for b in item['bullets']]
     story += [KeepTogether(group), Spacer(1,4)]
 story += section('Technical skills')

@@ -22,7 +22,7 @@ const RANKS = {
     // Tier 1 — AI / full-stack headliners
     Socratis: 1,
     Waldo: 1,
-    'A18-INFINION-': 1,
+    'A18 C++ analysis': 1,
     Kyoka: 1,
     DryRunVisualised: 1,
     GitArt: 1,
@@ -151,14 +151,14 @@ const CURATED = {
         ],
         tech: ["Python", "FastAPI", "React", "Vite", "Qdrant", "LangGraph", "Gemini", "Groq", "Docling"],
     },
-    "A18-INFINION-": {
+    "A18 C++ analysis": {
         summary:
-            "Multi-agent static bug detector for specialized C++ (Infineon RDI API). A central Orchestrator dispatches Code Parser, MCP Lookup, Bug Detector and Bug Describer agents through a two-layer detection strategy that boosts confidence when pattern matching and LLM reasoning agree.",
+            "Multi-agent static bug detector for specialized C++ (specialized C++ API). A central Orchestrator dispatches Code Parser, MCP Lookup, Bug Detector and Bug Describer agents through a two-layer detection strategy that boosts confidence when pattern matching and LLM reasoning agree.",
         details: [
             {
                 title: "The task",
                 body:
-                    "Generic linters miss domain-specific mistakes in specialized C++ because they don't know the API's rules. The Infineon A18 Challenge was to build a reviewer that does.",
+                    "Generic linters miss domain-specific mistakes in specialized C++ because they don't know the API's rules. The A18 challenge was to build a reviewer that does.",
             },
             {
                 title: "Context-first design",

@@ -41,3 +41,5 @@ PORTFOLIO-HANDOFF.md
 design-directions/
 docs/*-prompt.txt
 *.timestamp-*.mjs
+.vercel
+.env*

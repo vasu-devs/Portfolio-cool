@@ -7,7 +7,7 @@ const legacy = current.replace(/<link rel="canonical"[^>]*>/, '<link rel="canoni
 writeFileSync(new URL('old/index.html', output), legacy);
 const paper = readFileSync(new URL('paper/index.html', output), 'utf8');
 const bleach = readFileSync(new URL('bleach/index.html', output), 'utf8');
-if (!paper.includes('/paper/paper-v4.css') || !paper.includes('/paper/paper-v6.js')) throw new Error('Paper portfolio assets are missing.');
+if (!/\/paper\/styles-[a-f0-9]{12}\.css/.test(paper) || !paper.includes('/paper/paper-v6.js')) throw new Error('Paper portfolio assets are missing.');
 if (!bleach.includes('/test/hollow-theme.css') || !bleach.includes('/test/plain.js')) throw new Error('The preserved Bleach portfolio is missing.');
 writeFileSync(new URL('index.html', output), paper);
 console.log('Published paper portfolio at /, preserved Bleach at /bleach/ and legacy React portfolio at /old/.');
