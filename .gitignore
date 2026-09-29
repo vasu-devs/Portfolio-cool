@@ -34,3 +34,10 @@ coverage
 # Private source material (not for public repo)
 report.md
 resume.md
+
+PORTFOLIO-HANDOFF.md
+*-review.cjs
+/*.png
+design-directions/
+docs/*-prompt.txt
+*.timestamp-*.mjs
