@@ -1,4 +1,3 @@
-import {pageScroller} from './scroll-root.js';
 // Page shortcuts leave browser combinations, typing and open overlays alone.
 const guide = document.createElement('dialog');
 guide.className = 'contact-dialog keyboard-guide';
@@ -29,13 +28,13 @@ document.addEventListener('keydown', event => {
  let action;
  if (pages[key]) action = () => { location.hash = pages[key]; };
  else if (key === '?') action = openGuide;
- else if (key === 'j' || key === 'k') action = () => pageScroller.scrollBy({top: innerHeight * .65 * (key === 'j' ? 1 : -1), behavior:behavior()});
- else if (key === 'home' || key === 'end') action = () => pageScroller.scrollTo({top:key === 'home' ? 0 : pageScroller.scrollHeight, behavior:behavior()});
+ else if (key === 'j' || key === 'k') action = () => window.scrollBy({top: innerHeight * .65 * (key === 'j' ? 1 : -1), behavior:behavior()});
+ else if (key === 'home' || key === 'end') action = () => window.scrollTo({top:key === 'home' ? 0 : document.documentElement.scrollHeight, behavior:behavior()});
  else if (key === '[' || key === ']') action = () => {
   const sections = [...document.querySelectorAll('[data-panel]:not([hidden]) > header,[data-panel]:not([hidden]) > section,[data-panel]:not([hidden]) > .intro,.work-with-me,.site-footer')].filter(el => el.getClientRects().length);
-  const positions = sections.map(el => el.getBoundingClientRect().top + pageScroller.scrollTop).sort((a,b) => a-b);
-  const top = key === ']' ? positions.find(y => y > pageScroller.scrollTop + 24) ?? pageScroller.scrollHeight : positions.reverse().find(y => y < pageScroller.scrollTop - 24) ?? 0;
-  pageScroller.scrollTo({top,behavior:behavior()});
+  const positions = sections.map(el => el.getBoundingClientRect().top + window.scrollY).sort((a,b) => a-b);
+  const top = key === ']' ? positions.find(y => y > window.scrollY + 24) ?? document.documentElement.scrollHeight : positions.reverse().find(y => y < window.scrollY - 24) ?? 0;
+  window.scrollTo({top,behavior:behavior()});
  };
  if (action) { event.preventDefault(); action(); }
 });

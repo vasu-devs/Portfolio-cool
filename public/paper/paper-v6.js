@@ -1,4 +1,3 @@
-import {pageScroller} from './scroll-root.js';
 import './paper-keyboard-v4.js';
 let navigationRequested=false;
 function showPage() {
@@ -16,7 +15,7 @@ function showPage() {
     if (link.dataset.page === (id==='about'?'about':id==='work-with-me'?'contact':page)) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   });
-  if(id==='projects'||id==='home'||id.startsWith('contact'))requestAnimationFrame(()=>pageScroller.scrollTo({top:0,behavior:'instant'}));
+  if(id==='projects'||id==='home'||id.startsWith('contact'))requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
   if(id.startsWith('contact'))document.dispatchEvent(new CustomEvent('contact-page',{detail:{tab:id==='contact/call'?'call':'message'}}));
   if(id==='about')requestAnimationFrame(()=>document.getElementById('about').scrollIntoView({behavior:'instant',block:'start'}));
   // Contact lives below both panels; keep the current panel and scroll to it.
@@ -29,7 +28,7 @@ document.querySelector('.navigation')?.addEventListener('click',event=>{const li
 showPage();
 const dock=document.querySelector('.navigation');
 if(dock){const sizeDock=()=>document.documentElement.style.setProperty('--dock-height',Math.ceil(dock.getBoundingClientRect().height)+'px');sizeDock();new ResizeObserver(sizeDock).observe(dock);}
-document.querySelector('.skip')?.addEventListener('click',event=>{event.preventDefault();document.querySelector('#main').focus({preventScroll:true});pageScroller.scrollTo({top:0,behavior:'instant'})});
+document.querySelector('.skip')?.addEventListener('click',event=>{event.preventDefault();document.querySelector('#main').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'})});
 
 
 const resumeModal=document.querySelector('.resume-modal');

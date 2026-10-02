@@ -19,7 +19,7 @@ a[href^="https://cal.com/"]:hover{transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){a[href^="https://cal.com/"]{transition:none}a[href^="https://cal.com/"]:hover{transform:none}}
 
 /* Restore the reference column and hero rhythm without changing the paper surfaces. */
-:root{--dock-height:60px;--dock-clearance:calc(var(--dock-height) + 24px + env(safe-area-inset-bottom))}
+:root{--dock-height:60px;--dock-bottom:max(14px,env(safe-area-inset-bottom));--dock-clearance:calc(var(--dock-height) + var(--dock-bottom) + 24px)}
 html{scroll-padding-bottom:var(--dock-clearance)}
 .layout{padding-bottom:var(--dock-clearance)}
 section[id],article[id],details[id]{scroll-margin-top:28px;scroll-margin-bottom:var(--dock-clearance)}
@@ -45,13 +45,3 @@ h1,h2,h3,h4,.identity h1,.selected-copy h3,.proj-copy h3,.resume-toolbar h2,.foo
 .tech--mobile-more{display:none}
 .case-stack{display:flex;flex-wrap:wrap;gap:8px}
 @media print{.layout{padding-bottom:0}}
-
-/* Reserve the dock's lane so it cannot overlap the reading viewport. */
-html:has(.page-scroll),body:has(.page-scroll){height:100%;overflow:hidden}
-.page-scroll{height:calc(100dvh - var(--dock-clearance));width:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-padding-top:28px;scroll-padding-bottom:24px}
-.page-content>.layout{margin-left:max(24px,calc((100vw - 760px)/2));margin-right:0}
-body:has(dialog[open]) .page-scroll{overflow:hidden}
-@media(max-width:600px){.page-content>.layout{width:100vw;margin:0}}
-@media print{html:has(.page-scroll),body:has(.page-scroll){height:auto;overflow:visible}.page-scroll{height:auto;overflow:visible}.page-content>.layout{margin:0}}
-
-.page-content{position:relative;isolation:isolate;width:100vw}
