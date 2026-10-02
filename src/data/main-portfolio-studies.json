@@ -25,7 +25,7 @@
       {
         "title": "The launch",
         "bullets": [
-          "380K+ views and 800 → 2,000+ GitHub stars within ~2 weeks",
+          "380K+ views and 800 → 2,000+ GitHub stars within ~2 weeks",
           "Cross-platform installers (Windows / macOS / Linux) built by CI from v* tags across 100+ releases",
           "620 backend pytest + 71 frontend Vitest tests; a thin ~100 MB installer with a content-versioned runtime pack",
           "AGPL-3.0 open source and sponsorable, with an MCP server + a reusable agent skill"
@@ -117,7 +117,7 @@
           "Deepgram Nova-2 for real-time speech-to-text",
           "Groq Llama 3 for low-latency LLM inference",
           "Deepgram TTS for natural synthesized speech",
-          "Sub-500 ms end-to-end latency; full-duplex — debtors can interrupt mid-sentence"
+          "Sub-500 ms end-to-end latency; full-duplex — debtors can interrupt mid-sentence"
         ]
       },
       {
@@ -146,7 +146,7 @@
       }
     ],
     "highlights": [
-      "Sub-500 ms voice latency with full-duplex interruption handling",
+      "Sub-500 ms voice latency with full-duplex interruption handling",
       "Sherlock engine: FDCPA guardrails + debtor-matrix profiling + live PTP/Refusal/Dispute tagging",
       "Two tuned personas (Rachel / Orion) — dispatch by debtor archetype"
     ],

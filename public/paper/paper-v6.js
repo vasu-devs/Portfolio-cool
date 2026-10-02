@@ -1,3 +1,4 @@
+import {pageScroller} from './scroll-root.js';
 import './paper-keyboard-v4.js';
 let navigationRequested=false;
 function showPage() {
@@ -9,13 +10,13 @@ function showPage() {
   document.title=page==='home'?'Vasudev Siddh: AI engineer (voice agents, LLM systems)':(page==='projects'?'Work':'Contact')+' — Vasu-Devs';
   const fromNavigation=navigationRequested||document.activeElement?.closest('.navigation');navigationRequested=false;
   document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== page; });
-  // Hidden-page lazy images may not start when navigation reveals absolutely positioned covers.
-  if(page==='projects')document.querySelectorAll('#projects .paper-cover img').forEach(img=>{img.loading='eager';img.decoding='async';});
+  // Start covers in the active panel, including the selected projects on Home.
+  document.querySelectorAll('[data-panel="'+page+'"] .paper-cover img').forEach(img=>{img.loading='eager';img.decoding='async';});
   document.querySelectorAll('[data-page]').forEach(link => {
     if (link.dataset.page === (id==='about'?'about':id==='work-with-me'?'contact':page)) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   });
-  if(id==='projects'||id==='home'||id.startsWith('contact'))requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
+  if(id==='projects'||id==='home'||id.startsWith('contact'))requestAnimationFrame(()=>pageScroller.scrollTo({top:0,behavior:'instant'}));
   if(id.startsWith('contact'))document.dispatchEvent(new CustomEvent('contact-page',{detail:{tab:id==='contact/call'?'call':'message'}}));
   if(id==='about')requestAnimationFrame(()=>document.getElementById('about').scrollIntoView({behavior:'instant',block:'start'}));
   // Contact lives below both panels; keep the current panel and scroll to it.
@@ -26,7 +27,9 @@ function showPage() {
 window.addEventListener('hashchange', showPage);
 document.querySelector('.navigation')?.addEventListener('click',event=>{const link=event.target.closest('a[data-page]');if(!link||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;navigationRequested=true;if(link.hash===location.hash)queueMicrotask(showPage)},true);
 showPage();
-document.querySelector('.skip')?.addEventListener('click',event=>{event.preventDefault();document.querySelector('#main').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'})});
+const dock=document.querySelector('.navigation');
+if(dock){const sizeDock=()=>document.documentElement.style.setProperty('--dock-height',Math.ceil(dock.getBoundingClientRect().height)+'px');sizeDock();new ResizeObserver(sizeDock).observe(dock);}
+document.querySelector('.skip')?.addEventListener('click',event=>{event.preventDefault();document.querySelector('#main').focus({preventScroll:true});pageScroller.scrollTo({top:0,behavior:'instant'})});
 
 
 const resumeModal=document.querySelector('.resume-modal');

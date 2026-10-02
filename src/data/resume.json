@@ -33,9 +33,9 @@
       "dates": "2026 → Present",
       "bullets": [
         "Rebuilt an AI assistant backend and took it to production; eval pass rate 32/54 → 52/54.",
-        "Time to first results 72–122 s → under 10 s.",
-        "Search 10.6 s → 53 ms.",
-        "Built a multi-million-vector retrieval index answering in ~15–21 ms; owned releases end to end."
+        "Time to first results 72–122 s → under 10 s.",
+        "Search 10.6 s → 53 ms.",
+        "Built a multi-million-vector retrieval index answering in ~15–21 ms; owned releases end to end."
       ]
     },
     {
@@ -43,7 +43,7 @@
       "company": "Freelance · Confidential client",
       "dates": "Mar → Apr 2026",
       "bullets": [
-        "Fintech P&L platform built solo in 18 days.",
+        "Fintech P&L platform built solo in 18 days.",
         "Connected 5 payment/commerce integrations.",
         "~4,500× faster attribution.",
         "641 orphaned orders recovered."
@@ -60,7 +60,7 @@
         "2,249★ open source; desktop app for job discovery and tailored applications.",
         "380K-view launch.",
         "620 backend tests.",
-        "102 releases."
+        "102 releases."
       ]
     },
     {
@@ -70,7 +70,7 @@
       "tech": "Python / faster-whisper / SQLite",
       "bullets": [
         "Fully on-device; 8.33% WER on CPU.",
-        "754 ms to first word."
+        "754 ms to first word."
       ]
     },
     {
@@ -79,7 +79,7 @@
       "url": "https://www.siddhvasudev.com/#work-with-me",
       "tech": "TypeScript / React / PostgreSQL",
       "bullets": [
-        "Built solo in 18 days; end-to-end delivery."
+        "Built solo in 18 days; end-to-end delivery."
       ]
     },
     {

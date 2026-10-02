@@ -96,7 +96,7 @@
       "dateLabel": "2026 → Present",
       "track": "Freelance",
       "contribution": "Contract / Applied AI & backend engineering",
-      "summary": "I rebuilt an AI assistant backend and took it to production. Eval pass rate went from 32/54 to 52/54, time to first results from 72–122 s to under 10 s, and search from 10.6 s to 53 ms. I also built a multi-million-vector retrieval index that answers in ~15–21 ms, and I owned releases end to end.",
+      "summary": "I rebuilt an AI assistant backend and took it to production. Eval pass rate went from 32/54 to 52/54, time to first results from 72–122 s to under 10 s, and search from 10.6 s to 53 ms. I also built a multi-million-vector retrieval index that answers in ~15–21 ms, and I owned releases end to end.",
       "tech": [
         "Python",
         "FastAPI",
@@ -114,15 +114,15 @@
           "title": "AI assistant backend",
           "bullets": [
             "Rebuilt an AI assistant backend as a multi-agent service in Python and FastAPI, and took it to production.",
-            "Cut time to first results from 72–122 s to under 10 s by profiling each stage and restructuring how work is orchestrated and streamed.",
+            "Cut time to first results from 72–122 s to under 10 s by profiling each stage and restructuring how work is orchestrated and streamed.",
             "Added guardrails that keep the assistant inside its intended scope."
           ]
         },
         {
           "title": "Retrieval and search",
           "bullets": [
-            "Built a multi-million-vector retrieval index that answers in ~15–21 ms.",
-            "Reduced keyword search latency from 10.6 s to 53 ms.",
+            "Built a multi-million-vector retrieval index that answers in ~15–21 ms.",
+            "Reduced keyword search latency from 10.6 s to 53 ms.",
             "Worked with embeddings, vector retrieval and multimodal inputs."
           ]
         },
@@ -147,15 +147,15 @@
           "label": "Eval pass rate"
         },
         {
-          "value": "<10 s",
-          "label": "Time to first results (from 72–122 s)"
+          "value": "<10 s",
+          "label": "Time to first results (from 72–122 s)"
         },
         {
-          "value": "53 ms",
-          "label": "Search (from 10.6 s)"
+          "value": "53 ms",
+          "label": "Search (from 10.6 s)"
         },
         {
-          "value": "~15–21 ms",
+          "value": "~15–21 ms",
           "label": "Vector retrieval"
         }
       ]
@@ -167,7 +167,7 @@
       "dateLabel": "Mar → Apr 2026",
       "track": "Freelance",
       "contribution": "Completed full-stack engagement",
-      "summary": "Fintech P&L platform, built solo in 18 days: 5 payment/commerce integrations, ~4,500× faster attribution, 641 orphaned orders recovered.",
+      "summary": "Fintech P&L platform, built solo in 18 days: 5 payment/commerce integrations, ~4,500× faster attribution, 641 orphaned orders recovered.",
       "tech": [
         "TypeScript",
         "React",
@@ -182,7 +182,7 @@
         {
           "title": "What I built",
           "bullets": [
-            "Built the full platform solo in 18 days with TypeScript, React, Next.js and PostgreSQL: 14 data models, 24 migrations and 40+ indexes.",
+            "Built the full platform solo in 18 days with TypeScript, React, Next.js and PostgreSQL: 14 data models, 24 migrations and 40+ indexes.",
             "Integrated 5 payment and commerce systems into one ledger."
           ]
         },
@@ -191,7 +191,7 @@
           "bullets": [
             "Made ingestion 10× faster and syncs 5–10× faster.",
             "Made the FX backfill ~100× faster and attribution ~4,500× faster.",
-            "Cut dashboard load time by more than 95%; filters went from 500 ms to instant."
+            "Cut dashboard load time by more than 95%; filters went from 500 ms to instant."
           ]
         },
         {
@@ -203,13 +203,13 @@
         {
           "title": "Delivery",
           "bullets": [
-            "290 commits and 85 tests; delivered with client sign-off."
+            "290 commits and 85 tests; delivered with client sign-off."
           ]
         }
       ],
       "metrics": [
         {
-          "value": "18 days",
+          "value": "18 days",
           "label": "Solo build"
         },
         {

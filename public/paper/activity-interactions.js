@@ -12,7 +12,7 @@ if(graph){
  function inspect(i,{announce=false,sound=true,reveal=false}={}){
   if(!cells[i])return;
   const changed=current!==i;cells[current]?.classList.remove('is-active');cells[tabbable].setAttribute('tabindex','-1');const cell=cells[i];cell.setAttribute('tabindex','0');tabbable=current=i;cell.classList.add('is-active');
-  const label=cell.dataset.detail,parts=label.match(/(\d{4}-\d{2}-\d{2}):\s*(\d+)/);output.setAttribute('aria-live',announce?'polite':'off');output.querySelector('.graph-readout-text').textContent=parts?`${fmt.format(new Date(parts[1]+'T12:00:00Z'))} · ${parts[2]} contributions`:label;output.style.setProperty('--day-color',`var(--heat-${cell.dataset.level})`);
+  const label=cell.dataset.detail,parts=label.match(/(\d{4}-\d{2}-\d{2}):\s*(\d+)/);output.setAttribute('aria-live',announce?'polite':'off');output.querySelector('.graph-readout-text').textContent=parts?`${fmt.format(new Date(parts[1]+'T12:00:00Z'))} · ${parts[2]} contribution${Number(parts[2])===1?'':'s'}`:label;output.style.setProperty('--day-color',`var(--heat-${cell.dataset.level})`);
   previous.disabled=i===0;next.disabled=i===cells.length-1;
   const r=cell.getBoundingClientRect();if(reveal){const box=scroller.getBoundingClientRect();if(r.left<box.left||r.right>box.right)scroller.scrollLeft+=r.left-box.left-scroller.clientWidth/2}
   if(sound&&changed)void keySound('graph',Number(cell.dataset.level),r.x+r.width/2);

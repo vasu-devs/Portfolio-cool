@@ -1,5 +1,5 @@
-/* The banner has open, classic serif lettering rather than tight Georgia display type. */
-:root{--serif:'Times New Roman',Times,'Liberation Serif',serif;--muted:#46513c}
+/* Paper surfaces, contact feedback and activity controls. */
+:root{--muted:#46513c}
 h1,h2{letter-spacing:-.012em;font-weight:700}.identity h1{font-family:var(--serif);font-size:46px;font-weight:700;letter-spacing:0;line-height:1.08;margin-bottom:9px}.footer-name{font-family:var(--serif);letter-spacing:0;font-weight:700;font-size:32px}
 .selected-copy h3,.proj-copy h3,.resume-toolbar h2{font-family:var(--serif);letter-spacing:-.01em;font-weight:700}
 .identity-role{color:#242e1e;font-size:16px;font-weight:550;line-height:1.5}.hero-status{flex-wrap:wrap;gap:10px 14px}.traffic-stats{font-size:12px;font-weight:500;color:#303b27}.traffic-stats dt,.traffic-stats dd{line-height:1.6}.traffic-stats dd{font-weight:650}.traffic-stats[data-state=unavailable] dl{display:none}.traffic-stats[data-state=unavailable] .traffic-status{position:static;width:auto;height:auto;clip-path:none;overflow:visible;font-size:12px;color:#3e4934}.availability-badge{color:#26311f;font-weight:500}
