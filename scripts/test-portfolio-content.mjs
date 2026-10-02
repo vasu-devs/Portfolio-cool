@@ -9,7 +9,7 @@ export const coverPath = (slug, realm) => `/test/covers/ui/${slug}-${realm}.webp
 export const groups = {
   work: {
     title: 'Built to ship',
-    lead: 'The projects I treat like products: real users or a real path to them, tests, releases, and the boring parts done properly.'
+    lead: 'The projects I treat like software: real users or a real path to them, tests, releases, and the boring parts done properly.'
   },
   earlier: {
     title: 'Earlier tools',
@@ -24,7 +24,7 @@ export const groups = {
 export const projects = [
   {
     slug: 'justhireme', name: 'JustHireMe', group: 'work', featured: true, selected: true,
-    kind: 'Open source · Desktop app', status: '2,200+ stars · Windows, macOS, Linux',
+    kind: 'Open source · Desktop app', status: '2,249★ · Windows, macOS, Linux',
     hook: 'A desktop app that finds jobs, explains why each one fits you, and drafts the application. Your data never leaves your machine.',
     deck: 'Job hunting is mostly tabs. I wanted one place that pulls in leads, scores them against my actual profile, tells me why, and writes the first draft, without shipping my career history to someone else’s server.',
     url: 'https://github.com/vasu-devs/JustHireMe',
@@ -36,7 +36,7 @@ export const projects = [
         'Drafts a tailored resume, cover letter, and outreach message that you review before anything goes out.'
       ]},
       { title: 'How it’s built', body: 'A Tauri shell hosts a React workbench and a bundled Python FastAPI sidecar bound to localhost behind a per-run token. Career data lives in a local SQLite CRM; a bundled ONNX embedding model means matching works with no API key. External AI providers are optional and only used when you configure them.' },
-      { title: 'Where it stands', body: 'Open source under AGPL, with CI-built installers for all three desktop platforms and a few hundred backend and frontend tests. The launch went further than I expected: 800 to 2,000+ stars in about two weeks. A native iPhone version is a separate project below.' }
+      { title: 'Where it stands', body: 'Open source under AGPL, with CI-built installers for all three desktop platforms and a few hundred backend and frontend tests. The launch went further than I expected: 2,249★. ' }
     ]
   },
   {

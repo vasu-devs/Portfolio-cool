@@ -1,11 +1,15 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-const output = new URL('../dist/', import.meta.url);
-const current = readFileSync(new URL('index.html', output), 'utf8');
-if (!current.includes('id="root"')) throw new Error('Expected the built legacy portfolio before promotion.');
-mkdirSync(new URL('old/', output), { recursive: true });
-const legacy = current.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://www.siddhvasudev.com/old/" />').replace('</head>', '<meta name="robots" content="noindex,follow" /></head>');
-writeFileSync(new URL('old/index.html', output), legacy);
-const modern = readFileSync(new URL('test/index.html', output), 'utf8');
-if (!modern.includes('theme-favicon')) throw new Error('The newer portfolio was not generated.');
-writeFileSync(new URL('index.html', output), modern.replace('<meta name="robots" content="noindex,follow">', '<meta name="robots" content="index,follow"><link rel="canonical" href="https://www.siddhvasudev.com/">'));
-console.log('Published newer portfolio at / and preserved legacy portfolio at /old/.');
+import {readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync, rmSync} from 'node:fs';
+import {resolve} from 'node:path';
+const output=resolve('dist'),source=resolve(output,'test');
+const page=readFileSync(resolve(source,'index.html'),'utf8');
+if(!page.includes('theme-favicon'))throw Error('The portfolio was not generated.');
+const assets=resolve(output,'portfolio-assets');mkdirSync(assets,{recursive:true});
+for(const entry of readdirSync(source,{withFileTypes:true})){
+ if(entry.isDirectory())cpSync(resolve(source,entry.name),resolve(assets,entry.name),{recursive:true});
+ else if(/\.(css|js)$/.test(entry.name))writeFileSync(resolve(assets,entry.name),readFileSync(resolve(source,entry.name),'utf8').replaceAll('/test/','/portfolio-assets/'));
+}
+writeFileSync(resolve(output,'index.html'),page.replaceAll('/test/','/portfolio-assets/').replace('<meta name="robots" content="noindex,follow">','<meta name="robots" content="index,follow"><link rel="canonical" href="https://www.siddhvasudev.com/">'));
+// Only build-owned paths beneath dist are removed; source files stay intact.
+for(const name of ['test','old','assets','covers','Pic'])rmSync(resolve(output,name),{recursive:true,force:true});
+writeFileSync(resolve(output,'sitemap.xml'),'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://www.siddhvasudev.com/</loc></url></urlset>');
+console.log('Published portfolio at /; duplicate pages excluded.');

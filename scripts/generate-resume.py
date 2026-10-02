@@ -11,6 +11,15 @@ from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, KeepTogether, HRFlowable
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
+font_dir = Path('C:/Windows/Fonts') if Path('C:/Windows/Fonts').exists() else Path('/usr/share/fonts/truetype/dejavu')
+windows_fonts = font_dir.name == 'Fonts'
+pdfmetrics.registerFont(TTFont('Arial', str(font_dir / ('arial.ttf' if windows_fonts else 'DejaVuSans.ttf'))))
+pdfmetrics.registerFont(TTFont('Arial-Bold', str(font_dir / ('arialbd.ttf' if windows_fonts else 'DejaVuSans-Bold.ttf'))))
+pdfmetrics.registerFont(TTFont('Symbols', str(font_dir / ('seguisym.ttf' if windows_fonts else 'DejaVuSans.ttf'))))
+pdfmetrics.registerFontFamily('Arial', normal='Arial', bold='Arial-Bold')
 
 ROOT = Path(__file__).resolve().parents[1]
 data = json.loads((ROOT / 'src/data/resume.json').read_text(encoding='utf-8'))
@@ -56,17 +65,17 @@ ink = colors.HexColor('#16222c')
 accent = colors.HexColor('#123e50')
 muted = colors.HexColor('#475966')
 styles = {
-    'name': ParagraphStyle('name', fontName='Helvetica-Bold', fontSize=25, leading=29, textColor=ink, spaceAfter=3),
-    'headline': ParagraphStyle('headline', fontName='Helvetica-Bold', fontSize=11, leading=14, textColor=accent, spaceAfter=6),
-    'contact': ParagraphStyle('contact', fontName='Helvetica', fontSize=9, leading=11, textColor=muted),
-    'body': ParagraphStyle('body', fontName='Helvetica', fontSize=10, leading=12.5, textColor=ink, spaceAfter=3),
-    'heading': ParagraphStyle('heading', fontName='Helvetica-Bold', fontSize=10, leading=12, textColor=accent, spaceBefore=9, spaceAfter=4),
-    'entry': ParagraphStyle('entry', fontName='Helvetica-Bold', fontSize=10, leading=12.5, textColor=ink, spaceAfter=2),
-    'meta': ParagraphStyle('meta', fontName='Helvetica', fontSize=9, leading=11, textColor=muted, spaceAfter=3),
-    'bullet': ParagraphStyle('bullet', fontName='Helvetica', fontSize=10, leading=12.5, textColor=ink, leftIndent=9, firstLineIndent=-7, spaceAfter=2),
+    'name': ParagraphStyle('name', fontName='Arial-Bold', fontSize=25, leading=29, textColor=ink, spaceAfter=3),
+    'headline': ParagraphStyle('headline', fontName='Arial-Bold', fontSize=11, leading=14, textColor=accent, spaceAfter=6),
+    'contact': ParagraphStyle('contact', fontName='Arial', fontSize=9, leading=11, textColor=muted),
+    'body': ParagraphStyle('body', fontName='Arial', fontSize=8.5, leading=10, textColor=ink, spaceAfter=2),
+    'heading': ParagraphStyle('heading', fontName='Arial-Bold', fontSize=10, leading=12, textColor=accent, spaceBefore=9, spaceAfter=4),
+    'entry': ParagraphStyle('entry', fontName='Arial-Bold', fontSize=10, leading=12.5, textColor=ink, spaceAfter=2),
+    'meta': ParagraphStyle('meta', fontName='Arial', fontSize=9, leading=11, textColor=muted, spaceAfter=3),
+    'bullet': ParagraphStyle('bullet', fontName='Arial', fontSize=8.5, leading=10, textColor=ink, leftIndent=9, firstLineIndent=-7, spaceAfter=1),
 }
 def p(text, style='body'):
-    return Paragraph(text, styles[style])
+    return Paragraph(text.replace('★', '<font name="Symbols">★</font>'), styles[style])
 def section(title):
     return [p(title.upper(), 'heading'), HRFlowable(width='100%', thickness=.5, color=colors.HexColor('#d8e1e6'), spaceAfter=5)]
 story = [p(esc(data['name']), 'name'), p(esc(data['headline']), 'headline'), p(f'{esc(data["location"])} / <link href="mailto:{esc(data["email"])}">{esc(data["email"])}</link>', 'contact'), p(' / '.join(f'<link href="{esc(l["url"])}">{esc(l["label"])}</link>' for l in data['links']), 'contact'), Spacer(1,8), HRFlowable(width='100%', thickness=1.2, color=accent), Spacer(1,8), p(esc(data['summary']))]

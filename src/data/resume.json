@@ -1,6 +1,6 @@
 {
   "name": "Vasudev Siddh",
-  "headline": "AI & Full-Stack Engineer",
+  "headline": "AI engineer · Voice agents and LLM systems",
   "location": "India",
   "email": "siddhvasudev1402@gmail.com",
   "links": [
@@ -17,24 +17,36 @@
       "url": "https://www.linkedin.com/in/vasu-devs/"
     }
   ],
-  "summary": "AI engineering intern who builds LLM, voice AI, and full-stack products with Python and TypeScript, from first prototype to tested release. Creator of JustHireMe, an open-source AI job-search app with 2,200+ GitHub stars.",
+  "summary": "AI engineer who builds production voice agents and LLM systems, from prototype to tested release. Creator of JustHireMe (2,249★ open source).",
   "experience": [
     {
       "role": "AI Engineering Intern",
       "company": "withlayer.ai",
-      "dates": "Jun 2026 - Present",
+      "dates": "Jun 2026 → Present",
       "bullets": [
-        "Use Python, TypeScript, React, Next.js, and WebRTC to build real-time voice AI, so users can hold natural, low-delay conversations with an AI assistant.",
-        "Add automated evaluations and regression tests so LLM changes are checked before they reach users; build data-access controls that limit who sees which data."
+        "I work on real-time voice AI (WebRTC, LiveKit, speech-to-text and text-to-speech, latency, interruptions), LLM agent workflows and their reliability (tool calling, grounding, evals, regression tests), and full-stack features (Python, TypeScript, React, Next.js, PostgreSQL)."
       ]
     },
     {
-      "role": "AI & Full-Stack Engineer (Contract)",
+      "role": "AI & Full-Stack Engineer (contract)",
       "company": "Confidential client",
-      "dates": "2026 - Present",
+      "dates": "2026 → Present",
       "bullets": [
-        "Use Python, FastAPI, MongoDB, and vector search to build AI search that finds relevant results from both text and images.",
-        "Set up automated tests and CI/CD with Docker and AWS, so every change is tested and deployed the same way."
+        "Rebuilt an AI assistant backend and took it to production; eval pass rate 32/54 → 52/54.",
+        "Time to first results 72–122 s → under 10 s.",
+        "Search 10.6 s → 53 ms.",
+        "Built a multi-million-vector retrieval index answering in ~15–21 ms; owned releases end to end."
+      ]
+    },
+    {
+      "role": "Full-stack Engineer",
+      "company": "Freelance · Confidential client",
+      "dates": "Mar → Apr 2026",
+      "bullets": [
+        "Fintech P&L platform built solo in 18 days.",
+        "Connected 5 payment/commerce integrations.",
+        "~4,500× faster attribution.",
+        "641 orphaned orders recovered."
       ]
     }
   ],
@@ -45,8 +57,29 @@
       "url": "https://github.com/vasu-devs/JustHireMe",
       "tech": "Tauri / Rust / React / Python / FastAPI",
       "bullets": [
-        "Built an open-source desktop app with Python, FastAPI, React, and Rust that finds jobs, explains how well each one fits you, and drafts tailored applications; 2,200+ GitHub stars.",
-        "Ranked jobs with graph and vector search plus quality checks, with human review before any generated document is used."
+        "2,249★ open source; desktop app for job discovery and tailored applications.",
+        "380K-view launch.",
+        "620 backend tests.",
+        "102 releases."
+      ]
+    },
+    {
+      "name": "Svara",
+      "label": "Creator / On-device dictation",
+      "url": "https://github.com/vasu-devs/Svara",
+      "tech": "Python / faster-whisper / SQLite",
+      "bullets": [
+        "Fully on-device; 8.33% WER on CPU.",
+        "754 ms to first word."
+      ]
+    },
+    {
+      "name": "Fintech platform",
+      "label": "Confidential client",
+      "url": "https://www.siddhvasudev.com/#work-with-me",
+      "tech": "TypeScript / React / PostgreSQL",
+      "bullets": [
+        "Built solo in 18 days; end-to-end delivery."
       ]
     },
     {
@@ -55,18 +88,7 @@
       "url": "https://github.com/vasu-devs/Odeon",
       "tech": "Python / FastAPI / WebSockets / React / SQLite",
       "bullets": [
-        "Built a tool with Python, FastAPI, and React that tests an AI agent with difficult simulated conversations, has an LLM grade its behavior, and rewrites its prompt until the scores pass.",
-        "Streams each run live with a word-by-word diff of every prompt change, so it is easy to see what changed."
-      ]
-    },
-    {
-      "name": "Waldo",
-      "label": "Solo build / Multimodal RAG",
-      "url": "https://github.com/vasu-devs/Waldo",
-      "tech": "Python / LangGraph / Docling / Gemini / Qdrant",
-      "bullets": [
-        "Built a chat tool with Python, LangGraph, Gemini, and Qdrant that answers questions about PDFs, including their tables and figures, and shows the source figure with each answer.",
-        "Checks if retrieved content is relevant, retries with a rewritten question, and says it does not know rather than guessing."
+        "Built a tool with Python, FastAPI, and React that tests an AI agent with difficult simulated conversations, has an LLM grade its behavior, and rewrites its prompt until the scores pass."
       ]
     }
   ],
@@ -88,8 +110,8 @@
     "degree": "Bachelor of Technology (B.Tech), Computer Science & Engineering",
     "institution": "Lovely Professional University, Punjab",
     "dates": "2023 - 2027 (expected)",
-    "detail": "CGPA: 8.59"
+    "detail": "Computer Science & Engineering"
   },
-  "recognition": "Smart India Hackathon 2025 semifinalist (PolySEE team). Oracle OCI AI Foundations Associate; NPTEL coursework in Deep Learning and Machine Learning. Open-source contributions to kana-dojo, animated icons, and free-programming-books.",
-  "updated": "September 2026"
+  "recognition": "8 merged PRs, including one into a 275k★ repo.",
+  "updated": "October 2026"
 }

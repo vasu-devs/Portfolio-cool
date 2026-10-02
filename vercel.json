@@ -1,6 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/old", "destination": "/old/index.html" },
-    { "source": "/old/", "destination": "/old/index.html" }
-  ]
+ "redirects":[
+ {"source":"/:path*","has":[{"type":"host","value":"vasu-devs.si"}],"destination":"https://www.siddhvasudev.com/:path*","statusCode":301},
+ {"source":"/:path*","has":[{"type":"host","value":"www.vasu-devs.si"}],"destination":"https://www.siddhvasudev.com/:path*","statusCode":301},
+ {"source":"/old/:path*","destination":"/","statusCode":301},
+ {"source":"/paper/:path*","destination":"/","statusCode":301},
+ {"source":"/test/:path*","destination":"/","statusCode":301}
+ ]
 }
