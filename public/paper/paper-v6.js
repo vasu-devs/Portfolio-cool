@@ -78,7 +78,7 @@ function openDetail(source,opener){
    cover.append(frame);cover.hidden=false;
   }else if(art){const copy=art.cloneNode(true);copy.removeAttribute('aria-hidden');for(const img of copy.querySelectorAll('img')){img.loading='eager';img.sizes='(max-width: 600px) calc(100vw - 72px), 900px'}cover.append(copy);cover.hidden=false;}
   q('.detail-status').textContent=source.dataset.status||'';
-  const techRow=source.querySelector(':scope > .study .study-tech');q('.detail-stack').replaceChildren();if(techRow)q('.detail-stack').append(techRow.firstElementChild.cloneNode(true));
+  const techRow=source.querySelector('.tech-row');q('.detail-stack').replaceChildren();if(techRow)q('.detail-stack').append(techRow.cloneNode(true));
   const links=q('.detail-links');links.replaceChildren();
   for(const a of source.querySelectorAll('.proj-actions a')){const copy=a.cloneNode(true);copy.removeAttribute('title');copy.classList.add('icon-action');links.append(copy);}
   meta.hidden=false;
@@ -88,6 +88,7 @@ function openDetail(source,opener){
   detailNodes=[...source.children].filter(n=>n!==summary);
  }
  q('.detail-body').append(...detailNodes);
+ if(!isRole){const studyTech=q('.detail-body .study-tech');if(studyTech&&source.querySelector('.tech-row'))studyTech.replaceChildren(source.querySelector('.tech-row').cloneNode(true));}
  q('.detail-deck').hidden=isRole&&q('.detail-body p')?.textContent.trim()===q('.detail-deck').textContent.trim();
  if(isRole)source.open=false;
  readingDialog.showModal();document.documentElement.classList.add('detail-open');
