@@ -188,7 +188,7 @@
         },
         {
           "title": "Evidence and current status",
-          "body": "Private source; in development. A successful hosted iPhone simulator run verifies native compilation and demo unit/UI tests, including onboarding, tracking, dark mode, and larger text. Real authentication, AI and payment integration, physical-device testing, signing, and TestFlight/App Store release remain separate milestones. This is not yet a released iOS app."
+          "body": "Private source; in development. A successful hosted iPhone simulator run verifies native compilation and demo unit/UI tests, including onboarding, tracking, dark mode, and larger text. Real authentication, AI and payment integration, physical-device testing, signing, and signed release remain separate milestones. This is not yet a released mobile version."
         }
       ]
     },
@@ -1220,9 +1220,9 @@
       "forks": 0,
       "topics": [],
       "updatedAt": "2025-09-24T14:41:09Z",
-      "summary": "React + Vite college-assistant front-end with three portals sharing a unified theme — landing, student chat with voice input, and admin dashboard for PDF document management.",
+      "summary": "React + Vite college-assistant front-end with three portals sharing a unified theme — landing, learner chat with voice input, and admin dashboard for PDF document management.",
       "highlights": [
-        "Three-portal design: landing / student chat / admin",
+        "Three-portal design: landing / learner chat / admin",
         "Drag-and-drop PDF ingestion with real-time processing status",
         "Voice-mode overlay for accessibility"
       ],
@@ -1237,7 +1237,7 @@
           "title": "Portals",
           "bullets": [
             "Landing — marketing page with feature cards and usage-stats tiles",
-            "Student Chat — message bubbles, typing indicators, department context switching, voice-mode overlay",
+            "Learner Chat — message bubbles, typing indicators, department context switching, voice-mode overlay",
             "Admin — drag-and-drop PDF upload with real-time processing, knowledge-base management, analytics"
           ]
         },
@@ -1306,7 +1306,7 @@
     },
     {
       "name": "PolySEE",
-      "description": "A multilingual campus chatbot that answers student FAQs from documents, supports regional languages, maintains context, and escalates to staff when unsure.",
+      "description": "A multilingual campus chatbot that answers learner FAQs from documents, supports regional languages, maintains context, and escalates to staff when unsure.",
       "url": "https://github.com/vasu-devs/PolySEE",
       "homepage": null,
       "language": "JavaScript",
@@ -1350,7 +1350,7 @@
         },
         {
           "title": "Admin-approval workflow",
-          "body": "New responses don't go live unconfirmed. In staging mode, each response shows its confidence score and the retrieved context. Admins approve or reject; only approved responses get promoted into the production dataset — a fact-checked update loop that student volunteers can maintain."
+          "body": "New responses don't go live unconfirmed. In staging mode, each response shows its confidence score and the retrieved context. Admins approve or reject; only approved responses get promoted into the production dataset — a fact-checked update loop that learner volunteers can maintain."
         },
         {
           "title": "Multi-channel + multi-language",

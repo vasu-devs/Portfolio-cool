@@ -1,159 +1,82 @@
 {
-    "roles": [
+  "roles": [
+    {
+      "id": "withlayer-internship",
+      "company": "withlayer.ai",
+      "role": "AI Engineering Intern",
+      "dateLabel": "Jun 2026 → Present",
+      "track": "Internship",
+      "contribution": "Applied AI / Voice / Full-stack engineering",
+      "summary": "I work on real-time voice AI (WebRTC, LiveKit, speech-to-text and text-to-speech, latency, interruptions), LLM agent workflows and their reliability (tool calling, grounding, evals, regression tests), and full-stack features (Python, TypeScript, React, Next.js, PostgreSQL).",
+      "metrics": [
         {
-            "id": "withlayer-internship",
-            "company": "withlayer.ai",
-            "role": "AI Engineering Intern",
-            "dateLabel": "Jun 2026 → Present",
-            "track": "Internship",
-            "contribution": "Applied AI / Voice / Full-stack engineering",
-            "summary": "I build conversational AI features at withlayer.ai, from real-time voice interactions to backend APIs and React interfaces. I also investigate latency, handle interruptions and connection changes, and write regression tests to keep those flows reliable.",
-            "metrics": [
-                {
-                    "value": "Voice",
-                    "label": "Real-time systems"
-                },
-                {
-                    "value": "LLMs",
-                    "label": "Applied AI"
-                },
-                {
-                    "value": "APIs",
-                    "label": "Full-stack work"
-                },
-                {
-                    "value": "Evals",
-                    "label": "Quality & reliability"
-                }
-            ],
-            "sections": [
-                {
-                    "title": "Voice and real-time systems",
-                    "body": "I work on the technical details that make spoken interaction feel responsive and predictable.",
-                    "bullets": [
-                        "Develop and debug speech-to-text, language-model response, and text-to-speech integrations using Python and TypeScript, with WebRTC and LiveKit among the tools I work with.",
-                        "Work on turn detection, interruptions, streaming responses, and connection lifecycle handling, including how the system behaves when a conversation pauses or a connection changes.",
-                        "Work with speech technologies such as Deepgram and Rime, investigating transcription quality and spoken-output behavior."
-                    ]
-                },
-                {
-                    "title": "LLM and agent workflows",
-                    "body": "I contribute to the engineering around model calls: preparing context, handling outputs, and making asynchronous work dependable.",
-                    "bullets": [
-                        "Implement and refine LLM integrations, prompt construction, context handling, and structured model outputs.",
-                        "Work on grounding and evaluation so generated responses can be checked against the information available to the system.",
-                        "Contribute to asynchronous workflows and background processing, including failure handling and consistency between related operations."
-                    ]
-                },
-                {
-                    "title": "Full-stack and data work",
-                    "bullets": [
-                        "Implement application changes across React and Next.js interfaces, TypeScript APIs, and PostgreSQL-backed data flows.",
-                        "Work through UI states and backend behavior together, including loading, unavailable data, and error cases.",
-                        "Check authentication, permissions, and tenant-scoped data access as part of implementation and regression testing."
-                    ]
-                },
-                {
-                    "title": "Performance and reliability",
-                    "bullets": [
-                        "Profile response latency and time to first token to understand where time is spent in streaming and asynchronous processing.",
-                        "Add diagnostics and investigate timing, cancellation, and state-management issues instead of judging responsiveness only by how a demo feels.",
-                        "Review edge cases involving partial results, interrupted work, and unexpected inputs; validate fixes with targeted checks."
-                    ]
-                },
-                {
-                    "title": "Testing and delivery",
-                    "body": "My contribution includes verification and review as well as implementation.",
-                    "bullets": [
-                        "Write and maintain regression tests, integration checks, and browser-level checks with tools including Vitest and Playwright.",
-                        "Use automated evaluations to examine AI behavior, and add coverage for failures and data-access boundaries.",
-                        "Work through code-review feedback and document what has been verified, what remains uncertain, and where a change is ready for release."
-                    ]
-                }
-            ],
-            "tech": [
-                "Python",
-                "TypeScript",
-                "React",
-                "Next.js",
-                "PostgreSQL",
-                "WebRTC",
-                "LiveKit",
-                "Vitest",
-                "Playwright"
-            ],
-            "links": [
-                {
-                    "label": "Company website",
-                    "href": "https://withlayer.ai"
-                }
-            ]
+          "value": "Voice",
+          "label": "Real-time systems"
         },
         {
-            "id": "confidential-ai-contract",
-            "company": "Confidential client",
-            "role": "AI & Full-Stack Engineer",
-            "dateLabel": "2026 → Present",
-            "track": "Freelance",
-            "contribution": "Contract / Applied AI & backend engineering",
-            "summary": "I’m working with a client on AI and backend systems: embeddings, vector retrieval, multimodal inputs, and data-processing APIs. The stack includes Python, FastAPI, TypeScript, and MongoDB, with automated tests and Docker-based delivery.",
-            "tech": [
-                "Python",
-                "FastAPI",
-                "TypeScript",
-                "MongoDB",
-                "Docker",
-                "AWS"
-            ],
-            "sections": [
-                {
-                    "title": "Applied AI and backend engineering",
-                    "body": "An ongoing contract covering AI integrations and the backend systems around them. The client and product remain confidential."
-                },
-                {
-                    "title": "My contribution",
-                    "bullets": [
-                        "Work with embeddings, vector retrieval, and multimodal AI.",
-                        "Develop data-processing and API integrations using Python, FastAPI, TypeScript, and MongoDB."
-                    ]
-                },
-                {
-                    "title": "Validation and delivery",
-                    "body": "The engineering workflow includes automated tests, Docker, AWS, and CI/CD. This engagement is ongoing."
-                }
-            ]
+          "value": "LLMs",
+          "label": "Applied AI"
         },
         {
-            "id": "freelance-delivered",
-            "company": "Confidential client",
-            "role": "Freelance · Full-stack Engineer",
-            "dateLabel": "Mar → Apr 2026",
-            "track": "Freelance",
-            "contribution": "Completed full-stack engagement",
-            "summary": "I delivered full-stack work for a client between March and April 2026, building React interfaces and connecting them to backend APIs and a relational database. I worked through implementation, validation, and delivery. Client and product details are confidential.",
-            "tech": [
-                "TypeScript",
-                "React",
-                "Next.js",
-                "PostgreSQL"
-            ],
-            "sections": [
-                {
-                    "title": "Full-stack delivery",
-                    "body": "A completed client engagement from March to April 2026, covering implementation, validation, and delivery. Client and product details are private."
-                },
-                {
-                    "title": "My contribution",
-                    "bullets": [
-                        "Implemented interface work with TypeScript and React.",
-                        "Worked across backend APIs and relational databases; the project stack included Next.js and PostgreSQL."
-                    ]
-                },
-                {
-                    "title": "Delivery",
-                    "body": "Worked through validation and delivery as part of the completed engagement."
-                }
-            ]
+          "value": "APIs",
+          "label": "Full-stack work"
+        },
+        {
+          "value": "Evals",
+          "label": "Quality & reliability"
         }
-    ]
+      ],
+      "sections": [],
+      "tech": [
+        "Python",
+        "TypeScript",
+        "React",
+        "Next.js",
+        "PostgreSQL",
+        "WebRTC",
+        "LiveKit",
+        "Vitest",
+        "Playwright"
+      ],
+      "links": [
+        {
+          "label": "Company website",
+          "href": "https://withlayer.ai"
+        }
+      ]
+    },
+    {
+      "id": "confidential-ai-contract",
+      "company": "Confidential client",
+      "role": "AI & Full-Stack Engineer (contract)",
+      "dateLabel": "2026 → Present",
+      "track": "Freelance",
+      "contribution": "Contract / Applied AI & backend engineering",
+      "summary": "I rebuilt an AI assistant backend and took it to production. Eval pass rate went from 32/54 to 52/54, time to first results from 72–122 s to under 10 s, and search from 10.6 s to 53 ms. I also built a multi-million-vector retrieval index that answers in ~15–21 ms, and I owned releases end to end.",
+      "tech": [
+        "Python",
+        "FastAPI",
+        "MongoDB",
+        "Docker",
+        "AWS"
+      ],
+      "sections": []
+    },
+    {
+      "id": "freelance-delivered",
+      "company": "Freelance · Confidential client",
+      "role": "Full-stack Engineer",
+      "dateLabel": "Mar → Apr 2026",
+      "track": "Freelance",
+      "contribution": "Completed full-stack engagement",
+      "summary": "Fintech P&L platform, built solo in 18 days: 5 payment/commerce integrations, ~4,500× faster attribution, 641 orphaned orders recovered.",
+      "tech": [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "PostgreSQL"
+      ],
+      "sections": []
+    }
+  ]
 }

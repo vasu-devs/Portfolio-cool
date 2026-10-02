@@ -26,7 +26,7 @@ try{
  await page.route('**/*',route=>route.request().url().startsWith(base)?route.continue():route.abort());
  await page.goto(base);await page.evaluate(()=>document.fonts.ready);
  assert.equal(await page.locator('.paper-avatar').count(),1);assert.equal(await page.locator('.theme-toggle,.paper-hello-hand,#inquiry-form').count(),0);
- assert((await page.locator('.intro').innerText()).includes('AI Engineering intern at withlayer.ai'));
+ assert((await page.locator('.intro').innerText()).includes('I build the parts of AI products that break in production'));
  assert(await page.locator('.intro a').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).textDecorationLine.includes('underline'))));
  await page.locator('.intro a[href="#project-justhireme"]').click();assert.equal(await page.locator('dialog[open]').count(),1);await page.keyboard.press('Escape');
  await page.locator('.navigation [data-page=projects]').click();

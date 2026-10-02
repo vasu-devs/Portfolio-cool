@@ -564,7 +564,7 @@
     {
       "name": "ChatBotUI",
       "category": "Visual & learning",
-      "summary": "A college-assistant interface with student chat and document-management views.",
+      "summary": "A college-assistant interface with learner chat and document-management views.",
       "url": "https://github.com/vasu-devs/ChatBotUI",
       "status": "Public repository",
       "tech": [

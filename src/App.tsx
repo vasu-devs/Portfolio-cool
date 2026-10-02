@@ -335,7 +335,7 @@ export default function App() {
             {
                title: 'Personas generated on the fly',
                body:
-                  "Odeon spawns diverse user personas per scenario — \"The Lawyer,\" \"The Crying Student,\" \"The Stubborn Defaulter,\" etc. Each persona drives the user-side of the simulation, giving the agent genuinely hard traffic to handle.",
+                  "Odeon spawns diverse user personas per scenario — \"The Lawyer,\" \"The Crying Learner,\" \"The Stubborn Defaulter,\" etc. Each persona drives the user-side of the simulation, giving the agent genuinely hard traffic to handle.",
             },
             {
                title: 'Strict metric thresholds',
