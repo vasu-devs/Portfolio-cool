@@ -3,6 +3,7 @@ let navigationRequested=false;
 function showPage() {
   const id = location.hash.slice(1);
   const project = id.startsWith('project-') ? document.getElementById(id) : null;
+  const role = id.startsWith('role-') ? document.getElementById(id) : null;
   const current = document.querySelector('[data-panel]:not([hidden])')?.dataset.panel || 'home';
   const page = id === 'projects' || project?.classList.contains('proj') ? 'projects' : id === 'work-with-me' ? current : id.startsWith('contact') ? 'contact' : 'home';
   document.title=page==='home'?'Vasudev Siddh: AI engineer (voice agents, LLM systems)':(page==='projects'?'Work':'Contact')+' — Vasu-Devs';
@@ -19,7 +20,7 @@ function showPage() {
   if(id==='about')requestAnimationFrame(()=>document.getElementById('about').scrollIntoView({behavior:'instant',block:'start'}));
   // Contact lives below both panels; keep the current panel and scroll to it.
   if(id==='work-with-me')requestAnimationFrame(()=>document.getElementById('work-with-me').scrollIntoView({behavior:'smooth',block:'start'}));
-  if(project?.classList.contains('proj')) { requestAnimationFrame(() => {project.dispatchEvent(new CustomEvent('open-detail'));}); }
+  if(project?.classList.contains('proj')||role?.classList.contains('role')) { requestAnimationFrame(() => {(project||role).dispatchEvent(new CustomEvent('open-detail'));}); }
   if(fromNavigation&&!project)requestAnimationFrame(()=>{const heading=document.querySelector('[data-panel="'+page+'"] h1,[data-panel="'+page+'"] h2');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}});
 }
 window.addEventListener('hashchange', showPage);
@@ -51,6 +52,7 @@ let detailSource=null,detailOpener=null,detailNodes=[];
 const q=(sel)=>readingDialog.querySelector(sel);
 function openDetail(source,opener){
  if(readingDialog.open)return;
+ if(detailSource)restoreDetail();
  const isRole=source.classList.contains('role');
  const summary=isRole?source.querySelector(':scope > summary'):null;
  detailSource=source;detailOpener=opener||summary||source.querySelector('.proj-open');
@@ -97,6 +99,7 @@ function openDetail(source,opener){
  readingDialog.scrollTop=0;q('.resume-content').scrollTop=0;q('button').focus({preventScroll:true});
 }
 for(const source of document.querySelectorAll('details.role')){
+ source.addEventListener('open-detail',()=>openDetail(source));
  const summary=source.querySelector(':scope > summary');summary.setAttribute('aria-haspopup','dialog');
  summary.addEventListener('click',event=>{event.preventDefault();openDetail(source);});
 }
@@ -116,20 +119,22 @@ document.addEventListener('click',event=>{
 });
 // In-page project links open a reading layer without changing page or scroll.
 document.addEventListener('click',event=>{
- const link=event.target.closest('a[href^="#project-"]');
+ const link=event.target.closest('a[href^="#project-"],a[href^="#role-"]');
  if(!link||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
  const source=document.getElementById(link.getAttribute('href').slice(1));
- if(!source?.classList.contains('proj'))return;
+ if(!source?.matches('.proj,.role'))return;
  event.preventDefault();openDetail(source,link);
 });
 readingDialog.querySelector('button').addEventListener('click',()=>readingDialog.close());
 readingDialog.addEventListener('click',event=>{if(event.target!==readingDialog)return;const r=readingDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)readingDialog.close();});
-readingDialog.addEventListener('close',()=>{
+function restoreDetail(){
  q('.detail-cover').replaceChildren();q('.detail-cover').classList.remove('has-video');
  if(detailSource?.classList.contains('proj'))detailSource.querySelector(':scope > .study').append(...detailNodes);
  else detailSource?.append(...detailNodes);
  detailNodes=[];document.documentElement.classList.remove('detail-open');detailOpener?.focus({preventScroll:true});
-});
+ detailSource=null;detailOpener=null;
+}
+readingDialog.addEventListener('close',()=>{if(!readingDialog.open)restoreDetail();});
 // Project films stay in context; remove the player on close so playback stops.
 const filmDialog=document.createElement('dialog');
 filmDialog.className='resume-modal film-modal';filmDialog.setAttribute('aria-labelledby','film-title');

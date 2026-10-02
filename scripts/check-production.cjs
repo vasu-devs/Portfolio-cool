@@ -28,7 +28,7 @@ try{
  assert.equal(await page.locator('.paper-avatar').count(),1);assert.equal(await page.locator('.theme-toggle,.paper-hello-hand,#inquiry-form').count(),0);
  assert((await page.locator('.intro').innerText()).includes('I build the parts of AI products that break in production'));
  assert(await page.locator('.intro a').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).textDecorationLine.includes('underline'))));
- await page.locator('.intro a[href="#project-justhireme"]').click();assert.equal(await page.locator('dialog[open]').count(),1);await page.keyboard.press('Escape');
+ await page.locator('.intro .availability-badge[href="#project-justhireme"]').click();assert.equal(await page.locator('dialog[open]').count(),1);await page.keyboard.press('Escape');
  await page.locator('.navigation [data-page=projects]').click();
  await page.evaluate(async()=>{for(const img of document.querySelectorAll('.paper-cover img')){img.loading='eager';await img.decode()}});
  const projects=await page.locator('.proj').evaluateAll(nodes=>nodes.map(n=>({id:n.id,src:n.querySelector('.paper-cover img').getAttribute('src')})));
