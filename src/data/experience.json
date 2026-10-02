@@ -26,7 +26,51 @@
           "label": "Quality & reliability"
         }
       ],
-      "sections": [],
+      "sections": [
+        {
+          "title": "Voice and real-time systems",
+          "body": "I work on the technical details that make spoken interaction feel responsive and predictable.",
+          "bullets": [
+            "Develop and debug speech-to-text, language-model response, and text-to-speech integrations using Python and TypeScript, with WebRTC and LiveKit among the tools I work with.",
+            "Work on turn detection, interruptions, streaming responses, and connection lifecycle handling, including how the system behaves when a conversation pauses or a connection changes.",
+            "Investigate transcription quality and spoken-output behavior."
+          ]
+        },
+        {
+          "title": "LLM and agent workflows",
+          "body": "I contribute to the engineering around model calls: preparing context, handling outputs, and making asynchronous work dependable.",
+          "bullets": [
+            "Implement and refine LLM integrations, context preparation, context handling, and structured model outputs.",
+            "Work on grounding and evaluation so generated responses can be checked against the information available to the system.",
+            "Contribute to asynchronous workflows and background processing, including failure handling and consistency between related operations."
+          ]
+        },
+        {
+          "title": "Full-stack and data work",
+          "bullets": [
+            "Implement application changes across React and Next.js interfaces, TypeScript APIs, and PostgreSQL-backed data flows.",
+            "Work through UI states and backend behavior together, including loading, unavailable data, and error cases.",
+            "Check authentication, permissions, and tenant-scoped data access as part of implementation and regression testing."
+          ]
+        },
+        {
+          "title": "Performance and reliability",
+          "bullets": [
+            "Profile response latency and time to first token to understand where time is spent in streaming and asynchronous processing.",
+            "Add diagnostics and investigate timing, cancellation, and state-management issues instead of judging responsiveness only by how a demo feels.",
+            "Review edge cases involving partial results, interrupted work, and unexpected inputs; validate fixes with targeted checks."
+          ]
+        },
+        {
+          "title": "Testing and delivery",
+          "body": "My contribution includes verification and review as well as implementation.",
+          "bullets": [
+            "Write and maintain regression tests, integration checks, and browser-level checks with tools including Vitest and Playwright.",
+            "Use automated evaluations to examine AI behavior, and add coverage for failures and data-access boundaries.",
+            "Work through code-review feedback and document what has been verified, what remains uncertain, and where a change is ready for release."
+          ]
+        }
+      ],
       "tech": [
         "Python",
         "TypeScript",
@@ -57,10 +101,64 @@
         "Python",
         "FastAPI",
         "MongoDB",
+        "vector search",
         "Docker",
         "AWS"
       ],
-      "sections": []
+      "sections": [
+        {
+          "title": "Applied AI and backend engineering",
+          "body": "A long-running contract covering an AI assistant and the retrieval and data systems behind it. The client and product are confidential."
+        },
+        {
+          "title": "AI assistant backend",
+          "bullets": [
+            "Rebuilt an AI assistant backend as a multi-agent service in Python and FastAPI, and took it to production.",
+            "Cut time to first results from 72–122 s to under 10 s by profiling each stage and restructuring how work is orchestrated and streamed.",
+            "Added guardrails that keep the assistant inside its intended scope."
+          ]
+        },
+        {
+          "title": "Retrieval and search",
+          "bullets": [
+            "Built a multi-million-vector retrieval index that answers in ~15–21 ms.",
+            "Reduced keyword search latency from 10.6 s to 53 ms.",
+            "Worked with embeddings, vector retrieval and multimodal inputs."
+          ]
+        },
+        {
+          "title": "Data pipelines",
+          "bullets": [
+            "Built data-processing and enrichment pipelines with Python, FastAPI and MongoDB, designed for repeatable runs and validation."
+          ]
+        },
+        {
+          "title": "Evals, testing and delivery",
+          "bullets": [
+            "Built a golden eval suite that gates changes, taking the pass rate from 32/54 to 52/54.",
+            "Wrote automated tests and set up CI/CD with Docker and AWS.",
+            "Owned releases end to end, including production incidents and fixes."
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "value": "32/54 → 52/54",
+          "label": "Eval pass rate"
+        },
+        {
+          "value": "<10 s",
+          "label": "Time to first results (from 72–122 s)"
+        },
+        {
+          "value": "53 ms",
+          "label": "Search (from 10.6 s)"
+        },
+        {
+          "value": "~15–21 ms",
+          "label": "Vector retrieval"
+        }
+      ]
     },
     {
       "id": "freelance-delivered",
@@ -76,7 +174,57 @@
         "Next.js",
         "PostgreSQL"
       ],
-      "sections": []
+      "sections": [
+        {
+          "title": "Full-stack delivery",
+          "body": "A solo engagement building an internal finance and multi-currency P&L platform. The client and product are confidential."
+        },
+        {
+          "title": "What I built",
+          "bullets": [
+            "Built the full platform solo in 18 days with TypeScript, React, Next.js and PostgreSQL: 14 data models, 24 migrations and 40+ indexes.",
+            "Integrated 5 payment and commerce systems into one ledger."
+          ]
+        },
+        {
+          "title": "Performance",
+          "bullets": [
+            "Made ingestion 10× faster and syncs 5–10× faster.",
+            "Made the FX backfill ~100× faster and attribution ~4,500× faster.",
+            "Cut dashboard load time by more than 95%; filters went from 500 ms to instant."
+          ]
+        },
+        {
+          "title": "Data recovery",
+          "bullets": [
+            "Recovered 641 orphaned orders and 2,350 mis-attributed transactions."
+          ]
+        },
+        {
+          "title": "Delivery",
+          "bullets": [
+            "290 commits and 85 tests; delivered with client sign-off."
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "value": "18 days",
+          "label": "Solo build"
+        },
+        {
+          "value": "5",
+          "label": "Integrations"
+        },
+        {
+          "value": "~4,500×",
+          "label": "Faster attribution"
+        },
+        {
+          "value": "641",
+          "label": "Orphaned orders recovered"
+        }
+      ]
     }
   ]
 }
