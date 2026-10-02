@@ -576,3 +576,6 @@ body a[href*="cal.com"]:focus-visible{outline:2px solid var(--bright);outline-of
 
 body .detail-cover.has-video{aspect-ratio:16/9;background:#000}
 body .detail-cover.has-video iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
+body .realm-covers > .project-cover--paper,
+body .detail-cover > .project-cover--paper{opacity:1;object-position:center}
+body .detail-cover:has(> .project-cover--paper){aspect-ratio:16/9}

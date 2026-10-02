@@ -5,7 +5,9 @@ const page=readFileSync(resolve(source,'index.html'),'utf8');
 if(!page.includes('theme-favicon'))throw Error('The portfolio was not generated.');
 const assets=resolve(output,'portfolio-assets');mkdirSync(assets,{recursive:true});
 for(const entry of readdirSync(source,{withFileTypes:true})){
- if(entry.isDirectory())cpSync(resolve(source,entry.name),resolve(assets,entry.name),{recursive:true});
+ if(entry.name==='covers'){
+  cpSync(resolve(source,'covers/paper-ui'),resolve(assets,'covers/paper-ui'),{recursive:true});
+ }else if(entry.isDirectory())cpSync(resolve(source,entry.name),resolve(assets,entry.name),{recursive:true});
  else if(/\.(css|js)$/.test(entry.name))writeFileSync(resolve(assets,entry.name),readFileSync(resolve(source,entry.name),'utf8').replaceAll('/test/','/portfolio-assets/'));
 }
 writeFileSync(resolve(output,'index.html'),page.replaceAll('/test/','/portfolio-assets/').replace('<meta name="robots" content="noindex,follow">','<meta name="robots" content="index,follow"><link rel="canonical" href="https://www.siddhvasudev.com/">'));

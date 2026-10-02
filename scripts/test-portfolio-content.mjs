@@ -2,9 +2,9 @@
 // this file only decides what is said, how, and in which group.
 // group: 'work' (built to ship), 'earlier' (older tools), 'play' (for fun).
 
-export const COVER_VERSION = 'v16';
-// Covers are the project's real interface painted into its realm (scripts/codex-ui-covers.mjs).
-export const coverPath = (slug, realm) => `/test/covers/ui/${slug}-${realm}.webp`;
+export const COVER_VERSION = 'paper-v1';
+// Paper illustrations retain each project's distinctive interface layout.
+export const coverPath = slug => `/test/covers/paper-ui/${slug}-v1.webp`;
 
 export const groups = {
   work: {
