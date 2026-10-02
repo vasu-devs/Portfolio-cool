@@ -1,4 +1,4 @@
-# Paper portfolio sound, revision 8
+# Paper portfolio sound, revision 9
 
 The user's direction is soothing, cohesive tactile interaction with natural variation, not repeated synthetic impacts. Visual layout and brand remain unchanged.
 
@@ -21,7 +21,7 @@ Mastering removes DC and sub-rumble, rolls off metallic high frequencies, gently
 - Actions fade an existing hover; at most two sustained voices plus a 15 ms retiring fade.
 - Shuffle bags exhaust six recordings before reuse and avoid identical samples at bag boundaries.
 - Panel observers own navigation/dialog sounds, eliminating duplicate click/open responses.
-- Audio starts only after a user gesture. Mute persists, fades voices, and cancels pending playback. Hidden pages suspend sound. Video dialogs suppress interaction sounds.
+- Audio is prepared silently on load when enabled. Hover plays immediately when the browser permits it; a suspended context resumes on a trusted gesture. There is no additional per-visit click requirement. Mute persists, fades voices, and cancels pending playback. Hidden pages suspend sound. Video dialogs suppress interaction sounds.
 
 ## Validation
 
@@ -33,4 +33,4 @@ Revision 8: `check-responsive-audio.cjs` / `qa-responsive-audio.json`. Native po
 
 The actual in-app browser reports AudioContext running and Test played after reloading. This verifies output, not subjective headphone/speaker quality; final aesthetic judgment belongs to the user.
 
-Local preview only. No deployment or changes to the live portfolio repository.
+Revision 9 startup checks: `scripts/check-sound-startup.cjs` exercises permitted and restricted browser audio policies, silent page load, audible first-hover output without a click when permitted, first-click activation when blocked, and saved mute. Autoplay overrides are confined to the test browser; production follows the browser's actual AudioContext state.

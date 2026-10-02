@@ -8,7 +8,7 @@ const out=path.resolve(__dirname,'../.cache/opening-qa');fs.mkdirSync(out,{recur
  const base='http://127.0.0.1:'+server.address().port;let browser;
  const errors=[];
  try{
-  browser=await chromium.launch();
+  browser=await chromium.launch({args:['--autoplay-policy=document-user-activation-required','--disable-features=PreloadMediaEngagementData,MediaEngagementBypassAutoplayPolicies']});
   async function context(options={}){const c=await browser.newContext(options);await c.route('**/*',r=>r.request().url().startsWith(base)?r.continue():r.abort());c.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));return c}
   for(const viewport of [{width:1280,height:800},{width:390,height:844},{width:844,height:390}]){
    const c=await context({viewport,isMobile:viewport.width<900,hasTouch:viewport.width<900});const p=await c.newPage();
@@ -46,20 +46,21 @@ const out=path.resolve(__dirname,'../.cache/opening-qa');fs.mkdirSync(out,{recur
    else assert(await p.locator('#home .identity h1').isVisible());
    if(scenario==='no-js'){
     const meta=await p.locator('meta[property],meta[name^="twitter:"]').evaluateAll(es=>Object.fromEntries(es.map(e=>[e.getAttribute('property')||e.name,e.content])));
-    assert.equal(meta['twitter:card'],'summary_large_image');assert.equal(meta['og:title'],'Vasu-Devs — AI Engineer');
+    assert.equal(meta['twitter:card'],'summary_large_image');assert.equal(meta['og:title'],'Vasudev Siddh: AI engineer (voice agents, LLM systems)');
     assert.equal(meta['og:image'],meta['twitter:image']);assert(meta['og:image'].startsWith('https://www.siddhvasudev.com/'));
-    const res=await p.request.get(base+new URL(meta['og:image']).pathname);assert.equal(res.status(),200);assert(res.headers()['content-type'].includes('image/jpeg'));
-    const bytes=await res.body();assert(bytes.length<500*1024);assert.equal(bytes.readUInt16BE(0),0xffd8);const dimensions=await p.evaluate(async url=>{const img=new Image();img.src=url;await img.decode();return [img.naturalWidth,img.naturalHeight]},base+new URL(meta['og:image']).pathname);assert.deepEqual(dimensions,[+meta['og:image:width'],+meta['og:image:height']]);
-    assert(meta['og:description'].includes('AI agents'));assert(meta['og:image:alt'].includes('portrait'));
+    const res=await p.request.get(base+new URL(meta['og:image']).pathname);assert.equal(res.status(),200);assert(res.headers()['content-type'].includes('image/webp'));
+    const bytes=await res.body();assert(bytes.length<500*1024);assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');const dimensions=await p.evaluate(async url=>{const img=new Image();img.src=url;await img.decode();return [img.naturalWidth,img.naturalHeight]},base+new URL(meta['og:image']).pathname);assert.deepEqual(dimensions,[+meta['og:image:width'],+meta['og:image:height']]);
+    assert(meta['og:description'].includes('voice agents'));assert(meta['og:image:alt'].includes('portrait'));
     assert.equal(await p.locator('meta[property="og:image"]').count(),1);
    }
    await c.close();
   }
   const c=await context({reducedMotion:'reduce'}),p=await c.newPage();
   await p.addInitScript(()=>{window.audioStarts=0;const Native=window.AudioContext;window.AudioContext=new Proxy(Native,{construct(T,args){const ctx=new T(...args),make=ctx.createBufferSource.bind(ctx);ctx.createBufferSource=()=>{const source=make(),start=source.start.bind(source);source.start=(...a)=>{window.audioStarts++;return start(...a)};return source};return ctx}})});
-  await p.goto(base);const sound=p.locator('.sound-toggle');
-  assert.equal(await sound.getAttribute('aria-pressed'),'true');assert.equal(await sound.getAttribute('data-audio-state'),'inactive');assert.equal(await p.evaluate(()=>audioStarts),0);
-  // A first click on the on-state control mutes immediately, even before audio unlock.
+  await p.goto(base,{waitUntil:'networkidle'});const sound=p.locator('.sound-toggle');
+  assert.equal(await sound.getAttribute('aria-pressed'),'false');assert.equal(await sound.getAttribute('data-audio-state'),'suspended');assert.equal(await p.evaluate(()=>audioStarts),0);
+  // A blocked browser starts audio with the first click, then the toggle can mute.
+  assert.equal(await sound.innerText(),'Enable sound');await sound.click();await p.waitForFunction(()=>audioStarts>0);assert.equal(await sound.getAttribute('aria-pressed'),'true');
   await sound.click();assert.equal(await sound.getAttribute('aria-pressed'),'false');await p.reload();assert.equal(await sound.getAttribute('aria-pressed'),'false');
   await sound.click();await p.waitForFunction(()=>audioStarts>0);assert.equal(await sound.getAttribute('data-audio-state'),'running');assert.equal(await sound.getAttribute('aria-pressed'),'true');
   await sound.click();const count=await p.evaluate(()=>audioStarts);await p.locator('.navigation [data-page=projects]').click();assert.equal(await p.evaluate(()=>audioStarts),count,'Muted navigation played sound');
