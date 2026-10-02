@@ -218,7 +218,7 @@ export default function App() {
          ],
          tech: ['Tauri 2', 'Rust', 'React 19', 'TypeScript', 'Python', 'FastAPI', 'SQLite', 'Kuzu', 'LanceDB', 'ONNX'],
          videoUrl: '',
-         thumbnailUrl: '/covers/JustHireMe.png',
+         thumbnailUrl: '/covers/JustHireMe.webp',
          liveUrl: 'https://justhireme.ai',
       },
       {
@@ -264,7 +264,7 @@ export default function App() {
          ],
          tech: ['Next.js 16', 'TypeScript', 'Drizzle ORM', 'Neon Postgres', 'Vercel AI SDK', 'Groq', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM',
-         thumbnailUrl: '/covers/branchGPT.png',
+         thumbnailUrl: '/covers/branchGPT.webp',
          liveUrl: 'https://branchgpt.siddhvasudev.com/'
       },
       {
@@ -318,7 +318,7 @@ export default function App() {
          ],
          tech: ['Python', 'FastAPI', 'LiveKit Agents', 'Groq', 'Deepgram', 'React 18', 'Vite', 'Tailwind', 'SIP', 'Docker'],
          videoUrl: 'https://www.youtube.com/watch?v=VsEfOfwh8XM',
-         thumbnailUrl: '/covers/Vaani.png',
+         thumbnailUrl: '/covers/Vaani.webp',
       },
       {
          title: 'Odeon',
@@ -374,7 +374,7 @@ export default function App() {
          ],
          tech: ['Python', 'FastAPI', 'WebSockets', 'Groq', 'LangChain', 'SQLite', 'React 19', 'Vite', 'TypeScript', 'Tailwind 4'],
          videoUrl: 'https://youtu.be/GFdSe4-c_xQ',
-         thumbnailUrl: '/covers/Odeon.png',
+         thumbnailUrl: '/covers/Odeon.webp',
       },
       {
          title: 'MapMyRepo',
@@ -431,7 +431,7 @@ export default function App() {
          ],
          tech: ['React 19', 'TypeScript', 'Vite 6', 'D3.js 7', 'Google Gemini', 'Tailwind'],
          videoUrl: 'https://youtu.be/EmTDrPzAo40',
-         thumbnailUrl: '/covers/MapMyRepo.png',
+         thumbnailUrl: '/covers/MapMyRepo.webp',
          liveUrl: 'https://mapmyrepo.siddhvasudev.com'
       }
    ];

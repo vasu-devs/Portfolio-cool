@@ -8,6 +8,8 @@ function showPage() {
   document.title=page==='home'?'Vasudev Siddh: AI engineer (voice agents, LLM systems)':(page==='projects'?'Work':'Contact')+' — Vasu-Devs';
   const fromNavigation=navigationRequested||document.activeElement?.closest('.navigation');navigationRequested=false;
   document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== page; });
+  // Hidden-page lazy images may not start when navigation reveals absolutely positioned covers.
+  if(page==='projects')document.querySelectorAll('#projects .paper-cover img').forEach(img=>{img.loading='eager';img.decoding='async';});
   document.querySelectorAll('[data-page]').forEach(link => {
     if (link.dataset.page === (id==='about'?'about':id==='work-with-me'?'contact':page)) link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');

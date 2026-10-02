@@ -50,7 +50,7 @@
       "ONNX"
     ],
     "videoUrl": "",
-    "thumbnailUrl": "/covers/JustHireMe.png",
+    "thumbnailUrl": "/covers/JustHireMe.webp",
     "liveUrl": "https://justhireme.ai"
   },
   {
@@ -101,7 +101,7 @@
       "Tailwind 4"
     ],
     "videoUrl": "https://youtu.be/RB3zvAXbpL0?si=ICerMC6OnoqNvavM",
-    "thumbnailUrl": "/covers/branchGPT.png",
+    "thumbnailUrl": "/covers/branchGPT.webp",
     "liveUrl": "https://branchgpt.siddhvasudev.com/"
   },
   {
@@ -163,7 +163,7 @@
       "Docker"
     ],
     "videoUrl": "https://www.youtube.com/watch?v=VsEfOfwh8XM",
-    "thumbnailUrl": "/covers/Vaani.png"
+    "thumbnailUrl": "/covers/Vaani.webp"
   },
   {
     "title": "Odeon",
@@ -225,7 +225,7 @@
       "Tailwind 4"
     ],
     "videoUrl": "https://youtu.be/GFdSe4-c_xQ",
-    "thumbnailUrl": "/covers/Odeon.png"
+    "thumbnailUrl": "/covers/Odeon.webp"
   },
   {
     "title": "MapMyRepo",
@@ -287,7 +287,7 @@
       "Tailwind"
     ],
     "videoUrl": "https://youtu.be/EmTDrPzAo40",
-    "thumbnailUrl": "/covers/MapMyRepo.png",
+    "thumbnailUrl": "/covers/MapMyRepo.webp",
     "liveUrl": "https://mapmyrepo.siddhvasudev.com"
   }
 ]
