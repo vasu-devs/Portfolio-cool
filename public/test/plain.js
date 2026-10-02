@@ -1,6 +1,6 @@
 import './keyboard.js?v=190';
 import './tiny-scroll.js?v=180';
-import './soul-cursor.js?v=space-181';
+
 
 function showPage() {
   const id = location.hash.slice(1);
@@ -29,10 +29,10 @@ function themeLabel() {
  const light = root.dataset.theme === 'light';
  document.getElementById('theme-favicon').href = light ? '/test/avatars/favicon-light.png' : '/test/avatars/favicon-dark.png';
  themeButton.title = light ? 'Switch to dark mode' : 'Switch to light mode';
- document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#f4f3ed' : '#0b0e14');
+ document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#f4f1e8' : '#20271f');
  themeButton.setAttribute('aria-label', themeButton.title);
  themeButton.querySelector('.theme-label').textContent = '';
- themeButton.querySelector('.sun-icon').innerHTML = '<svg class="jigokucho" viewBox="0 0 40 40" aria-hidden="true"><g class="butterfly-wings" fill="var(--butterfly-wing)" stroke="var(--butterfly-edge)" stroke-width=".7" stroke-linejoin="round"><path d="M19 19C15 10 7 4 3 6 1 11 4 19 12 22 5 21 6 29 10 29l1 5 3-4c3-1 5-6 5-11Z"/><path d="M21 19C25 10 33 4 37 6c2 5-1 13-9 16 7-1 6 7 2 7l-1 5-3-4c-3-1-5-6-5-11Z"/><g fill="none" stroke="var(--butterfly-vein)" stroke-width="1.2"><path d="M18 20 6 9m11 12-9-5m10 7-6 5M22 20 34 9m-11 12 9-5m-10 7 6 5"/></g><path d="m9 25 3 1 2-2m17 1-3 1-2-2" fill="none" stroke="var(--butterfly-mark)" stroke-width="1.3"/></g><path d="M20 15v15m-1-14c0-5-2-6-4-7m6 7c0-5 2-6 4-7" fill="none" stroke="var(--butterfly-body)" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="20" cy="18" rx="1.5" ry="4" fill="var(--butterfly-body)"/></svg>';
+ themeButton.querySelector('.sun-icon').innerHTML = light ? '☾' : '☀';
 }
 themeLabel();
 let requestedTheme = root.dataset.theme === 'light' ? 'light' : 'dark';
@@ -40,7 +40,7 @@ let activeReveal = null;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 function applyTheme() {
  root.dataset.theme = requestedTheme;
- try { localStorage.setItem('vasu-theme', requestedTheme); } catch {}
+ try { localStorage.setItem('vasu-paper-theme', requestedTheme); } catch {}
  themeLabel();
 }
 function clearReveal() {
