@@ -39,9 +39,9 @@ h1,h2,h3,h4,.identity h1,.selected-copy h3,.proj-copy h3,.resume-toolbar h2,.foo
 .project-results>span{white-space:nowrap}
 .proj-kicker,.role-date,.skill-group-label,.modal-kicker,.graph-readout-text,.heatmap-footer,.metric-chip{font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.015em}
 .role h3{font-family:var(--serif);font-weight:550}
-.skill{width:76px;word-break:normal;overflow-wrap:normal;hyphens:none;font-size:12px}
+.skill{width:auto;min-width:0;word-break:normal;overflow-wrap:normal;hyphens:none;font-size:12px}
 .skill-label{max-width:100%;word-break:normal;overflow-wrap:normal;hyphens:none;line-height:1.4}
-.skills-grid{gap:18px 10px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:14px 8px}
 .tech--mobile-more{display:none}
 .case-stack{display:flex;flex-wrap:wrap;gap:8px}
 @media print{.layout{padding-bottom:0}}

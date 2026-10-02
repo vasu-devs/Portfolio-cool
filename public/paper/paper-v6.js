@@ -6,7 +6,7 @@ function showPage() {
   const role = id.startsWith('role-') ? document.getElementById(id) : null;
   const current = document.querySelector('[data-panel]:not([hidden])')?.dataset.panel || 'home';
   const page = id === 'projects' || project?.classList.contains('proj') ? 'projects' : id === 'work-with-me' ? current : id.startsWith('contact') ? 'contact' : 'home';
-  document.title=page==='home'?'Vasudev Siddh: AI engineer (voice agents, LLM systems)':(page==='projects'?'Work':'Contact')+' — Vasu-Devs';
+  document.title=page==='home'?'Vasudev Siddh: AI engineer (voice agents, LLM systems)':(page==='projects'?'Projects':'Contact')+' — Vasu-Devs';
   const fromNavigation=navigationRequested||document.activeElement?.closest('.navigation');navigationRequested=false;
   document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== page; });
   // Start covers in the active panel, including the selected projects on Home.

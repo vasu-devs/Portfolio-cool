@@ -2,7 +2,7 @@
 const guide = document.createElement('dialog');
 guide.className = 'contact-dialog keyboard-guide';
 guide.setAttribute('aria-labelledby', 'keyboard-title');
-guide.innerHTML = `<header><h2 id="keyboard-title">Keyboard shortcuts</h2><button type="button" aria-label="Close shortcuts" autofocus>×</button></header><dl><div><dt><kbd>H</kbd> / <kbd>W</kbd> / <kbd>A</kbd> / <kbd>C</kbd></dt><dd>Home / Work / About / Contact</dd></div><div><dt><kbd>J</kbd> / <kbd>K</kbd></dt><dd>Scroll down / up</dd></div><div><dt><kbd>Home</kbd> / <kbd>End</kbd></dt><dd>Top / bottom of page</dd></div><div><dt><kbd>]</kbd> / <kbd>[</kbd></dt><dd>Next / previous section</dd></div><div><dt><kbd>?</kbd></dt><dd>Show this guide</dd></div><div><dt><kbd>Esc</kbd></dt><dd>Close a dialog</dd></div></dl><label><input type="checkbox" checked> Enable letter-key shortcuts</label>`;
+guide.innerHTML = `<header><h2 id="keyboard-title">Keyboard shortcuts</h2><button type="button" aria-label="Close shortcuts" autofocus>×</button></header><dl><div><dt><kbd>H</kbd> / <kbd>W</kbd> / <kbd>A</kbd> / <kbd>C</kbd></dt><dd>Home / Projects / About / Contact</dd></div><div><dt><kbd>J</kbd> / <kbd>K</kbd></dt><dd>Scroll down / up</dd></div><div><dt><kbd>Home</kbd> / <kbd>End</kbd></dt><dd>Top / bottom of page</dd></div><div><dt><kbd>]</kbd> / <kbd>[</kbd></dt><dd>Next / previous section</dd></div><div><dt><kbd>?</kbd></dt><dd>Show this guide</dd></div><div><dt><kbd>Esc</kbd></dt><dd>Close a dialog</dd></div></dl><label><input type="checkbox" checked> Enable letter-key shortcuts</label>`;
 document.body.append(guide);
 const trigger = document.createElement('button');
 trigger.className = 'keyboard-help';
