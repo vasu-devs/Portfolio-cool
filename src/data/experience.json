@@ -7,78 +7,94 @@
             "dateLabel": "Jun 2026 → Present",
             "track": "Internship",
             "contribution": "Applied AI / Voice / Full-stack engineering",
-            "summary": "I build conversational AI features at withlayer.ai, from real-time voice interactions to backend APIs and React interfaces. I also investigate latency, handle interruptions and connection changes, and write regression tests to keep those flows reliable.",
+            "summary": "I make a real-time voice AI agent honest, safe and fast. Most of my work sits in the parts users never see: what the agent is allowed to read and do, how it behaves when data is missing, how quickly it speaks, and the native Mac app that listens to calls.",
             "metrics": [
                 {
+                    "value": "Reliability",
+                    "label": "Agent truthfulness"
+                },
+                {
+                    "value": "Authorization",
+                    "label": "Default-deny access"
+                },
+                {
                     "value": "Voice",
-                    "label": "Real-time systems"
+                    "label": "Real-time streaming"
                 },
                 {
-                    "value": "LLMs",
-                    "label": "Applied AI"
-                },
-                {
-                    "value": "APIs",
-                    "label": "Full-stack work"
+                    "value": "macOS",
+                    "label": "Native Swift app"
                 },
                 {
                     "value": "Evals",
-                    "label": "Quality & reliability"
+                    "label": "Measured, not assumed"
                 }
             ],
             "sections": [
                 {
-                    "title": "Voice and real-time systems",
-                    "body": "I work on the technical details that make spoken interaction feel responsive and predictable.",
+                    "title": "An agent that says \"I don't know\" instead of inventing",
+                    "body": "The agent treated \"I couldn't read that\" the same as \"there's nothing there\", then filled the gap with something plausible. I changed the contract rather than the prompt.",
                     "bullets": [
-                        "Develop and debug speech-to-text, language-model response, and text-to-speech integrations using Python and TypeScript, with WebRTC and LiveKit among the tools I work with.",
-                        "Work on turn detection, interruptions, streaming responses, and connection lifecycle handling, including how the system behaves when a conversation pauses or a connection changes.",
-                        "Work with speech technologies such as Deepgram and Rime, investigating transcription quality and spoken-output behavior."
+                        "Every result now states what it covered and whether it was cut short.",
+                        "Every data source declares what an empty answer actually means, so \"unknown\" can never be passed along as \"empty\".",
+                        "The honesty rules live in a platform layer that no persona or prompt edit can remove."
+                    ],
+                    "lesson": "Lesson: most hallucinations I fixed weren't model problems. They were data contracts that let silence look like an answer."
+                },
+                {
+                    "title": "Default-deny permissions for an agent with real access",
+                    "body": "An agent that can read a whole organisation's data and write to other systems needs hard limits, not polite instructions.",
+                    "bullets": [
+                        "An authorization rail where broader reads must be explicitly offered and accepted, bound to the exact query.",
+                        "Approvals that freeze what the human agreed to, so the action can't change afterwards.",
+                        "Refusals that look identical to \"not found\", so they leak nothing.",
+                        "Closed cross-tenant read and write paths, a file path-traversal bug and a database-permission bypass.",
+                        "Made it impossible at compile time to write a raw error into the logs."
                     ]
                 },
                 {
-                    "title": "LLM and agent workflows",
-                    "body": "I contribute to the engineering around model calls: preparing context, handling outputs, and making asynchronous work dependable.",
+                    "title": "Voice that answers while you're still listening",
+                    "body": "I built the streaming pipeline, then measured every stage of a spoken turn and optimised against the measurements, not against how a demo felt.",
                     "bullets": [
-                        "Implement and refine LLM integrations, prompt construction, context handling, and structured model outputs.",
-                        "Work on grounding and evaluation so generated responses can be checked against the information available to the system.",
-                        "Contribute to asynchronous workflows and background processing, including failure handling and consistency between related operations."
+                        "The model's words are spoken sentence by sentence as they're generated.",
+                        "Interruptions and background noise are handled without cutting people off.",
+                        "Code and raw data are never read aloud."
+                    ],
+                    "lesson": "Lesson: the biggest wins came from changing the order of work, not from a faster model."
+                },
+                {
+                    "title": "A native Mac app that knows who's talking (Swift)",
+                    "bullets": [
+                        "Replaced audio downsampling that had no filter (it folded noise into the speech band) with a streaming windowed-sinc resampler.",
+                        "Fixed speech streams closing silently, which split three people on a call into ten \"speakers\", with keep-alives and buffering so a call's first seconds aren't lost.",
+                        "On-device detection of who's speaking on screen (Vision OCR; no image ever leaves the Mac), combined with calendar data and introductions.",
+                        "A speaker is named only when the evidence agrees; otherwise the line stays unnamed rather than guessed."
                     ]
                 },
                 {
-                    "title": "Full-stack and data work",
+                    "title": "Background work that recovers and runs exactly once",
                     "bullets": [
-                        "Implement application changes across React and Next.js interfaces, TypeScript APIs, and PostgreSQL-backed data flows.",
-                        "Work through UI states and backend behavior together, including loading, unavailable data, and error cases.",
-                        "Check authentication, permissions, and tenant-scoped data access as part of implementation and regression testing."
+                        "Scheduled routines that are time-zone safe, with durable leasing and recovery, exactly-once publication and default-deny permissions.",
+                        "Preparation driven by events (calendar changes, CRM syncs, finished calls) instead of polling, so work is ready before the user asks.",
+                        "Approval-gated write-back to CRMs: one approval, decided on desktop, chat or web."
                     ]
                 },
                 {
-                    "title": "Performance and reliability",
-                    "bullets": [
-                        "Profile response latency and time to first token to understand where time is spent in streaming and asynchronous processing.",
-                        "Add diagnostics and investigate timing, cancellation, and state-management issues instead of judging responsiveness only by how a demo feels.",
-                        "Review edge cases involving partial results, interrupted work, and unexpected inputs; validate fixes with targeted checks."
-                    ]
-                },
-                {
-                    "title": "Testing and delivery",
-                    "body": "My contribution includes verification and review as well as implementation.",
-                    "bullets": [
-                        "Write and maintain regression tests, integration checks, and browser-level checks with tools including Vitest and Playwright.",
-                        "Use automated evaluations to examine AI behavior, and add coverage for failures and data-access boundaries.",
-                        "Work through code-review feedback and document what has been verified, what remains uncertain, and where a change is ready for release."
-                    ]
+                    "title": "How I work",
+                    "body": "I work AI-assisted, but I own every change: written plans first, multiple review rounds including independent reviewers, mutation testing to prove the tests can actually fail, and proofs against a real database rather than mocks. When a review proves my fix wrong, I revert it."
                 }
             ],
             "tech": [
-                "Python",
                 "TypeScript",
+                "Python",
+                "Swift",
                 "React",
                 "Next.js",
                 "PostgreSQL",
+                "Supabase",
                 "WebRTC",
                 "LiveKit",
+                "ScreenCaptureKit",
                 "Vitest",
                 "Playwright"
             ],
@@ -92,13 +108,77 @@
         {
             "id": "confidential-ai-contract",
             "company": "Confidential client",
-            "role": "AI & Full-Stack Engineer (contract)",
-            "dateLabel": "",
+            "role": "Founding Engineer (contract)",
+            "dateLabel": "May 2026 → Present",
             "track": "Freelance",
             "contribution": "Contract",
-            "summary": "I rebuilt an AI assistant backend and took it to production. Golden-eval pass rate went from 32/54 to 52/54, time to first results from 72–122 s to under 10 s, and search from 10.6 s to 53 ms. I also built a multi-million-vector retrieval index that answers in ~15–21 ms, and I owned releases end to end.",
-            "tech": [],
-            "sections": []
+            "summary": "I run engineering end to end for a venture-backed startup: the AI assistant, the data platform behind it, cloud operations, and every release to the App Store. I also review, integrate and ship the rest of the team's work.",
+            "tech": [
+                "Python",
+                "FastAPI",
+                "MongoDB",
+                "Vector search",
+                "Node.js",
+                "TypeScript",
+                "AWS",
+                "Docker",
+                "GitHub Actions",
+                "Swift",
+                "Xcode",
+                "TestFlight"
+            ],
+            "sections": [
+                {
+                    "title": "From too slow to usable",
+                    "body": "I inherited an AI assistant that took 72–122 seconds to show anything. I rebuilt it as a Python/FastAPI service with tool orchestration, retrieval and structured responses the mobile app can render. Then I profiled every stage: deadlines, concurrency, and deterministic fast paths where a model call wasn't needed. First results now arrive in under 10 seconds, and keyword search went from 10.6 s to 53 ms.",
+                    "lesson": "Lesson: passing unit tests didn't mean the answers were useful, so I built golden and adversarial evaluation suites to judge real behaviour."
+                },
+                {
+                    "title": "The data the AI depends on",
+                    "body": "An assistant is only as good as its data, so I built the engine that creates it.",
+                    "bullets": [
+                        "Source adapters, normalization, deduplication and quality gates that make missing or contradictory facts visible instead of guessed.",
+                        "An enrichment pipeline combining rules, model classification and text and image embeddings, taking coverage from 0% to 99.5%.",
+                        "A multi-million-vector index answering in about 15–21 ms.",
+                        "Paid model calls are journaled, so an uncertain request is never silently paid for twice."
+                    ]
+                },
+                {
+                    "title": "Owning production",
+                    "bullets": [
+                        "AWS operations (ECS/Fargate, Batch, Step Functions, Lambda, S3, DynamoDB, CloudFormation, IAM) with guarded rollouts, immutable images and cost limits.",
+                        "The GitHub organisation and CI/CD in GitHub Actions.",
+                        "iOS releases: code signing, self-hosted Mac build machines, TestFlight and App Store submissions.",
+                        "Traced a notification pipeline that was failing 100% of the time across the client, backend and provider, and rebuilt it with truthful delivery reporting."
+                    ]
+                },
+                {
+                    "title": "Leading the work",
+                    "body": "I review, integrate and release the other engineers' changes, write onboarding and handoff material, and ran a security assessment. I own incidents end to end, including the ones I caused: contain, fix, and write up what changed."
+                }
+            ],
+            "metrics": [
+                {
+                    "value": "<10 s",
+                    "label": "First results (from 72–122 s)"
+                },
+                {
+                    "value": "53 ms",
+                    "label": "Search (from 10.6 s)"
+                },
+                {
+                    "value": "~15–21 ms",
+                    "label": "Vector retrieval"
+                },
+                {
+                    "value": "0% → 99.5%",
+                    "label": "Enrichment coverage"
+                },
+                {
+                    "value": "1,144 + 592",
+                    "label": "Backend + native tests at release"
+                }
+            ]
         },
         {
             "id": "freelance-delivered",

@@ -74,7 +74,7 @@ if symbol_font is None:
 pdfmetrics.registerFont(TTFont('ResumeSymbols', str(symbol_font)))
 
 def p(text, style='body'):
-    return Paragraph(text.replace('★', '<font name="ResumeSymbols">★</font>'), styles[style])
+    return Paragraph(text.replace('★', '<font name="ResumeSymbols">★</font>').replace('→', '<font name="ResumeSymbols">→</font>'), styles[style])
 def section(title):
     return [p(title.upper(), 'heading'), HRFlowable(width='100%', thickness=.5, color=colors.HexColor('#d8e1e6'), spaceAfter=5)]
 story = [p(esc(data['name']), 'name'), p(esc(data['headline']), 'headline'), p(f'{esc(data["location"])} / <link href="mailto:{esc(data["email"])}">{esc(data["email"])}</link>', 'contact'), p(' / '.join(f'<link href="{esc(l["url"])}">{esc(l["label"])}</link>' for l in data['links']), 'contact'), Spacer(1,8), HRFlowable(width='100%', thickness=1.2, color=accent), Spacer(1,8), p(esc(data['summary']))]

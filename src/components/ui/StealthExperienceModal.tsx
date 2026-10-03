@@ -19,6 +19,7 @@ interface PerfWin {
 interface Section {
     title: string;
     body?: string;
+    lesson?: string;
     bullets?: string[];
     perf?: PerfWin[];
 }
@@ -121,12 +122,9 @@ export const StealthExperienceModal = ({ isOpen, onClose }: StealthExperienceMod
                                 </div>
 
                                 <div className="space-y-[14vw] md:space-y-20">
-                                    {SECTIONS.map((section, i) => (
+                                    {SECTIONS.map((section) => (
                                         <section key={section.title}>
                                             <div className="flex items-baseline gap-[3vw] md:gap-4 mb-[4vw] md:mb-6">
-                                                <span className="font-mono text-[2.5vw] md:text-xs text-fg-secondary tabular-nums">
-                                                    {String(i + 1).padStart(2, '0')}
-                                                </span>
                                                 <div className="h-px flex-1 bg-border-primary" />
                                                 <h3 className="font-display font-bold text-[5.5vw] md:text-2xl uppercase tracking-tight">
                                                     {section.title}
@@ -151,6 +149,8 @@ export const StealthExperienceModal = ({ isOpen, onClose }: StealthExperienceMod
                                                     ))}
                                                 </ul>
                                             )}
+
+                                            {section.lesson && <p><em>{section.lesson}</em></p>}
 
                                             {section.perf && (
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-[3vw] md:gap-4">

@@ -22,21 +22,22 @@
     {
       "role": "AI Engineering Intern",
       "company": "withlayer.ai",
-      "dates": "Jun 2026 - Present",
+      "dates": "Jun 2026 – Present",
       "bullets": [
-        "Use Python, TypeScript, React, Next.js, and WebRTC to build real-time voice AI, so users can hold natural, low-delay conversations with an AI assistant.",
-        "Add automated evaluations and regression tests so LLM changes are checked before they reach users; build data-access controls that limit who sees which data."
+        "Own agent truthfulness and authorization for a real-time voice AI product: evidence contracts, default-deny access rails, honest failure handling.",
+        "Closed cross-tenant and path-traversal vulnerabilities; made raw-error logging impossible at compile time.",
+        "Built the streaming voice pipeline and a native macOS (Swift) audio and speaker-identification stack, including a windowed-sinc resampler and on-device Vision OCR.",
+        "Governed background execution (leased, recoverable, exactly-once routines) and event-driven preparation; approval-gated CRM write-back."
       ]
     },
     {
-      "role": "AI & Full-Stack Engineer (contract)",
+      "role": "Founding Engineer (contract)",
       "company": "Confidential client",
-      "dates": "",
+      "dates": "May 2026 – Present",
       "bullets": [
-        "Rebuilt an AI assistant backend and took it to production; golden-eval pass rate improved from 32/54 to 52/54.",
-        "Reduced time to first results from 72–122 s to under 10 s.",
-        "Reduced search latency from 10.6 s to 53 ms.",
-        "Built a multi-million-vector retrieval index answering in ~15–21 ms."
+        "Run engineering end to end: AI backend, data platform, AWS operations, CI/CD and iOS releases; review and ship the team's work.",
+        "Rebuilt the AI assistant: first results 72–122 s → under 10 s; keyword search 10.6 s → 53 ms; ~15–21 ms vector retrieval.",
+        "Built the data acquisition and enrichment engine (0% → 99.5% coverage); fixed a notification pipeline failing 100% of deliveries."
       ]
     }
   ],
@@ -57,8 +58,7 @@
       "url": "https://github.com/vasu-devs/Svara",
       "tech": "Python / faster-whisper / CUDA",
       "bullets": [
-        "Built fully on-device dictation with 8.33% WER on CPU.",
-        "Streamed speech into text with 754 ms to first word."
+        "On-device dictation: 8.33% WER on CPU; 754 ms to first word."
       ]
     },
     {
