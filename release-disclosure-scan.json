@@ -1,0 +1,67 @@
+{
+  "scanned_dist_files": 188,
+  "scanned_text_files_and_pdf": 52,
+  "pdf_pages": 1,
+  "literal_matches_requiring_context_review": {
+    "Home": {
+      "dist\\index.html": 10,
+      "dist\\portfolio-assets\\keyboard.js": 5,
+      "dist\\portfolio-assets\\plain.js": 3,
+      "dist\\portfolio-assets\\soul-cursor.js": 6,
+      "dist\\portfolio-assets\\sound.js": 1,
+      "dist\\portfolio-assets\\studio.js": 1,
+      "dist\\portfolio-assets\\tybw-gallery.js": 3,
+      "dist\\portfolio-assets\\work.css": 16
+    },
+    "architecture": {
+      "dist\\index.html": 1
+    },
+    "schemas": {
+      "dist\\sitemap.xml": 1
+    },
+    "revenue": {
+      "dist\\portfolio-assets\\fonts\\Fontshare-license.txt": 1
+    },
+    "style": {
+      "dist\\index.html": 63,
+      "dist\\resume.html": 2,
+      "dist\\portfolio-assets\\bleach-effects.js": 1,
+      "dist\\portfolio-assets\\curiosity.css": 3,
+      "dist\\portfolio-assets\\curiosity.js": 5,
+      "dist\\portfolio-assets\\fontshare.css": 5,
+      "dist\\portfolio-assets\\hollow-theme.css": 1,
+      "dist\\portfolio-assets\\plain.css": 4,
+      "dist\\portfolio-assets\\playground.css": 2,
+      "dist\\portfolio-assets\\playground.js": 2,
+      "dist\\portfolio-assets\\professional.css": 3,
+      "dist\\portfolio-assets\\realms.css": 8,
+      "dist\\portfolio-assets\\satoshi.css": 3,
+      "dist\\portfolio-assets\\soul-cursor.js": 18,
+      "dist\\portfolio-assets\\sound.css": 1,
+      "dist\\portfolio-assets\\studio.css": 2,
+      "dist\\portfolio-assets\\studio.js": 6,
+      "dist\\portfolio-assets\\tiny-scroll.js": 1,
+      "dist\\portfolio-assets\\tybw-gallery.js": 2,
+      "dist\\portfolio-assets\\work.css": 5,
+      "dist\\portfolio-assets\\logos\\docling.svg": 46,
+      "dist\\portfolio-assets\\vendor\\three.module.min.js": 3
+    },
+    "products": {
+      "dist\\index.html": 1
+    },
+    "UK": {
+      "dist\\index.html": 3
+    },
+    "outreach": {
+      "dist\\index.html": 1
+    },
+    "intern": {
+      "dist\\index.html": 2,
+      "dist\\resume.html": 1,
+      "dist/resume.pdf extracted text": 1
+    }
+  },
+  "confidential_disclosure_matches": {},
+  "context_review": "Requested intro/availability, navigation labels, public-project implementation descriptions, fictional mascots, asset licences, dates, model versions and calendar data are retained. No confidential employer/client features, names, vendors or unapproved professional performance claims found. This is a contextual disclosure scan, not a zero-match literal-word/number scan.",
+  "duplicate_directories_present": []
+}

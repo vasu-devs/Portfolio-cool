@@ -1,0 +1,35 @@
+{
+  "url": "https://www.siddhvasudev.com",
+  "results": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "projectCovers": 24,
+      "modalCover": "visible",
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "projectCovers": 24,
+      "modalCover": "visible",
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "projectCovers": 24,
+      "modalCover": "visible",
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "projectCovers": 24,
+      "modalCover": "visible",
+      "horizontalOverflow": false
+    }
+  ],
+  "errors": [],
+  "failures": []
+}

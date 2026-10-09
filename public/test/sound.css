@@ -1,6 +1,7 @@
-/* Paper-cutout portrait: shown whole (no photo zoom) on a kraft-paper tile, in both themes.
-   !important because the realm themes position the old photo slides with high specificity. */
-.portrait-frame:has(.avatar-paper),.identity .portrait-frame:has(.avatar-paper){background:#eee4d3!important}
+/* Paper-cutout portrait: shown whole (no photo zoom) on a black tile in dark mode and a white
+   tile in light mode. !important because the realm themes style the old photo frame with high specificity. */
+.portrait-frame:has(.avatar-paper),.identity .portrait-frame:has(.avatar-paper){background:#0a0a0a!important}
+:root[data-theme=light] .portrait-frame:has(.avatar-paper),:root[data-theme=light] .identity .portrait-frame:has(.avatar-paper){background:#fff!important}
 .avatar-rotator .avatar-slide.avatar-paper{transform:none!important;object-fit:cover!important;object-position:50% 100%!important;filter:none!important}
 
 /* Interface sound toggle, sits beside the theme toggle in the nav. */

@@ -1,27 +1,21 @@
 // Interface sound design for the portfolio.
 //
-// Every interaction has its own voice, synthesised live with the Web Audio API (no
-// audio files). Voices are tuned to one D-major pentatonic scale so overlapping
-// sounds never clash, panned to where the element sits on screen, and sent through
-// a small generated room reverb and a compressor so layered sounds stay soft.
+// Crisp, clicky ASMR: clicky key switches that press and release separately, pen
+// clicks, bubble-wrap pops, light switches, latches, crisp paper, and blade clashes.
+// All synthesised live with the Web Audio API (no audio files) from band-passed noise
+// clicks and tiny high resonances, with random variation on every sound, panned to
+// where the element sits on screen. The master chain cuts everything under ~320 Hz
+// (no bass) and lifts the top end slightly before a short room and a compressor.
 //
 // Browsers only allow audio after a user gesture, so the engine wakes on the first
 // click, tap or key press. Sound is on by default; the speaker button in the nav
 // (or the M key) mutes it and the choice is remembered.
 
 const STORAGE_KEY = 'vasu-sound';
-const MASTER_LEVEL = 0.55;
+const MASTER_LEVEL = 0.7;
 const MAX_VOICES = 16;
 const HOVER_GAP_MS = 32; // minimum spacing between hover sounds
 const PAGES = ['home', 'projects', 'about', 'contact'];
-
-// D major pentatonic (D E F# A B), expressed as semitones above D.
-const PENTATONIC = [0, 2, 4, 7, 9];
-const D4 = 293.66;
-const note = (degree, octave = 0) => {
-  const steps = PENTATONIC[((degree % 5) + 5) % 5] + 12 * (octave + Math.floor(degree / 5));
-  return D4 * 2 ** (steps / 12);
-};
 
 let enabled = true;
 try { enabled = localStorage.getItem(STORAGE_KEY) !== 'off'; } catch {}
@@ -34,7 +28,7 @@ let hovered = null;
 
 /* ---------- engine ---------- */
 
-function buildImpulse(context, seconds = 1.3) {
+function buildImpulse(context, seconds = 0.9) {
   // A short, dark stereo room: decaying noise, gently low-passed by the decay curve.
   const rate = context.sampleRate;
   const length = Math.floor(rate * seconds);
@@ -43,7 +37,7 @@ function buildImpulse(context, seconds = 1.3) {
     const data = impulse.getChannelData(channel);
     let smooth = 0;
     for (let i = 0; i < length; i++) {
-      smooth = smooth * 0.6 + (Math.random() * 2 - 1) * 0.4;
+      smooth = smooth * 0.85 + (Math.random() * 2 - 1) * 0.15; // darker, softer tail
       data[i] = smooth * (1 - i / length) ** 3.2;
     }
   }
@@ -66,11 +60,20 @@ function wake() {
     const reverb = ctx.createConvolver();
     reverb.buffer = buildImpulse(ctx);
     const reverbSend = ctx.createGain();
-    reverbSend.gain.value = 0.22;
+    reverbSend.gain.value = 0.14; // close and intimate, not a hall
     reverbSend.connect(reverb).connect(master);
     const input = ctx.createGain();
     input.connect(master);
-    master.connect(compressor).connect(ctx.destination);
+    // No bass: a steep high-pass under ~320 Hz, and a gentle lift above 5 kHz for crispness.
+    const lowCut = ctx.createBiquadFilter();
+    lowCut.type = 'highpass';
+    lowCut.frequency.value = 320;
+    lowCut.Q.value = 0.9;
+    const air = ctx.createBiquadFilter();
+    air.type = 'highshelf';
+    air.frequency.value = 5000;
+    air.gain.value = 2.5;
+    master.connect(lowCut).connect(air).connect(compressor).connect(ctx.destination);
     bus = { input, reverbSend };
   }
   if (ctx.state === 'suspended') ctx.resume().catch(() => {});
@@ -152,153 +155,182 @@ function noise({ at = 0, duration = 0.12, from = 1200, to = from, q = 1.2, type 
   track(source, start + duration + 0.05);
 }
 
-// FM bell: inharmonic partials for glassy shimmer or a metallic blade ring.
-function bell({ freq, ratio = 3.5, index = 2.2, at = 0, decay = 0.9, gain = 0.06, pan = 0, wet = 0.4 }) {
-  const start = ctx.currentTime + at;
-  const carrier = ctx.createOscillator();
-  const modulator = ctx.createOscillator();
-  const depth = ctx.createGain();
-  carrier.frequency.value = freq;
-  modulator.frequency.value = freq * ratio;
-  depth.gain.setValueAtTime(freq * index, start);
-  depth.gain.exponentialRampToValueAtTime(freq * 0.05, start + decay);
-  modulator.connect(depth).connect(carrier.frequency);
-  const env = ctx.createGain();
-  env.gain.setValueAtTime(0.0001, start);
-  env.gain.exponentialRampToValueAtTime(gain, start + 0.003);
-  env.gain.exponentialRampToValueAtTime(0.0001, start + decay);
-  carrier.connect(env).connect(output(pan, wet));
-  modulator.start(start);
-  carrier.start(start);
-  modulator.stop(start + decay + 0.05);
-  track(carrier, start + decay + 0.05);
+/* ---------- the palette: crisp, clicky, tactile ASMR (no melodies, no bass) ---------- */
+
+// Tiny random variation so a repeated click never sounds like a sample on loop.
+const vary = (value, amount = 0.06) => value * (1 + (Math.random() * 2 - 1) * amount);
+
+// A click: a very short burst of band-passed noise. Every switch, tap and latch is built from these.
+function click({ at = 0, freq = 4200, q = 1.6, duration = 0.007, gain = 0.06, pan = 0, wet = 0.02 } = {}) {
+  noise({ at, duration: vary(duration, 0.1), from: vary(freq), q, type: 'bandpass', gain: vary(gain, 0.1), pan, wet, attack: 0.0006 });
 }
 
-// Marimba-ish mallet: fundamental plus a fast-decaying 4th partial.
-function mallet(freq, { at = 0, gain = 0.07, pan = 0, decay = 0.32, wet = 0.2 } = {}) {
-  tone({ freq, at, decay, gain, pan, wet });
-  tone({ freq: freq * 4.01, at, decay: decay * 0.22, gain: gain * 0.35, pan, wet: 0 });
+// A tiny high resonance: the small plastic shell a click happens in (kept well above bass).
+function shell({ at = 0, freq = 1000, duration = 0.018, gain = 0.02, pan = 0 } = {}) {
+  const f = vary(freq, 0.06);
+  tone({ freq: f, glide: f * 0.85, at, attack: 0.001, decay: duration, gain, pan, wet: 0.01 });
 }
 
-/* ---------- the palette: one sound per kind of interaction ---------- */
+// Crisp paper: band-passed noise sweeping through the upper mids.
+function paper({ at = 0, duration = 0.14, from = 2000, to = 4500, gain = 0.028, pan = 0, attack = 0.03, wet = 0.04 } = {}) {
+  noise({ at, duration, from: vary(from, 0.1), to: vary(to, 0.1), type: 'bandpass', q: 0.8, gain, pan, wet, attack });
+}
+
+// Mechanical key switch (clicky), pressed and released separately.
+function keyDown(pan = 0, weight = 1) {
+  click({ freq: 5600, q: 1.3, duration: 0.005, gain: 0.07 * weight, pan });
+  click({ at: 0.003, freq: 3200, q: 2.6, duration: 0.009, gain: 0.045 * weight, pan });
+  shell({ at: 0.002, freq: 1150, duration: 0.016, gain: 0.018 * weight, pan });
+}
+function keyUp(pan = 0, weight = 1) {
+  click({ freq: 4600, q: 2, duration: 0.005, gain: 0.045 * weight, pan });
+  click({ at: 0.004, freq: 7200, q: 2.5, duration: 0.004, gain: 0.025 * weight, pan });
+}
+
+// Bubble wrap: a sharp crack with a tiny collapsing air pocket.
+function pop({ at = 0, gain = 0.06, pan = 0 } = {}) {
+  click({ at, freq: 4200, q: 1, duration: 0.005, gain, pan });
+  const f = vary(2000, 0.15);
+  tone({ freq: f, glide: f * 0.45, at, attack: 0.0008, decay: 0.014, gain: gain * 0.35, pan, wet: 0.01 });
+}
 
 const sounds = {
+  // Hover: the faint tick of a fingertip on a keycap.
   tick(el, { soft = false } = {}) {
-    const pan = panFor(el);
-    const pitch = 2100 + (Math.random() - 0.5) * 160;
-    tone({ freq: pitch, decay: 0.035, gain: soft ? 0.018 : 0.03, pan, wet: 0.05 });
-    noise({ duration: 0.02, from: 6000, type: 'highpass', gain: soft ? 0.006 : 0.01, pan, wet: 0 });
+    click({ freq: 6200, q: 3, duration: 0.004, gain: soft ? 0.02 : 0.03, pan: panFor(el) });
   },
   navHover(el) {
-    const items = [...el.parentElement.children];
-    mallet(note(items.indexOf(el) + 5), { gain: 0.035, pan: panFor(el), decay: 0.22 });
+    click({ freq: 5000, q: 2.5, duration: 0.005, gain: 0.034, pan: panFor(el) });
   },
-  // Skill tiles play the scale: group picks the octave, position picks the note,
-  // so sweeping across the grid plays a melody.
+  // Skill tiles: crisp typewriter taps, each tile a slightly different key.
   skill(el) {
-    const group = el.closest('.skill-group');
-    const groups = [...document.querySelectorAll('.skills-groups .skill-group')];
-    const index = [...group.querySelectorAll('.skill')].indexOf(el);
-    const g = Math.max(0, groups.indexOf(group));
-    mallet(note(index + (g % 2) * 2, 1 + Math.floor(g / 3)), { gain: 0.05, pan: panFor(el) });
-  },
-  icon(el) {
-    const index = [...el.parentElement.children].indexOf(el);
-    mallet(note(index, 2), { gain: 0.04, pan: panFor(el), decay: 0.25 });
-  },
-  // Cards: a sheet of paper sliding, with a soft low body.
-  card(el) {
     const pan = panFor(el);
-    noise({ duration: 0.2, from: 700, to: 2600, q: 0.9, gain: 0.05, pan, wet: 0.1, attack: 0.04 });
-    tone({ freq: 146.8, decay: 0.16, gain: 0.03, pan, wet: 0.1 });
+    click({ freq: 3800 + Math.random() * 2400, q: 2.8, duration: 0.006, gain: 0.04, pan });
+    shell({ freq: 1300 + Math.random() * 400, duration: 0.012, gain: 0.012, pan });
+  },
+  // Icons: a retractable pen, clicked.
+  icon(el) {
+    const pan = panFor(el);
+    click({ freq: 6400, q: 3.5, duration: 0.004, gain: 0.04, pan });
+    click({ at: 0.026, freq: 5400, q: 3.5, duration: 0.004, gain: 0.03, pan });
+  },
+  // Cards: a fingertip flicking across the edge of a page.
+  card(el) {
+    paper({ duration: 0.12, from: 2400, to: 5200, gain: 0.026, pan: panFor(el), attack: 0.03 });
   },
   portraitHover(el) {
-    noise({ duration: 0.16, from: 2400, to: 1400, q: 1.5, gain: 0.04, pan: panFor(el), attack: 0.02 });
+    paper({ duration: 0.09, from: 3600, to: 2600, gain: 0.02, pan: panFor(el), attack: 0.02 });
   },
   bladeHover(el) {
-    bell({ freq: 1760, ratio: 2.76, index: 0.6, decay: 0.25, gain: 0.02, pan: panFor(el), wet: 0.3 });
+    click({ freq: 7600, q: 8, duration: 0.01, gain: 0.02, pan: panFor(el) });
   },
+  keyDown(el) { keyDown(panFor(el)); },
+  keyUp(el) { keyUp(panFor(el)); },
+  // Keyboard activation (Enter/Space) has no separate pointer down/up, so play both.
   press(el) {
     const pan = panFor(el);
-    tone({ freq: 540, glide: 250, decay: 0.08, gain: 0.1, pan, wet: 0.08 });
-    noise({ duration: 0.025, from: 3000, type: 'highpass', gain: 0.03, pan, wet: 0 });
+    keyDown(pan);
+    setTimeout(() => live() && keyUp(pan), 60);
   },
   cardPress(el) {
     const pan = panFor(el);
-    tone({ freq: 220, glide: 180, decay: 0.12, gain: 0.08, pan, wet: 0.15 });
-    noise({ duration: 0.06, from: 1800, q: 0.8, gain: 0.04, pan });
+    keyUp(pan, 1.2);
+    paper({ at: 0.015, duration: 0.08, from: 3000, to: 1800, gain: 0.022, pan, attack: 0.015 });
   },
-  // Leaving the site: a rising glide and a breath of air.
+  // External links: two quick pen clicks.
   depart(el) {
     const pan = panFor(el);
-    tone({ freq: 392, glide: 1175, decay: 0.24, gain: 0.05, pan, wet: 0.3 });
-    noise({ duration: 0.3, from: 500, to: 4000, q: 0.7, gain: 0.03, pan, attack: 0.08 });
+    click({ freq: 6000, q: 3.5, duration: 0.004, gain: 0.045, pan });
+    click({ at: 0.055, freq: 5200, q: 3.5, duration: 0.004, gain: 0.04, pan });
   },
+  // Email: an envelope flap folding and pressing shut.
   mail(el) {
     const pan = panFor(el);
-    mallet(note(3, 1), { gain: 0.06, pan });
-    mallet(note(0, 2), { at: 0.11, gain: 0.06, pan });
+    paper({ duration: 0.08, from: 3200, to: 2200, gain: 0.026, pan, attack: 0.02 });
+    click({ at: 0.08, freq: 3600, q: 2, duration: 0.008, gain: 0.04, pan });
   },
+  // Page change: a crisp rocker switch, one side or the other.
   navigate(direction) {
-    const first = direction >= 0 ? note(0, 1) : note(3, 1);
-    const second = direction >= 0 ? note(3, 1) : note(0, 1);
-    mallet(first, { gain: 0.06 });
-    mallet(second, { at: 0.085, gain: 0.07 });
+    const pan = direction >= 0 ? 0.15 : -0.15;
+    click({ freq: 3400, q: 1.6, duration: 0.008, gain: 0.06, pan });
+    shell({ at: 0.002, freq: direction >= 0 ? 1100 : 950, duration: 0.02, gain: 0.02, pan });
+    click({ at: 0.03, freq: 6600, q: 3, duration: 0.004, gain: 0.035, pan });
   },
   jump() {
-    noise({ duration: 0.22, from: 900, to: 300, q: 0.8, gain: 0.03, attack: 0.05 });
-    mallet(note(1, 1), { gain: 0.04 });
+    paper({ duration: 0.1, from: 3000, to: 1800, gain: 0.02, attack: 0.02 });
   },
-  // Light mode: a bright rising arpeggio. Dark mode: a slow falling dusk.
+  // Theme: a wall light switch, flicked up (light) or down (dark).
   themeLight() {
-    [0, 2, 4, 5, 7].forEach((d, i) => bell({ freq: note(d, 1), ratio: 2, index: 0.8, at: i * 0.055, decay: 0.7, gain: 0.035, pan: -0.3 + i * 0.15, wet: 0.45 }));
-    noise({ duration: 0.45, from: 3000, to: 9000, type: 'highpass', gain: 0.012, attack: 0.2 });
+    click({ freq: 4200, q: 1.4, duration: 0.008, gain: 0.07 });
+    shell({ at: 0.002, freq: 1250, duration: 0.02, gain: 0.02 });
+    click({ at: 0.016, freq: 7000, q: 2.5, duration: 0.004, gain: 0.04 });
   },
   themeDark() {
-    [7, 4, 0].forEach((d, i) => tone({ freq: note(d, 0), type: 'triangle', at: i * 0.09, attack: 0.02, decay: 0.9, gain: 0.045, filter: 1400, pan: 0.3 - i * 0.3, wet: 0.5 }));
-    tone({ freq: note(0, -1), attack: 0.08, decay: 1.2, gain: 0.04, wet: 0.4 });
+    click({ freq: 3400, q: 1.4, duration: 0.009, gain: 0.07 });
+    shell({ at: 0.002, freq: 950, duration: 0.022, gain: 0.02 });
+    click({ at: 0.018, freq: 6000, q: 2.5, duration: 0.004, gain: 0.035 });
   },
+  // Dialogs: a latch unclipping and a lid lifting; closing, the lid settles and clicks shut.
   dialogOpen() {
-    noise({ duration: 0.28, from: 400, to: 3200, q: 0.8, gain: 0.04, attack: 0.1 });
-    bell({ freq: note(3, 1), ratio: 2, index: 0.7, at: 0.12, decay: 0.8, gain: 0.04, wet: 0.45 });
+    click({ freq: 5200, q: 2.5, duration: 0.005, gain: 0.05 });
+    click({ at: 0.028, freq: 4000, q: 2.5, duration: 0.006, gain: 0.04 });
+    paper({ at: 0.035, duration: 0.14, from: 1800, to: 4200, gain: 0.02, attack: 0.05 });
   },
   dialogClose() {
-    noise({ duration: 0.22, from: 2600, to: 400, q: 0.8, gain: 0.035, attack: 0.03 });
-    tone({ freq: note(0, 0), at: 0.05, decay: 0.3, gain: 0.04, wet: 0.3 });
+    paper({ duration: 0.09, from: 3800, to: 2000, gain: 0.02, attack: 0.02 });
+    click({ at: 0.09, freq: 3600, q: 1.8, duration: 0.008, gain: 0.06 });
+    click({ at: 0.1, freq: 6400, q: 3, duration: 0.004, gain: 0.03 });
   },
-  // Details sections: two quick flicks of a page.
+  // Details: the crisp double flick of a page being turned.
   pageFlip(open) {
-    noise({ duration: 0.05, from: open ? 2200 : 1600, q: 1.4, gain: 0.05 });
-    noise({ at: 0.045, duration: 0.07, from: open ? 3000 : 1200, q: 1.4, gain: 0.04 });
+    paper({ duration: 0.06, from: open ? 2600 : 2200, to: open ? 4800 : 1800, gain: 0.03, attack: 0.01 });
+    paper({ at: 0.05, duration: 0.08, from: open ? 3600 : 2600, to: 2000, gain: 0.024, attack: 0.012 });
   },
+  // Secret dot: a satisfying run of bubble-wrap pops.
   sparkle() {
-    for (let i = 0; i < 6; i++) bell({ freq: note(Math.floor(Math.random() * 5) + i, 2), ratio: 2.01, index: 0.5, at: i * 0.05, decay: 0.5, gain: 0.025, pan: Math.random() - 0.5, wet: 0.5 });
+    for (let i = 0; i < 6; i++) pop({ at: i * 0.06 + Math.random() * 0.025, gain: 0.055, pan: (Math.random() - 0.5) * 0.8 });
   },
   portraitPress(el) {
-    const pan = panFor(el);
-    tone({ freq: 330, glide: 440, decay: 0.12, gain: 0.07, pan, wet: 0.2 });
-    noise({ duration: 0.08, from: 1600, q: 1, gain: 0.03, pan });
+    pop({ pan: panFor(el), gain: 0.07 });
   },
-  // Bleach layer: a blade drawn from its sheath, a strike, a flash-step arrival.
+  // Bleach layer: a katana guard clicking free of the sheath.
   shing(el) {
     const pan = panFor(el);
-    noise({ duration: 0.18, from: 9000, to: 3000, type: 'highpass', gain: 0.02, pan, attack: 0.02 });
-    bell({ freq: 1244, ratio: 2.76, index: 1.2, at: 0.03, decay: 0.7, gain: 0.03, pan, wet: 0.5 });
+    click({ freq: 7400, q: 9, duration: 0.018, gain: 0.04, pan });
+    click({ at: 0.01, freq: 4800, q: 6, duration: 0.012, gain: 0.025, pan });
   },
+  // Attacks: a fast, bright blade swish, then a crisp double clash-ring, pitched per character.
   slash(character = '') {
     const seed = [...character].reduce((n, c) => n + c.charCodeAt(0), 0);
-    noise({ duration: 0.16, from: 7000, to: 700, q: 0.9, gain: 0.07, attack: 0.004 });
-    tone({ freq: 80 + (seed % 5) * 12, glide: 45, decay: 0.35, gain: 0.07, wet: 0.35 });
-    bell({ freq: note(seed % 5, 1), ratio: 2.76, index: 1.5, at: 0.02, decay: 0.45, gain: 0.02, wet: 0.5 });
+    const ring = 5200 + (seed % 7) * 260;
+    const pan = ((seed % 5) - 2) * 0.12;
+    paper({ duration: 0.09, from: 2600, to: 8000, gain: 0.05, pan: pan - 0.2, attack: 0.012 });
+    click({ at: 0.07, freq: ring, q: 12, duration: 0.05, gain: 0.05, pan });
+    click({ at: 0.085, freq: ring * 1.34, q: 14, duration: 0.04, gain: 0.03, pan: pan + 0.15 });
+    click({ at: 0.07, freq: 8200, q: 1.5, duration: 0.004, gain: 0.05, pan });
   },
+  // Character entrance: a quick flash-step: two taps and a swish.
   arrive() {
-    noise({ duration: 0.25, from: 300, to: 5000, q: 0.7, gain: 0.04, attack: 0.12 });
-    bell({ freq: note(3, 2), ratio: 2.76, index: 0.9, at: 0.18, decay: 0.6, gain: 0.025, wet: 0.5 });
+    click({ freq: 5600, q: 3, duration: 0.004, gain: 0.03 });
+    click({ at: 0.05, freq: 6200, q: 3, duration: 0.004, gain: 0.025 });
+    paper({ at: 0.06, duration: 0.1, from: 2400, to: 6000, gain: 0.025, attack: 0.02 });
   },
+  // GitHub heatmap: each square is a bead under your fingertip; busier days click
+  // brighter and louder, so sweeping across the graph lets you hear the activity.
+  heatCell(el, level) {
+    click({ freq: 3000 + level * 850, q: 3 + level * 0.4, duration: 0.003 + level * 0.0012, gain: 0.012 + level * 0.009, pan: panFor(el), wet: 0.01 });
+    if (level >= 3) click({ at: 0.002, freq: 7600, q: 3, duration: 0.003, gain: 0.012 * level, pan: panFor(el), wet: 0 });
+  },
+  // When the heatmap first scrolls into view: a crisp zipper of ticks sweeping left to right.
+  heatZip() {
+    for (let i = 0; i < 26; i++) {
+      const t = 0.3 * (1 - (1 - i / 26) ** 1.6); // accelerates, then settles
+      click({ at: t, freq: 3200 + i * 110, q: 3, duration: 0.004, gain: 0.018 + (i % 4 === 0 ? 0.012 : 0), pan: -0.5 + i / 26, wet: 0.01 });
+    }
+  },
+  // Sound on: three quick crisp key taps.
   soundOn() {
-    mallet(note(0, 1), { gain: 0.05 });
-    mallet(note(3, 1), { at: 0.07, gain: 0.05 });
-    mallet(note(0, 2), { at: 0.14, gain: 0.05 });
+    [0, 0.08, 0.16].forEach((t) => click({ at: t, freq: 5200, q: 2, duration: 0.005, gain: 0.05 }));
   },
 };
 
@@ -347,8 +379,23 @@ function pressSound(el) {
   return ['press', el];
 }
 
+// GitHub heatmap squares: their own fast lane (finer throttle than other hovers).
+const HEAT_GAP_MS = 12;
+let lastHeatAt = 0;
+function heatHover(cell) {
+  const now = performance.now();
+  if (now - lastHeatAt < HEAT_GAP_MS) return;
+  lastHeatAt = now;
+  const level = Number((cell.getAttribute('fill') || '').match(/heat-(\d)/)?.[1] || 0);
+  play('heatCell', cell, level);
+}
+
 document.addEventListener('pointerover', (event) => {
   if (event.pointerType === 'touch') return;
+  if (event.target instanceof SVGRectElement && event.target.closest('.github-activity')) {
+    heatHover(event.target);
+    return;
+  }
   const el = event.target instanceof Element ? interactiveFrom(event.target) : null;
   if (!el || el === hovered) return;
   hovered = el;
@@ -369,7 +416,14 @@ document.addEventListener('focusin', (event) => {
   if (el instanceof Element && el.matches(':focus-visible') && el.matches(INTERACTIVE)) play('tick', el, { soft: true });
 });
 
-document.addEventListener('pointerdown', wake, { capture: true, passive: true });
+// Key switches: the "down" click on press; the release (or the element's own sound) on click.
+const SELF_VOICED = '.sound-toggle, .theme-toggle';
+document.addEventListener('pointerdown', (event) => {
+  wake();
+  if (event.button !== 0 || !(event.target instanceof Element)) return;
+  const el = interactiveFrom(event.target);
+  if (el && !el.closest(SELF_VOICED)) play('keyDown', el);
+}, { capture: true, passive: true });
 document.addEventListener('keydown', wake, { capture: true });
 
 document.addEventListener('click', (event) => {
@@ -377,8 +431,16 @@ document.addEventListener('click', (event) => {
   if (!(event.target instanceof Element)) return;
   const el = interactiveFrom(event.target);
   if (!el) return;
+  const fromPointer = event.detail > 0; // 0 means Enter/Space, which had no pointer down
   const sound = pressSound(el);
-  if (sound) play(...sound);
+  // No press sound means the result is voiced elsewhere (page switch, dialog latch,
+  // page flip); that sound doubles as the key's release, so nothing more here.
+  if (!sound) return;
+  if (sound[0] === 'press') {
+    play(fromPointer ? 'keyUp' : 'press', el);
+  } else {
+    play(...sound);
+  }
 }, { capture: true });
 
 // Page changes, however they happen (nav links, keyboard shortcuts, back button).
@@ -417,6 +479,16 @@ new MutationObserver((records) => {
     }
   }
 }).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['open'], attributeOldValue: true });
+
+const heatmap = document.querySelector('.github-activity svg');
+if (heatmap && 'IntersectionObserver' in window) {
+  const zipper = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting) || !live()) return;
+    play('heatZip');
+    zipper.disconnect();
+  }, { threshold: 0.6 });
+  zipper.observe(heatmap);
+}
 
 document.addEventListener('visibilitychange', () => {
   if (!ctx) return;

@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://vasu-devs.si/",
+    "status": 301,
+    "location": "https://www.siddhvasudev.com/"
+  },
+  {
+    "url": "https://vasu-devs.si/resume.html",
+    "status": 301,
+    "location": "https://www.siddhvasudev.com/resume.html"
+  },
+  {
+    "url": "https://www.vasu-devs.si/",
+    "status": 301,
+    "location": "https://www.siddhvasudev.com/"
+  },
+  {
+    "url": "https://www.vasu-devs.si/resume.html",
+    "status": 301,
+    "location": "https://www.siddhvasudev.com/resume.html"
+  },
+  {
+    "url": "https://www.siddhvasudev.com/test/",
+    "status": 404,
+    "location": null
+  },
+  {
+    "url": "https://www.siddhvasudev.com/old/",
+    "status": 404,
+    "location": null
+  }
+]

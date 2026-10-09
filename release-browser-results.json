@@ -1,0 +1,39 @@
+{
+  "url": "https://www.siddhvasudev.com",
+  "results": [
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "headings": [
+        "Selected projects",
+        "Experience",
+        "Building in public",
+        "What I work with"
+      ],
+      "selected": [
+        "JustHireMe",
+        "Odeon",
+        "Svara"
+      ],
+      "broken": []
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390,
+      "headings": [
+        "Selected projects",
+        "Experience",
+        "Building in public",
+        "What I work with"
+      ],
+      "selected": [
+        "JustHireMe",
+        "Odeon",
+        "Svara"
+      ],
+      "broken": []
+    }
+  ],
+  "errors": [],
+  "failures": []
+}
