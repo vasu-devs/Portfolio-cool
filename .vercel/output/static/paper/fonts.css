@@ -1,0 +1,14 @@
+/* Latin-only Fontsource assets, pinned to 5.3.0. */
+@font-face{font-family:Fraunces;src:url('/paper/fonts/fraunces-latin-full-normal.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
+@font-face{font-family:'Schibsted Grotesk';src:url('/paper/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2');font-style:normal;font-weight:400 900;font-display:swap}
+@font-face{font-family:'DM Mono';src:url('/paper/fonts/dm-mono-latin-400-normal.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:'DM Mono';src:url('/paper/fonts/dm-mono-latin-500-normal.woff2') format('woff2');font-style:normal;font-weight:500;font-display:swap}
+/* Fallback metrics measured against the Latin alphabet and digits at 100 px. */
+@font-face{font-family:'Fraunces fallback';src:local('Georgia');size-adjust:82%;ascent-override:119.51%;descent-override:31.71%;line-gap-override:0%}
+@font-face{font-family:'Schibsted fallback';src:local('Arial');size-adjust:101.51%;ascent-override:96.54%;descent-override:25.61%;line-gap-override:0%}
+@font-face{font-family:'DM Mono fallback';src:local('Consolas');size-adjust:109.13%;ascent-override:90.72%;descent-override:28.41%;line-gap-override:0%}
+:root{--sans:'Schibsted Grotesk','Schibsted fallback',sans-serif;--serif:Fraunces,'Fraunces fallback',serif;--mono:'DM Mono','DM Mono fallback',monospace}
+body,button,input,select,textarea{font-family:var(--sans)}
+h1,h2,h3,h4,.display{font-family:var(--serif);font-optical-sizing:auto;font-variation-settings:'SOFT' 100,'WONK' 0;font-weight:550}
+h1{font-weight:600}
+.mono,.proj-kicker,.role-date,.project-results,.metric-chip,.skill-group-label,.skill-label,.modal-kicker,.graph-readout-text,.heatmap-footer,.dates,.stack,.work-group-count,.case-label,.contribution-count{font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.015em}

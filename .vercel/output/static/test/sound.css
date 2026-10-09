@@ -1,0 +1,14 @@
+/* Paper-cutout portrait: shown whole (no photo zoom) on a kraft-paper tile, in both themes.
+   !important because the realm themes position the old photo slides with high specificity. */
+.portrait-frame:has(.avatar-paper),.identity .portrait-frame:has(.avatar-paper){background:#eee4d3!important}
+.avatar-rotator .avatar-slide.avatar-paper{transform:none!important;object-fit:cover!important;object-position:50% 100%!important;filter:none!important}
+
+/* Interface sound toggle, sits beside the theme toggle in the nav. */
+.sound-toggle{display:grid;place-items:center;width:36px;height:36px;min-width:36px;padding:0;border:1px solid transparent;border-radius:12px;background:none;color:var(--muted);cursor:pointer;transition:color .2s,background-color .2s,border-color .2s}
+.sound-toggle svg{width:21px;height:21px;display:block;overflow:visible}
+.sound-toggle:hover,.sound-toggle:focus-visible{color:var(--accent);background:var(--surface);border-color:var(--line)}
+.sound-toggle.is-muted{color:var(--muted);opacity:.75}
+@media (prefers-reduced-motion:no-preference){
+  .sound-toggle:not(.is-muted):hover .sound-wave{animation:sound-wave .9s ease-in-out infinite}
+}
+@keyframes sound-wave{50%{opacity:.35}}

@@ -1,0 +1,47 @@
+/* Dark charcoal stays legible over both the sage paper and ivory sections. */
+:root{--ink:#20261d;--bright:#161c13;--muted:#26301f;--accent:#304523}
+.selected-lead,.selected-summary,.projects-intro,.work-group-head p,.proj-hook,.contact-lead{color:#26301f;font-size:16px;line-height:1.6}
+.proj-kicker,.eyebrow,.work-group-head>span{color:#26301f;font-size:13px;font-weight:550;line-height:1.6}
+.bench-heading>a,.selected-actions,.proj-actions,.role h3,.role-date,.role-hint,.background{font-size:14px;color:#26301f}
+.skill-group-label,.skill{color:#26301f;font-size:13px}.skill-group-label{font-weight:550}
+.identity-role{color:#20261d}.traffic-stats,.traffic-stats[data-state=unavailable] .traffic-status{color:#26301f;font-size:13px}
+.heatmap-footer,.github-activity>p,.graph-readout,.graph-readout-hint{color:#26301f;font-size:13px}
+.site-footer{color:#20261d}.footer-name{color:#161c13;font-size:34px}
+.footer-signoff p,.footer-email,.footer-links,.footer-bottom,.keyboard-help,.sound-test,.sound-test-status{font-size:14px;line-height:1.7;color:#26301f}
+.footer-links>span{color:#26301f;font-size:13px;font-weight:600}.footer-links{gap:9px}
+.footer-bottom{gap:15px 24px}.footer-bottom>a{font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.directory-address,.directory-copy small,.contact-facts{font-size:14px;color:#26301f}
+::selection{background:#f4bd96;color:#171e12;text-shadow:none}
+/* The call action keeps a small paper lift, with no gesture illustration. */
+a[href^="https://cal.com/"]{transition:transform 150ms ease,box-shadow 150ms ease}
+a[href^="https://cal.com/"]:hover{transform:translateY(-2px)}
+@media(max-width:600px){.selected-summary,.selected-lead,.proj-hook,.work-group-head p{font-size:16px}.footer-main{gap:25px}.footer-name{font-size:31px}.footer-bottom{gap:14px 20px}.identity-role{font-size:14px}.skill{font-size:12px}.skill-group-label{font-size:13px}}
+@media(prefers-reduced-motion:reduce){a[href^="https://cal.com/"]{transition:none}a[href^="https://cal.com/"]:hover{transform:none}}
+
+/* Restore the reference column and hero rhythm without changing the paper surfaces. */
+:root{--dock-height:60px;--dock-bottom:max(14px,env(safe-area-inset-bottom));--dock-clearance:calc(var(--dock-height) + var(--dock-bottom) + 24px)}
+html{scroll-padding-bottom:var(--dock-clearance)}
+.layout{padding-bottom:var(--dock-clearance)}
+section[id],article[id],details[id]{scroll-margin-top:28px;scroll-margin-bottom:var(--dock-clearance)}
+body{font-size:16px;line-height:1.6}
+h1,h2,h3,h4,.identity h1,.selected-copy h3,.proj-copy h3,.resume-toolbar h2,.footer-name{font-family:var(--serif);font-variation-settings:'SOFT' 100,'WONK' 0;font-optical-sizing:auto;font-weight:550}
+.identity h1{font-size:44px;font-weight:600;line-height:1.15}
+.identity-role{font-size:16px;line-height:1.6;font-weight:500}
+.intro p,.role-preview,.resume-content p,.resume-content li,.footer-signoff p{font-size:16px;line-height:1.6}
+.hero-contacts{margin:30px 0}
+.intro{margin:0}.intro p{margin:0}
+.proof-chips{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 16px}
+.proof-chips .availability-badge{font-family:var(--sans);font-size:12px;font-weight:500;min-height:0;padding:3px 8px;text-decoration:none;line-height:1.6}
+.proof-chips a:hover{text-decoration:none;border-color:var(--accent)}
+.hero-availability{font:400 12px/1.6 var(--mono);color:#57614e;margin:0;letter-spacing:.01em}
+.bench{margin-top:52px}
+.project-results{font:400 12px/1.6 var(--mono);color:#57614e;letter-spacing:.015em;margin-top:12px;display:flex;gap:5px 10px;flex-wrap:wrap}
+.project-results>span{white-space:nowrap}
+.proj-kicker,.role-date,.skill-group-label,.modal-kicker,.graph-readout-text,.heatmap-footer,.metric-chip{font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.015em}
+.role h3{font-family:var(--serif);font-weight:550}
+.skill{width:auto;min-width:0;word-break:normal;overflow-wrap:normal;hyphens:none;font-size:12px}
+.skill-label{max-width:100%;word-break:normal;overflow-wrap:normal;hyphens:none;line-height:1.4}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:14px 8px}
+.tech--mobile-more{display:none}
+.case-stack{display:flex;flex-wrap:wrap;gap:8px}
+@media print{.layout{padding-bottom:0}}

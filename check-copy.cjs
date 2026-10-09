@@ -1,0 +1,1 @@
+const fs=require('fs');for(const file of ['public/bleach/index.html','public/paper/type-lab.html','public/paper/type-lab-2.html']){const text=fs.readFileSync(file,'utf8');console.log(file);for(const term of ['Rime','Deepgram','Gong','Tavus','Mohini','DemoGraph']){const i=text.indexOf(term);if(i>=0)console.log(term,text.slice(Math.max(i-80,0),i+100))}}

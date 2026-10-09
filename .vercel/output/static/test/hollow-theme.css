@@ -1,0 +1,114 @@
+/* Hueco Mundo: neutral night, quartz, and white mineral sand. */
+:root:not([data-theme=light]){
+ --page:#08090a;--ink:#e7e8e9;--bright:#ffffff;--muted:#b4b7bb;--line:#2c2d2e;--accent:#e0e0d9;--object:#c5c6c1;--surface:#111213;--wash:#ffffff09;
+ --heat-0:#252627;--heat-1:#414342;--heat-2:#686b67;--heat-3:#9ea29a;--heat-4:#d9ddd2;
+ --modal-glass:rgba(15,16,17,.94);--modal-bar:rgba(255,255,255,.02);--modal-edge:#ffffff20;--modal-shade:#0007;--character-glass:rgba(16,17,18,.96);
+ --butterfly-wing:#262726;--butterfly-edge:#c5c7bf;--butterfly-vein:#777a73;--butterfly-body:#d7dad0;--butterfly-mark:#92988a;
+ --reading-surface:rgba(15,16,17,.94);--reading-edge:rgba(228,228,219,.18);--reading-shade:rgba(0,0,0,.48);
+}
+:root:not([data-theme=light]) body{background:#08090a;color:var(--ink)}
+:root:not([data-theme=light]) body::before{background-image:url('./backgrounds/hueco-reference-moon-v27.webp');background-size:max(100%,1200px) auto;background-position:right top;height:clamp(300px,34vw,460px);opacity:.95;filter:none;mask-image:linear-gradient(#000 0%,#0009 55%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0%,#0009 55%,transparent 100%)}
+:root:not([data-theme=light]) body::after{background-image:linear-gradient(90deg,transparent,#08090a66 35%,#08090a66 65%,transparent),url('./backgrounds/hueco-charcoal-v24.webp');background-size:max(100%,850px) auto;background-position:right bottom;height:clamp(320px,32vw,600px);opacity:.76;filter:none;mask-image:linear-gradient(transparent,#0008 35%,#000 75%);-webkit-mask-image:linear-gradient(transparent,#0008 35%,#000 75%)}
+:root:not([data-theme=light]) body .resume-modal,:root:not([data-theme=light]) body .resume-modal.detail-modal,:root:not([data-theme=light]) body .contact-dialog{
+ --ink:#e7e8e9;--bright:#ffffff;--muted:#b4b7bb;--line:#ffffff1b;--reading-surface:rgba(15,16,17,.94);--reading-edge:#ffffff20;
+ background:linear-gradient(145deg,#ffffff04,transparent 50%),var(--reading-surface);border-color:var(--reading-edge);box-shadow:0 28px 90px #0008;
+}
+:root:not([data-theme=light]) body .resume-modal .resume-content{scrollbar-color:#61645f transparent}
+:root:not([data-theme=light]) body .detail-modal .resume-toolbar{background:#ffffff02}
+:root:not([data-theme=light]) body .project-cover[data-cover-realm=hueco]{filter:none}
+:root:not([data-theme=light]) body .avatar-slide[data-realm=hueco]{filter:none}
+:root:not([data-theme=light]) body .featured-card,:root:not([data-theme=light]) body .work-card,:root:not([data-theme=light]) body .archive-item{background:#ffffff02}
+body .hero-contacts{display:flex;align-items:center;gap:12px;margin:22px 0 28px}
+body .social-icon-row{display:flex;align-items:center;gap:4px}
+body .social-icon-row>a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:44px;min-height:44px;padding:10px;border:0;border-radius:6px;background:transparent;color:var(--muted);text-decoration:none;transform:none}
+body .social-icon-row>a:hover,body .social-icon-row>a:focus-visible{color:var(--bright);background:var(--wash);transform:none}
+body .social-icon-row .contact-label{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+body .social-icon-row svg{width:20px;height:20px}
+body .hero-contacts .secondary-contacts{font:400 12px/1.5 Geist,Arial,sans-serif;flex-basis:auto;margin:0}
+body .hero-contacts .secondary-contacts summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--muted)}
+body .hero-contacts .secondary-contacts[open]{flex-basis:100%}
+body .hero-contacts .secondary-contacts a{color:var(--ink)}
+@media(max-width:600px){:root:not([data-theme=light]) body::before{background-size:780px auto;height:290px;background-position:right top}:root:not([data-theme=light]) body::after{height:340px;background-size:650px auto;background-position:right bottom}body .hero-contacts{gap:8px}body .social-icon-row{gap:2px}}
+body .realm-covers>.project-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;margin:0}
+:root:not([data-theme=light]) body .realm-covers>[data-cover-realm=hueco],:root[data-theme=light] body .realm-covers>[data-cover-realm=seireitei]{opacity:1}
+:root:not([data-theme=light]) body .identity .avatar-slide[data-realm=hueco]{transform:none;object-position:center;filter:none}
+/* Contribution activity follows each realm. */
+:root:not([data-theme=light]){--heat-0:#202224;--heat-1:#45494d;--heat-2:#747b82;--heat-3:#acb4bc;--heat-4:#edf1f5}
+:root[data-theme=light]{--heat-0:#d4e3ed;--heat-1:#aecbdc;--heat-2:#789fb9;--heat-3:#4a7593;--heat-4:#284f6b}
+body .hero-contacts{gap:10px 20px}
+body .contact-utilities{display:flex;align-items:center;gap:16px}
+body .hero-contacts .contact-utilities>a{display:inline-flex;gap:6px;width:auto;height:auto;min-height:44px;padding:0;background:transparent;border:0;border-radius:0;color:var(--ink);font:400 12px/1.5 Geist,Arial,sans-serif;transform:none}
+body .contact-utilities svg{width:16px;height:16px;color:var(--muted)}
+body .contact-utilities .contact-label{display:inline}
+body .hero-contacts .contact-utilities>a:hover{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:600px){body .hero-contacts{gap:4px 12px}body .contact-utilities{flex-basis:100%;padding-left:10px}}
+/* Top navigation: pages left, realm controls right. */
+body>.navigation{position:absolute;top:0;bottom:auto;left:0;right:0;transform:none;width:100%;max-width:none;height:68px;margin:0;padding:0 max(24px,calc((100vw - 760px)/2));display:flex;gap:24px;border:0;border-bottom:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;z-index:100}
+body>.navigation::before{display:none}
+body>.navigation>a{order:0;flex:0 0 auto;display:flex;align-items:center;min-height:44px;font:500 13px/1.5 Geist,Arial,sans-serif}
+body>.navigation .theme-toggle{order:2;margin-left:0;margin-right:0}
+body>.navigation .bleach-menu{order:1;margin:0 0 0 auto;position:relative}
+body>.navigation .bleach-menu>summary{width:auto;min-width:88px;min-height:44px;justify-content:flex-end}
+body>.navigation .bleach-drawer{position:absolute;top:calc(100% + 10px);bottom:auto;left:auto;right:0;transform:none;max-height:calc(100dvh - 90px);overflow-y:auto;overscroll-behavior:contain}
+body .layout{padding-top:112px}
+body{padding-bottom:28px}
+#about{scroll-margin-top:96px}
+@media(max-width:600px){body>.navigation{height:60px;padding:0 14px;gap:14px}body>.navigation>a{font-size:12px}body>.navigation .theme-toggle{width:32px;flex-basis:32px}body>.navigation .bleach-menu>summary{min-width:66px;font-size:12px}body>.navigation .bleach-drawer{position:fixed;top:68px;bottom:auto;left:12px;right:12px;transform:none;width:auto;max-height:calc(100dvh - 84px)}body .layout{padding-top:90px}#about{scroll-margin-top:82px}}
+
+body>.navigation>a,body>.navigation>a[aria-current=page]{border:0;text-decoration:none;box-shadow:none}
+body>.navigation>a::after{display:none}
+body>.navigation>a[aria-current=page]{color:var(--bright);font-weight:650}
+
+/* A quiet sign-off over the realm landscape. */
+body footer.site-footer{display:block;width:100%;margin:76px 0 0;padding:40px 0 12px;border:0;border-top:1px solid var(--line);font:400 13px/1.6 Geist,Arial,sans-serif;color:var(--muted)}
+.site-footer .footer-main{display:flex;justify-content:space-between;gap:40px;padding-bottom:48px}
+body .site-footer .footer-name{display:inline-block;font:600 clamp(32px,5vw,52px)/1.1 Geist,Arial,sans-serif;letter-spacing:-.055em;color:var(--bright);text-decoration:none}
+.site-footer .footer-name span{color:var(--accent)}
+.site-footer .footer-signoff p{margin:14px 0 20px;font-size:14px;color:var(--muted)}
+body .site-footer .footer-email{display:inline-flex;align-items:center;gap:24px;min-height:44px;color:var(--bright);font-size:15px;text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--line)}
+.site-footer .footer-links{display:flex;flex-direction:column;min-width:150px;gap:0}
+.site-footer .footer-links>span{font-size:11px;margin-bottom:12px;color:var(--muted)}
+body .site-footer .footer-links a{display:flex;justify-content:space-between;align-items:center;gap:32px;min-height:38px;color:var(--ink);font-size:13px}
+.site-footer .footer-links a span{color:var(--muted);transition:transform .2s}
+.site-footer .footer-links a:hover span{transform:translate(2px,-2px)}
+.site-footer .footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:11px;min-height:44px}
+.site-footer .footer-bottom a{display:inline-flex;align-items:center;gap:12px;min-height:44px;color:var(--ink)}
+.site-footer .footer-realm{font-style:italic;opacity:.8}
+:root:not([data-theme=light]) .footer-realm-light,:root[data-theme=light] .footer-realm-dark{display:none}
+@media(max-width:600px){body footer.site-footer{margin-top:52px;padding-top:32px}.site-footer .footer-main{gap:28px;flex-direction:column;padding-bottom:32px}.site-footer .footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 18px}.site-footer .footer-links>span{grid-column:1/-1;margin-bottom:4px}body .site-footer .footer-links a{gap:6px;min-height:44px}.site-footer .footer-bottom{flex-wrap:wrap;gap:4px 16px}.site-footer .footer-realm{display:none}.site-footer .footer-bottom a{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){.site-footer .footer-links a span{transition:none}}
+
+/* The display face belongs to the signature; reading text stays quiet. */
+body .identity h1{font-family:'Bleach Display','Arial Narrow',sans-serif;font-size:clamp(34px,4.5vw,48px);font-weight:400;line-height:1.15;letter-spacing:.01em;text-transform:uppercase}
+body .identity h1 .secret-dot{font-family:inherit}
+body{padding-bottom:100px}
+body footer.site-footer{position:relative;isolation:isolate}
+body footer.site-footer::before{content:"";position:absolute;inset:-20px -16px -12px;z-index:-1;pointer-events:none;border-radius:12px;background:linear-gradient(180deg,rgba(8,9,10,.38),rgba(8,9,10,.76));backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+:root[data-theme=light] body footer.site-footer::before{background:linear-gradient(180deg,rgba(244,246,245,.35),rgba(244,246,245,.82))}
+body>.navigation.is-docked{position:fixed;top:auto;bottom:max(14px,env(safe-area-inset-bottom));left:50%;right:auto;transform:translateX(-50%);width:min(600px,calc(100% - 24px));height:60px;padding:0 20px;gap:22px;border-radius:14px;background:rgba(13,14,16,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 6px 30px #0002}
+:root[data-theme=light] body>.navigation.is-docked{background:rgba(244,246,245,.90)}
+body>.navigation.is-docked .bleach-drawer{top:auto;bottom:calc(100% + 16px);max-height:calc(100dvh - 110px)}
+@media(max-width:600px){body .identity h1{font-size:32px}body>.navigation.is-docked{padding:0 12px;gap:13px;height:58px}body>.navigation.is-docked .bleach-drawer{position:absolute;left:0;right:0;top:auto;bottom:calc(100% + 14px);width:auto;max-height:calc(100dvh - 110px)}body>.navigation.is-docked .bleach-menu{position:static}}
+
+/* Light-mode glass experiment: one fixed layer behind all content. */
+.page-glass{display:none;pointer-events:none}
+:root[data-theme=light] body>.page-glass{display:block;position:fixed;inset:0;z-index:1;background:linear-gradient(125deg,rgba(255,255,255,.26),rgba(244,246,245,.58) 48%,rgba(255,255,255,.34));backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+body>.layout{z-index:2;padding-top:64px}
+:root[data-theme=light] body footer.site-footer::before{display:none}
+/* Permanent bottom dock, compact with a clear selected page. */
+body>.navigation.is-docked{width:min(520px,calc(100% - 24px));height:64px;padding:8px;gap:4px;border:0;border-radius:32px;background:rgba(19,21,23,.92);box-shadow:0 8px 30px #0003,0 1px 0 #ffffff0a inset}
+:root[data-theme=light] body>.navigation.is-docked{background:rgba(250,251,250,.94);box-shadow:0 8px 32px #172d451c,0 1px 0 #fff inset}
+body>.navigation.is-docked>a{padding:0 16px;min-height:44px;border-radius:24px;font-weight:500;color:var(--muted);transition:background .16s,color .16s}
+body>.navigation.is-docked>a[aria-current=page]{background:rgba(255,255,255,.1);color:var(--bright);font-weight:600}
+:root[data-theme=light] body>.navigation.is-docked>a[aria-current=page]{background:#e5eae9;color:#172d45}
+body>.navigation.is-docked .bleach-menu{margin-left:auto}
+body>.navigation.is-docked .bleach-menu>summary{min-width:76px;padding:0 6px;justify-content:center}
+body>.navigation.is-docked .theme-toggle{margin:0 4px;width:40px;min-width:40px;flex-basis:40px}
+body>.navigation.is-docked .bleach-drawer{border-radius:18px}
+@media(max-width:600px){body>.layout{padding-top:40px}body>.navigation.is-docked{height:60px;padding:6px;gap:0}body>.navigation.is-docked>a{padding:0 11px;font-size:12px}body>.navigation.is-docked .bleach-menu>summary{min-width:68px;font-size:12px}body>.navigation.is-docked .theme-toggle{margin:0 2px;width:36px;min-width:36px;flex-basis:36px}}
+@media(prefers-reduced-motion:reduce){body>.navigation.is-docked>a{transition:none}}
+
+/* Matching neutral glass for Hueco Mundo. */
+:root:not([data-theme=light]) body>.page-glass{display:block;position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(125deg,rgba(10,11,13,.22),rgba(8,9,10,.48) 48%,rgba(16,17,19,.26));backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+:root:not([data-theme=light]) body footer.site-footer::before{display:none}
+

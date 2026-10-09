@@ -1,0 +1,376 @@
+import {mountBleachDetails,characterEntrance,finishEntrance,idleDetail,pageAttacksEnabled} from './bleach-details.js?v=silent-159';
+import {createAttackQueue} from './attack-queue.js?v=likeness-24';
+import {launchCharacterEffect,preloadCharacterEffect} from './bleach-effects.js?v=silent-159';
+import {roster} from './bleach-roster.js?v=sizes-62';
+// A small, optional cursor companion. Only movement or a slash schedules frames.
+const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+const calm = matchMedia('(prefers-reduced-motion: reduce)');
+const host = document.createElement('div');
+host.className = 'soul-cursor';
+
+host.innerHTML = '<button class="soul-hit" type="button" aria-label="Greet your Bleach companion"><span class="soul-character" aria-hidden="true"></span></button><span class="soul-reply" role="status"></span>';
+const hit=host.querySelector('button'), reply=host.querySelector('.soul-reply');
+const sprite = host.querySelector('.soul-character');
+const field = document.createElement('div');
+field.className = 'getsuga-field';
+field.setAttribute('aria-hidden', 'true');
+document.body.append(field, host);
+const toggle = document.createElement('button');
+toggle.className = 'soul-toggle';
+toggle.type = 'button';
+toggle.title = 'Toggle the Soul Reaper cursor. Click anywhere to swing Zangetsu.';
+const controls = document.createElement('div');
+controls.className = 'soul-controls';
+const select = document.createElement('select');
+select.setAttribute('aria-label','Bleach companion character');
+for (const [value,{name}] of Object.entries(roster)) {
+ const option = document.createElement('option'); option.value=value; option.textContent=name; select.append(option);
+}
+const chooserLabel=document.createElement('label');
+chooserLabel.textContent='Companion';
+select.id='bleach-character';
+chooserLabel.htmlFor=select.id;
+const technique=document.createElement('span');
+technique.className='soul-technique';
+technique.setAttribute('aria-live','polite');
+controls.append(chooserLabel,select,toggle,technique);
+const characterIds=Object.keys(roster);
+const card=document.createElement('div');card.className='character-card';
+card.innerHTML='<div class="character-card-top"><span>Characters</span><span class="character-count"></span></div><div class="character-stage"><button type="button" class="character-prev" aria-label="Previous character">‹</button><span class="character-art" aria-hidden="true"></span><button type="button" class="character-next" aria-label="Next character">›</button></div><h2 class="character-card-name"></h2>';
+controls.prepend(card);card.append(technique);
+const rosterStrip=document.createElement('div');rosterStrip.className='character-roster';rosterStrip.setAttribute('aria-label','Choose a character');
+for(const id of characterIds){
+ const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',roster[id].name);b.title=roster[id].name;b.dataset.character=id;
+ const art=document.createElement('span');art.style.backgroundImage=`url("${new URL(roster[id].atlas,import.meta.url).href}")`;art.setAttribute('aria-hidden','true');b.append(art);
+ b.addEventListener('click',()=>chooseCharacter(id));rosterStrip.append(b);
+}
+controls.append(rosterStrip);
+function paintCard(id){
+ card.querySelector('.character-art').style.scale=String(roster[id].heightCm/202);
+ card.querySelector('.character-art').style.transformOrigin='50% 100%';
+ card.querySelector('.character-art').style.backgroundImage=`url("${new URL(roster[id].atlas,import.meta.url).href}")`;
+ // The dock shows the chosen companion as a small sprite chip.
+ for(const chip of document.querySelectorAll('.character-chip'))chip.style.backgroundImage=`url("${new URL(roster[id].atlas,import.meta.url).href}")`;
+ card.querySelector('.character-card-name').textContent=roster[id].name;
+ card.querySelector('.character-count').textContent=`${String(characterIds.indexOf(id)+1).padStart(2,'0')} / ${characterIds.length}`;
+ technique.textContent=roster[id].technique;
+ for(const b of rosterStrip.children)b.setAttribute('aria-pressed',String(b.dataset.character===id));
+}
+function chooseCharacter(id){select.value=id;paintCard(id);void loadCharacter(id);}
+function stepCharacter(offset){const index=characterIds.indexOf(select.value);chooseCharacter(characterIds[(index+offset+characterIds.length)%characterIds.length]);}
+card.querySelector('.character-prev').addEventListener('click',()=>stepCharacter(-1));
+card.querySelector('.character-next').addEventListener('click',()=>stepCharacter(1));
+let swipeStart;
+card.addEventListener('pointerdown',e=>{if(!e.target.closest('button'))swipeStart=e.clientX;});
+card.addEventListener('pointerup',e=>{if(swipeStart!==undefined&&Math.abs(e.clientX-swipeStart)>45)stepCharacter(e.clientX<swipeStart?1:-1);swipeStart=undefined;});
+card.addEventListener('pointercancel',()=>{swipeStart=undefined;});
+controls.addEventListener('pointerenter',()=>void warmCharacters(),{once:true});
+const updateCompanionName=mountBleachDetails(controls);
+let character='ichigo', characterRequest=0, ready=false;
+const earlyAttacks=[];
+try { const saved=localStorage.getItem('vasu-bleach-character'); if(Object.hasOwn(roster,saved)) character=saved; } catch {}
+const characterAssets=new Map();
+function prepareCharacter(id) {
+ if(characterAssets.has(id))return characterAssets.get(id);
+ const image=new Image();image.src=new URL(roster[id].atlas,import.meta.url).href;
+ const run=new Image();if(roster[id].run)run.src=new URL(`./sprites/${id}-run.webp`,import.meta.url).href;
+ const assets={image,run,ready:false};
+ assets.promise=Promise.all([image.decode(),roster[id].run?run.decode():Promise.resolve()])
+  .then(()=>{assets.ready=true;return assets;})
+  .catch(error=>{characterAssets.delete(id);throw error;});
+ characterAssets.set(id,assets);return assets;
+}
+let warming=false;
+async function warmCharacters() {
+ if(warming)return;warming=true;
+ const ids=Object.keys(roster);
+ // Two background loaders keep opening the selector inexpensive.
+ const worker=async()=>{while(ids.length){const id=ids.shift();try{await prepareCharacter(id).promise;}catch{}}};
+ await Promise.all([worker(),worker()]);
+}
+select.addEventListener('pointerenter',warmCharacters,{once:true});
+select.addEventListener('focus',warmCharacters,{once:true});
+async function loadCharacter(id,{entrance=true}={}) {
+ if(!Object.hasOwn(roster,id))return;
+ const request=++characterRequest;
+ const assets=prepareCharacter(id);
+ // Effects do not block a character selection; sprite and run art load together.
+ const effectReady=preloadCharacterEffect(id);
+ try {await Promise.all([assets.ready?Promise.resolve():assets.promise,effectReady]);}catch{if(request===characterRequest){select.value=character;paintCard(character);}return;}
+ if(request!==characterRequest)return;
+ clear();host.querySelector('.bleach-entrance')?.remove();host.classList.remove('is-entering');
+ character=id;atlasURL=assets.image.src;runURL=roster[id].run?assets.run.src:assets.image.src;
+ const bodyHeight=40*roster[id].heightCm/181;
+ const cellSize=bodyHeight/roster[id].standingHeightFraction;
+ sprite.style.width=cellSize+'px';sprite.style.height=cellSize+'px';
+ sprite.style.left=(32-cellSize/2)+'px';sprite.style.top=(56-cellSize*roster[id].standingBottomFraction)+'px';
+ host.style.setProperty('--portal-scale',String(.64*roster[id].heightCm/181));
+ currentCell=-1;cell(0);ready=true;select.value=id;
+ try {localStorage.setItem('vasu-bleach-character',id);}catch{}
+ label();if(overlay){dockCompanion();if(entrance&&seen)void characterEntrance(host,id);}else if(active()) {
+  seen=true;draw();host.classList.add('is-visible');
+  if(entrance)void characterEntrance(host,id);
+  if(request===characterRequest && active()){park();for(const target of earlyAttacks.splice(0))requestAttack(target.x,target.y);}
+ }
+}
+
+select.value=character;
+select.addEventListener('change',()=>chooseCharacter(select.value));
+let enabled = true;
+try { enabled = localStorage.getItem('vasu-soul-cursor') !== 'off'; } catch {}
+let frame = 0, idleTimer = 0, reactionTimer=0;
+let speed=0, stride=0, currentCell=-1, parkTimer=0, greetingTimer=0;
+let parking=false, greeting=false, hovering=false;
+let atlasURL="", runURL="";
+let x = 70, y = 140, tx = 70, ty = 140, seen = false, lastTime = 0;
+let state = 'rest', facing = 1;
+const slashes = new Set();
+const supported = () => !calm.matches;
+let overlay = null;
+const active = () => !overlay && ready && enabled && supported() && !document.hidden;
+// Open panels own the companion until dismissed. A manual popover puts the
+// sprite in the top layer; a dialog parent also keeps it outside modal inertness.
+function openPanel() {
+ const dialogs=[...document.querySelectorAll('dialog[open]')];
+ return dialogs.at(-1)||document.querySelector('.bleach-menu[open] .bleach-drawer');
+}
+function dockCompanion() {
+ if(!overlay)return;
+ finishEntrance(host);
+ clear();
+ if(!ready||!enabled||!supported()||document.hidden)return;
+ const parent=overlay.tagName==='DIALOG'?overlay:document.body;
+ if(host.parentElement!==parent){if(host.matches(':popover-open'))host.hidePopover();parent.append(host);}
+ host.setAttribute('popover','manual');
+ host.classList.add('is-docked');
+ if(!host.matches(':popover-open'))host.showPopover();
+ const rect=overlay.getBoundingClientRect();
+ const margin=34;
+ const clampX=v=>Math.max(margin,Math.min(innerWidth-margin,v));
+ const clampY=v=>Math.max(margin,Math.min(innerHeight-margin,v));
+ const overlaps=x+margin>rect.left&&x-margin<rect.right&&y+margin>rect.top&&y-margin<rect.bottom;
+ let destination={x,y};
+ if(overlaps){
+  const candidates=[{x:rect.left-margin,y:clampY(y)},{x:rect.right+margin,y:clampY(y)},{x:clampX(x),y:rect.top-margin},{x:clampX(x),y:rect.bottom+margin}]
+   .filter(p=>p.x>=margin&&p.x<=innerWidth-margin&&p.y>=margin&&p.y<=innerHeight-margin);
+  candidates.sort((a,b)=>Math.hypot(a.x-x,a.y-y)-Math.hypot(b.x-x,b.y-y));
+  // Full-screen dialogs have no outside space: stay visible in the top layer.
+  destination=candidates[0]||{x:clampX(x),y:clampY(rect.top+24)};
+ }
+ overlay.classList.remove('has-docked-preview');
+ tx=destination.x;ty=destination.y;seen=true;draw();host.classList.add('is-visible');
+ if(Math.hypot(tx-x,ty-y)<1){pose('rest');return;}
+ const owner=overlay;let previous=0,walkTime=0;
+ pose('run');
+ const escapeStep=now=>{
+  frame=0;if(overlay!==owner||!enabled||document.hidden)return;
+  const dt=previous?Math.min((now-previous)/1000,.04):1/60;previous=now;
+  const dx=tx-x,dy=ty-y,distance=Math.hypot(dx,dy),step=Math.min(distance,190*dt);
+  if(distance<=1){x=tx;y=ty;draw();pose('rest');return;}
+  if(Math.abs(dx)>1)facing=dx<0?-1:1;
+  walkTime+=dt;cell(roster[character].drift?0:roster[character].run?Math.floor(walkTime/.125)%4:1+Math.floor(walkTime/.125)%2,true);
+  x+=dx/distance*step;y+=dy/distance*step;draw();frame=requestAnimationFrame(escapeStep);
+ };
+ frame=requestAnimationFrame(escapeStep);
+}
+function syncPanel() {
+ const next=openPanel();
+ if(next===overlay)return;
+ overlay?.classList.remove('has-docked-preview');
+ overlay=next;
+ if(overlay){dockCompanion();return;}
+ finishEntrance(host);
+ if(host.matches(':popover-open'))host.hidePopover();
+ host.removeAttribute('popover');host.classList.remove('is-docked');document.body.append(host);
+ returnToCorner();
+}
+new MutationObserver(syncPanel).observe(document.body,{subtree:true,attributes:true,attributeFilter:['open']});
+window.addEventListener('resize',()=>{if(overlay)dockCompanion();},{passive:true});
+const attackQueue=createAttackQueue({
+ available:()=>active()&&seen&&!greeting,
+ start:({x:targetX})=>{cancelAnimationFrame(frame);frame=0;clearTimeout(idleTimer);clearTimeout(reactionTimer);reactionTimer=0;speed=0;parking=false;facing=targetX<x?-1:1;draw();pose('attack');},
+ release:target=>{attackCell(1);fire(target.x,target.y);},
+ recover:()=>attackCell(2),
+ finish:()=>{if(active()&&seen){rest();armPark();wake();}}
+});
+function label() {
+ paintCard(character);
+ updateCompanionName(roster[character].name);
+ toggle.textContent = enabled ? 'Following · on' : 'Following · off';
+ toggle.setAttribute('aria-label',enabled?'Turn companion off':'Turn companion on');
+ technique.textContent=roster[character].technique;
+ technique.title=roster[character].form;
+ hit.setAttribute('aria-label',`Greet ${roster[character].name}`);
+ toggle.title = 'Reacts to your pointer, rests in a corner, and greets you when clicked. Click elsewhere to attack.';
+ toggle.setAttribute('aria-pressed', String(enabled)); controls.hidden = false;
+}
+function cell(index, running=false) {
+ const key=`${running}:${index}`;
+ if(currentCell===key) return;
+ currentCell=key;
+ const separate=running && roster[character].run;
+ const columns=separate?2:3;
+ sprite.style.backgroundImage=`url("${separate?runURL:atlasURL}")`;
+ sprite.style.backgroundSize=`${columns*100}% ${columns*100}%`;
+ sprite.style.backgroundPosition=`${index%columns*100/(columns-1)}% ${Math.floor(index/columns)*100/(columns-1)}%`;
+ sprite.style.setProperty('--frame-flip',1);
+}
+function attackCell(index) { cell(6+Math.min(index,2)); }
+function pose(next) {
+ state = next; host.dataset.state = next;
+ if(next==='run') {stride=0;cell(roster[character].run?0:1,true);return;}
+ if(next==='attack'){attackCell(0);return;}
+ cell(({rest:0,run:1,sit:3,wave:4,sleep:5,attack:6})[next]);
+ if(next==='sleep')idleDetail(host,character);
+}
+let protectedControl=null;
+if(!finePointer.matches)hit.style.setProperty('pointer-events','none','important');
+const clickable='a,button,input,textarea,select,summary,label,[role="button"],[role="tab"],[contenteditable="true"],.featured-card,.selected-item,.archive-item';
+function outsideControl(px,py){
+ if(!protectedControl?.isConnected)return {x:px,y:py};
+ const r=protectedControl.getBoundingClientRect(),gap=58;
+ const left=r.left-gap,right=r.right+gap,top=r.top-gap,bottom=r.bottom+gap;
+ if(px<left||px>right||py<top||py>bottom)return {x:px,y:py};
+ const choices=[{x:left,y:py},{x:right,y:py},{x:px,y:top},{x:px,y:bottom}].filter(p=>p.x>=26&&p.x<=innerWidth-26&&p.y>=26&&p.y<=innerHeight-26);
+ choices.sort((a,b)=>Math.hypot(a.x-px,a.y-py)-Math.hypot(b.x-px,b.y-py));
+ return choices[0]||{x:26,y:26};
+}
+document.addEventListener('pointermove',event=>{
+ protectedControl=document.elementsFromPoint(event.clientX,event.clientY).filter(e=>!host.contains(e)).map(e=>e.closest(clickable)).find(Boolean)||null;
+ // Even while walking away, the companion cannot intercept a control's click.
+ hit.style.setProperty('pointer-events',protectedControl||!finePointer.matches?'none':'auto','important');
+ if(protectedControl){hovering=false;const point=outsideControl(x,y);if(point.x!==x||point.y!==y){x=point.x;y=point.y;draw();}}
+},{capture:true,passive:true});
+function draw() {
+ const safe=outsideControl(x,y);x=safe.x;y=safe.y;
+ x = Math.max(26, Math.min(innerWidth-26, x));
+ y = Math.max(26, Math.min(innerHeight-26, y));
+ host.style.transform = `translate3d(${x}px,${y}px,0)`;
+ host.style.setProperty('--facing', facing);
+}
+function rest() {
+ speed=0; clearTimeout(idleTimer);
+ if(parking && Math.hypot(tx-x,ty-y)<=.5) {
+  pose('sit');
+  idleTimer=setTimeout(()=>{if(active() && parking && !greeting) pose('sleep');},4500);
+ } else pose('rest');
+}
+function corner() { return {x:x<innerWidth/2?34:innerWidth-34,y:innerHeight-36}; }
+function park() {
+ clearTimeout(parkTimer);parkTimer=0;clearTimeout(reactionTimer);reactionTimer=0;
+ if(!active() || !seen || greeting || state==='attack') {if(active() && seen) parkTimer=setTimeout(park,800);return;}
+ parking=true; const home=corner();tx=home.x;ty=home.y;wake();
+}
+function armPark() {clearTimeout(parkTimer);parkTimer=setTimeout(park,5000);}
+function hello() {
+ if(!active())return;
+ attackQueue.cancel();
+ cancelAnimationFrame(frame);frame=0;clearTimeout(idleTimer);clearTimeout(reactionTimer);reactionTimer=0;clearTimeout(parkTimer);clearTimeout(greetingTimer);
+ for(const item of slashes){item.animation.cancel();item.node.remove();}slashes.clear();
+ speed=0;greeting=true;pose('wave');
+ reply.textContent=roster[character].greeting;
+ greetingTimer=setTimeout(()=>{greeting=false;reply.textContent='';park();},1600);
+}
+// Stop to greet the pointer so the small character remains easy to click.
+ hit.addEventListener('pointerenter',()=>{if(overlay)return;hovering=true;cancelAnimationFrame(frame);frame=0;if(state==='run')rest();});
+ hit.addEventListener('pointerleave',()=>{hovering=false;if(!greeting)wake();});
+ hit.addEventListener('pointerdown',event=>{
+ if(event.button!==0)return;
+ event.stopPropagation();
+ // Lock position for the entire press so a moving sprite cannot escape its click.
+ hovering=true;cancelAnimationFrame(frame);frame=0;
+ hello();
+});
+ hit.addEventListener('click',event=>{event.stopPropagation();if(event.detail===0)hello();});
+function wake() {
+ if (!host.classList.contains('is-entering') && !frame && state !== 'attack' && !greeting && !hovering && active() && seen) { lastTime = 0; frame = requestAnimationFrame(tick); }
+}
+function tick(now) {
+ frame = 0;
+ if (!active() || !seen || state === 'attack' || greeting || hovering) return;
+ const dt = lastTime ? Math.min((now-lastTime)/1000,.04) : 1/60; lastTime = now;
+ const dx = tx-x, dy = ty-y, distance = Math.hypot(dx,dy);
+ const stop=parking?0:80;
+ if(distance<=stop+.5){rest();return;}
+ clearTimeout(idleTimer); if(state!=='run') pose('run');
+ if (Math.abs(dx)>18) facing = dx<0 ? -1 : 1;
+ const desired=Math.min(190,Math.sqrt(2*420*Math.max(0,distance-stop)));
+ speed += Math.max(-650*dt,Math.min(420*dt,desired-speed));
+ const step = Math.min(distance-stop, speed*dt);
+ stride+=dt;
+ // Stable 8 fps cadence; the body no longer flickers faster as chase speed rises.
+ cell(roster[character].drift?0:roster[character].run?Math.floor(stride/.125)%4:1+Math.floor(stride/.125)%2,true);
+ x += dx/distance*step; y += dy/distance*step; draw();
+ frame = requestAnimationFrame(tick);
+}
+function clear() {
+ attackQueue.cancel();
+ cancelAnimationFrame(frame); frame = 0; clearTimeout(idleTimer); clearTimeout(reactionTimer);reactionTimer=0;speed=0;clearTimeout(parkTimer);clearTimeout(greetingTimer);greeting=false;hovering=false;parking=false;reply.textContent='';
+ seen = false; host.classList.remove('is-visible'); pose('rest');
+ for (const item of slashes) { item.animation.cancel(); item.node.remove(); }
+ slashes.clear();
+}
+document.addEventListener('pointermove', event => {
+ if (!active() || event.pointerType !== 'mouse') return;
+ armPark();
+ if(greeting || event.target.closest('.soul-hit'))return;
+ parking=false;
+ tx = Math.max(32,Math.min(innerWidth-32,event.clientX)); ty = Math.max(42,Math.min(innerHeight-42,event.clientY));
+ const safe=outsideControl(tx,ty);tx=safe.x;ty=safe.y;
+ if (!seen) { seen = true; draw(); host.classList.add('is-visible'); rest(); }
+ if (Math.hypot(tx-x,ty-y)>90 && !frame && !reactionTimer && state!=='attack') {
+  reactionTimer=setTimeout(()=>{reactionTimer=0;wake();},state==='sleep'?420:160);
+ }
+}, {passive:true});
+function fire(targetX,targetY) {
+ // Selection only becomes active after the real atlas decodes. No substitute art.
+ launchCharacterEffect({character,field,x:x+facing*18,y,targetX,targetY,slashes});
+}
+
+// Fire on press: dragging or chasing a moving target can suppress a browser click.
+function pageAttack(event) {
+ if (!pageAttacksEnabled() || event.button!==0 || event.target.closest('input,textarea,select,[contenteditable="true"],.soul-controls,.soul-hit,.bleach-menu,.bleach-story,.secret-dot,.theme-toggle')) return;
+ // Close and undock synchronously before this same press starts a swing.
+ // Waiting for the open-attribute observer used to swallow the first attack.
+ const menu=document.querySelector('.bleach-menu[open]');
+ if(menu){menu.open=false;syncPanel();}
+ requestAttack(event.clientX,event.clientY);
+}
+document.addEventListener('pointerdown',pageAttack,{passive:true,capture:true});
+// Keyboard/assistive activation has no pointerdown. Ignore mouse clicks to avoid duplicates.
+document.addEventListener('click',event=>{if(event.detail===0)pageAttack(event);},{passive:true,capture:true});
+function requestAttack(targetX,targetY){
+ if(!ready&&enabled&&supported()&&!document.hidden&&!overlay){if(earlyAttacks.length<3)earlyAttacks.push({x:targetX,y:targetY});else earlyAttacks[2]={x:targetX,y:targetY};return;}
+ if(!active())return;
+ if(!seen){seen=true;draw();host.classList.add('is-visible');}
+ clearTimeout(greetingTimer);greeting=false;reply.textContent='';
+ // A swing takes over from arrival; never replay the gate during an attack.
+ finishEntrance(host);
+ armPark();attackQueue.push({x:targetX,y:targetY});
+}
+toggle.addEventListener('click', () => {
+ enabled=!enabled; clear(); label();if(overlay)dockCompanion();else if(active()){seen=true;host.classList.add("is-visible");characterEntrance(host,character).then(()=>{if(active())park();});}
+ try { localStorage.setItem('vasu-soul-cursor',enabled?'on':'off'); } catch {}
+});
+// Return through the movement loop. Hidden tabs pause at their current position
+// and resume on visibility; lifecycle events never teleport the companion.
+function returnToCorner() {
+ if(typeof overlay!=='undefined' && overlay){dockCompanion();return;}
+ if(!ready || !enabled || !supported())return;
+ clear();
+ seen=true;parking=true;
+ const home=corner();tx=home.x;ty=home.y;
+ draw();host.classList.add('is-visible');wake();
+}
+document.documentElement.addEventListener('pointerleave',returnToCorner);
+window.addEventListener('blur',returnToCorner);
+window.addEventListener('resize',()=>{
+ draw();if(parking)returnToCorner();
+},{passive:true});
+window.addEventListener('pagehide',returnToCorner);
+window.addEventListener('pageshow',returnToCorner);
+document.addEventListener('visibilitychange',returnToCorner);
+for(const query of [finePointer,calm])query.addEventListener('change',()=>{
+ label();if(supported() && enabled)returnToCorner();else clear();
+});
+label();loadCharacter(character,{entrance:true});

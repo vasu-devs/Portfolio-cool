@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_3Im47B6aPyjc1D2qyrIdD6ihTqRH",
+  "orgId": "team_ZMaIie3W58OXPuQ54zT7XcxS",
+  "projectName": "portfolio-cool",
+  "settings": {
+    "createdAt": 1766441679021,
+    "framework": "vite",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}

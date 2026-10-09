@@ -1,0 +1,5 @@
+/* Text links should be identifiable without guessing or hovering. */
+.intro a{text-decoration-line:underline;text-decoration-color:#657653;text-decoration-thickness:1px;text-underline-offset:4px}
+.intro a:hover,.intro a:focus-visible{text-decoration-color:currentColor;text-decoration-thickness:2px}
+/* Keep the complete illustration in the expanded project view. */
+.detail-cover .paper-cover{aspect-ratio:16/9}

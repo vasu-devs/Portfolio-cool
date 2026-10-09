@@ -1,0 +1,48 @@
+{
+    "name": "portfolio",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "engines": {
+        "node": ">=18"
+    },
+    "scripts": {
+        "prebuild": "node scripts/sync-opening.cjs && node scripts/generate-test-portfolio.mjs",
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "postbuild": "node scripts/promote-portfolio.mjs",
+        "preview": "vite preview",
+        "fetch-repos": "node scripts/fetch-repos.mjs",
+        "fetch-readmes": "node scripts/fetch-readmes.mjs",
+        "fetch-featured-readmes": "node scripts/fetch-featured-readmes.mjs",
+        "fetch-oss-contributions": "node scripts/fetch-oss-contributions.mjs",
+        "apply-curated": "node scripts/apply-curated.mjs",
+        "export-traffic-counter": "node scripts/export-traffic-counter.mjs",
+        "inspect-upstash-keys": "node scripts/inspect-upstash-keys.mjs",
+        "seed-traffic-counter": "node scripts/seed-traffic-counter-from-values.mjs"
+    },
+    "dependencies": {
+        "@vercel/analytics": "^1.6.1",
+        "@vercel/speed-insights": "^1.3.1",
+        "framer-motion": "^10.16.4",
+        "lenis": "^1.3.16",
+        "lucide-react": "^0.292.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-github-calendar": "^4.0.0",
+        "react-icons": "^5.5.0",
+        "react-router-dom": "^6.30.4"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.37",
+        "@types/react-dom": "^18.2.15",
+        "@vitejs/plugin-react": "^4.2.0",
+        "autoprefixer": "^10.4.23",
+        "devicon": "^2.17.0",
+        "postcss": "^8.5.6",
+        "simple-icons": "^16.30.0",
+        "tailwindcss": "^3.4.19",
+        "typescript": "^5.2.2",
+        "vite": "^5.0.0"
+    }
+}

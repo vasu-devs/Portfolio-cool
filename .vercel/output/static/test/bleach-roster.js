@@ -1,0 +1,181 @@
+export const roster = {
+  "ichigo": {
+    "name": "Ichigo",
+    "technique": "Zangetsu · Getsuga Tenshō",
+    "form": "Original Shikai · retained",
+    "greeting": "Hey!",
+    "run": true,
+    "atlas": "./sprites/ichigo.webp",
+    "spriteEffect": true,
+    "heightCm": 174,
+    "standingHeightFraction": 0.94141,
+    "standingBottomFraction": 0.96875
+  },
+  "rukia": {
+    "name": "Rukia",
+    "technique": "Sode no Shirayuki · ice slash",
+    "form": "Shikai · drawn four-frame effect",
+    "greeting": "Hello!",
+    "atlas": "./sprites/rukia.webp",
+    "spriteEffect": true,
+    "heightCm": 144,
+    "standingHeightFraction": 0.95703,
+    "standingBottomFraction": 0.96094
+  },
+  "renji": {
+    "name": "Renji",
+    "technique": "Zabimaru · extending slash",
+    "form": "Shikai · drawn four-frame effect",
+    "greeting": "Yo!",
+    "run": true,
+    "atlas": "./sprites/renji.webp",
+    "spriteEffect": true,
+    "heightCm": 188,
+    "standingHeightFraction": 0.98828,
+    "standingBottomFraction": 0.98828
+  },
+  "uryu": {
+    "name": "Uryū",
+    "technique": "Heilig Bogen · reishi arrow",
+    "form": "TYBW · Wandenreich uniform",
+    "greeting": "Hello.",
+    "atlas": "./sprites/tybw-uryu.webp",
+    "spriteEffect": true,
+    "heightCm": 177,
+    "standingHeightFraction": 0.97266,
+    "standingBottomFraction": 1.0
+  },
+  "orihime": {
+    "name": "Orihime",
+    "technique": "Shun Shun Rikka · Santen Kesshun",
+    "form": "TYBW · Hueco Mundo outfit",
+    "greeting": "Hi!",
+    "atlas": "./sprites/tybw-orihime.webp",
+    "spriteEffect": true,
+    "heightCm": 157,
+    "standingHeightFraction": 0.97266,
+    "standingBottomFraction": 0.99219
+  },
+  "chad": {
+    "name": "Chad",
+    "technique": "Brazo Derecha de Gigante · punch",
+    "form": "TYBW · Fullbring arms",
+    "greeting": "Hey.",
+    "atlas": "./sprites/tybw-chad.webp",
+    "spriteEffect": true,
+    "heightCm": 197,
+    "standingHeightFraction": 0.98047,
+    "standingBottomFraction": 1.0
+  },
+  "urahara": {
+    "name": "Urahara",
+    "technique": "Benihime · crimson slash",
+    "form": "TYBW · Shikai",
+    "greeting": "Welcome!",
+    "atlas": "./sprites/tybw-urahara.webp",
+    "spriteEffect": true,
+    "heightCm": 183,
+    "standingHeightFraction": 0.97656,
+    "standingBottomFraction": 1.0
+  },
+  "yoruichi": {
+    "name": "Yoruichi",
+    "technique": "Shunkō · lightning strike",
+    "form": "TYBW · combat outfit",
+    "greeting": "Too slow!",
+    "atlas": "./sprites/tybw-yoruichi.webp",
+    "spriteEffect": true,
+    "heightCm": 156,
+    "standingHeightFraction": 0.97656,
+    "standingBottomFraction": 1.0
+  },
+  "byakuya": {
+    "name": "Byakuya",
+    "technique": "Senbonzakura · petal blades",
+    "form": "TYBW · Shikai, captain outfit",
+    "greeting": "Greetings.",
+    "atlas": "./sprites/tybw-byakuya.webp",
+    "spriteEffect": true,
+    "heightCm": 180,
+    "standingHeightFraction": 0.9375,
+    "standingBottomFraction": 0.98047
+  },
+  "toshiro": {
+    "name": "Tōshirō",
+    "technique": "Hyōrinmaru · ice dragon",
+    "form": "TYBW · youthful Shikai form",
+    "greeting": "Stay sharp.",
+    "atlas": "./sprites/tybw-toshiro.webp",
+    "spriteEffect": true,
+    "heightCm": 133,
+    "standingHeightFraction": 0.95703,
+    "standingBottomFraction": 0.98047
+  },
+  "kenpachi": {
+    "name": "Kenpachi",
+    "technique": "Nozarashi · cleaving strike",
+    "form": "TYBW · Shikai, eyepatch on",
+    "greeting": "Ready?",
+    "atlas": "./sprites/tybw-kenpachi.webp",
+    "spriteEffect": true,
+    "heightCm": 202,
+    "standingHeightFraction": 0.92188,
+    "standingBottomFraction": 0.96094
+  },
+  "shunsui": {
+    "name": "Shunsui",
+    "technique": "Katen Kyōkotsu · Kageoni",
+    "form": "TYBW · Head Captain, Shikai",
+    "greeting": "Take it easy.",
+    "atlas": "./sprites/tybw-shunsui.webp",
+    "spriteEffect": true,
+    "heightCm": 192,
+    "standingHeightFraction": 0.93359,
+    "standingBottomFraction": 0.96484
+  },
+  "aizen": {
+    "name": "Aizen",
+    "technique": "Hadō 90 · Kurohitsugi",
+    "form": "TYBW · Muken prisoner, stylized drift",
+    "greeting": "I see.",
+    "drift": true,
+    "atlas": "./sprites/tybw-aizen.webp",
+    "spriteEffect": true,
+    "heightCm": 186,
+    "standingHeightFraction": 0.89453,
+    "standingBottomFraction": 0.96875
+  },
+  "yhwach": {
+    "name": "Yhwach",
+    "technique": "Reishi sword · slash",
+    "form": "TYBW · before Soul King absorption",
+    "greeting": "Kneel.",
+    "atlas": "./sprites/tybw-yhwach.webp",
+    "spriteEffect": true,
+    "heightCm": 200,
+    "standingHeightFraction": 0.96484,
+    "standingBottomFraction": 0.98438
+  },
+  "grimmjow": {
+    "name": "Grimmjow",
+    "technique": "Cero · red blast",
+    "form": "TYBW · base Arrancar form",
+    "greeting": "You ready?",
+    "atlas": "./sprites/tybw-grimmjow.webp",
+    "spriteEffect": true,
+    "heightCm": 186,
+    "standingHeightFraction": 0.95312,
+    "standingBottomFraction": 1.0
+  },
+  "ichigo-tybw": {
+    "name": "Ichigo · TYBW",
+    "technique": "Dual Zangetsu · Getsuga Jūjishō",
+    "form": "TYBW · true Shikai",
+    "greeting": "Let’s go!",
+    "atlas": "./sprites/tybw-ichigo-tybw.webp",
+    "spriteEffect": true,
+    "heightCm": 181,
+    "standingHeightFraction": 0.95312,
+    "standingBottomFraction": 0.98047
+  }
+};

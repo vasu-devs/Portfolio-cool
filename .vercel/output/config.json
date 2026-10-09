@@ -1,0 +1,53 @@
+{
+  "version": 3,
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "^/bleach$",
+      "dest": "/bleach/index.html",
+      "check": true
+    },
+    {
+      "src": "^/bleach/$",
+      "dest": "/bleach/index.html",
+      "check": true
+    },
+    {
+      "src": "^/old$",
+      "dest": "/old/index.html",
+      "check": true
+    },
+    {
+      "src": "^/old/$",
+      "dest": "/old/index.html",
+      "check": true
+    },
+    {
+      "src": "^/api(/.*)?$",
+      "status": 404
+    },
+    {
+      "handle": "error"
+    },
+    {
+      "status": 404,
+      "src": "^(?!/api).*$",
+      "dest": "/404.html"
+    },
+    {
+      "handle": "miss"
+    },
+    {
+      "src": "^/api/(.+)(?:\\.(?:js))$",
+      "dest": "/api/$1",
+      "check": true
+    }
+  ],
+  "framework": {
+    "slug": "vite",
+    "version": "5.4.21"
+  },
+  "crons": []
+}
