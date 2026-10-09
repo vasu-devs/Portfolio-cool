@@ -11,3 +11,11 @@ The existing Vercel API endpoints and analytics remain in use. The cancelled inq
 After building, run `node scripts/check-production.cjs` with Playwright installed, or set `PLAYWRIGHT_MODULE` to an existing Playwright module. It uses one browser and a temporary local server, closes both on completion, and checks route separation, static dependencies, project dialogs, thumbnails, mobile overflow, sound decoding, archive navigation and the Bleach theme switch. Local verification does not send contact requests or increment production counters.
 
 See `paper-sound-design.md` and `public/paper/assets/foley/provenance.json` for sound behavior and source attribution.
+
+## Phone refinement — 24 September 2026
+
+`public/paper/mobile.css` provides touch-sized controls, safe-area spacing for the bottom navigation, readable single-column project rows, and dialogs with a fixed toolbar and independently scrolling content. Phone landscape uses the same touch controls. Zoom remains enabled. Desktop structure and the Bleach archive are unchanged.
+
+The contribution calendar scrolls horizontally on phones and starts at the latest recorded day. Tapping a cell or using the previous/next day buttons updates the readout; swiping does not generate hover sounds. Keyboard exploration is retained on desktop.
+
+The approved avatar and sage texture are served as WebP (214,424 and 72,888 bytes), down from 2,094,230 and 1,830,206 bytes. The original PNGs remain as source assets. No new third-party fonts or runtime dependencies were added.

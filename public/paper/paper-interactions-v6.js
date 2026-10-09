@@ -6,7 +6,7 @@ const controls='a[href],button,summary';
 document.addEventListener('click',event=>{const target=event.target.closest(controls);if(!target||target===toggle||target.closest('.sound-toggle,.sound-test')||target.disabled||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;
  const opens=target.matches('.proj-open,[data-open-contact],[data-open]')||target.closest('details.role')||target.matches('a[href^="#project-"],a[href="/resume.html"],.keyboard-help');
  const closing=target.closest('dialog')&&/close/i.test(target.getAttribute('aria-label')||target.textContent);
- if(!opens&&!closing&&!target.closest('.navigation'))void sound('tap');
+ if(!opens&&!closing&&!target.closest('.navigation,.graph-day-controls'))void sound('tap');
  if(!reduced.matches&&target.matches('button,.social-icon-row a,.contact-utilities a,.icon-action'))target.animate([{scale:'1'},{scale:'.95'},{scale:'1'}],{duration:190,easing:'ease-out'});
 },true);
 // Keyboard activation and native dialog closes get the same feedback as pointer use.

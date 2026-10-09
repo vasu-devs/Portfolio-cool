@@ -1,0 +1,28 @@
+.potato-spirit{position:fixed;left:0;top:0;width:100px;height:115px;z-index:45;pointer-events:none;isolation:isolate}
+.potato-spirit[hidden],.potato-dock [hidden]{display:none!important}
+.potato-pet{position:relative;display:block;width:100%;height:100%;padding:0;border:0;background:none;box-shadow:none;pointer-events:auto;cursor:grab;touch-action:none;-webkit-tap-highlight-color:transparent}
+.potato-pet img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;pointer-events:none;filter:drop-shadow(0 5px 3px #35392320);animation:potato-hover 3.8s ease-in-out infinite}
+.potato-pet:focus-visible{outline:2px solid #59684b;outline-offset:5px;border-radius:45%}
+.potato-spirit.is-following .potato-pet{pointer-events:none}
+.potato-spirit.is-held .potato-pet{cursor:grabbing}
+.potato-spirit.is-held img{animation:none;transform:rotate(-8deg) scale(1.06)}
+.potato-spirit.is-sleeping img{animation:none;transform:rotate(9deg) translateY(3px)}
+.potato-spirit.is-happy img{animation:potato-hop .7s ease-in-out}
+.potato-heart{position:absolute;top:0;right:8px;font:28px Georgia,serif;color:#a65740;opacity:0;pointer-events:none}
+.is-happy .potato-heart{animation:potato-love .8s ease-out}
+.potato-reply{position:absolute;right:0;bottom:calc(100% + 7px);width:max-content;max-width:min(175px,75vw);font:12px/1.5 system-ui;color:#343a2e;background:#fffaf0;border:1px solid #d7d5c4;border-radius:12px 12px 3px 12px;padding:8px 11px;box-shadow:0 4px 15px #3333220c;pointer-events:none}
+.potato-reply:empty{display:none}
+.potato-spirit.near-left .potato-reply{left:0;right:auto}
+.potato-dock{position:fixed;right:18px;bottom:max(16px,env(safe-area-inset-bottom));display:flex;gap:5px;align-items:center;z-index:46}
+.potato-dock button{font:11px/1.2 system-ui;color:#4c5741;border:1px solid #c7cdbb;background:#f9f5e9;border-radius:30px;padding:9px 12px;min-height:36px;cursor:pointer}
+.potato-dock .potato-hide{font-size:18px;width:36px;padding:4px}
+.potato-dock button:focus-visible{outline:2px solid #59684b;outline-offset:3px}
+.potato-dock button[aria-pressed=true]{background:#5b6c4a;color:#fffaf0}
+.potato-spirit.is-obscured,.potato-dock.is-obscured{visibility:hidden}
+.potato-spirit.is-paused *{animation-play-state:paused!important}
+@keyframes potato-hover{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
+@keyframes potato-hop{0%,100%{transform:translateY(0)}20%{transform:translateY(2px) scale(1.06,.94)}52%{transform:translateY(-19px) rotate(-8deg)}75%{transform:translateY(0) scale(1.05,.95)}}
+@keyframes potato-love{0%{opacity:0;transform:translateY(0) scale(.6)}30%{opacity:1}100%{opacity:0;transform:translateY(-30px) scale(1.15)}}
+@media(max-width:600px){.potato-spirit{width:80px;height:94px}.potato-dock{bottom:calc(78px + env(safe-area-inset-bottom));right:12px}.potato-dock button{min-height:44px}.potato-dock .potato-hide{width:44px}}
+@media(prefers-reduced-motion:reduce){.potato-spirit *{animation:none!important;transition:none!important}.potato-spirit.is-happy .potato-heart{opacity:1}.potato-pet img{transform:none!important}}
+@media print{.potato-spirit,.potato-dock{display:none!important}}
