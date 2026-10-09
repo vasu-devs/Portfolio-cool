@@ -102,8 +102,8 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             viewport={{ once: true }}
                             className="col-span-1 md:col-span-4"
                         >
-                            <h2 className="font-display font-black text-[16vw] md:text-9xl lg:text-[12rem] leading-[0.75] tracking-tighter uppercase text-center md:text-left">
-                                Let's<br />Talk.
+                            <h2 className="font-display font-black text-[16vw] md:text-9xl lg:text-[12rem] leading-[0.75] tracking-tighter uppercase text-center md:text-left text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-aura-purple/50">
+                                JOIN THE<br />VOID.
                             </h2>
                         </motion.div>
 
@@ -114,7 +114,7 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
                             transition={{ duration: 0.6 }}
                             className="col-span-1 md:col-span-8 flex flex-col justify-between mt-[8vw] md:mt-16 h-full md:ml-8"
                         >
-                            <div className="bg-bg-secondary/50 p-[4vw] md:p-6 rounded-2xl border border-border-primary backdrop-blur-sm">
+                            <div className="bg-bg-secondary/50 p-[4vw] md:p-6 rounded-2xl border border-white/10 hover:border-aura-purple/30 transition-colors duration-500 backdrop-blur-sm shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                                 {/* Scrollable Heatmap Grid */}
                                 <div
                                     className={`overflow-x-scroll select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
@@ -219,10 +219,10 @@ export const Footer = ({ theme, onResumeClick }: FooterProps) => {
             <div className="w-full flex justify-center items-end mt-[12vw] md:mt-4 overflow-hidden pointer-events-none select-none">
                 <motion.h1
                     initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 0.3, y: 16 }}
+                    whileInView={{ opacity: 0.5, y: 16 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
-                    className="font-display font-black text-[24vw] md:text-[20.5vw] leading-[0.7] bg-gradient-to-b from-fg-primary to-transparent bg-clip-text text-transparent tracking-tighter uppercase whitespace-nowrap transform"
+                    className="font-display font-black text-[24vw] md:text-[20.5vw] leading-[0.7] text-transparent bg-clip-text bg-gradient-to-b from-aura-purple/20 to-transparent tracking-tighter uppercase whitespace-nowrap transform blur-sm"
                 >
                     Vasu-DevS
                 </motion.h1>

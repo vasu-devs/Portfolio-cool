@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Container } from '../ui/Container';
@@ -12,145 +13,66 @@ import {
 import { FaDatabase, FaBrain, FaMicrophone, FaLink, FaVideo, FaVectorSquare } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 
-// Skill icon mapping with brand colors
-const skillIconMap: Record<string, { icon: IconType; color: string }> = {
-    // Languages
-    "Python": { icon: SiPython, color: "#3776AB" },
-    "JavaScript": { icon: SiJavascript, color: "#F7DF1E" },
-    "TypeScript": { icon: SiTypescript, color: "#3178C6" },
-    "C++": { icon: SiCplusplus, color: "#00599C" },
-
-    // Frontend
-    "HTML": { icon: SiHtml5, color: "#E34F26" },
-    "CSS": { icon: SiCss3, color: "#1572B6" },
-    "Tailwind": { icon: SiTailwindcss, color: "#06B6D4" },
-    "React.js": { icon: SiReact, color: "#61DAFB" },
-    "Vite": { icon: SiVite, color: "#646CFF" },
-    "Framer Motion": { icon: SiFramer, color: "#0055FF" },
-    "D3.js": { icon: SiD3Dotjs, color: "#F9A03C" },
-
-    // Backend
-    "Node.js": { icon: SiNodedotjs, color: "#339933" },
-    "Express": { icon: SiExpress, color: "#68A063" },
-    "FastAPI": { icon: SiFastapi, color: "#009688" },
-    "LangChain": { icon: SiLangchain, color: "#65C9A8" },
-    "LiveKit": { icon: FaVideo, color: "#FF3399" },
-    "Twilio": { icon: SiTwilio, color: "#F22F46" },
-
-    // Databases
-    "MySQL": { icon: SiMysql, color: "#4479A1" },
-    "MongoDB": { icon: SiMongodb, color: "#47A248" },
-    "PostgreSQL": { icon: SiPostgresql, color: "#4169E1" },
-    "Chroma": { icon: SiChromatic, color: "#FC521F" },
-    "Qdrant": { icon: FaVectorSquare, color: "#DC244C" },
-    "PgVector": { icon: FaDatabase, color: "#4169E1" },
-
-    // AI/LLM Stack
-    "OpenAI": { icon: SiOpenai, color: "#10A37F" },
-    "Deepgram": { icon: FaMicrophone, color: "#13EF93" },
-    "Ollama": { icon: SiOllama, color: "#FFFFFF" },
-    "DeepSeek": { icon: FaBrain, color: "#0066FF" },
-    "Gemini": { icon: SiGooglegemini, color: "#8E75B2" },
-    "RAG Pipelines": { icon: FaLink, color: "#9333EA" },
-
-    // Tools & DevOps
-    "Git": { icon: SiGit, color: "#F05032" },
-    "GitHub": { icon: SiGithub, color: "#E6EDF3" },
-    "Linux": { icon: SiLinux, color: "#FCC624" },
-    "Bash": { icon: SiGnubash, color: "#4EAA25" },
-    "Docker": { icon: SiDocker, color: "#2496ED" },
-    "Postman": { icon: SiPostman, color: "#FF6C37" }
-};
-
-const skillCategories = [
-    {
-        title: "Languages",
-        skills: ["Python", "JavaScript", "TypeScript", "C++"]
-    },
-    {
-        title: "Frontend",
-        skills: ["HTML", "CSS", "Tailwind", "React.js", "Vite", "Framer Motion", "D3.js"]
-    },
-    {
-        title: "Backend",
-        skills: ["Node.js", "Express", "FastAPI", "LangChain", "LiveKit", "Twilio"]
-    },
-    {
-        title: "Databases",
-        skills: ["MySQL", "MongoDB", "PostgreSQL", "Chroma", "Qdrant", "PgVector"]
-    },
-    {
-        title: "AI/LLM Stack",
-        skills: ["OpenAI", "Deepgram", "Ollama", "DeepSeek", "Gemini", "RAG Pipelines"]
-    },
-    {
-        title: "Tools & DevOps",
-        skills: ["Git", "GitHub", "Linux", "Bash", "Docker", "Postman"]
-    }
-];
-
-// Skill badge component with hover effect
-const SkillBadge = ({ skill }: { skill: string }) => {
-    const [isHovered, setIsHovered] = React.useState(false);
-    const skillData = skillIconMap[skill];
-    const Icon = skillData?.icon;
-    const brandColor = skillData?.color || "#888888";
-
-    return (
-        <span
-            className="inline-flex items-center gap-[1.5vw] md:gap-2 px-[3vw] py-[1.5vw] md:px-4 md:py-2 rounded-full bg-fg-primary/5 border border-fg-primary/10 text-[3vw] md:text-sm font-mono text-fg-secondary cursor-default hover:scale-105 hover:border-fg-primary/30"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            {Icon && (
-                <Icon
-                    className="w-[3.5vw] h-[3.5vw] md:w-4 md:h-4 transition-all duration-300"
-                    style={{
-                        color: isHovered ? brandColor : undefined,
-                        filter: isHovered ? 'none' : 'grayscale(100%)',
-                        opacity: isHovered ? 1 : 0.5
-                    }}
-                />
-            )}
-            <span
-                className={`transition-all duration-300 ${isHovered ? 'text-fg-primary' : 'text-fg-secondary'}`}
-            >
-                {skill}
-            </span>
-        </span>
-    );
+const skills = {
+    "Languages": ["Python", "JavaScript", "TypeScript", "C++"],
+    "Frontend": ["HTML", "CSS", "Tailwind", "React.js", "Vite", "Framer Motion", "D3.js"],
+    "Backend": ["Node.js", "Express", "FastAPI", "LangChain", "LiveKit", "Twilio"],
+    "Databases": ["MySQL", "MongoDB", "PostgreSQL", "Chroma", "Qdrant", "PgVector"],
+    "AI/LLM Stack": ["OpenAI", "Deepgram", "Ollama", "DeepSeek", "Gemini", "RAG Pipelines"],
+    "Tools & DevOps": ["Git", "GitHub", "Linux", "Bash", "Docker", "Postman"]
 };
 
 export const Skills = () => {
     return (
-        <section id="skills" className="pt-[12vw] pb-[16vw] md:pt-12 md:pb-24 relative overflow-hidden">
-            <Container>
-                <h2 className="font-mono text-[2.5vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[12vw] md:mb-16">Technical Expertise</h2>
+        <section id="skills" className="py-32 px-4 md:px-8 relative z-20 bg-bg-primary overflow-hidden">
+            {/* Background Elements */}
+            <div className="absolute top-1/2 left-0 w-96 h-96 bg-aura-purple/5 rounded-full blur-[100px] pointer-events-none" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[6vw] md:gap-6">
-                    {skillCategories.map((category, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{
-                                duration: 0.7,
-                                delay: idx * 0.1,
-                                ease: [0.16, 1, 0.3, 1]
-                            }}
-                            className="p-[6vw] md:p-6 rounded-2xl border border-border-primary bg-bg-secondary/30 backdrop-blur-sm group hover:border-fg-primary/20 hover:-translate-y-2 hover:shadow-2xl"
+            <div className="max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+                    <div className="lg:col-span-4">
+                        <motion.h2
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="text-5xl md:text-7xl font-display font-bold mb-8 sticky top-32"
                         >
-                            <h3 className="font-display font-bold text-[5vw] md:text-2xl mb-[6vw] md:mb-5 text-fg-primary group-hover:text-fg-primary transition-colors">{category.title}</h3>
-                            <div className="flex flex-wrap gap-[2vw] md:gap-2">
-                                {category.skills.map((skill, sIdx) => (
-                                    <SkillBadge key={sIdx} skill={skill} />
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
+                            ABILITIES &<br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-aura-gold to-aura-purple animate-pulse-slow">MASTERY</span>
+                        </motion.h2>
+                    </div>
+
+                    <div className="lg:col-span-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            {Object.entries(skills).map(([category, items], catIndex) => (
+                                <motion.div
+                                    key={category}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: catIndex * 0.1 }}
+                                    className="space-y-6"
+                                >
+                                    <h3 className="text-xl font-mono text-aura-gold uppercase tracking-widest border-b border-white/10 pb-2">
+                                        {category}
+                                    </h3>
+                                    <div className="flex flex-wrap gap-3">
+                                        {items.map((skill, index) => (
+                                            <motion.span
+                                                key={skill}
+                                                whileHover={{ scale: 1.05, borderColor: '#8A2BE2', boxShadow: '0 0 10px rgba(138,43,226,0.3)' }}
+                                                className="px-4 py-2 border border-white/10 rounded-full text-sm md:text-base hover:bg-white/5 transition-all cursor-default"
+                                            >
+                                                {skill}
+                                            </motion.span>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-            </Container>
+            </div>
         </section>
     );
 };
