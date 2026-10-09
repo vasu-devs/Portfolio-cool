@@ -1,163 +1,181 @@
 import { motion } from 'framer-motion';
-import { Github, Twitter, Linkedin, Calendar } from 'lucide-react';
+import { ArrowUpRight, FileText, Github } from 'lucide-react';
 import { Container } from '../ui/Container';
-import { SocialButton } from '../ui/SocialButton';
-import { ResumeButton } from '../ui/ResumeButton';
-import { SideBranding } from '../ui/SideBranding';
 
 interface HeroProps {
-    theme?: 'light' | 'dark';
     onResumeClick?: () => void;
+    stats: { stars: number; commits: number; prs: number };
+    isStatsLoading?: boolean;
 }
 
-export const Hero = ({ theme = 'dark', onResumeClick }: HeroProps) => {
+const fadeUp = {
+    initial: { opacity: 0, y: 16 },
+    animate: { opacity: 1, y: 0 },
+};
+
+const TERMINAL_LINES: { prompt?: string; out?: string; accent?: boolean }[] = [
+    { prompt: 'whoami' },
+    { out: 'vasu-devs — AI engineer · India (UTC+5:30)' },
+    { prompt: 'cat focus.txt' },
+    { out: 'voice agents · multi-agent systems · agentic RAG' },
+    { prompt: 'current --project' },
+    { out: 'justhireme.ai — local-first job intelligence' },
+    { prompt: 'status' },
+    { out: '[ok] open to work — remote, worldwide', accent: true },
+];
+
+export const Hero = ({ onResumeClick, stats, isStatsLoading }: HeroProps) => {
+    const metric = (v: number) => (isStatsLoading || v === 0 ? '—' : v.toLocaleString());
+
     return (
-        <section id="hero" className="min-h-[100dvh] lg:min-h-[90vh] relative flex flex-col pb-0 overflow-visible">
-            {/* Split Background — glassy panels */}
-            <div className="absolute inset-0 z-0 flex flex-col pointer-events-none">
-                {/* TOP half — frosted glass panel */}
-                <div
-                    className={`relative h-[58%] lg:h-[44%] w-full overflow-hidden ${
-                        theme === 'dark' ? 'bg-white' : 'bg-black'
-                    }`}
-                >
-                    {/* Vertical depth gradient — slight lightness shift bottom-to-top */}
-                    <div
-                        className={`absolute inset-0 ${
-                            theme === 'dark'
-                                ? 'bg-gradient-to-b from-white via-white/95 to-zinc-100'
-                                : 'bg-gradient-to-b from-black via-black/95 to-zinc-950'
-                        }`}
-                    />
-                    {/* Specular top reflection — strong highlight along the upper edge */}
-                    <div
-                        className={`absolute inset-x-0 top-0 h-1/3 ${
-                            theme === 'dark'
-                                ? 'bg-gradient-to-b from-white via-white/40 to-transparent'
-                                : 'bg-gradient-to-b from-zinc-700/60 via-zinc-800/30 to-transparent'
-                        }`}
-                    />
-                    {/* Diagonal sheen — subtle light streak across the surface */}
-                    <div
-                        className={`absolute inset-0 ${
-                            theme === 'dark'
-                                ? 'bg-gradient-to-tr from-transparent via-white/15 to-transparent'
-                                : 'bg-gradient-to-tr from-transparent via-zinc-700/20 to-transparent'
-                        }`}
-                    />
-                    {/* Bottom edge — soft shadow where it meets the dark half */}
-                    <div
-                        className={`absolute inset-x-0 bottom-0 h-12 ${
-                            theme === 'dark'
-                                ? 'bg-gradient-to-t from-zinc-200/50 to-transparent'
-                                : 'bg-gradient-to-t from-zinc-900/40 to-transparent'
-                        }`}
-                    />
-                </div>
+        <section id="hero" className="relative pt-32 md:pt-40 pb-16 md:pb-20 dot-grid">
+            {/* fade the dot grid out toward the bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg-primary to-transparent pointer-events-none" />
 
-                {/* BOTTOM half — dark glass panel */}
-                <div className="relative h-[42%] lg:h-[56%] w-full overflow-hidden bg-bg-primary">
-                    {/* Top edge highlight — thin specular line at the seam */}
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-fg-primary/30 to-transparent" />
-                    {/* Soft top fade — light bleeding down from the bright half */}
-                    <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-fg-primary/[0.05] to-transparent" />
-                    {/* Centered radial highlight — gives the dark surface a sense of depth */}
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(255,255,255,0.06),transparent_70%)]" />
-                </div>
-            </div>
+            <Container className="relative">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                    {/* Left: pitch */}
+                    <div className="lg:col-span-7">
+                        <motion.div
+                            {...fadeUp}
+                            transition={{ duration: 0.5 }}
+                            className="inline-flex items-center gap-2 rounded-full border border-border-primary bg-bg-primary px-3 py-1 mb-6"
+                        >
+                            <span className="relative flex h-1.5 w-1.5">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-60" />
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                            </span>
+                            <span className="font-mono text-[11px] text-fg-secondary">
+                                open to work — remote, worldwide
+                            </span>
+                        </motion.div>
 
-            {/* Side branding — anchored to the split inside Hero */}
-            <SideBranding />
+                        <motion.h1
+                            {...fadeUp}
+                            transition={{ duration: 0.6, delay: 0.08 }}
+                            className="font-display font-bold text-4xl md:text-5xl lg:text-[3.4rem] tracking-tight leading-[1.08] mb-5"
+                        >
+                            AI engineer building{' '}
+                            <span className="text-accent">voice agents</span> and
+                            agentic systems that ship to production.
+                        </motion.h1>
 
-            <Container className="relative z-10 min-h-[100dvh] lg:h-full flex flex-col pt-4 lg:pt-8 pb-24 lg:pb-10 overflow-visible">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                    className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-end lg:items-start overflow-visible"
-                >
-                    {/* Left Column: Text */}
-                    <div className="order-2 lg:order-1 lg:row-start-1 lg:col-start-1 lg:col-span-7 relative z-30 pt-24 md:pt-24 h-full flex flex-col pointer-events-none">
-                        {/* Huge Heading */}
-                        <div className="-translate-y-[25%] lg:translate-y-0 -mb-24 lg:-mb-0">
-                            <h1 className={`font-display font-black text-[13vw] md:text-[11vw] lg:text-9xl xl:text-[10rem] leading-[0.8] lg:leading-[0.85] tracking-tighter uppercase mb-4 lg:mb-6 lg:mix-blend-difference ${theme === 'light' ? 'text-white' : 'text-black'}`}>
-                                <motion.span
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.2 }}
-                                    className="block"
+                        <motion.p
+                            {...fadeUp}
+                            transition={{ duration: 0.6, delay: 0.16 }}
+                            className="text-base md:text-lg text-fg-secondary leading-relaxed max-w-xl mb-8"
+                        >
+                            I'm Vasu DevS. I design and build real-time voice AI,
+                            multi-agent pipelines, and full-stack products — sub-500ms
+                            voice latency, measurable evals, and production deploys, not
+                            demos.
+                        </motion.p>
+
+                        <motion.div
+                            {...fadeUp}
+                            transition={{ duration: 0.6, delay: 0.24 }}
+                            className="flex flex-wrap items-center gap-3 mb-10"
+                        >
+                            <a
+                                href="https://cal.com/vasu-devs"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 h-11 px-5 rounded-md bg-fg-primary text-bg-primary font-mono text-sm font-medium hover:bg-accent hover:text-white transition-colors"
+                            >
+                                book a call
+                                <ArrowUpRight size={14} />
+                            </a>
+                            <button
+                                type="button"
+                                onClick={onResumeClick}
+                                className="inline-flex items-center gap-2 h-11 px-5 rounded-md border border-border-primary bg-bg-primary font-mono text-sm text-fg-primary hover:border-fg-primary/40 transition-colors cursor-pointer"
+                            >
+                                <FileText size={14} />
+                                resume
+                            </button>
+                            <a
+                                href="https://github.com/vasu-devs"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="GitHub profile"
+                                className="inline-flex items-center justify-center h-11 w-11 rounded-md border border-border-primary bg-bg-primary text-fg-primary hover:border-fg-primary/40 transition-colors"
+                            >
+                                <Github size={16} />
+                            </a>
+                        </motion.div>
+
+                        {/* Live metrics strip */}
+                        <motion.dl
+                            {...fadeUp}
+                            transition={{ duration: 0.6, delay: 0.32 }}
+                            className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border-primary border border-border-primary rounded-lg overflow-hidden max-w-xl"
+                        >
+                            {[
+                                { label: 'github stars', value: metric(stats.stars) },
+                                { label: 'contributions /yr', value: metric(stats.commits) },
+                                { label: 'pull requests', value: metric(stats.prs) },
+                                { label: 'launch views', value: '380.6K' },
+                            ].map((m) => (
+                                <div key={m.label} className="bg-bg-primary px-4 py-3">
+                                    <dt className="font-mono text-[10px] text-fg-secondary mb-1">{m.label}</dt>
+                                    <dd className="font-display font-semibold text-lg tabular-nums leading-none">{m.value}</dd>
+                                </div>
+                            ))}
+                        </motion.dl>
+                    </div>
+
+                    {/* Right: terminal */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.2 }}
+                        className="lg:col-span-5"
+                    >
+                        <div className="terminal rounded-xl border border-fg-primary/20 shadow-[0_20px_60px_-20px_rgba(24,24,27,0.35)] overflow-hidden">
+                            <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
+                                <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                                <span className="ml-3 text-[11px] dim">vasu@dev: ~</span>
+                            </div>
+                            <div className="px-4 py-4 text-[12.5px] leading-relaxed">
+                                {TERMINAL_LINES.map((line, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 0.5 + i * 0.18, duration: 0.25 }}
+                                        className="whitespace-pre-wrap break-words"
+                                    >
+                                        {line.prompt !== undefined ? (
+                                            <span>
+                                                <span className="prompt">$ </span>
+                                                {line.prompt}
+                                            </span>
+                                        ) : (
+                                            <span className={line.accent ? 'text-emerald-400' : 'dim'}>
+                                                {line.out}
+                                            </span>
+                                        )}
+                                    </motion.div>
+                                ))}
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.5 + TERMINAL_LINES.length * 0.18 }}
                                 >
-                                    VASU
-                                </motion.span>
-                                <motion.span
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.4 }}
-                                    className="block"
-                                >
-                                    DEVS
-                                </motion.span>
-                            </h1>
+                                    <span className="prompt">$ </span>
+                                    <span className="cursor-blink">▌</span>
+                                </motion.div>
+                            </div>
                         </div>
 
-                        {/* Description & Links */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.8 }}
-                            className="w-full mt-auto mb-2 lg:mb-28 lg:mt-12 pointer-events-auto"
-                        >
-                            <p className="hero-intro-text max-w-2xl text-sm md:text-xl lg:text-3xl text-fg-secondary leading-relaxed font-medium mb-4 lg:mb-10">
-                                <strong className="text-fg-primary font-bold">AI Engineer</strong> from <span className="text-fg-primary">India</span> building <strong className="text-fg-primary">Voice AI Agents</strong>, <strong className="text-fg-primary">Multi-Agent Systems</strong>, <strong className="text-fg-primary">Agentic RAG</strong>, and <strong className="text-fg-primary">Intelligent Full-Stack Products</strong>.
-                            </p>
-
-                            <div className="flex flex-wrap items-center gap-3 md:gap-4 relative z-50">
-                                <SocialButton href="https://github.com/vasu-devs" icon={Github} label="GitHub Profile" />
-                                <SocialButton href="https://x.com/vasu_devs" icon={Twitter} label="Twitter Profile" />
-                                <SocialButton href="https://www.linkedin.com/in/vasu-devs/" icon={Linkedin} label="LinkedIn Profile" />
-                                <SocialButton href="https://cal.com/vasu-devs" icon={Calendar} label="Book a Call" />
-                                <ResumeButton onClick={onResumeClick} />
-                            </div>
-                        </motion.div>
-                    </div>
-
-                    {/* Right Column: Image - THEME-AWARE, STATIC */}
-                    <div className="order-1 lg:order-2 absolute lg:relative inset-0 lg:inset-auto lg:row-start-1 lg:col-start-6 lg:col-span-12 flex justify-center lg:justify-end items-center lg:items-start z-10 pointer-events-none overflow-visible">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 1.1 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="w-full h-full lg:h-auto relative md:opacity-100 transition-opacity duration-1000 overflow-visible"
-                        >
-                            {/* Gradient overlay for better text readability */}
-                            <div className={`absolute inset-x-0 bottom-0 top-[40%] lg:hidden z-20 pointer-events-none ${theme === 'dark'
-                                ? 'bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent'
-                                : 'bg-gradient-to-t from-white via-white/40 to-transparent'
-                                }`} />
-
-                            {/* User's Hero Image - PREMIUM REFINED AESTHETICS, ELEVATED, STATIC */}
-                            <motion.img
-                                src="/Pic/Hero.webp"
-                                alt="Vasu - Applied AI Engineer"
-                                loading="eager"
-                                fetchPriority="high"
-                                initial={false}
-                                animate={{
-                                    filter: theme === 'dark'
-                                        ? 'grayscale(10%) contrast(125%) brightness(1.1) saturate(1.15)'
-                                        : 'grayscale(15%) contrast(110%) brightness(0.95) saturate(1.1)',
-                                }}
-                                transition={{ duration: 0.8 }}
-                                style={{
-                                    willChange: 'transform, filter',
-                                    WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)',
-                                    maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)'
-                                }}
-                                className="relative w-full h-[110%] lg:h-full object-contain object-bottom drop-shadow-2xl z-10 scale-[1.45] md:scale-[1.3] lg:scale-125 -translate-y-[45%] md:translate-y-[-25%] lg:-translate-y-12"
-                            />
-                        </motion.div>
-                    </div>
-                </motion.div>
+                        <p className="font-mono text-[11px] text-fg-secondary mt-3 text-center">
+                            psst — try the konami code, or type{' '}
+                            <span className="text-accent">hire</span> anywhere
+                        </p>
+                    </motion.div>
+                </div>
             </Container>
         </section>
     );

@@ -2,240 +2,145 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Github, Globe2 } from 'lucide-react';
 import { Container } from '../ui/Container';
+import { SectionHeading } from '../ui/SectionHeading';
 import { ExperienceModal } from '../ui/ExperienceModal';
 import { JustHireMeExperienceModal } from '../ui/JustHireMeExperienceModal';
 
-const JUSTHIREME_METRICS = [
-    { value: '380.6K', label: 'Launch views' },
-    { value: '3.2K', label: 'Likes' },
-    { value: '339', label: 'Reposts' },
-    { value: '98', label: 'Replies' },
-];
+interface EntryProps {
+    date: string;
+    role: string;
+    title: string;
+    brief: string;
+    metrics: { value: string; label: string }[];
+    chips: string[];
+    onOpen: () => void;
+    links?: { icon: React.ReactNode; href: string; label: string }[];
+}
 
-const JUSTHIREME_CHIPS = [
-    'Tauri',
-    'React',
-    'TypeScript',
-    'FastAPI',
-    'SQLite',
-    'KuzuDB',
-    'LanceDB',
-    'Playwright',
-];
+const ExperienceCard = ({ date, role, title, brief, metrics, chips, onOpen, links }: EntryProps) => (
+    <motion.article
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-10%' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        onClick={onOpen}
+        onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onOpen();
+            }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label={`Open case study for ${title}`}
+        className="group border border-border-primary rounded-xl bg-bg-primary p-6 md:p-7 cursor-pointer transition-all duration-300 hover:border-accent/50 hover:shadow-[0_8px_30px_-12px_rgba(37,99,235,0.25)]"
+    >
+        <div className="flex items-start justify-between gap-4 mb-4">
+            <div>
+                <p className="font-mono text-[11px] text-fg-secondary mb-2">
+                    {date} · {role}
+                </p>
+                <h3 className="font-display font-semibold text-xl md:text-2xl tracking-tight group-hover:text-accent transition-colors duration-300">
+                    {title}
+                </h3>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+                {links?.map((l) => (
+                    <a
+                        key={l.label}
+                        href={l.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label={l.label}
+                        className="w-8 h-8 rounded-md border border-border-primary flex items-center justify-center text-fg-secondary hover:text-fg-primary hover:border-fg-primary/40 transition-colors"
+                    >
+                        {l.icon}
+                    </a>
+                ))}
+                <span className="w-8 h-8 rounded-md border border-border-primary flex items-center justify-center text-fg-secondary transition-all duration-300 group-hover:bg-accent group-hover:text-white group-hover:border-accent">
+                    <ArrowUpRight size={14} />
+                </span>
+            </div>
+        </div>
 
-const HEADLINE_METRICS = [
-    { value: '18', label: 'Days, solo' },
-    { value: '5', label: 'Integrations' },
-    { value: '10×', label: 'Faster sync' },
-    { value: '85', label: 'Tests' },
-];
+        <p className="text-sm md:text-[15px] text-fg-secondary leading-relaxed mb-5">
+            {brief}
+        </p>
 
-const TECH_CHIPS = [
-    'Next.js 15',
-    'TypeScript',
-    'PostgreSQL',
-    'Prisma',
-    'Tailwind',
-    'Vercel',
-];
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border-primary border border-border-primary rounded-lg overflow-hidden mb-5">
+            {metrics.map((m) => (
+                <div key={m.label} className="bg-bg-secondary/60 px-4 py-2.5">
+                    <div className="font-display font-semibold text-lg leading-none mb-1 tabular-nums">{m.value}</div>
+                    <div className="font-mono text-[10px] text-fg-secondary">{m.label}</div>
+                </div>
+            ))}
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-1.5">
+                {chips.map((t) => (
+                    <span key={t} className="font-mono text-[11px] text-fg-secondary bg-bg-secondary border border-border-primary rounded px-2 py-0.5">
+                        {t}
+                    </span>
+                ))}
+            </div>
+            <span className="font-mono text-[11px] text-fg-secondary group-hover:text-accent transition-colors shrink-0">
+                read case study →
+            </span>
+        </div>
+    </motion.article>
+);
 
 export const Experience = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isJustHireMeModalOpen, setIsJustHireMeModalOpen] = useState(false);
 
     return (
-        <section id="experience" className="inverted bg-bg-primary text-fg-primary py-[16vw] md:py-24 relative">
+        <section id="experience" className="py-16 md:py-24">
             <Container>
-                <motion.h2
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="font-mono text-[2.5vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[6vw] md:mb-16"
-                >
-                    <span className="text-fg-primary/30">01 /</span> Experience
-                </motion.h2>
+                <SectionHeading
+                    index="01"
+                    label="experience"
+                    title="Shipped, not just built"
+                    sub="Production systems with real users, real money, and real constraints — full case studies behind each card."
+                />
 
-                <motion.article
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-10%' }}
-                    transition={{ duration: 0.6 }}
-                    onClick={() => setIsJustHireMeModalOpen(true)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            setIsJustHireMeModalOpen(true);
-                        }
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Open case study for JustHireMe"
-                    className="group relative border border-border-primary rounded-2xl bg-fg-primary/[0.04] backdrop-blur-sm p-[6vw] md:p-10 mb-[6vw] md:mb-8 overflow-hidden cursor-pointer transition-colors hover:bg-fg-primary/[0.06]"
-                >
-                    <div className="flex items-start justify-between gap-[4vw] md:gap-6 mb-[6vw] md:mb-8">
-                        <div className="flex flex-wrap items-center gap-[2vw] md:gap-3">
-                            <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary">
-                                May 2026
-                            </span>
-                            <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
-                                Open source founder / Local-first AI
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-[2vw] md:gap-3 shrink-0">
-                            <a
-                                href="https://github.com/vasu-devs/JustHireMe"
-                                target="_blank"
-                                rel="noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                aria-label="Open JustHireMe on GitHub"
-                                className="w-[10vw] h-[10vw] md:w-12 md:h-12 rounded-full border border-border-primary flex items-center justify-center transition-all duration-300 hover:bg-fg-primary hover:text-bg-primary"
-                            >
-                                <Github className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
-                            </a>
-                            <a
-                                href="https://justhireme.ai"
-                                target="_blank"
-                                rel="noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                aria-label="Open JustHireMe live site"
-                                className="w-[10vw] h-[10vw] md:w-12 md:h-12 rounded-full border border-border-primary flex items-center justify-center transition-all duration-300 hover:bg-fg-primary hover:text-bg-primary"
-                            >
-                                <Globe2 className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
-                            </a>
-                        </div>
-                    </div>
+                <div className="flex flex-col gap-5">
+                    <ExperienceCard
+                        date="May 2026"
+                        role="Open source founder"
+                        title="JustHireMe — agentic job-search workbench"
+                        brief="Local-first desktop app that ingests a candidate profile, builds a professional graph, discovers and scores job leads, and generates tailored resumes, cover letters and outreach. The launch thread went viral; the product is live at justhireme.ai."
+                        metrics={[
+                            { value: '380.6K', label: 'launch views' },
+                            { value: '3.2K', label: 'likes' },
+                            { value: '339', label: 'reposts' },
+                            { value: '98', label: 'replies' },
+                        ]}
+                        chips={['Tauri', 'React', 'TypeScript', 'FastAPI', 'KuzuDB', 'LanceDB']}
+                        onOpen={() => setIsJustHireMeModalOpen(true)}
+                        links={[
+                            { icon: <Github size={14} />, href: 'https://github.com/vasu-devs/JustHireMe', label: 'JustHireMe on GitHub' },
+                            { icon: <Globe2 size={14} />, href: 'https://justhireme.ai', label: 'JustHireMe live site' },
+                        ]}
+                    />
 
-                    <h3 className="font-display font-black text-[9vw] md:text-5xl lg:text-6xl leading-[0.9] tracking-tighter uppercase mb-[3vw] md:mb-4">
-                        JustHireMe
-                    </h3>
-                    <p className="font-mono text-[3vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[6vw] md:mb-8">
-                        Agentic AI desktop app for transparent, privacy-first job search
-                    </p>
-
-                    <p className="text-[4vw] md:text-xl text-fg-secondary leading-relaxed mb-[8vw] md:mb-10 max-w-4xl">
-                        Building and open-sourcing a local-first job intelligence workbench
-                        that ingests a candidate profile, builds a professional graph,
-                        discovers and filters job leads, explains role fit, and generates
-                        tailored resumes, cover letters, cold emails, and LinkedIn outreach.
-                        The launch went viral with 380.6K views while the product is live at
-                        justhireme.ai.
-                    </p>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-[3vw] md:gap-4 mb-[6vw] md:mb-8">
-                        {JUSTHIREME_METRICS.map((m) => (
-                            <div
-                                key={m.label}
-                                className="p-[4vw] md:p-5 rounded-xl border border-border-primary bg-fg-primary/[0.04]"
-                            >
-                                <div className="font-display font-black text-[8vw] md:text-4xl leading-none mb-[1vw] md:mb-2">
-                                    {m.value}
-                                </div>
-                                <div className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
-                                    {m.label}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="flex flex-wrap items-center justify-between gap-[3vw] md:gap-4">
-                        <div className="flex flex-wrap gap-[2vw] md:gap-2">
-                            {JUSTHIREME_CHIPS.map((t) => (
-                                <span
-                                    key={t}
-                                    className="px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary text-[2.5vw] md:text-xs font-mono bg-fg-primary/[0.03] text-fg-secondary"
-                                >
-                                    {t}
-                                </span>
-                            ))}
-                        </div>
-                        <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
-                            Open case study &rarr;
-                        </span>
-                    </div>
-                </motion.article>
-
-                <motion.article
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-10%' }}
-                    transition={{ duration: 0.6 }}
-                    onClick={() => setIsModalOpen(true)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            setIsModalOpen(true);
-                        }
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Open case study for Internal Finance & P&L Platform"
-                    className="group relative border border-border-primary rounded-2xl bg-fg-primary/[0.03] backdrop-blur-sm p-[6vw] md:p-10 cursor-pointer transition-colors hover:bg-fg-primary/[0.06]"
-                >
-                    {/* Top row: date pill + read-more affordance */}
-                    <div className="flex items-start justify-between gap-[4vw] md:gap-6 mb-[6vw] md:mb-8">
-                        <div className="flex flex-wrap items-center gap-[2vw] md:gap-3">
-                            <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary">
-                                Mar → Apr 2026
-                            </span>
-                            <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
-                                Freelance · Sole engineer
-                            </span>
-                        </div>
-                        <div className="shrink-0 w-[10vw] h-[10vw] md:w-12 md:h-12 rounded-full border border-border-primary flex items-center justify-center transition-all duration-500 group-hover:bg-fg-primary group-hover:text-bg-primary group-hover:rotate-45">
-                            <ArrowUpRight className="w-[5vw] h-[5vw] md:w-5 md:h-5" />
-                        </div>
-                    </div>
-
-                    {/* Title block */}
-                    <h3 className="font-display font-black text-[9vw] md:text-5xl lg:text-6xl leading-[0.9] tracking-tighter uppercase mb-[3vw] md:mb-4">
-                        Full-Stack Engineer
-                    </h3>
-                    <p className="font-mono text-[3vw] md:text-base uppercase tracking-widest text-fg-secondary mb-[6vw] md:mb-8">
-                        Internal Finance &amp; P&amp;L Platform
-                    </p>
-
-                    {/* Short brief */}
-                    <p className="text-[4vw] md:text-xl text-fg-secondary leading-relaxed mb-[8vw] md:mb-10 max-w-3xl">
-                        End-to-end build of a Next.js 15 / PostgreSQL financial reporting
-                        platform: unified ingestion across five live platforms, accurate
-                        multi-currency P&amp;L, and a dashboard that loads in sub-second.
-                        Shipped to production on day 18 at full scope.
-                    </p>
-
-                    {/* Metrics */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-[3vw] md:gap-4 mb-[6vw] md:mb-8">
-                        {HEADLINE_METRICS.map((m) => (
-                            <div
-                                key={m.label}
-                                className="p-[4vw] md:p-5 rounded-xl border border-border-primary bg-fg-primary/[0.04]"
-                            >
-                                <div className="font-display font-black text-[8vw] md:text-4xl leading-none mb-[1vw] md:mb-2">
-                                    {m.value}
-                                </div>
-                                <div className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
-                                    {m.label}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Tech chips + CTA hint */}
-                    <div className="flex flex-wrap items-center justify-between gap-[3vw] md:gap-4">
-                        <div className="flex flex-wrap gap-[2vw] md:gap-2">
-                            {TECH_CHIPS.map((t) => (
-                                <span
-                                    key={t}
-                                    className="px-[3vw] md:px-3 py-[1vw] md:py-1 rounded-full border border-border-primary text-[2.5vw] md:text-xs font-mono bg-fg-primary/[0.03] text-fg-secondary"
-                                >
-                                    {t}
-                                </span>
-                            ))}
-                        </div>
-                        <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary group-hover:text-fg-primary transition-colors">
-                            Open case study →
-                        </span>
-                    </div>
-                </motion.article>
+                    <ExperienceCard
+                        date="Mar → Apr 2026"
+                        role="Freelance · sole engineer"
+                        title="Internal Finance & P&L Platform"
+                        brief="End-to-end build of a production fintech platform: unified transaction ingestion across 5 live payment/ad platforms, accurate multi-currency P&L with processor-level deduplication, and a sub-second dashboard. Shipped at full scope on day 18 — zero post-handoff bug reports."
+                        metrics={[
+                            { value: '18', label: 'days, solo' },
+                            { value: '5', label: 'integrations' },
+                            { value: '10×', label: 'faster sync' },
+                            { value: '85', label: 'tests' },
+                        ]}
+                        chips={['Next.js 15', 'TypeScript', 'PostgreSQL', 'Prisma', 'Vercel']}
+                        onOpen={() => setIsModalOpen(true)}
+                    />
+                </div>
             </Container>
 
             <ExperienceModal

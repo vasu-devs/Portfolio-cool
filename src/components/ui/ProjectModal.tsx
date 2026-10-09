@@ -79,7 +79,7 @@ export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) =>
                                 <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary block mb-[1vw] md:mb-1.5">
                                     {project.category}
                                 </span>
-                                <h2 className="font-display font-black text-[6vw] md:text-3xl leading-tight tracking-tight truncate">
+                                <h2 className="font-display font-semibold text-[6vw] md:text-3xl leading-tight tracking-tight truncate">
                                     {project.title}
                                 </h2>
                             </div>

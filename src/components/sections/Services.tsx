@@ -1,135 +1,93 @@
-import { motion } from 'framer-motion';
+import { ArrowUpRight, Bot, Mic, Rocket } from 'lucide-react';
 import { Container } from '../ui/Container';
+import { SectionHeading } from '../ui/SectionHeading';
 
 const SERVICES = [
     {
-        tag: 'Most requested',
+        icon: Bot,
+        tag: 'most requested',
         heading: 'AI Agents & Automation',
         description:
             'Multi-agent pipelines, RAG systems, LangGraph workflows, and intelligent automation. From research agents to production systems that actually ship.',
         chips: ['LangChain', 'LangGraph', 'RAG', 'Python', 'FastAPI'],
     },
     {
-        tag: 'Speciality',
+        icon: Mic,
+        tag: 'speciality',
         heading: 'Voice AI Systems',
         description:
             'Real-time voice agents with sub-500ms latency. Full pipeline from STT to LLM to TTS — with personas, guardrails, and live dashboards.',
         chips: ['LiveKit', 'Deepgram', 'Groq', 'WebRTC'],
     },
     {
-        tag: 'Fast turnaround',
+        icon: Rocket,
+        tag: 'fast turnaround',
         heading: 'Full Stack MVPs',
         description:
-            'Production-ready apps shipped fast. Next.js, PostgreSQL, auth, payments, and real performance — not just a prototype. Last one: 18 days, 290 commits, zero post-launch bugs.',
+            'Production-ready apps shipped fast. Next.js, PostgreSQL, auth, payments, and real performance — not just a prototype. Last one: 18 days, zero post-launch bugs.',
         chips: ['Next.js', 'TypeScript', 'PostgreSQL', 'Vercel'],
     },
 ];
 
 export const Services = () => {
     return (
-        <section
-            id="services"
-            className="py-[16vw] md:py-24 bg-fg-primary text-bg-primary relative overflow-hidden"
-        >
-            <Container className="relative z-10">
-                <motion.span
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="font-mono text-[2.5vw] md:text-base uppercase tracking-widest text-bg-primary/50 text-center block mb-[3vw] md:mb-4"
-                >
-                    06 / Services
-                </motion.span>
+        <section id="services" className="py-16 md:py-24">
+            <Container>
+                <SectionHeading
+                    index="06"
+                    label="services"
+                    title="What I build for clients"
+                    sub="Freelance · remote · worldwide. Fixed-scope or ongoing."
+                />
 
-                <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="font-display font-black text-[10vw] md:text-7xl lg:text-8xl mb-[4vw] md:mb-6 text-center uppercase leading-[0.9] md:leading-none"
-                >
-                    What I Build
-                </motion.h2>
-
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                    className="text-[3vw] md:text-sm font-mono uppercase tracking-widest text-bg-primary/60 text-center mb-[12vw] md:mb-16"
-                >
-                    Freelance · Remote · Worldwide
-                </motion.p>
-
-                {/* Service cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-[4vw] md:gap-5 mb-[8vw] md:mb-10">
-                    {SERVICES.map((service, i) => (
-                        <motion.div
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+                    {SERVICES.map((service) => (
+                        <div
                             key={service.heading}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: '-5%' }}
-                            transition={{ duration: 0.6, delay: i * 0.1 }}
-                            className="flex flex-col p-[6vw] md:p-7 border border-bg-primary/20 rounded-3xl bg-bg-primary/5 backdrop-blur-sm"
+                            className="flex flex-col border border-border-primary rounded-xl bg-bg-primary p-6 transition-all duration-300 hover:border-accent/50 hover:shadow-[0_8px_30px_-12px_rgba(37,99,235,0.25)]"
                         >
-                            {/* Tag */}
-                            <span className="self-start font-mono text-[2.2vw] md:text-[10px] uppercase tracking-widest bg-bg-primary/10 border border-bg-primary/20 rounded-full px-[3vw] md:px-3 py-[1vw] md:py-1 mb-[5vw] md:mb-6">
-                                {service.tag}
-                            </span>
-
-                            <h3 className="font-display font-bold text-[6vw] md:text-2xl mb-[3vw] md:mb-4 tracking-tight leading-tight">
-                                {service.heading}
-                            </h3>
-
-                            <p className="text-[3.3vw] md:text-sm leading-relaxed opacity-75 mb-[5vw] md:mb-6 flex-1">
-                                {service.description}
-                            </p>
-
-                            {/* Tech chips */}
-                            <div className="flex flex-wrap gap-[2vw] md:gap-2 mb-[5vw] md:mb-6">
-                                {service.chips.map(chip => (
-                                    <span
-                                        key={chip}
-                                        className="font-mono text-[2.2vw] md:text-[10px] uppercase tracking-widest border border-bg-primary/20 rounded-full px-[2.5vw] md:px-2.5 py-[1vw] md:py-0.5 opacity-70"
-                                    >
-                                        {chip}
-                                    </span>
-                                ))}
+                            <div className="flex items-center justify-between mb-5">
+                                <span className="w-9 h-9 rounded-md bg-accent/10 text-accent flex items-center justify-center">
+                                    <service.icon size={17} />
+                                </span>
+                                <span className="font-mono text-[10px] text-fg-secondary border border-border-primary rounded px-2 py-0.5">
+                                    {service.tag}
+                                </span>
                             </div>
 
-                            {/* CTA */}
-                            <a
-                                href="https://cal.com/vasu-devs"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="self-start font-mono text-[2.8vw] md:text-sm uppercase tracking-widest font-bold opacity-80 hover:opacity-100 transition-opacity"
-                            >
-                                Let's build →
-                            </a>
-                        </motion.div>
+                            <h3 className="font-display font-semibold text-lg tracking-tight mb-2">
+                                {service.heading}
+                            </h3>
+                            <p className="text-[13px] text-fg-secondary leading-relaxed mb-5 flex-1">
+                                {service.description}
+                            </p>
+                            <p className="font-mono text-[10px] text-fg-secondary">
+                                {service.chips.join(' · ')}
+                            </p>
+                        </div>
                     ))}
                 </div>
 
-                {/* Bottom strip */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="flex flex-col md:flex-row items-center justify-between gap-[4vw] md:gap-0 border-t border-bg-primary/20 pt-[6vw] md:pt-8"
-                >
-                    <span className="font-mono text-[2.8vw] md:text-sm text-bg-primary/60 uppercase tracking-widest">
-                        Available for remote projects worldwide
-                    </span>
-
+                {/* CTA banner */}
+                <div className="terminal rounded-xl border border-fg-primary/20 px-6 md:px-8 py-6 md:py-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+                    <div>
+                        <p className="font-mono text-xs text-emerald-400 mb-1.5">
+                            $ availability --check
+                        </p>
+                        <p className="font-display font-semibold text-xl md:text-2xl tracking-tight text-white">
+                            Taking on new projects — let's scope yours.
+                        </p>
+                    </div>
                     <a
                         href="https://cal.com/vasu-devs"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-[6vw] md:px-8 py-[3vw] md:py-4 rounded-full font-bold font-mono text-[2.5vw] md:text-base uppercase bg-bg-primary text-fg-primary transition-opacity hover:opacity-90 whitespace-nowrap"
+                        className="shrink-0 inline-flex items-center gap-2 h-11 px-6 rounded-md bg-accent text-white font-mono text-sm font-medium hover:opacity-90 transition-opacity"
                     >
-                        Book a free call
+                        book a free call
+                        <ArrowUpRight size={14} />
                     </a>
-                </motion.div>
+                </div>
             </Container>
         </section>
     );

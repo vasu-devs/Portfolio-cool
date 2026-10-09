@@ -4,27 +4,31 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       fontFamily: {
-        display: ['Outfit', 'sans-serif'],
+        display: ['Space Grotesk', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         bg: {
-          primary: 'var(--bg-primary)',
-          secondary: 'var(--bg-secondary)',
+          primary: 'rgb(var(--bg-primary-rgb) / <alpha-value>)',
+          secondary: 'rgb(var(--bg-secondary-rgb) / <alpha-value>)',
         },
         fg: {
-          primary: 'var(--fg-primary)',
-          secondary: 'var(--fg-secondary)',
+          primary: 'rgb(var(--fg-primary-rgb) / <alpha-value>)',
+          secondary: 'rgb(var(--fg-secondary-rgb) / <alpha-value>)',
         },
         border: {
-          primary: 'var(--border-primary)',
-        }
-      }
+          primary: 'rgb(var(--border-primary-rgb) / <alpha-value>)',
+        },
+        accent: {
+          DEFAULT: 'rgb(var(--accent-rgb) / <alpha-value>)',
+          soft: 'var(--accent-soft)',
+        },
+      },
     },
   },
   plugins: [],

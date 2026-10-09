@@ -179,7 +179,7 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
                                 <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary block mb-[1vw] md:mb-2">
                                     Case study / Open source
                                 </span>
-                                <h2 className="font-display font-black text-[6vw] md:text-3xl lg:text-4xl leading-tight tracking-tight truncate">
+                                <h2 className="font-display font-semibold text-[6vw] md:text-3xl lg:text-4xl leading-tight tracking-tight truncate">
                                     JustHireMe
                                 </h2>
                             </div>
@@ -245,7 +245,7 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
                                             key={m.label}
                                             className="p-[4vw] md:p-5 rounded-xl border border-border-primary"
                                         >
-                                            <div className="font-display font-black text-[8vw] md:text-4xl leading-none mb-[1vw] md:mb-2">
+                                            <div className="font-display font-semibold text-[8vw] md:text-4xl leading-none mb-[1vw] md:mb-2">
                                                 {m.value}
                                             </div>
                                             <div className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary">
@@ -294,7 +294,7 @@ export const JustHireMeExperienceModal = ({ isOpen, onClose }: JustHireMeExperie
                                                             key={w.metric}
                                                             className="p-[4vw] md:p-6 rounded-xl border border-border-primary bg-bg-secondary/40 flex gap-[3vw] md:gap-5 items-start"
                                                         >
-                                                            <div className="font-display font-black text-[7vw] md:text-3xl leading-none shrink-0 min-w-[20vw] md:min-w-[90px]">
+                                                            <div className="font-display font-semibold text-[7vw] md:text-3xl leading-none shrink-0 min-w-[20vw] md:min-w-[90px]">
                                                                 {w.metric}
                                                             </div>
                                                             <p className="text-[3.2vw] md:text-sm leading-relaxed text-fg-secondary">

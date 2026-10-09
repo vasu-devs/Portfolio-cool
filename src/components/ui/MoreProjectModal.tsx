@@ -92,7 +92,7 @@ export const MoreProjectModal = ({ project, onClose }: MoreProjectModalProps) =>
                                 <span className="font-mono text-[2.5vw] md:text-xs uppercase tracking-widest text-fg-secondary block mb-[1vw] md:mb-1.5">
                                     Project
                                 </span>
-                                <h2 className="font-display font-black text-[6vw] md:text-3xl leading-tight tracking-tight truncate">
+                                <h2 className="font-display font-semibold text-[6vw] md:text-3xl leading-tight tracking-tight truncate">
                                     {project.name}
                                 </h2>
                             </div>
