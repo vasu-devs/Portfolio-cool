@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8"><title>Effect frame regression check</title>
+<pre id="result">Checking browser frame playback…</pre><div id="field" style="position:relative;width:700px;height:400px"></div>
+<script type="module">
+import {effectCharacters,launchCharacterEffect} from './bleach-effects.js?v=likeness-24';
+const field=document.querySelector('#field'),lines=[];
+for(const character of effectCharacters){
+ const slashes=new Set();launchCharacterEffect({character,field,x:150,y:200,targetX:450,targetY:200,slashes});
+ const item=[...slashes][0],animations=item.node.getAnimations();
+ const frames=animations.find(a=>a.effect.getKeyframes()[0].backgroundPosition!==undefined);
+ for(const a of animations)a.pause();
+ const duration=frames.effect.getTiming().duration,seen=[];
+ for(const progress of [.125,.375,.625,.875]){
+  frames.currentTime=duration*progress;
+  seen.push(getComputedStyle(item.node).backgroundPosition);
+ }
+ const expected=['0% 0%','100% 0%','0% 100%','100% 100%'];
+ if(JSON.stringify(seen)!==JSON.stringify(expected))throw Error(character+': '+seen.join(' | '));
+ lines.push('PASS '+character+': '+seen.join(' → '));item.animation.cancel();item.node.remove();
+}
+document.querySelector('#result').textContent=lines.join('\n')+'\nAll 16 effects display all four frames in Chromium.';
+</script>
