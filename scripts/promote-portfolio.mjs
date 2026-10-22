@@ -10,4 +10,7 @@ const bleach = readFileSync(new URL('bleach/index.html', output), 'utf8');
 if (!paper.includes('/paper/paper-v4.css') || !paper.includes('/paper/paper-v6.js')) throw new Error('Paper portfolio assets are missing.');
 if (!bleach.includes('/test/hollow-theme.css') || !bleach.includes('/test/plain.js')) throw new Error('The preserved Bleach portfolio is missing.');
 writeFileSync(new URL('index.html', output), paper);
-console.log('Published paper portfolio at /, preserved Bleach at /bleach/ and legacy React portfolio at /old/.');
+// Snapshot of the paper portfolio, kept reachable after / moves to the next design.
+mkdirSync(new URL('old2/', output), { recursive: true });
+writeFileSync(new URL('old2/index.html', output), paper.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://www.siddhvasudev.com/old2/" />').replace('</head>', '<meta name="robots" content="noindex,follow" /></head>'));
+console.log('Published paper portfolio at / and /old2/, preserved Bleach at /bleach/ and legacy React portfolio at /old/.');
