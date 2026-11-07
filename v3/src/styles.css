@@ -60,12 +60,12 @@ h1, h2, h3, p { margin: 0; }
 .curtain span { font: 400 clamp(3rem, 12vw, 11rem)/0.9 var(--display); text-transform: uppercase; text-align: center; padding: 0 1rem; }
 
 /* ---------- Home ---------- */
-.h-hero { position: relative; height: 100dvh; min-height: 560px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 26rem); grid-template-rows: auto 1fr auto; column-gap: 2rem; padding: 7rem var(--pad) 0; background: var(--blue); color: #fff; overflow: hidden; }
+.h-hero { --hero-gap: clamp(2.5rem, 7vh, 5rem); /* one bottom margin for the wordmark and the side block */ position: relative; height: 100dvh; min-height: 560px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 26rem); grid-template-rows: auto 1fr auto; column-gap: 2rem; padding: 7rem var(--pad) 0; background: var(--blue); color: #fff; overflow: hidden; }
 .h-dot { display: inline-block; width: 8px; height: 8px; margin-right: 0.5rem; border-radius: 50%; background: #c6ff2e; box-shadow: 0 0 0 4px rgb(198 255 46 / 0.25); vertical-align: 1px; }
 .h-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.6rem; opacity: 0.95; }
 .h-meta img { width: 34px; height: auto; }
 .h-status { white-space: nowrap; } /* the dot never wraps away from its label */
-.h-stack { grid-row: 2 / 4; align-self: end; display: flex; flex-direction: column; margin: 0 0 -0.07em -0.03em; font: 400 min(43vh, 29vw, calc((100vw - 2 * var(--pad) - 28rem) * 0.55))/0.8 var(--display); text-transform: uppercase; }
+.h-stack { grid-row: 2 / 4; align-self: end; display: flex; flex-direction: column; margin: 0 0 calc(var(--hero-gap) - 0.025em) -0.03em; font: 400 min(43vh, 29vw, calc((100vw - 2 * var(--pad) - 28rem) * 0.55), calc((100dvh - 9rem - var(--hero-gap)) / 1.75))/0.8 var(--display); text-transform: uppercase; }
 /* The size also follows the left column (the page minus the 26rem fact column and the 2rem gap): VASU is ~1.75em wide, so it always fits. */
 .h-line { display: block; overflow: hidden; white-space: nowrap; }
 .h-line > span { display: inline-block; }
@@ -73,13 +73,13 @@ h1, h2, h3, p { margin: 0; }
 .h-facts div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid rgb(255 255 255 / 0.4); }
 .h-facts dt { opacity: 0.7; }
 .h-facts dd { margin: 0; font-weight: 500; }
-.h-side { grid-column: 2; grid-row: 3; align-self: end; padding-bottom: 3rem; }
+.h-side { grid-column: 2; grid-row: 3; align-self: end; padding-bottom: var(--hero-gap); }
 .h-line-copy { margin-bottom: 1.5rem; font: 400 clamp(2rem, 3vw, 2.9rem)/0.95 var(--display); text-transform: uppercase; }
 .h-line-copy em { font-style: normal; color: #c6ff2e; }
 .h-cta { display: flex; flex-wrap: wrap; gap: 0.7rem; }
 .h-hero .btn--solid { background: #fff; border-color: #fff; color: var(--ink); }
 @media (max-width: 900px) {
-  .h-hero { height: auto; min-height: 100dvh; grid-template-columns: 1fr; grid-template-rows: none; align-content: start; padding-top: 6rem; row-gap: 2rem; } .h-meta { flex-wrap: wrap; } .h-stack { grid-row: auto; margin-top: 3rem; font-size: 43vw; } .h-facts, .h-side { grid-column: 1; grid-row: auto; margin-top: 0; padding-bottom: 2rem; }
+  .h-hero { height: auto; min-height: 100dvh; grid-template-columns: 1fr; grid-template-rows: none; align-content: start; padding-top: 6rem; row-gap: 2rem; } .h-meta { flex-wrap: wrap; } .h-stack { grid-row: auto; margin-top: 3rem; margin-bottom: 0; font-size: 43vw; } .h-facts, .h-side { grid-column: 1; grid-row: auto; margin-top: 0; padding-bottom: 2rem; }
 }
 
 /* Mascot: poke for a fact, drag and it springs back. */
