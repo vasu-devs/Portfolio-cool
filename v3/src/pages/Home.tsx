@@ -23,7 +23,7 @@ export function Home() {
     const q = gsap.utils.selector(root);
     const rise = gsap.from(q('.h-stack .h-line > span'), { yPercent: 110, duration: 1.2, ease: 'expo.out', stagger: 0.05, delay: 0.25 });
     if (swarmWillBuild('/')) rise.progress(1); // the swarm rebuilds the finished hero
-    // The hero holds still and settles back into a card while the work slides up over it.
+    // The hero holds still and settles back into a card while the next section slides up over it.
     gsap.to(q('.h-hero'), {
       scale: 0.9, borderRadius: 32, ease: 'none',
       scrollTrigger: { trigger: q('.h-hero')[0], start: 'top top', end: 'bottom top', pin: true, pinSpacing: false, scrub: true, refreshPriority: 1 },
@@ -54,14 +54,6 @@ export function Home() {
         </div>
       </section>
 
-      <section className="h-work">
-        <header className="sec-head">
-          <h2>Selected work</h2>
-          <Link className="link" to="/projects">All projects →</Link>
-        </header>
-        <Rail items={featuredWork} />
-      </section>
-
       <section className="h-exp">
         <header className="sec-head">
           <h2>Experience</h2>
@@ -79,6 +71,14 @@ export function Home() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="h-work">
+        <header className="sec-head">
+          <h2>Selected work</h2>
+          <Link className="link" to="/projects">All projects →</Link>
+        </header>
+        <Rail items={featuredWork} />
       </section>
 
       <section className="h-about">

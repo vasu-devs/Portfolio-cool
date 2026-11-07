@@ -8,7 +8,8 @@ import { projectLink } from '../components/ProjectOverlay';
 // Selected projects as big colour tiles, then every project as a scannable index. Everything opens the overlay.
 export function WorkPage() {
   const [group, setGroup] = useState<Group | 'all'>('all');
-  const rest = work.filter((w) => !w.featured && (group === 'all' || w.group === group));
+  // The index lists every project, the selected five included.
+  const listed = work.filter((w) => group === 'all' || w.group === group);
   return (
     <section className="pj">
       <header className="pj-head">
@@ -33,14 +34,14 @@ export function WorkPage() {
         <div className="pj-filters" role="tablist" aria-label="Filter projects">
           {[{ id: 'all' as const, label: 'All' }, ...GROUPS].map((g) => (
             <button key={g.id} role="tab" aria-selected={group === g.id} onClick={() => setGroup(g.id)}>
-              {g.label}<span>{work.filter((w) => !w.featured && (g.id === 'all' || w.group === g.id)).length}</span>
+              {g.label}<span>{work.filter((w) => g.id === 'all' || w.group === g.id).length}</span>
             </button>
           ))}
         </div>
       </div>
       <div className="pj-index">
         <div className="pj-row pj-row--head mono"><span>№</span><span>Project</span><span>Domain</span><span>Built with</span><span>Status</span></div>
-        {rest.map((w, i) => (
+        {listed.map((w, i) => (
           <Link key={w.slug} to={projectLink(w.slug)} className="pj-row" style={{ ['--field' as string]: w.color }}>
             <span className="mono">{String(i + 1).padStart(2, '0')}</span>
             <span className="pj-title">{w.title}</span>

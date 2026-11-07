@@ -100,7 +100,7 @@ h1, h2, h3, p { margin: 0; }
 @keyframes pop { from { opacity: 0; transform: translateY(8px) scale(0.92); } }
 
 /* Selected work rail */
-.h-work { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; padding: 5.5rem var(--pad) 2.5rem; overflow: hidden; background: var(--paper); border-radius: 28px 28px 0 0; }
+.h-work { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; padding: 5.5rem var(--pad) 2.5rem; overflow: hidden; background: var(--paper); }
 .h-work .sec-head { margin-bottom: 1.5rem; }
 .rail { margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad); }
 .rail--native { overflow-x: auto; }
@@ -122,7 +122,7 @@ h1, h2, h3, p { margin: 0; }
 /* About teaser with the contribution graph */
 .h-hero { z-index: 1; transform-origin: 50% 100%; }
 .h-exp, .h-about { position: relative; z-index: 2; }
-.h-exp { padding: var(--sec) var(--pad); background: #fff; color: var(--ink); }
+.h-exp { padding: var(--sec) var(--pad); background: #fff; color: var(--ink); border-radius: 28px 28px 0 0; /* slides up over the hero */ }
 .exp-list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
 .exp-row { position: relative; display: grid; grid-template-columns: 12rem minmax(0, 1fr) minmax(0, 1.4fr) 8rem; gap: 2rem; align-items: baseline; padding: 2.2rem 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; transition: padding 0.4s var(--ease), background-color 0.4s var(--ease); }
 .exp-row:hover { padding-left: 1rem; background: var(--paper); }
