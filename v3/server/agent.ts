@@ -13,10 +13,10 @@ import experience from '../src/data/experience.json' with { type: 'json' };
 
 // The agent knows exactly what the site shows: the same project copy, experience and ledger numbers.
 // Nothing private (client names, the master profile, the old résumé) is ever placed in its context.
-// Always in context: who he is, his roles, principles, open source and the list of every project (about 3.5K tokens).
+// Always in context: who he is, his roles, principles, open source and the list of every project (about 2.5K tokens).
 const BASE = JSON.stringify({
   person: { name: person.name, intro: person.intro, email: person.email, call: person.call },
-  experience: experience.map(({ title, company, display_date, description }) => ({ title, company, display_date, description })),
+  experience: experience.map(({ title, company, display_date, summary }) => ({ title, company, display_date, summary })),
   principles,
   openSource,
   allProjects: work.map(({ slug, title, featured }) => ({ path: `/projects/${slug}`, title, ...(featured ? { selected: true } : {}) })),
@@ -179,7 +179,7 @@ export async function handleAgent(req: IncomingMessage, res: ServerResponse) {
         stream: true,
         reasoning_effort: 'low',
         include_reasoning: false,
-        max_completion_tokens: 2048, // counts hidden reasoning too; replies themselves are a sentence or two
+        max_completion_tokens: 600, // counts hidden reasoning (kept low) and toward the provider's per-minute limit
         messages: [{ role: 'system', content: systemFor(messages.filter((m) => m.role === 'user').slice(-3).map((m) => m.content).join(' ')) }, ...messages],
       }),
     });
