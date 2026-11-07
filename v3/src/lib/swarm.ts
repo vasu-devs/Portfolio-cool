@@ -1,9 +1,5 @@
 // The swarm opening: the page blanks and a crowd of named cursors rebuilds it (engine: swarm-engine.ts).
-// Plays by itself for visitors sent from X or an AI assistant, or with ?swarm; anyone can start it from the footer.
-const SOURCES = ['x.com', 't.co', 'twitter.com', 'chatgpt.com', 'openai.com', 'claude.ai', 'perplexity.ai', 'gemini.google.com', 'copilot.microsoft.com', 'grok.com', 'deepseek.com', 'meta.ai', 'chat.mistral.ai', 'phind.com'];
-const UTM = ['x', 'twitter', 'chatgpt', 'openai', 'claude', 'perplexity', 'gemini', 'copilot', 'grok', 'deepseek', 'mistral', 'phind'];
-
-const hostOf = (url: string) => { try { return new URL(url).hostname.toLowerCase(); } catch { return ''; } };
+// It is the site's opening: every visitor gets it once per tab (?swarm replays it); the footer can start it again.
 
 export const swarmSupported = () => typeof window !== 'undefined'
   && !matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -12,14 +8,10 @@ export const swarmSupported = () => typeof window !== 'undefined'
 function wanted() {
   if (!swarmSupported() || window.self !== window.top) return false;
   const q = new URLSearchParams(location.search);
-  if (q.has('swarm')) return true;
-  if (sessionStorage.getItem('swarm-seen')) return false; // once per tab session
-  const utm = q.get('utm_source')?.trim().toLowerCase() ?? '';
-  const host = hostOf(document.referrer);
-  return UTM.includes(utm) || SOURCES.some((s) => host === s || host.endsWith(`.${s}`));
+  return q.has('swarm') || !sessionStorage.getItem('swarm-seen'); // once per tab session
 }
 
-/** Read once at load. On a swarm visit the counter intro is skipped and the hero shows finished, so the swarm rebuilds the real page. */
+/** Read once at load. On a swarm visit the hero shows finished, so the swarm rebuilds the real page. */
 export const swarmVisit = wanted();
 // Keep the page blank from the first paint until the engine takes over.
 if (swarmVisit) document.documentElement.classList.add('swarming');

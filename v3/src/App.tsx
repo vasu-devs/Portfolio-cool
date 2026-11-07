@@ -8,7 +8,6 @@ import { Agent } from './components/Agent';
 import { Home } from './pages/Home';
 import { WorkPage } from './pages/Work';
 import { ProjectOverlay } from './components/ProjectOverlay';
-import { Loader } from './components/Loader';
 import { AboutPage } from './pages/About';
 import { NotFound } from './pages/NotFound';
 import { GateLab } from './pages/GateLab';
@@ -75,7 +74,6 @@ export default function App() {
       <Footer />
       <Agent />
       <ProjectOverlay />
-      <Loader />
     </>
   );
 }

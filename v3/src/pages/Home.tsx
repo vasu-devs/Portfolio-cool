@@ -5,7 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { Rail } from '../components/Rail';
 import { Heatmap } from '../components/Heatmap';
-import { introPending, whenIntroDone } from '../lib/intro';
 import { swarmWillBuild } from '../lib/swarm';
 import { featuredWork } from '../data/work';
 import experience from '../data/experience.json';
@@ -22,9 +21,8 @@ export function Home() {
   useGSAP(() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const q = gsap.utils.selector(root);
-    const rise = gsap.from(q('.h-stack .h-line > span'), { yPercent: 110, duration: 1.2, ease: 'expo.out', stagger: 0.05, delay: 0.25, paused: introPending() });
+    const rise = gsap.from(q('.h-stack .h-line > span'), { yPercent: 110, duration: 1.2, ease: 'expo.out', stagger: 0.05, delay: 0.25 });
     if (swarmWillBuild('/')) rise.progress(1); // the swarm rebuilds the finished hero
-    else whenIntroDone(() => rise.play());
     // The hero holds still and settles back into a card while the work slides up over it.
     gsap.to(q('.h-hero'), {
       scale: 0.9, borderRadius: 32, ease: 'none',

@@ -36,7 +36,6 @@ h1, h2, h3, p { margin: 0; }
 .sec-head p { color: inherit; opacity: 0.75; }
 .sec-head .link { margin-left: auto; }
 
-
 /* ---------- Nav ---------- */
 .nav { position: fixed; top: 0.9rem; left: 50%; z-index: 50; translate: -50% 0; display: flex; align-items: center; gap: 0.25rem; padding: 0.35rem; border-radius: 999px; background: rgb(13 13 18 / 0.88); backdrop-filter: blur(14px) saturate(160%); box-shadow: 0 10px 30px rgb(0 0 0 / 0.2); color: #fff; }
 .nav a, .nav button { color: #fff; text-decoration: none; }
@@ -66,8 +65,9 @@ h1, h2, h3, p { margin: 0; }
 .h-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.6rem; opacity: 0.95; }
 .h-meta img { width: 34px; height: auto; }
 .h-status { white-space: nowrap; } /* the dot never wraps away from its label */
-.h-stack { grid-row: 2 / 4; align-self: end; display: flex; flex-direction: column; margin: 0 0 -0.07em -0.03em; font: 400 min(43vh, 29vw)/0.8 var(--display); text-transform: uppercase; }
-.h-line { display: block; overflow: hidden; }
+.h-stack { grid-row: 2 / 4; align-self: end; display: flex; flex-direction: column; margin: 0 0 -0.07em -0.03em; font: 400 min(43vh, 29vw, calc((100vw - 2 * var(--pad) - 28rem) * 0.55))/0.8 var(--display); text-transform: uppercase; }
+/* The size also follows the left column (the page minus the 26rem fact column and the 2rem gap): VASU is ~1.75em wide, so it always fits. */
+.h-line { display: block; overflow: hidden; white-space: nowrap; }
 .h-line > span { display: inline-block; }
 .h-facts { grid-column: 2; grid-row: 2; align-self: start; margin: 2.5rem 0 0; border-top: 1px solid rgb(255 255 255 / 0.4); }
 .h-facts div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid rgb(255 255 255 / 0.4); }
@@ -312,14 +312,6 @@ h1, h2, h3, p { margin: 0; }
 .ov-actions button:hover { background: var(--ink); color: #fff; }
 .ov-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
 @media (max-width: 640px) { .ov-sheet { inset: 1.5vh 0 0; } }
-
-
-/* ---------- Opening counter ---------- */
-.ld { position: fixed; inset: 0; z-index: 96; display: flex; flex-direction: column; justify-content: space-between; padding: 1.6rem var(--pad) 0; background: var(--blue); color: #fff; }
-.ld-line { overflow: hidden; }
-.ld-line > * { display: inline-block; }
-.ld-num { font: 400 clamp(9rem, 32vw, 30rem)/0.78 var(--display); margin-bottom: -0.04em; }
-
 
 /* ---------- Overlay: next project ---------- */
 .ov-next { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.6rem; width: 100%; min-height: 70vh; margin-top: 3rem; padding: 2rem var(--pad) 3rem; border: 0; background: var(--field); color: var(--ink); text-align: left; cursor: pointer; }
