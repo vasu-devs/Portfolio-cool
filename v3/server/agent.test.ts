@@ -1,7 +1,7 @@
 // Run: npm test  (node's built-in runner with type stripping)
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { validate } from './agent.ts';
+import { relevant, validate } from './agent.ts';
 
 const user = (content: string) => ({ role: 'user', content });
 
@@ -32,4 +32,11 @@ test('keyless fallback routes common questions to a useful answer', () => {
   assert.match(fallbackAnswer('what is justhireme'), /\[\[go:\/projects\/justhireme\]\]/);
   assert.match(fallbackAnswer('asdf qwerty'), /cal\.com\/vasu-devs/);
   assert.equal(matchAnswer('asdf qwerty'), null);
+});
+
+test('relevant: a question pulls in the projects it is about, and nothing for off-topic ones', () => {
+  assert.match(relevant('What did he do on the H200 GPU kernels?')[0].title, /GPU Kernels/);
+  assert.match(relevant('tell me about the 3d room scanning app')[0].title, /Echo/);
+  assert.ok(relevant('Is he good for a voice AI agent project?').every((p) => /voice/i.test(`${p.title} ${p.summary} ${p.skills}`)));
+  assert.equal(relevant('what is his salary').length, 0);
 });
