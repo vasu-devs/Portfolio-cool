@@ -6,6 +6,7 @@ import { lenis } from '../lib/smooth';
 import { ProjectBody } from './ProjectBody';
 import { ExperienceBody, ROLE_COLOR, roles } from './ExperienceBody';
 import { ScrollDot } from './ScrollDot';
+import { play } from '../lib/sound';
 
 /** Link targets that open a project (?p=slug) or a role (?x=id) over the current page, so it never reloads. */
 export const projectLink = (slug: string) => ({ search: `?p=${slug}` });
@@ -46,6 +47,7 @@ export function ProjectOverlay() {
     navigate({ pathname, search: `?${param}=${to.key}` }, { replace: true });
   };
   const close = () => {
+    play('close');
     const done = () => navigate({ pathname, search: '' });
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return done();
     gsap.to(root.current!.querySelector('.ov-backdrop'), { autoAlpha: 0, duration: 0.35 });
@@ -57,6 +59,7 @@ export function ProjectOverlay() {
     if (!current) { lastSlug.current = null; return; }
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (lastSlug.current === null) {
+      play('open');
       lenis?.stop();
       document.documentElement.style.overflow = 'hidden';
       const opener = document.activeElement as HTMLElement | null;

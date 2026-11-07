@@ -1,12 +1,41 @@
 {
   "rewrites": [
-    { "source": "/bleach", "destination": "/bleach/index.html" },
-    { "source": "/bleach/", "destination": "/bleach/index.html" },
-    { "source": "/old", "destination": "/old/index.html" },
-    { "source": "/old/", "destination": "/old/index.html" },
-    { "source": "/old2", "destination": "/old2/index.html" },
-    { "source": "/old2/", "destination": "/old2/index.html" },
-    { "source": "/new", "destination": "/new/index.html" },
-    { "source": "/new/:path*", "destination": "/new/index.html" }
-  ]
+    {
+      "source": "/bleach",
+      "destination": "/bleach/index.html"
+    },
+    {
+      "source": "/bleach/",
+      "destination": "/bleach/index.html"
+    },
+    {
+      "source": "/old",
+      "destination": "/old/index.html"
+    },
+    {
+      "source": "/old/",
+      "destination": "/old/index.html"
+    },
+    {
+      "source": "/old2",
+      "destination": "/old2/index.html"
+    },
+    {
+      "source": "/old2/",
+      "destination": "/old2/index.html"
+    },
+    {
+      "source": "/new",
+      "destination": "/new/index.html"
+    },
+    {
+      "source": "/new/:path*",
+      "destination": "/new/index.html"
+    }
+  ],
+  "functions": {
+    "api/agent.js": {
+      "maxDuration": 30
+    }
+  }
 }

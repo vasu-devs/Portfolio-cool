@@ -1,7 +1,8 @@
 // POST /api/agent  { messages: [{ role: 'user' | 'assistant', content: string }] }
 // Streams a plain-text answer about Vasu, grounded only in what the site itself publishes (vetted for disclosure).
-// Env: ANTHROPIC_API_KEY. Without it: instant answers from fallback.ts, then the local Codex CLI if AGENT_CODEX=1.
-import Anthropic from '@anthropic-ai/sdk';
+// Model: openai/gpt-oss-20b on Groq (about 1,000 tokens/s, $0.075 / $0.30 per 1M tokens): one-line answers grounded in
+// the site's facts need speed, not a frontier model. Env: GROQ_API_KEY. Without it: instant answers from fallback.ts,
+// then the local Codex CLI if AGENT_CODEX=1.
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { fallbackAnswer, matchAnswer } from './fallback.ts';
 import { askCodex, codexEnabled } from './codex.ts';
@@ -17,7 +18,10 @@ const KNOWLEDGE = JSON.stringify({
   experience: experience.map(({ title, company, display_date, description }) => ({ title, company, display_date, description })),
   principles,
   openSource,
-  projects: work.map(({ slug, title, role, status, summary, paragraphs, did, skills, facts }) => ({ path: `/projects/${slug}`, title, role, status, description: [summary, ...paragraphs].join('\n\n'), did, skills, facts })),
+  // The selected five in full; the rest as title, summary and skills (keeps the prompt small, so answers stay fast).
+  projects: work.map(({ slug, title, role, status, summary, paragraphs, did, skills, facts, featured }) => (featured
+    ? { path: `/projects/${slug}`, title, role, status, description: [summary, ...paragraphs].join('\n\n'), did, skills, facts }
+    : { path: `/projects/${slug}`, title, role, status, summary, skills })),
 });
 export const SECTIONS = ['/', '/projects', '/about', ...work.filter((w) => w.featured).map((w) => `/projects/${w.slug}`)];
 
@@ -34,12 +38,16 @@ ${KNOWLEDGE}
 const MAX_MESSAGES = 12;
 const MAX_CHARS = 1200;
 const MAX_BODY = 24_000;
-// shortcut: in-memory limit per process, resets on restart; move to Upstash before deploying.
+// Per visitor: 20 questions per 10 minutes. Per day: a cap on total answers, so a public endpoint can't run up a bill.
+// Counted in Upstash Redis on the live site (shared by every function instance); in memory when it isn't configured.
 const WINDOW_MS = 10 * 60_000;
 const LIMIT = 20;
+const DAILY_LIMIT = 1500;
 const hits = new Map<string, number[]>();
 
-let client: Anthropic | null = null;
+type Message = { role: 'user' | 'assistant'; content: string };
+const MODEL = 'openai/gpt-oss-20b';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 const json = (res: ServerResponse, status: number, body: object) => {
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
@@ -57,10 +65,10 @@ async function readBody(req: IncomingMessage) {
   return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
 }
 
-export function validate(body: unknown): Anthropic.Beta.BetaMessageParam[] | null {
+export function validate(body: unknown): Message[] | null {
   const messages = (body as { messages?: unknown })?.messages;
   if (!Array.isArray(messages) || messages.length === 0 || messages.length > MAX_MESSAGES) return null;
-  const clean: Anthropic.Beta.BetaMessageParam[] = [];
+  const clean: Message[] = [];
   for (const m of messages) {
     if (!m || (m.role !== 'user' && m.role !== 'assistant') || typeof m.content !== 'string') return null;
     const content = m.content.trim().slice(0, MAX_CHARS);
@@ -70,7 +78,31 @@ export function validate(body: unknown): Anthropic.Beta.BetaMessageParam[] | nul
   return clean[0].role === 'user' && clean.at(-1)!.role === 'user' ? clean : null;
 }
 
-function limited(ip: string) {
+/** Upstash REST pipeline: INCR each key and give it a lifetime on first use. Returns the counts. */
+async function countUpstash(keys: [string, number][]) {
+  const url = process.env.UPSTASH_REDIS_REST_URL!.replace(/\/$/, '');
+  const res = await fetch(`${url}/pipeline`, {
+    method: 'POST',
+    headers: { authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`, 'content-type': 'application/json' },
+    body: JSON.stringify(keys.flatMap(([key, ttl]) => [['INCR', key], ['EXPIRE', key, ttl, 'NX']])),
+  });
+  if (!res.ok) throw new Error(`E_AGENT_LIMIT_STORE ${res.status}`);
+  const out = (await res.json()) as { result: number }[];
+  return keys.map((_, i) => out[i * 2].result);
+}
+
+async function limited(ip: string) {
+  if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+    const window = Math.floor(Date.now() / WINDOW_MS);
+    const day = new Date().toISOString().slice(0, 10);
+    try {
+      const [mine, today] = await countUpstash([[`agent:ip:${ip}:${window}`, WINDOW_MS / 1000], [`agent:day:${day}`, 2 * 86_400]]);
+      return mine > LIMIT || today > DAILY_LIMIT;
+    } catch (error) {
+      console.error(JSON.stringify({ code: 'E_AGENT_LIMIT_STORE', message: (error as Error).message }));
+      // fall through to the in-memory count rather than failing the visitor
+    }
+  }
   const now = Date.now();
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
   recent.push(now);
@@ -81,9 +113,9 @@ function limited(ip: string) {
 export async function handleAgent(req: IncomingMessage, res: ServerResponse) {
   if (req.method !== 'POST') return json(res, 405, { error: 'E_AGENT_METHOD' });
   const ip = String(req.headers['x-forwarded-for'] ?? req.socket.remoteAddress ?? 'unknown').split(',')[0].trim();
-  if (limited(ip)) return json(res, 429, { error: 'E_AGENT_RATE_LIMIT' });
+  if (await limited(ip)) return json(res, 429, { error: 'E_AGENT_RATE_LIMIT' });
 
-  let messages: Anthropic.Beta.BetaMessageParam[] | null;
+  let messages: Message[] | null;
   try {
     messages = validate(await readBody(req));
   } catch {
@@ -91,8 +123,8 @@ export async function handleAgent(req: IncomingMessage, res: ServerResponse) {
   }
   if (!messages) return json(res, 400, { error: 'E_AGENT_BAD_MESSAGES' });
   const question = String(messages.at(-1)!.content);
-  if (!process.env.ANTHROPIC_API_KEY) {
-    // No Claude key: predictable questions get an instant fact; the rest go to Codex locally, else a fallback line.
+  if (!process.env.GROQ_API_KEY) {
+    // No model key: predictable questions get an instant fact; the rest go to Codex locally, else a fallback line.
     const send = (text: string, mode: string) => {
       res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store', 'x-agent-mode': mode });
       res.end(text);
@@ -108,32 +140,46 @@ export async function handleAgent(req: IncomingMessage, res: ServerResponse) {
     }
   }
 
-  client ??= new Anthropic();
-  const stream = client.beta.messages.stream({
-    model: 'claude-opus-5-5',
-    max_tokens: 4000,
-    betas: ['server-side-fallback-2026-07-01'],
-    fallbacks: 'default',
-    output_config: { effort: 'low' },
-    cache_control: { type: 'ephemeral' },
-    system: SYSTEM,
-    messages,
-  } as Anthropic.Beta.MessageCreateParamsStreaming);
-  res.on('close', () => { if (!res.writableEnded) stream.abort(); });
-
+  // Stream the model's answer as plain text. Reasoning is kept short (low effort) and out of the reply.
+  const abort = new AbortController();
+  res.on('close', () => { if (!res.writableEnded) abort.abort(); });
   res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store', 'x-accel-buffering': 'no' });
+  let wrote = false;
   try {
-    for await (const event of stream) {
-      if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') res.write(event.delta.text);
+    const upstream = await fetch(GROQ_URL, {
+      method: 'POST',
+      signal: abort.signal,
+      headers: { authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: MODEL,
+        stream: true,
+        reasoning_effort: 'low',
+        include_reasoning: false,
+        max_completion_tokens: 2048, // counts hidden reasoning too; replies themselves are a sentence or two
+        messages: [{ role: 'system', content: SYSTEM }, ...messages],
+      }),
+    });
+    if (!upstream.ok || !upstream.body) throw new Error(`E_AGENT_UPSTREAM ${upstream.status}`);
+    // Server-sent events: one `data: {json}` line per chunk, `data: [DONE]` at the end.
+    const reader = upstream.body.pipeThrough(new TextDecoderStream()).getReader();
+    let buffer = '';
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += value;
+      let nl;
+      while ((nl = buffer.indexOf('\n')) >= 0) {
+        const line = buffer.slice(0, nl).trim();
+        buffer = buffer.slice(nl + 1);
+        if (!line.startsWith('data:') || line === 'data: [DONE]') continue;
+        const text = JSON.parse(line.slice(5)).choices?.[0]?.delta?.content;
+        if (text) { res.write(text); wrote = true; }
+      }
     }
-    const final = await stream.finalMessage();
-    if (final.stop_reason === 'refusal') res.write("I can't help with that one. Ask me about Vasu's work instead.");
-    console.info(JSON.stringify({ event: 'agent_reply', model: final.model, out: final.usage.output_tokens }));
   } catch (error) {
-    if (error instanceof Anthropic.APIUserAbortError) return;
-    const status = error instanceof Anthropic.APIError ? error.status : undefined;
-    console.error(JSON.stringify({ code: 'E_AGENT_UPSTREAM', status }));
-    res.write(fallbackAnswer(question));
+    if (abort.signal.aborted) return;
+    console.error(JSON.stringify({ code: 'E_AGENT_UPSTREAM', message: (error as Error).message.slice(0, 120) }));
   }
+  if (!wrote) res.write(fallbackAnswer(question)); // the model failed or said nothing: the visitor still gets an answer
   res.end();
 }

@@ -4,6 +4,7 @@ import { person } from '../content';
 import { asset } from '../lib/asset';
 import { fallbackAnswer } from '../../server/fallback';
 import { setAgentBusy } from '../lib/agent';
+import { play } from '../lib/sound';
 import { bySlug, work } from '../data/work';
 
 type Turn = { q: string; a: string };
@@ -21,6 +22,8 @@ const errors: Record<number, string> = {
 /** A command-bar agent: one input, streamed answers, and a jump to the page it is talking about. */
 export function Agent() {
   const [open, setOpen] = useState(false);
+  const wasOpen = useRef(false);
+  useEffect(() => { if (open !== wasOpen.current) play(open ? 'open' : 'close'); wasOpen.current = open; }, [open]);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [draft, setDraft] = useState('');
   const [busy, setBusy] = useState(false);

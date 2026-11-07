@@ -10,9 +10,9 @@ const agentApi = (): Plugin => ({
 });
 
 export default defineConfig(({ mode }) => {
-  // .env.local (gitignored) may hold ANTHROPIC_API_KEY; the handler reads process.env.
+  // .env.local (gitignored) may hold GROQ_API_KEY; the handler reads process.env.
   const env = loadEnv(mode, process.cwd(), '');
-  if (env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_API_KEY) process.env.ANTHROPIC_API_KEY = env.ANTHROPIC_API_KEY;
+  if (env.GROQ_API_KEY && !process.env.GROQ_API_KEY) process.env.GROQ_API_KEY = env.GROQ_API_KEY;
   // Local servers fall back to the Codex CLI login; AGENT_CODEX=0 in .env.local turns that off.
   process.env.AGENT_CODEX ??= env.AGENT_CODEX || '1';
   // The project copy lives in the main site's scripts/ folder, one level up; let the dev server read it.

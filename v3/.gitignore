@@ -31,7 +31,6 @@ public/img/*
 !public/img/mascot.webp
 !public/img/mood/
 public/media/
-public/sfx/
 public/icons.svg
 
 # Local-only tool: reads the private content archive and names what must never be published.

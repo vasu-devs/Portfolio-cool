@@ -57,6 +57,9 @@ h1, h2, h3, p { margin: 0; }
 .nav-ask:hover img { transform: rotate(-10deg) scale(1.1); }
 .nav-ask.is-busy img { animation: talk 0.3s ease-in-out infinite alternate; }
 .nav-ask kbd { font: 400 0.68rem var(--mono); opacity: 0.6; }
+.nav-sound { display: inline-grid; place-items: center; width: 38px; height: 38px; border: 0; border-radius: 999px; background: rgb(255 255 255 / 0.1); cursor: pointer; transition: background-color 0.3s var(--ease), opacity 0.3s; }
+.nav-sound:hover { background: rgb(255 255 255 / 0.2); }
+.nav-sound.is-off { opacity: 0.55; }
 .nav-cta { height: 38px; display: inline-flex; align-items: center; padding: 0 1rem; border-radius: 999px; background: var(--blue); font: 600 0.9rem var(--text); white-space: nowrap; transition: background-color 0.3s var(--ease); }
 .nav-cta:hover { background: #4a63ff; }
 @keyframes talk { from { transform: scale(1); } to { transform: scale(1.08, 0.92) translateY(2px); } }
