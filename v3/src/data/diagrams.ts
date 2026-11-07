@@ -94,4 +94,34 @@ export const diagrams: Record<string, Diagram> = {
     edges: [['in', 'parse'], ['parse', 'graph'], ['parse', 'gem'], ['graph', 'chat'], ['gem', 'chat']],
     caption: 'A file explodes into its functions and classes; an optional token lifts GitHub’s rate limit.',
   },
+  // From the project write-up (Open Kernel Challenge entry, Oct 2026).
+  gpukernels: {
+    nodes: [
+      { id: 'probs', label: '5 problems', sub: 'decode, prefill, MoE', x: 20, y: 60, kind: 'io' },
+      { id: 'lead', label: 'Lead agent', sub: 'one agent per problem', x: 270, y: 60, kind: 'model' },
+      { id: 'file', label: 'Kernel file', sub: 'CUDA + Triton fallback', x: 520, y: 60 },
+      { id: 'rev', label: 'Reviewers', sub: 'apart from the authors', x: 270, y: 250, kind: 'gate' },
+      { id: 'local', label: 'Local check', sub: 'laptop GPU, must pass', x: 520, y: 250, kind: 'gate' },
+      { id: 'sass', label: 'SASS check', sub: '3 compiler versions', x: 770, y: 60, kind: 'gate' },
+      { id: 'judge', label: 'H200 judge', sub: 'vs SGLang, same run', x: 770, y: 250, kind: 'io' },
+      { id: 'win', label: '1.25–1.77×', sub: 'faster on all five', x: 770, y: 440, kind: 'store' },
+    ],
+    edges: [['probs', 'lead'], ['lead', 'file'], ['lead', 'rev'], ['rev', 'file'], ['file', 'local'], ['file', 'sass'], ['local', 'judge'], ['sass', 'judge'], ['judge', 'win']],
+    caption: 'No H200 at hand: check runs double as timing probes, so nothing reaches the judge without passing locally.',
+  },
+  // Client work: generic, no vendor or model names.
+  visualsearch: {
+    nodes: [
+      { id: 'photo', label: 'Outfit photo', sub: 'one upload', x: 20, y: 60, kind: 'io' },
+      { id: 'det', label: 'Per garment', sub: 'each item on its own', x: 270, y: 60 },
+      { id: 'emb', label: 'Embedding', sub: 'chosen by benchmark', x: 520, y: 60, kind: 'model' },
+      { id: 'route', label: 'GPU router', sub: 'exact or two-stage', x: 770, y: 60, kind: 'gate' },
+      { id: 'ver', label: 'Verifier', sub: 're-embeds a sample', x: 270, y: 250, kind: 'gate' },
+      { id: 'idx', label: '3.48M vectors', sub: '617K products, one GPU', x: 520, y: 250, kind: 'store' },
+      { id: 'score', label: 'Scoring', sub: 'bonus for a 2nd angle', x: 770, y: 250 },
+      { id: 'out', label: 'Matches', sub: '~15–21 ms retrieval', x: 770, y: 440, kind: 'io' },
+    ],
+    edges: [['photo', 'det'], ['det', 'emb'], ['emb', 'route'], ['ver', 'idx'], ['idx', 'route'], ['route', 'score'], ['score', 'out']],
+    caption: 'Measured with the query photo’s own vector hidden, so a product must be found through its other angles.',
+  },
 };
