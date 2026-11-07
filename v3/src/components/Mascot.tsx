@@ -10,17 +10,19 @@ export function Mascot() {
   const [mood, setMood] = useState('mascot');
   const wrap = useRef<HTMLButtonElement>(null);
   const img = useRef<HTMLImageElement>(null);
-  const busy = useRef(false);
+  const run = useRef<gsap.core.Timeline | null>(null);
+  const shown = useRef('mascot'); // the mood on screen now (state lags a render behind)
 
   // Load every mood up front so the swap is instant.
   useEffect(() => { for (const m of MOODS) new Image().src = src(m); }, []);
+  useEffect(() => () => { run.current?.progress(1); }, []); // leaving the page mid-swap: finish and clean up
 
   const swap = () => {
-    if (busy.current) return;
-    const others = MOODS.filter((m) => m !== mood);
+    run.current?.progress(1); // a click mid-swap finishes that one at once, so every click answers
+    const others = MOODS.filter((m) => m !== shown.current);
     const next = others[Math.floor(Math.random() * others.length)];
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return setMood(next);
-    busy.current = true;
+    const show = () => { shown.current = next; setMood(next); };
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return show();
 
     // One named agent, drawn like the swarm's: arrow + tag, and a selection box with live dimensions.
     const k = Math.floor(Math.random() * NAMES.length); // a different agent each time
@@ -48,14 +50,15 @@ export function Mascot() {
       dims.textContent = `${Math.round(p.w)} × ${Math.round(p.h)}`;
     };
     draw();
-    gsap.timeline({ onUpdate: draw, onComplete: () => { root.remove(); busy.current = false; } })
-      .to(p, { x: () => box().left, y: () => box().top, duration: 0.6, ease: 'power3.inOut' })
+    // Fast and exact: lands on the picture's top-left corner, drags to its bottom-right, swaps (~0.5 s), leaves.
+    run.current = gsap.timeline({ onUpdate: draw, onComplete: () => root.remove() })
+      .to(p, { x: () => box().left, y: () => box().top, duration: 0.3, ease: 'power3.out' })
       .add(() => { cur.classList.add('tap'); sel.classList.add('on'); })
-      .to(p, { x: () => box().right, y: () => box().bottom, w: () => box().width, h: () => box().height, duration: 0.45, ease: 'power2.inOut' })
-      .add(() => setMood(next))
-      .fromTo(wrap.current, { scale: 0.9 }, { scale: 1, duration: 0.5, ease: 'back.out(2.2)', clearProps: 'scale' })
-      .add(() => { cur.classList.remove('tap'); sel.classList.remove('on'); }, '-=0.2')
-      .to(p, { x: () => (fromLeft ? innerWidth + 40 : -40), y: () => p.y - 120, duration: 0.55, ease: 'power2.in' });
+      .to(p, { x: () => box().right, y: () => box().bottom, w: () => box().width, h: () => box().height, duration: 0.2, ease: 'power2.inOut' })
+      .add(show)
+      .fromTo(wrap.current, { scale: 0.92 }, { scale: 1, duration: 0.35, ease: 'back.out(2.2)', clearProps: 'scale' })
+      .add(() => { cur.classList.remove('tap'); sel.classList.remove('on'); }, '-=0.25')
+      .to(p, { x: () => (fromLeft ? innerWidth + 40 : -40), y: () => p.y - 100, duration: 0.35, ease: 'power2.in' }, '-=0.2');
   };
 
   return (
