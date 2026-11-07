@@ -37,12 +37,12 @@ const SLUG: Record<number, string> = { 1: 'justhireme', 11: 'svara', 13: 'odeon'
 const DIAGRAM: Record<number, string> = { 1: 'justhireme', 11: 'svara', 13: 'odeon', 3: 'fintech', 9: 'vaani', 14: 'branchgpt', 15: 'mapmyrepo' };
 const COLOR: Record<number, string> = { 1: '#ff5a1f', 11: '#c6ff2e', 13: '#2bb8ff', 3: '#7c5cff', 4: '#ffc400' };
 const FACTS: Record<number, Fact[]> = {
-  1: [{ value: '2,255', label: 'GitHub stars' }, { value: '380.6K', label: 'launch views' }],
+  1: [{ value: '2,272', label: 'GitHub stars' }, { value: '380.6K', label: 'launch views' }],
   11: [{ value: '54 ms', label: 'to first word (Linux, CPU)' }, { value: '5.56%', label: 'word error rate' }],
   3: [{ value: '~4,500×', label: 'faster attribution' }, { value: '641', label: 'orphaned orders recovered' }],
   4: [{ value: '3.48M', label: 'vectors indexed' }, { value: '~15–21 ms', label: 'retrieval' }],
 };
-const AI = ['AI Agents', 'Voice AI', 'RAG', 'Speech AI', 'Computer Vision', 'Document AI', 'Multilingual AI', 'Legal Tech', 'HR Tech', 'Job Tech', 'Research Automation', 'Multi-Agent Systems', 'Evaluation', 'AI Apps', 'Knowledge Management', 'Vector Search', 'Retrieval', 'Machine Learning'];
+const AI = ['AI Agents', 'Voice AI', 'RAG', 'Speech AI', 'Computer Vision', 'Document AI', 'Multilingual AI', 'Legal Tech', 'HR Tech', 'Job Tech', 'Research Automation', 'Multi-Agent Systems', 'Evaluation', 'AI Apps', 'Knowledge Management', 'Vector Search', 'Retrieval', 'Machine Learning', 'AI Infrastructure', 'GPU Computing'];
 const TOOLS = ['Developer Tools', 'AI Tooling', 'Static Analysis', 'Automation'];
 const palette = ['#ff5a1f', '#c6ff2e', '#ff4f9a', '#2bb8ff', '#ffc400', '#7c5cff'];
 

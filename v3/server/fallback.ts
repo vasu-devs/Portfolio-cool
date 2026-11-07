@@ -9,7 +9,7 @@ const intents: Intent[] = [
   { keys: ['fintech', 'p&l', 'pnl', 'finance', 'stripe', 'shopify', '18 days'],
     answer: 'Solo, 18 days, in production: 5 integrations, ~4,500× faster attribution, 641 orphaned orders recovered, zero post-handoff bugs. [[go:/projects/fintech-pnl]]' },
   { keys: ['justhireme', 'job search', 'stars', 'viral', 'launch'],
-    answer: 'A local-first AI job-search desktop app: 380.6K launch views, 2,255 GitHub stars, 1,926 backend tests at v1.7.0. [[go:/projects/justhireme]]' },
+    answer: 'A local-first AI job-search desktop app: 380.6K launch views, 2,272 GitHub stars, 1,926 backend tests at v1.7.0. [[go:/projects/justhireme]]' },
   { keys: ['voice', 'call', 'phone', 'latency', 'vaani', 'svara', 'dictation', 'livekit', 'speech', 'realtime', 'real-time'],
     answer: 'Real-time voice agents with barge-in and turn detection. Svara, his on-device dictation, reaches 54 ms to first word. [[go:/projects/svara]]' },
   { keys: ['odeon', 'eval', 'test', 'prompt', 'quality', 'gym'],

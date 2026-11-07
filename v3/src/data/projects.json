@@ -1894,7 +1894,7 @@
    "API Integration",
    "Database Design"
   ],
-  "description": "A local dataset and workspace for finding early-stage startups worth working with: 506,863 companies, 533,428 founders and 44,025 open roles, collected only from public, permitted sources.\n\nA job search aimed at early startups has no single list to search. The companies are spread across accelerator batches, funding news, regulatory filings, company registers in a dozen countries and job boards. This pipeline collects them, merges duplicates, classifies every company with explainable rules and scores each one twice: as a lead, and for fit against a personal profile. Every point in both scores carries its reason.\n\nClassification is deterministic and was measured, not assumed: an independent model graded 240 random companies, and the weakest dimension is reported alongside the strongest. A founder email is marked published only when it appears on the company's own site; anything else is stored as a pattern guess and labelled that way. robots.txt and crawl delays are honoured, and sites whose terms forbid scraping are not used.\n\nA local website turns the data into a daily workflow: a brief in plain sentences, a 28-facet explorer, company sheets, a pipeline board and an outreach desk. Exports include a formula-driven Excel workbook and a shareable copy with all personal data removed.\n\nA model ranks the companies that have enough text for relevance in two passes: a small model screens tens of thousands in batches, and a larger one re-scores the top thousand. Companies that would clash with existing agreements get their own tier instead of being ranked.\n\nPython, SQLite, FastAPI, Pydantic, pytest.",
+  "description": "A local dataset and workspace for finding early-stage startups worth working with: 541,695 companies, 570,838 founders and 51,065 open roles, collected only from public, permitted sources.\n\nA job search aimed at early startups has no single list to search. The companies are spread across accelerator batches, funding news, regulatory filings, company registers in a dozen countries and job boards. This pipeline collects them, merges duplicates, classifies every company with explainable rules and scores each one twice: as a lead, and for fit against a personal profile. Every point in both scores carries its reason.\n\nClassification is deterministic and was measured, not assumed: an independent model graded 240 random companies, and the weakest dimension is reported alongside the strongest. A founder email is marked published only when it appears on the company's own site; anything else is stored as a pattern guess and labelled that way. robots.txt and crawl delays are honoured, and sites whose terms forbid scraping are not used.\n\nA local website turns the data into a daily workflow: a brief in plain sentences, a 28-facet explorer, company sheets, a pipeline board and an outreach desk. Exports include a formula-driven Excel workbook and a shareable copy with all personal data removed.\n\nA model ranks the companies that have enough text for relevance in two passes: a small model screens tens of thousands in batches, and a larger one re-scores the top thousand. Companies that would clash with existing agreements get their own tier instead of being ranked.\n\nPython, SQLite, FastAPI, Pydantic, pytest.",
   "status": "in progress",
   "domains": [
    "Data Engineering",
@@ -1904,7 +1904,7 @@
   ],
   "what_i_did": [
    "Built 24 collectors over accelerator portfolios, funding news, SEC filings, nine national company registers and public job boards",
-   "Merged the sources into one company record with founders, open roles and evidence signals: 506,863 companies and 533,428 founders",
+   "Merged the sources into one company record with founders, open roles and evidence signals: 541,695 companies and 570,838 founders",
    "Wrote a deterministic classifier over 25 dimensions and had an independent model grade 240 random companies",
    "Built an explained lead score and a personal fit score where every point carries its reason",
    "Built the local website: a 28-facet explorer, company sheets, a pipeline board and an outreach desk",
@@ -2568,6 +2568,67 @@
    "Built a coach agent with visible memory that edits the plan itself",
    "Drew 152 exercises procedurally on a jointed figure with a guided offline player",
    "Verified 85/85 screen checks and 5/5 memory scenarios with the real agent"
+  ]
+ },
+ {
+  "id": 88,
+  "title": "GPU Kernels on an H200: Five Inference Problems, Faster Than SGLang",
+  "link": null,
+  "role": "Creator, sole engineer",
+  "confidential": false,
+  "skills": [
+   "CUDA",
+   "Triton",
+   "C++",
+   "Python",
+   "PyTorch",
+   "GPU Programming",
+   "Performance Optimization",
+   "AI Agent Development"
+  ],
+  "description": "My entry in a public GPU-kernel competition: faster kernels for five parts of one model's inference - attention decode, a whole decode layer, prefill, the dense projections and mixture-of-experts layers with 4-bit weights - each timed on one H200 against SGLang's kernel in the same run.\n\nAll five beat the baseline: attention decode 1.77x, prefill 1.37x, mixture of experts 1.27x, projections 1.26x and the decode layer 1.25x. Every problem was scored within about 20 hours of the first submission, moving the overall rank from 506 of 667 to 316 of 822.\n\nI had no H200, only a laptop GPU of the previous generation, and a daily quota of judge runs. So each submission is one Python file with CUDA compiled at load time and a Triton fallback, check runs double as timing probes, and nothing goes to the judge without passing locally. A lead agent worked overnight on a schedule, with one agent per problem and separate reviewers.\n\nTwo lessons from the hardware: FP8 mma.sync is emulated on Hopper, so native FP8 maths means wgmma; and the judge's older compiler allocated registers differently, so every kernel is now checked in SASS with three compiler versions.\n\nCUDA C++, Hopper wgmma and TMA, CUDA graphs, Triton, PyTorch, FP8 and NVFP4.",
+  "status": "in progress",
+  "domains": [
+   "GPU Computing",
+   "AI Infrastructure",
+   "Performance Engineering"
+  ],
+  "what_i_did": [
+   "Wrote CUDA and Triton kernels for five inference problems, all faster than SGLang on the judge (1.25x to 1.77x)",
+   "Built a fallback path so a compile failure on the judge never wastes a scored run",
+   "Used check runs as benchmarks: variant sweeps timed on the H200 and returned in the log",
+   "Ran a lead agent overnight with one agent per problem, separate reviewers and a judge-quota budget",
+   "Found that the judge's compiler clobbered a wgmma register and added SASS checks with three compiler versions"
+  ]
+ },
+ {
+  "id": 89,
+  "title": "Echo: Phone Capture to a True-Scale 3D Model of a Room",
+  "link": null,
+  "role": "Creator, sole engineer",
+  "confidential": false,
+  "skills": [
+   "Kotlin",
+   "Android",
+   "ARCore",
+   "Computer Vision",
+   "3D Reconstruction",
+   "Python",
+   "Docker",
+   "Gaussian Splatting"
+  ],
+  "description": "An Android capture app and a Linux pipeline that turn a walk around a room into a measurable 3D model, using a phone with no depth sensor and no cloud service.\n\nThe app locks exposure, white balance and focus for the whole scan, keeps only sharp full-resolution photos, stores each with ARCore's camera pose in metres, and guides the walk with live hints and a coverage map. On the laptop, COLMAP solves the camera positions again from the photos, ARCore's poses scale them to metres, OpenMVS builds a textured mesh for Blender, and Brush trains a Gaussian splat for photo-real viewing.\n\nThe first real scan was 219 photos of my room. Checked against 18 photos held out of training, the splat's renders scored a median of 29.4 dB PSNR. The accuracy check against tape measurements and merging several rooms are still to come.\n\nKotlin, Camera2, ARCore, COLMAP, OpenMVS, Brush, Docker, Python.",
+  "status": "in progress",
+  "domains": [
+   "Computer Vision",
+   "Mobile Apps",
+   "3D Graphics"
+  ],
+  "what_i_did": [
+   "Built the Android capture app with locked exposure, white balance and focus, sharp-frame selection and a coverage map",
+   "Recorded ARCore camera poses in metres with every photo to give the model true scale",
+   "Built the laptop pipeline from photos to a textured mesh and a Gaussian splat, in Docker on the local GPU",
+   "Checked the splat against 18 held-out photos: median 29.4 dB PSNR"
   ]
  }
 ]
