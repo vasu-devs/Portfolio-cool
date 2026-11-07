@@ -13,6 +13,8 @@ import { NotFound } from './pages/NotFound';
 import { GateLab } from './pages/GateLab';
 import { lenis, useSmooth } from './lib/smooth';
 import { stopSwarm, swarmPage } from './lib/swarm';
+import { nextTabMood, startTabMoods } from './lib/tab-mood';
+import { ScrollDot } from './components/ScrollDot';
 
 const titleFor = (path: string) =>
   path === '/' ? 'Home' : path === '/projects' ? 'Projects' : path === '/about' ? 'About' : 'Vasu-Devs';
@@ -31,6 +33,7 @@ export default function App() {
     if (location.pathname === shownPath.current) return;
     const swap = () => {
       stopSwarm(); // the old page is leaving: its run ends here
+      nextTabMood();
       shownPath.current = location.pathname;
       setShown(location);
       lenis?.scrollTo(0, { immediate: true });
@@ -50,9 +53,7 @@ export default function App() {
 
   useEffect(() => swarmPage(shownPath.current), []); // the router's path (no /new prefix)
 
-  useEffect(() => {
-    document.title = `${titleFor(shown.pathname)} · Vasudev Siddh, AI engineer`;
-  }, [shown.pathname]);
+  useEffect(startTabMoods, []); // the tab's title is fixed (index.html); its icon changes mood
 
   return (
     <>
@@ -74,6 +75,7 @@ export default function App() {
       <Footer />
       <Agent />
       <ProjectOverlay />
+      <ScrollDot />
     </>
   );
 }

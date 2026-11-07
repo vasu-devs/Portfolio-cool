@@ -5,6 +5,7 @@ import { bySlug, featuredWork, work, GROUPS } from '../data/work';
 import { lenis } from '../lib/smooth';
 import { ProjectBody } from './ProjectBody';
 import { ExperienceBody, ROLE_COLOR, roles } from './ExperienceBody';
+import { ScrollDot } from './ScrollDot';
 
 /** Link targets that open a project (?p=slug) or a role (?x=id) over the current page, so it never reloads. */
 export const projectLink = (slug: string) => ({ search: `?p=${slug}` });
@@ -141,6 +142,7 @@ export function ProjectOverlay() {
             <strong>{next.title}</strong>
           </button>
         </div>
+        <ScrollDot target={scroller} />
       </div>
     </div>
   );

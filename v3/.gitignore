@@ -29,6 +29,7 @@ public/heroes/
 public/hero-lab*.html
 public/img/*
 !public/img/mascot.webp
+!public/img/mood/
 public/media/
 public/sfx/
 public/icons.svg

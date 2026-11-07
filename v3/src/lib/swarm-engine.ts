@@ -5,6 +5,7 @@
 // Scrolling is never held: what is on screen is built first, and anything scrolled past unbuilt snaps into place.
 // Entrance animations (rows rising in) are finished up front: being built is their entrance.
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ARROW, COLORS, NAMES, fgFor } from './cursor';
 
 type Kind = 'box' | 'line' | 'media' | 'text'; // line: a border with no fill (a divider, an outline button)
 type Task = {
@@ -27,13 +28,9 @@ type Cursor = {
   task: Task | null; tx: number; ty: number;
 };
 
-const NAMES = ['Kai', 'Mira', 'Juno', 'Odin', 'Nova', 'Iris', 'Leo', 'Zara', 'Finn', 'Luna', 'Remy', 'Sol', 'Ivy', 'Tao', 'Uma', 'Rex',
-  'Wren', 'Ezra', 'Noor', 'Pip', 'Rio', 'Sage', 'Yuki', 'Ash', 'Cleo', 'Dex', 'Echo', 'Milo', 'Nia', 'Otto'];
-const COLORS = ['#ff5a1f', '#7c5cff', '#ff4f9a', '#ffc400', '#00c27a', '#2bb8ff', '#ff3b3b', '#c6ff2e', '#ff8a00', '#b05cff', '#00d1c1', '#ff6fd8'];
 const ATOMIC = new Set(['img', 'svg', 'video', 'canvas', 'picture', 'iframe']);
 const SKIP = new Set(['script', 'style', 'noscript', 'template', 'link', 'meta']);
 const HIDE = 'sw-hide';
-const ARROW = '<svg width="20" height="22" viewBox="0 0 20 22"><path d="M2 1.5v16.2l4.4-4 3 6.8 3-1.3-3-6.6h6.2z" fill="currentColor" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 const ease = (p: number) => (p < 0.5 ? 4 * p * p * p : 1 - (-2 * p + 2) ** 3 / 2);
@@ -115,10 +112,6 @@ function caretAt(node: Text, n: number) {
   return { x: b.left, y: b.top, h: b.height };
 }
 
-const fgFor = (hex: string) => {
-  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
-  return 0.299 * r + 0.587 * g + 0.114 * b > 150 ? '#0d0d12' : '#fff';
-};
 
 /** One run over the page now on screen. `stop` tears it down at once (a route change); `done` says how it ended. */
 export type SwarmRun = { done: Promise<'done' | 'skipped'>; stop: () => void };
