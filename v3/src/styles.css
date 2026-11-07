@@ -69,8 +69,8 @@ h1, h2, h3, p { margin: 0; }
 /* ---------- Home ---------- */
 .h-hero { --hero-gap: clamp(2.5rem, 7vh, 5rem); /* one bottom margin for the wordmark and the side block */ position: relative; height: 100dvh; min-height: 560px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 26rem); grid-template-rows: auto 1fr auto; column-gap: 2rem; padding: 7rem var(--pad) 0; background: var(--blue); color: #fff; overflow: hidden; }
 .h-dot { display: inline-block; width: 8px; height: 8px; margin-right: 0.5rem; border-radius: 50%; background: #c6ff2e; box-shadow: 0 0 0 4px rgb(198 255 46 / 0.25); vertical-align: 1px; }
-.h-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.6rem; opacity: 0.95; }
-.h-meta img { width: 34px; height: auto; }
+.h-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.7rem; font-size: clamp(0.95rem, 1vw, 1.15rem); opacity: 0.95; }
+.h-meta img { width: 44px; height: auto; }
 .h-status { white-space: nowrap; } /* the dot never wraps away from its label */
 .h-stack { grid-row: 2 / 4; align-self: end; display: flex; flex-direction: column; margin: 0 0 calc(var(--hero-gap) - 0.025em) -0.03em; font: 400 min(43vh, 29vw, calc((100vw - 2 * var(--pad) - 28rem) * 0.55), calc((100dvh - 9rem - var(--hero-gap)) / 1.75))/0.8 var(--display); text-transform: uppercase; }
 /* The size also follows the left column (the page minus the 26rem fact column and the 2rem gap): VASU is ~1.75em wide, so it always fits. */
