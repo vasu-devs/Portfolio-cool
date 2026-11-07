@@ -1,0 +1,164 @@
+{
+ "now": 1792714499924.1672,
+ "cases": [
+  {
+   "name": "good",
+   "lead": {
+    "title": "Backend Engineer",
+    "company": "Acme Payments",
+    "description": "We are hiring a backend engineer to build Python and FastAPI services for our payments platform. You will own APIs end to end, work with Postgres, and ship weekly. Remote friendly. Salary: $90,000 - $120,000. Apply by email.",
+    "url": "https://example.test/jobs/1",
+    "posted_date": "2026-10-21T00:14:59Z"
+   },
+   "target": "any",
+   "expect": {
+    "accepted": true,
+    "score": 91,
+    "reason": "fresh posting: 2 days old"
+   }
+  },
+  {
+   "name": "unpaid",
+   "lead": {
+    "title": "Frontend Developer",
+    "company": "Startup",
+    "description": "Looking for a React developer. This is unpaid for exposure but great for your portfolio, equity only. Apply via DM.",
+    "url": "https://example.test/2",
+    "posted_date": "2026-10-22T00:14:59Z"
+   },
+   "target": "any",
+   "expect": {
+    "accepted": false,
+    "score": 36,
+    "reason": "signal score 36 below the 60 quality bar; fresh posting: 1 days old; red flags: unpaid, for exposure, equity only"
+   }
+  },
+  {
+   "name": "senior-for-junior",
+   "lead": {
+    "title": "Senior Staff Engineer",
+    "company": "BigCo",
+    "description": "We are hiring a backend engineer to build Python and FastAPI services for our payments platform. You will own APIs end to end, work with Postgres, and ship weekly. Remote friendly. Salary: $90,000 - $120,000. Apply by email. 7+ years required.",
+    "url": "https://example.test/3",
+    "posted_date": "2026-10-23T00:14:59Z"
+   },
+   "target": "junior",
+   "expect": {
+    "accepted": false,
+    "score": 53,
+    "reason": "signal score 53 below the 60 quality bar; fresh posting: 0 days old; senior-only role for beginner-focused feed"
+   }
+  },
+  {
+   "name": "stale",
+   "lead": {
+    "title": "Data Engineer",
+    "company": "Acme",
+    "description": "We are hiring a backend engineer to build Python and FastAPI services for our payments platform. You will own APIs end to end, work with Postgres, and ship weekly. Remote friendly. Salary: $90,000 - $120,000. Apply by email.",
+    "url": "https://example.test/4",
+    "posted_date": "2026-09-23T00:14:59Z"
+   },
+   "target": "any",
+   "expect": {
+    "accepted": false,
+    "score": 56,
+    "reason": "signal score 56 below the 60 quality bar; stale posting: 30 days old"
+   }
+  },
+  {
+   "name": "no-date",
+   "lead": {
+    "title": "ML Engineer",
+    "company": "Acme",
+    "description": "We are hiring a backend engineer to build Python and FastAPI services for our payments platform. You will own APIs end to end, work with Postgres, and ship weekly. Remote friendly. Salary: $90,000 - $120,000. Apply by email.",
+    "url": "https://example.test/5"
+   },
+   "target": "any",
+   "expect": {
+    "accepted": false,
+    "score": 56,
+    "reason": "signal score 56 below the 60 quality bar; no posting date"
+   }
+  },
+  {
+   "name": "thin",
+   "lead": {
+    "title": "Dev",
+    "company": "",
+    "description": "need dev",
+    "url": "https://example.test/6",
+    "posted_date": "2026-10-22T00:14:59Z"
+   },
+   "target": "any",
+   "expect": {
+    "accepted": false,
+    "score": 0,
+    "reason": "signal score 0 below the 60 quality bar; thin scraped posting; missing company; fresh posting: 1 days old"
+   }
+  },
+  {
+   "name": "boilerplate",
+   "lead": {
+    "title": "Engineer",
+    "company": "X",
+    "description": "See this and similar jobs on LinkedIn.",
+    "url": "https://example.test/7",
+    "posted_date": "2026-10-22T00:14:59Z"
+   },
+   "target": "any",
+   "expect": {
+    "accepted": false,
+    "score": 0,
+    "reason": "boilerplate scraped description"
+   }
+  },
+  {
+   "name": "no-url",
+   "lead": {
+    "title": "Engineer",
+    "company": "X",
+    "description": "We are hiring a backend engineer to build Python and FastAPI services for our payments platform. You will own APIs end to end, work with Postgres, and ship weekly. Remote friendly. Salary: $90,000 - $120,000. Apply by email.",
+    "url": "",
+    "posted_date": "2026-10-22T00:14:59Z"
+   },
+   "target": "any",
+   "expect": {
+    "accepted": false,
+    "score": 0,
+    "reason": "missing source/apply URL"
+   }
+  },
+  {
+   "name": "junior",
+   "lead": {
+    "title": "Junior Python Developer (entry level)",
+    "company": "Acme",
+    "description": "We are hiring a backend engineer to build Python and FastAPI services for our payments platform. You will own APIs end to end, work with Postgres, and ship weekly. Remote friendly. Salary: $90,000 - $120,000. Apply by email. New grads welcome, urgent hire.",
+    "url": "https://example.test/8",
+    "posted_date": "2026-10-20T00:14:59Z"
+   },
+   "target": "junior",
+   "expect": {
+    "accepted": true,
+    "score": 100,
+    "reason": "fresh posting: 3 days old; beginner-friendly seniority signal"
+   }
+  },
+  {
+   "name": "mash",
+   "lead": {
+    "title": "Engineer",
+    "company": "X",
+    "description": "qwrtyplkjhgfdszxcvbnmqwrtyplkjhgfdszxcvbnmqwrt real job text here",
+    "url": "https://example.test/9",
+    "posted_date": "2026-10-22T00:14:59Z"
+   },
+   "target": "any",
+   "expect": {
+    "accepted": false,
+    "score": 0,
+    "reason": "boilerplate scraped description"
+   }
+  }
+ ]
+}

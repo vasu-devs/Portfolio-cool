@@ -1,0 +1,133 @@
+[
+ {
+  "id": 1,
+  "title": "AI Engineering Intern",
+  "company": "withlayer.ai",
+  "display_date": "June 2026 - Present",
+  "summary": "I work across the whole stack of a real-time voice AI product: the agent runtime and its truthfulness, security and authorization, streaming voice, a native macOS app, and the background systems behind them.",
+  "description": "I work across the whole stack of a real-time voice AI product: the agent runtime and its truthfulness, security and authorization, streaming voice, a native macOS app, and the background systems behind them. Most of my work makes the AI provably honest about what it knows and safe to give real permissions to.\n\nAgent runtime and truthfulness: background and interactive agent turns run on one runtime with a server-controlled final step. Every list result says what it covered and whether it was truncated, every endpoint is classified by what an empty result means, and the honesty rules live in a platform layer no persona can remove. When a small settings tool exposed a runaway loop on live calls, I fixed it in the shared core: a tool the permission layer refuses is no longer advertised, and unsolicited turns have an iteration ceiling.\n\nSecurity and authorization: a default-deny authorization rail where broader reads must be offered and accepted first, bound to the exact query; closed cross-tenant paths, a path-traversal bug and trusted model-supplied identifiers; loggers that cannot accept a raw error, so secrets and personal data can't reach logs.\n\nReal-time voice: a streaming speech pipeline with interruption-robust turn detection, a per-turn latency waterfall, and practice calls that ring right after a meeting, with a pre-voiced opening so the agent speaks moments after pick-up.\n\nNative macOS app (Swift): signal-level audio fixes, on-device active-speaker detection where no image leaves the Mac, speaker naming that leaves a line unnamed rather than guess, and a release that survives backend outages, with single-flight sign-in, onboarding and settings.\n\nBackground systems and product: governed scheduled routines with exactly-once publication, event-driven meeting preparation, a today-only home surface where each item has one owner, and approval-gated CRM write-back on every surface.\n\nEvals and practice: deterministic scorer gates, LLM-as-judge rubrics, mutation testing, real-Postgres proofs and authenticated end-to-end tests, with what was not verified stated in every change.\n\nTypeScript, Python, Swift, React, Next.js, PostgreSQL, Supabase, WebRTC, LiveKit, Deepgram, ScreenCaptureKit, Vitest, Playwright.",
+  "highlights": [
+   "Unified background and interactive agent turns on one runtime, so automated runs follow the same rules and audit trail as chat",
+   "Built evidence contracts across the agent's API so it never treats \"couldn't read\" as \"nothing there\"",
+   "Replaced prompt instructions with enforced output contracts, and deleted mechanisms that measured harmful",
+   "Built a default-deny authorization rail and closed cross-tenant, path-traversal and trusted-identifier paths",
+   "Built the streaming speech pipeline and a per-turn latency waterfall, then optimised against it",
+   "Fixed the macOS app's audio pipeline at the signal level and built on-device active-speaker detection",
+   "Took the native macOS app to release: outage buffering, single-flight sign-in, onboarding and settings",
+   "Built practice calls that ring right after a meeting: an AI roleplay with the same buyer and a coach",
+   "Built a today-only home surface where every item has one owner and nothing is sent without approval",
+   "Fixed a runaway agent loop in the shared core: never advertise a tool the permission layer refuses",
+   "Built governed background execution, event-driven preparation and human-in-the-loop CRM write-back",
+   "Built eval suites with deterministic scorer gates, LLM-as-judge rubrics, mutation testing and real-Postgres proofs"
+  ],
+  "skills": [
+   "Python",
+   "TypeScript",
+   "React",
+   "Next.js",
+   "PostgreSQL",
+   "WebRTC",
+   "LiveKit",
+   "Deepgram",
+   "Voice AI",
+   "LLM Evaluation",
+   "Vitest",
+   "Playwright",
+   "Swift",
+   "macOS Development",
+   "Supabase",
+   "ScreenCaptureKit",
+   "AI Agent Development",
+   "Authorization"
+  ],
+  "current": true,
+  "related_projects": []
+ },
+ {
+  "id": 2,
+  "title": "Founding Engineer (Contract)",
+  "company": "Confidential client",
+  "display_date": "May 2026 - Present",
+  "summary": "I run engineering end to end for a venture-backed consumer-AI startup: the AI assistant backend, data acquisition and enrichment, retrieval and recommendations, AWS operations, CI/CD and iOS releases.",
+  "description": "I run engineering end to end for a venture-backed consumer-AI startup: the AI assistant backend, data acquisition and enrichment pipelines, retrieval, search and recommendations, AWS operations, CI/CD and iOS releases, plus reviewing, integrating and releasing the team's work.\n\nAI assistant backend: I rebuilt the assistant as a Python/FastAPI service with tool orchestration, retrieval, conversation context and structured responses the mobile app renders, then took it to production. Time to first results went from 72-122 s to under 10 s by profiling every stage, with request deadlines, concurrency and deterministic fast paths. Golden and adversarial evaluation suites came next, because passing unit tests didn't prove useful behaviour.\n\nData acquisition and enrichment: the core acquisition engine (source adapters, pagination, normalisation, deduplication and data-quality gates), and enrichment pipelines that combine deterministic checks, model classification and image and text embeddings, taking coverage from 0% to 99.5%. An uncertain paid request is never silently repeated.\n\nRetrieval, search and recommendations: a multi-million-vector retrieval index answering in ~15-21 ms, keyword search from 10.6 s to 53 ms, and a recommender with a closed feedback loop across the AI service, the backend and the iOS app.\n\nAWS, CI/CD and releases: ECS/Fargate, ECR, Batch, Step Functions, Lambda, S3, DynamoDB, CloudFormation, IAM and CloudWatch, with guarded rollouts, immutable image identity, cost controls and incident containment. I own CI/CD in GitHub Actions and run iOS release engineering: signing and provisioning, self-hosted Mac runners, TestFlight and App Store submission.\n\nBackend and ownership: Node.js/TypeScript work on price and currency consistency, a notification pipeline rebuilt from 100% failed deliveries with truthful reporting, and idempotent credit accounting; onboarding packages, technical handoffs, a security assessment, and incidents owned end to end, including ones I caused.\n\nPython, FastAPI, MongoDB, vector search, Node.js, TypeScript, AWS, Docker, GitHub Actions, Swift, Xcode, TestFlight.",
+  "highlights": [
+   "Rebuilt the AI assistant as a Python/FastAPI service with tool orchestration and retrieval, and took it to production",
+   "Cut time to first results from 72-122 s to under 10 s by profiling every stage",
+   "Built golden and adversarial evaluation suites, because passing unit tests didn't prove useful behaviour",
+   "Built the data-acquisition engine and enrichment pipelines (0% to 99.5% coverage), where an uncertain paid request is never silently repeated",
+   "Built a multi-million-vector retrieval index answering in ~15-21 ms; keyword search from 10.6 s to 53 ms",
+   "Built a recommender with a closed feedback loop across the AI service, backend and iOS app",
+   "Ran AWS operations with guarded rollouts, immutable image identity, cost controls and incident containment",
+   "Run iOS release engineering: signing, self-hosted Mac runners, TestFlight and App Store submission",
+   "Rebuilt a notification pipeline that was failing 100% of deliveries, with truthful delivery reporting",
+   "Review, integrate and release teammates' work, and own incidents end to end, including ones I caused"
+  ],
+  "skills": [
+   "Python",
+   "FastAPI",
+   "MongoDB",
+   "Vector Search",
+   "PyTorch",
+   "Computer Vision",
+   "ONNX",
+   "Redis",
+   "Web Scraping",
+   "Data Pipelines",
+   "LLM Evaluation",
+   "Docker",
+   "GPU Optimization",
+   "Node.js",
+   "TypeScript",
+   "AWS",
+   "GitHub Actions",
+   "Swift",
+   "TestFlight",
+   "Recommender Systems"
+  ],
+  "current": true,
+  "related_projects": [
+   12,
+   10,
+   4,
+   80,
+   81,
+   82
+  ]
+ },
+ {
+  "id": 4,
+  "title": "Full-Stack Engineer (Freelance)",
+  "company": "Confidential client",
+  "display_date": "March 2026 - April 2026",
+  "summary": "Sole engineer on a production multi-currency profit-and-loss platform, delivered in 18 days.",
+  "description": "Sole engineer on an internal financial platform for a European multi-store e-commerce group, delivered to production in 18 days at full scope.\n\nThe business was reconciling finances by hand across several payment processors, an advertising platform and a fulfilment provider. Nobody could answer what an individual product actually earned, and because it is financial data any answer needed an audit trail.\n\nI built five live integrations behind a single connector interface with encrypted credentials at rest, and a profit-and-loss engine handling refunds, chargebacks, processor fees, deduplication across processors and multi-currency arithmetic in arbitrary-precision decimals rather than floats. Two distinct order flows had to be normalised, including matching upsell charges to their parent orders within a time window - getting that wrong either double-counts revenue or orphans it.\n\nA three-phase sync pipeline uses signed continuation tokens so multi-year historical imports survive serverless execution limits. Performance work was measured before and after throughout: 10x faster ingestion, 100x faster currency backfill, 4,500x faster attribution, and a 95%+ reduction in dashboard load time.\n\nData quality was a substantial part of the work. I detected a six-figure double-count, and reverted one of my own in-flight fixes after establishing it would have erased a much larger block of legitimate revenue - the revert was the correct call and mattered more than the original change. I also recovered 641 orphaned orders and 2,350 mis-attributed transactions.\n\nShipped with 85 tests including equivalence tests proving the fast and slow query paths agree, three-tier role-based access control, rate limiting and audit logging. Signed off with zero post-handover bug reports.\n\nNext.js 15, TypeScript, PostgreSQL, Prisma, decimal.js, Vercel.",
+  "highlights": [
+   "Delivered a production financial platform to a European e-commerce group in 18 days as sole engineer, at full scope",
+   "Built five live integrations across payment processors, an advertising platform and a fulfilment provider behind a single connector interface",
+   "Implemented a profit-and-loss engine handling refunds, chargebacks, fees, cross-processor deduplication and multi-currency arithmetic using arbitrary-precision decimals",
+   "Normalised two distinct order flows including time-window matching of upsell charges to parent orders",
+   "Delivered 10x faster ingestion, 100x faster currency backfill and 4,500x faster product attribution",
+   "Reduced dashboard load time by over 95% using composite indexes, database-side functions and a pre-aggregated rollup table",
+   "Detected a six-figure revenue double-count, and reverted my own in-flight fix after proving it would have erased a larger block of legitimate revenue",
+   "Recovered 641 orphaned orders and 2,350 mis-attributed transactions",
+   "Shipped with 85 tests, role-based access control, encrypted credentials at rest, rate limiting and audit logging",
+   "Client signed off with zero post-handover bug reports"
+  ],
+  "skills": [
+   "Next.js",
+   "TypeScript",
+   "PostgreSQL",
+   "Prisma",
+   "Payment Integration",
+   "Data Engineering",
+   "Performance Optimization",
+   "RBAC",
+   "Encryption",
+   "Vercel"
+  ],
+  "current": false,
+  "related_projects": [
+   3
+  ]
+ }
+]
