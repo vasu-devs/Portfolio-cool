@@ -26,8 +26,9 @@ export function ProjectOverlay() {
   const closeBtn = useRef<HTMLButtonElement>(null);
   const nextEl = useRef<HTMLButtonElement>(null);
   const lastSlug = useRef<string | null>(null);
-  const dir = useRef(0);
   const switchedAt = useRef(0);
+  const fromColor = useRef(''); // the colour on screen when a switch starts: the new hero blends from it
+  const fromPanel = useRef(false); // switched by scrolling into the full-height next panel
 
   // Neighbours come from the list the item belongs to: the selected five, its group, or the roles.
   const pool: Item[] = w
@@ -35,10 +36,13 @@ export function ProjectOverlay() {
     : role ? roles.map((r) => ({ key: String(r.id), title: r.company, color: ROLE_COLOR[r.id] })) : [];
   const current = w?.slug ?? (role ? String(role.id) : null);
   const i = pool.findIndex((x) => x.key === current);
-  const go = (step: number) => {
+  const go = (step: number, scrolled = false) => {
     if (!current) return;
-    dir.current = step;
-    navigate({ pathname, search: `?${param}=${pool[(i + step + pool.length) % pool.length].key}` }, { replace: true });
+    const to = pool[(i + step + pool.length) % pool.length];
+    // Scrolled into the next panel: it is already the new colour on screen. Arrows: blend from the old one.
+    fromColor.current = scrolled ? to.color : pool[i].color;
+    fromPanel.current = scrolled;
+    navigate({ pathname, search: `?${param}=${to.key}` }, { replace: true });
   };
   const close = () => {
     const done = () => navigate({ pathname, search: '' });
@@ -70,23 +74,38 @@ export function ProjectOverlay() {
     if (lastSlug.current !== current) {
       lastSlug.current = current;
       switchedAt.current = performance.now();
-      scroller.current!.scrollTop = 0;
-      if (!reduced) gsap.fromTo(scroller.current, { y: dir.current > 0 ? 60 : -60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: 'expo.out' });
+      const sc = scroller.current!;
+      sc.scrollTop = 0;
+      const hero = sc.querySelector<HTMLElement>('.case-hero');
+      if (!reduced && hero) {
+        // The colour field stays put (or blends from the last one); only the words rise in, so nothing blinks.
+        gsap.fromTo(hero, { backgroundColor: fromColor.current }, { backgroundColor: getComputedStyle(hero).backgroundColor, duration: 0.5, ease: 'power2.out', clearProps: 'backgroundColor' });
+        // From the panel: the full-height field settles into the hero's height, uncovering the page below.
+        if (fromPanel.current) gsap.from(hero, { height: sc.clientHeight, duration: 0.85, ease: 'expo.inOut', clearProps: 'height' });
+        gsap.fromTo(hero.children, { y: 36, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: 'expo.out', stagger: 0.05, clearProps: 'transform,opacity,visibility' });
+        gsap.fromTo([...sc.children].filter((el) => el !== hero), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, delay: 0.2, clearProps: 'opacity,visibility' });
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current]);
 
-  // After Landberg: when the next project's panel has fully scrolled into view, it takes over.
+  // After Landberg: the next panel fills the sheet. Once it is mostly in view it glides the rest of the way,
+  // and when it covers the sheet it becomes the next page (same colour, so the hand-off is seamless).
   useEffect(() => {
     if (!current || !nextEl.current) return;
-    let timer = 0;
+    const sc = scroller.current!;
+    let gliding = false;
     const io = new IntersectionObserver(([e]) => {
-      clearTimeout(timer);
       // A short cooldown after each switch stops one long flick from skipping several projects.
-      if (e.intersectionRatio > 0.97 && performance.now() - switchedAt.current > 1200) timer = window.setTimeout(() => go(1), 450);
-    }, { root: scroller.current, threshold: [0.5, 0.97, 1] });
+      if (performance.now() - switchedAt.current < 900) return;
+      if (e.intersectionRatio >= 0.98) go(1, true);
+      else if (e.intersectionRatio >= 0.55 && !gliding && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gliding = true;
+        sc.scrollTo({ top: sc.scrollTop + nextEl.current!.getBoundingClientRect().top - sc.getBoundingClientRect().top, behavior: 'smooth' });
+      } else if (e.intersectionRatio < 0.4) gliding = false;
+    }, { root: sc, threshold: [0.3, 0.55, 0.98, 1] });
     io.observe(nextEl.current);
-    return () => { io.disconnect(); clearTimeout(timer); };
+    return () => io.disconnect();
   });
 
   useEffect(() => {

@@ -17,6 +17,13 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 *, *::before, *::after { box-sizing: border-box; }
+/* Minimal scrollbars everywhere: a thin rounded thumb, no arrows, no track. */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar-button { display: none; }
+::-webkit-scrollbar-thumb { border: 2px solid transparent; border-radius: 999px; background: rgb(110 112 125 / 0.45) padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: rgb(110 112 125 / 0.75); }
+@supports not selector(::-webkit-scrollbar) { * { scrollbar-width: thin; scrollbar-color: rgb(110 112 125 / 0.5) transparent; } }
 html { background: var(--paper); color: var(--ink); }
 body { margin: 0; font: 400 1rem/1.55 var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: inherit; }
@@ -314,7 +321,7 @@ h1, h2, h3, p { margin: 0; }
 @media (max-width: 640px) { .ov-sheet { inset: 1.5vh 0 0; } }
 
 /* ---------- Overlay: next project ---------- */
-.ov-next { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.6rem; width: 100%; min-height: 70vh; margin-top: 3rem; padding: 2rem var(--pad) 3rem; border: 0; background: var(--field); color: var(--ink); text-align: left; cursor: pointer; }
+.ov-next { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.6rem; width: 100%; min-height: 100%; /* fills the sheet, then becomes the next page */ margin-top: 3rem; padding: 2rem var(--pad) 3rem; border: 0; background: var(--field); color: var(--ink); text-align: left; cursor: pointer; }
 .ov-next strong { max-width: 18ch; font: 400 clamp(2.4rem, 6vw, 5.4rem)/0.9 var(--display); text-transform: uppercase; }
 
 .case-related { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
