@@ -1,18 +1,13 @@
 // The swarm opening: the page blanks and a crowd of named cursors rebuilds it (engine: swarm-engine.ts).
-// It is the site's opening: every visitor gets it once per tab (?swarm replays it); the footer can start it again.
+// It is the site's opening: it plays on every load and refresh; the footer can start it again.
 
 export const swarmSupported = () => typeof window !== 'undefined'
   && !matchMedia('(prefers-reduced-motion: reduce)').matches
   && 'highlights' in CSS; // untyped text is hidden with a CSS highlight, so layout never shifts
 
-function wanted() {
-  if (!swarmSupported() || window.self !== window.top) return false;
-  const q = new URLSearchParams(location.search);
-  return q.has('swarm') || !sessionStorage.getItem('swarm-seen'); // once per tab session
-}
-
-/** Read once at load. On a swarm visit the hero shows finished, so the swarm rebuilds the real page. */
-export const swarmVisit = wanted();
+/** Read once at load: every load and refresh is a swarm visit (not inside an iframe, or without browser support).
+ *  On a swarm visit the hero shows finished, so the swarm rebuilds the real page. */
+export const swarmVisit = swarmSupported() && window.self === window.top;
 // Keep the page blank from the first paint until the engine takes over.
 if (swarmVisit) document.documentElement.classList.add('swarming');
 
@@ -43,7 +38,6 @@ export function stopSwarm() {
 export async function startSwarm(waitMs = 0) {
   if (running || !swarmSupported()) return;
   running = true;
-  sessionStorage.setItem('swarm-seen', '1');
   try {
     const [{ runSwarm }] = await Promise.all([
       import('./swarm-engine'), // split out: most visitors never download it
