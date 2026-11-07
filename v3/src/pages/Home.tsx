@@ -37,7 +37,7 @@ export function Home() {
   return (
     <div className="home" ref={root}>
       <section className="h-hero">
-        <p className="mono h-meta"><img src={asset('img/mascot.webp')} alt="" width={640} height={618} />{person.name} · AI engineer · <i className="h-dot" />Open to work</p>
+        <p className="mono h-meta"><img src={asset('img/mascot.webp')} alt="" width={640} height={618} />{person.name} · AI engineer · <span className="h-status"><i className="h-dot" />Open to work</span></p>
         <h1 className="h-stack" aria-label="Vasu-Devs">
           <span className="h-line">{'VASU'.split('').map((c, i) => <span key={i}>{c}</span>)}</span>
           <span className="h-line">{'DEVS'.split('').map((c, i) => <span key={i}>{c}</span>)}</span>

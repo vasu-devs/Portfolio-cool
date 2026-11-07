@@ -65,6 +65,7 @@ h1, h2, h3, p { margin: 0; }
 .h-dot { display: inline-block; width: 8px; height: 8px; margin-right: 0.5rem; border-radius: 50%; background: #c6ff2e; box-shadow: 0 0 0 4px rgb(198 255 46 / 0.25); vertical-align: 1px; }
 .h-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.6rem; opacity: 0.95; }
 .h-meta img { width: 34px; height: auto; }
+.h-status { white-space: nowrap; } /* the dot never wraps away from its label */
 .h-stack { grid-row: 2 / 4; align-self: end; display: flex; flex-direction: column; margin: 0 0 -0.07em -0.03em; font: 400 min(43vh, 29vw)/0.8 var(--display); text-transform: uppercase; }
 .h-line { display: block; overflow: hidden; }
 .h-line > span { display: inline-block; }
@@ -226,7 +227,7 @@ h1, h2, h3, p { margin: 0; }
 .foot-top h2 { max-width: 12ch; font: 400 clamp(3rem, 8vw, 7.5rem)/0.86 var(--display); text-transform: uppercase; }
 .foot-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
 .foot .btn--solid { background: var(--blue); border-color: var(--blue); }
-.foot-mark { margin: 2rem 0 -0.08em -0.02em; font: 400 25.4vw/0.8 var(--display); text-transform: uppercase; white-space: nowrap; color: transparent; -webkit-text-stroke: 2px rgb(255 255 255 / 0.85); transform-origin: bottom; overflow: hidden; }
+.foot-mark { margin: 2rem 0 -0.08em -0.02em; font: 400 calc((100vw - 2 * var(--pad)) * 0.262)/0.8 var(--display); /* fills the padded width at any size */ text-transform: uppercase; white-space: nowrap; color: transparent; -webkit-text-stroke: 2px rgb(255 255 255 / 0.85); transform-origin: bottom; overflow: hidden; }
 .foot-mark span { display: inline-block; transition: color 0.35s var(--ease), -webkit-text-stroke-color 0.35s; }
 .foot-mark span:hover { color: var(--c); -webkit-text-stroke-color: var(--c); }
 
@@ -392,3 +393,13 @@ html.swarming body { visibility: hidden; }
 .sw-cur svg { transition: scale 0.12s var(--ease); }
 .sw-cur.tap svg { scale: 0.86; }
 .sw-sel span:empty { display: none; }
+
+/* ---------- Phones ---------- */
+.foot-top > *, .foot-sheet dd { min-width: 0; }
+.foot-sheet dd { overflow-wrap: anywhere; }
+@media (max-width: 430px) {
+  .nav-cta { display: none; } /* Book a call stays first in the hero and the footer */
+  .h-meta { font-size: 0.68rem; gap: 0.45rem; }
+  .h-meta img { display: none; } /* the mascot is already in the nav: keeps the line on one row */
+  .foot-sheet div { grid-template-columns: 5.2rem 1fr; gap: 0.7rem; }
+}
