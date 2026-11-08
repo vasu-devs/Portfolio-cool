@@ -6,6 +6,7 @@
 // Entrance animations (rows rising in) are finished up front: being built is their entrance.
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ARROW, COLORS, NAMES, fgFor } from './cursor';
+import { play } from './sound';
 
 type Kind = 'box' | 'line' | 'media' | 'text'; // line: a border with no fill (a divider, an outline button)
 type Task = {
@@ -26,6 +27,7 @@ type Cursor = {
   x: number; y: number; fx: number; fy: number;
   i: number; wx: number; wy: number; phase: Phase; t: number; dur: number; wait: number; idle: number; bend: number;
   task: Task | null; tx: number; ty: number;
+  fresh: boolean; typed: number; tickAt: number; // sound: first flight not yet heard, letters typed, last key tick
 };
 
 const ATOMIC = new Set(['img', 'svg', 'video', 'canvas', 'picture', 'iframe']);
@@ -204,7 +206,8 @@ export function runSwarm(waitMs = 0): SwarmRun {
       const x = side === 0 ? -30 : side === 1 ? innerWidth + 30 : rand(0, innerWidth);
       const y = side === 2 ? -30 : side === 3 ? innerHeight + 30 : rand(0, innerHeight);
       cursors.push({ root: c, sel, dims: sel.querySelector('span')!, caret, name, color, fg, i, wx: -1e9, wy: -1e9, x, y, fx: x, fy: y,
-        phase: 'idle', t: 0, dur: 0, wait: rand(0, 0.15), idle: 0, bend: 0, task: null, tx: x, ty: y });
+        phase: 'idle', t: 0, dur: 0, wait: rand(0, 0.15), idle: 0, bend: 0, task: null, tx: x, ty: y,
+        fresh: true, typed: 0, tickAt: 0 });
     }
 
     const passed = (r: DOMRect) => r.width > 0 && (r.bottom < 0 || r.right < 0); // scrolled past (up, or out left in the rail)
@@ -319,6 +322,11 @@ export function runSwarm(waitMs = 0): SwarmRun {
         c.dims.textContent = dimsFor(r, r.width, r.height);
       } else {
         const n = Math.round(t.node!.length * p);
+        if (n > c.typed) { // a key tick as letters appear (one per ~45 ms: fast typing stays ticks, not a buzz)
+          c.typed = n;
+          const now = performance.now();
+          if (now - c.tickAt > 45) { c.tickAt = now; play('key', { pan: panAt(c.x) }); }
+        }
         t.hidden!.setStart(t.node!, n);
         const k = caretAt(t.node!, n);
         if (k.h) {
@@ -328,6 +336,8 @@ export function runSwarm(waitMs = 0): SwarmRun {
         }
       }
     }
+
+    const panAt = (x: number) => clamp(x / innerWidth, 0, 1) * 2 - 1;
 
     function leave(c: Cursor) {
       if (c.task && c.task.state === 1) c.task.state = 0; // hand it back
@@ -339,6 +349,7 @@ export function runSwarm(waitMs = 0): SwarmRun {
       c.fx = c.x; c.fy = c.y;
       c.tx = c.x < innerWidth / 2 ? -60 : innerWidth + 60;
       c.ty = c.y + rand(-120, 120);
+      play('leave', { pan: panAt(c.x), dur: c.dur }); // a quick swish as it sets off
     }
 
     function step(c: Cursor, dt: number) {
@@ -357,6 +368,7 @@ export function runSwarm(waitMs = 0): SwarmRun {
             const d = Math.hypot(s.x - c.x, s.y - c.y);
             c.dur = clamp(d / 1900, 0.18, 0.46) / pace;
             c.bend = d > 80 ? rand(-0.18, 0.18) : 0; // hands move in arcs, not rulers
+            if (c.fresh) { c.fresh = false; play('arrive', { pan: panAt(s.x), dur: c.dur }); } // a quick swish as it sets off on its flight in
           // Its work is done: it goes. It waits a moment only if something in view is about to free up.
           } else if ((c.idle += 0.08) > (waiting ? 1.2 : 0.3)) leave(c);
           break;
@@ -372,6 +384,12 @@ export function runSwarm(waitMs = 0): SwarmRun {
           if (c.t >= c.dur) {
             c.phase = 'work'; c.t = 0; c.dur = workDur(c.task!) / pace;
             c.root.classList.add('tap');
+            // It lands and presses: a tick now; a frame's swipe lasts as long as its drag; letters tick as they appear.
+            const k = c.task!.kind;
+            const pan = panAt(c.x);
+            play(k === 'media' ? 'drop' : 'tap', { pan });
+            if (k === 'box' || k === 'line') play('draw', { pan, dur: c.dur });
+            c.typed = 0;
             if (c.task!.kind !== 'text') c.sel.classList.add('on');
             else if (c.task!.node!.length > 2) c.caret.classList.add('on'); // a lone display letter just appears
           }

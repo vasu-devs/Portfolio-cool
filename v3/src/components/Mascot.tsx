@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { asset } from '../lib/asset';
 import { ARROW, COLORS, NAMES, fgFor } from '../lib/cursor';
 import { MOODS } from '../lib/moods';
+import { play } from '../lib/sound';
 const src = (m: string) => asset(m === 'mascot' ? 'img/mascot.webp' : `img/mood/${m}.webp`);
 
 /** Vasu's mascot. Click it and a cursor agent flies in, selects the picture and swaps in another mood. */
@@ -51,14 +52,16 @@ export function Mascot() {
     };
     draw();
     // Fast and exact: lands on the picture's top-left corner, drags to its bottom-right, swaps (~0.5 s), leaves.
+    play('arrive', { pan: fromLeft ? -0.6 : 0.6, dur: 0.3 });
     run.current = gsap.timeline({ onUpdate: draw, onComplete: () => root.remove() })
       .to(p, { x: () => box().left, y: () => box().top, duration: 0.3, ease: 'power3.out' })
-      .add(() => { cur.classList.add('tap'); sel.classList.add('on'); })
+      .add(() => { cur.classList.add('tap'); sel.classList.add('on'); play('tap'); play('draw', { dur: 0.2 }); })
       .to(p, { x: () => box().right, y: () => box().bottom, w: () => box().width, h: () => box().height, duration: 0.2, ease: 'power2.inOut' })
-      .add(show)
+      .add(() => { show(); play('drop'); })
       .fromTo(wrap.current, { scale: 0.92 }, { scale: 1, duration: 0.35, ease: 'back.out(2.2)', clearProps: 'scale' })
       .add(() => { cur.classList.remove('tap'); sel.classList.remove('on'); }, '-=0.25')
-      .to(p, { x: () => (fromLeft ? innerWidth + 40 : -40), y: () => p.y - 100, duration: 0.35, ease: 'power2.in' }, '-=0.2');
+      .add(() => play('leave', { pan: fromLeft ? 0.6 : -0.6, dur: 0.35 }), '-=0.2')
+      .to(p, { x: () => (fromLeft ? innerWidth + 40 : -40), y: () => p.y - 100, duration: 0.35, ease: 'power2.in' }, '<');
   };
 
   return (
