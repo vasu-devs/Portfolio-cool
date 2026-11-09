@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.siddhvasudev.com/sitemap.xml
+Sitemap: https://www.siddhvasudev.com/new/sitemap.xml

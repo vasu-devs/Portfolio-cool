@@ -29,10 +29,14 @@ export type Work = {
   diagram?: string;
   facts?: Fact[];
   featured?: boolean;
+  shown?: boolean;
 };
 
 // Projects shown first, in order: JustHireMe, Svara, Odeon, the H200 GPU kernels, then the visual search client build.
 const FEATURED = [1, 11, 13, 88, 4];
+// The Projects index: the work worth a visitor's time (stars, measured results, live demos, paid clients), in this
+// order. Everything else still opens by direct link and the Ask agent knows it; it is just not listed.
+const INDEX = [...FEATURED, 9, 16, 14, 7, 18, 34, 3, 10, 12, 8, 15, 23, 29, 66, 67, 71, 74, 75, 21, 22];
 const SLUG: Record<number, string> = { 1: 'justhireme', 11: 'svara', 13: 'odeon', 3: 'fintech-pnl', 4: 'visual-search', 9: 'vaani', 14: 'branchgpt', 15: 'mapmyrepo', 58: 'justhireme-ios', 88: 'gpu-kernels' };
 const DIAGRAM: Record<number, string> = { 1: 'justhireme', 11: 'svara', 13: 'odeon', 3: 'fintech', 9: 'vaani', 14: 'branchgpt', 15: 'mapmyrepo', 88: 'gpukernels', 4: 'visualsearch' };
 const COLOR: Record<number, string> = { 1: '#ff5a1f', 11: '#c6ff2e', 13: '#2bb8ff', 88: '#7c5cff', 4: '#ffc400' };
@@ -57,9 +61,10 @@ export const work: Work[] = raw.map((p, i) => {
     id: p.id, slug: SLUG[p.id] ?? slugify(p.title), title: p.title, summary: paragraphs[0], paragraphs: paragraphs.slice(1),
     role: p.role, status: p.status, link: p.link || undefined, skills: p.skills, did: p.what_i_did, domains: p.domains,
     group: groupOf(p), color: COLOR[p.id] ?? palette[i % palette.length], diagram: DIAGRAM[p.id], facts: FACTS[p.id],
-    featured: FEATURED.includes(p.id),
+    featured: FEATURED.includes(p.id), shown: INDEX.includes(p.id),
   };
 });
 export const featuredWork: Work[] = FEATURED.map((id) => work.find((w) => w.id === id)!);
+export const shownWork: Work[] = INDEX.map((id) => work.find((w) => w.id === id)!);
 export const bySlug = (slug: string) => work.find((w) => w.slug === slug);
 export const linkLabel = (url: string) => (/github\.com/.test(url) ? 'Code' : /youtu/.test(url) ? 'Watch' : 'Open');

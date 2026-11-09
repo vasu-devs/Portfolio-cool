@@ -323,6 +323,7 @@ h1, h2, h3, p { margin: 0; }
 .ov-actions { display: flex; gap: 0.4rem; }
 .ov-actions button { width: 42px; height: 42px; border: 1.5px solid var(--ink); border-radius: 999px; background: none; color: var(--ink); font: 600 1rem var(--text); cursor: pointer; transition: background-color 0.25s, color 0.25s; }
 .ov-actions button:hover { background: var(--ink); color: #fff; }
+.ov-actions .ov-copy { width: auto; padding: 0 1rem; font-size: 0.85rem; }
 .ov-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
 @media (max-width: 640px) { .ov-sheet { inset: 1.5vh 0 0; } }
 
@@ -362,6 +363,7 @@ h1, h2, h3, p { margin: 0; }
 .pj-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--field); transform: scaleY(0); transition: transform 0.35s var(--ease); }
 .pj-row:not(.pj-row--head):hover { padding-left: 1.4rem; background: #fff; }
 .pj-row:hover::before { transform: none; }
+.pj-viewmore { display: flex; margin: 2.5rem auto 0; }
 .pj-row--head { border-bottom: 2px solid var(--ink); color: var(--muted); }
 .pj-title { font-weight: 600; }
 .pj-dim { color: var(--muted); }
@@ -370,8 +372,8 @@ h1, h2, h3, p { margin: 0; }
 /* ---------- Swarm opening (lib/swarm-engine.ts) ---------- */
 html.swarming body { visibility: hidden; }
 ::highlight(sw-hide) { color: transparent; -webkit-text-fill-color: transparent; -webkit-text-stroke-color: transparent; text-shadow: none; }
-.foot-swarm { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-@media (prefers-reduced-motion: reduce) { .foot-swarm { display: none; } }
+.foot-swarm, .foot-md { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .foot-rebuild { display: none; } }
 .sw { position: fixed; inset: 0; z-index: 97; pointer-events: none; visibility: visible; }
 .sw-gate { position: fixed; inset: 0; z-index: 98; display: grid; place-items: center; visibility: visible; }
 .sw-gate button { padding: 0.12em 0.45em 0.04em; border: 2px solid var(--blue); border-radius: 999px; background: none; color: var(--blue); font: 400 clamp(2.4rem, 6vw, 4.5rem)/1 var(--display); text-transform: uppercase; cursor: pointer; transition: background-color 0.25s var(--ease), color 0.25s var(--ease); }

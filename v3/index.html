@@ -7,6 +7,9 @@
     <meta name="description" content="I build voice agents, AI tools and the tests that keep them honest." />
     <meta name="theme-color" content="#f7f8fc" />
     <link rel="icon" type="image/png" href="/favicon-64.png" />
+    <!-- The build puts each page's text in #root for search engines and agents (scripts/seo.ts); with JavaScript the app replaces it. -->
+    <style>.js .pre { display: none; }</style>
+    <script>document.documentElement.classList.add('js');</script>
     <!-- Fontshare's licence forbids redistributing the files, so they load from its CDN instead of this repo. -->
     <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />

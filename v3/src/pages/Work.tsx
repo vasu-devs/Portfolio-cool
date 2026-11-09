@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { featuredWork, GROUPS, work, type Group } from '../data/work';
+import { featuredWork, GROUPS, shownWork, work, type Group } from '../data/work';
 import { diagrams } from '../data/diagrams';
+import { allWork } from '../lib/markdown';
 import { Pipeline } from '../components/Pipeline';
 import { projectLink } from '../components/ProjectOverlay';
 
-// Selected projects as big colour tiles, then every project as a scannable index. Everything opens the overlay.
+// Selected projects as big colour tiles, then the shortlist (data/work.ts INDEX) as an index; View more lists them all.
+// Every project opens the overlay.
 export function WorkPage() {
   const [group, setGroup] = useState<Group | 'all'>('all');
-  // The index lists every project, the selected five included.
-  const listed = work.filter((w) => group === 'all' || w.group === group);
+  const [more, setMore] = useState(false);
+  const base = more ? allWork : shownWork;
+  const listed = base.filter((w) => group === 'all' || w.group === group);
   return (
     <section className="pj">
       <header className="pj-head">
@@ -30,11 +33,11 @@ export function WorkPage() {
       </div>
 
       <div className="pj-bar">
-        <h2>Everything</h2>
+        <h2>{more ? 'Everything' : 'Shortlist'}</h2>
         <div className="pj-filters" role="tablist" aria-label="Filter projects">
           {[{ id: 'all' as const, label: 'All' }, ...GROUPS].map((g) => (
             <button key={g.id} role="tab" aria-selected={group === g.id} onClick={() => setGroup(g.id)}>
-              {g.label}<span>{work.filter((w) => g.id === 'all' || w.group === g.id).length}</span>
+              {g.label}<span>{base.filter((w) => g.id === 'all' || w.group === g.id).length}</span>
             </button>
           ))}
         </div>
@@ -51,6 +54,9 @@ export function WorkPage() {
           </Link>
         ))}
       </div>
+      <button type="button" className="btn pj-viewmore" onClick={() => setMore(!more)}>
+        {more ? 'Show the shortlist' : `View all ${work.length} projects`}
+      </button>
     </section>
   );
 }

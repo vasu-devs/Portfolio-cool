@@ -6,6 +6,7 @@ export const person = {
   name: 'Vasudev Siddh',
   handle: 'Vasu-Devs',
   intro: "I'm Vasu, an AI and full-stack engineer based in India. I build voice tools, desktop apps, and software for clients.",
+  about: "I build voice tools, desktop apps, and software for clients. Currently an AI Engineering intern at withlayer.ai. Outside work, I'm building JustHireMe, Svara, and Dreamer, and sharing what I learn through code and videos.",
   email: 'siddhvasudev1402@gmail.com',
   call: 'https://cal.com/vasu-devs',
   coffee: 'https://buymeacoffee.com/vasu.devs',

@@ -7,6 +7,8 @@ import { ProjectBody } from './ProjectBody';
 import { ExperienceBody, ROLE_COLOR, roles } from './ExperienceBody';
 import { ScrollDot } from './ScrollDot';
 import { play } from '../lib/sound';
+import { projectMd, roleMd } from '../lib/markdown';
+import { CopyButton, siteRoot } from './CopyButton';
 
 /** Link targets that open a project (?p=slug) or a role (?x=id) over the current page, so it never reloads. */
 export const projectLink = (slug: string) => ({ search: `?p=${slug}` });
@@ -34,7 +36,7 @@ export function ProjectOverlay() {
 
   // Neighbours come from the list the item belongs to: the selected five, its group, or the roles.
   const pool: Item[] = w
-    ? (w.featured ? featuredWork : work.filter((x) => x.group === w.group)).map((x) => ({ key: x.slug, title: x.title, color: x.color }))
+    ? (w.featured ? featuredWork : work.filter((x) => x.group === w.group && (x.shown || x === w))).map((x) => ({ key: x.slug, title: x.title, color: x.color }))
     : role ? roles.map((r) => ({ key: String(r.id), title: r.company, color: ROLE_COLOR[r.id] })) : [];
   const current = w?.slug ?? (role ? String(role.id) : null);
   const i = pool.findIndex((x) => x.key === current);
@@ -133,6 +135,7 @@ export function ProjectOverlay() {
         <div className="ov-bar">
           <span className="mono">{label} · {i + 1} / {pool.length}</span>
           <div className="ov-actions">
+            <CopyButton className="ov-copy" label="Copy" text={() => (w ? projectMd(w, siteRoot()) : roleMd(role!))} />
             <button type="button" onClick={() => go(-1)} aria-label="Previous project">←</button>
             <button type="button" onClick={() => go(1)} aria-label="Next project">→</button>
             <button type="button" ref={closeBtn} onClick={close} aria-label="Close">✕</button>

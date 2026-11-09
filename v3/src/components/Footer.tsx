@@ -4,6 +4,8 @@ import { person } from '../content';
 import { lenis } from '../lib/smooth';
 import { featuredWork } from '../data/work';
 import { startSwarm, swarmVisit } from '../lib/swarm';
+import { siteMd } from '../lib/markdown';
+import { CopyButton, siteRoot } from './CopyButton';
 
 const WORD = 'Vasu-Devs';
 
@@ -50,7 +52,7 @@ export function Footer() {
           </dd></div>
         </dl>
       </div>
-      <p className="foot-copy mono">© 2026 Vasu-Devs · <button type="button" className="foot-swarm" onClick={rebuild}>Watch this page build ↺</button></p>
+      <p className="foot-copy mono">© 2026 Vasu-Devs · <CopyButton className="foot-md" label="Copy this site as Markdown" text={() => siteMd(siteRoot())} /><span className="foot-rebuild"> · <button type="button" className="foot-swarm" onClick={rebuild}>Watch this page build ↺</button></span></p>
       <p className="foot-mark" ref={mark} aria-hidden="true">
         {[...WORD].map((ch, i) => <span key={i} style={{ ['--c' as string]: featuredWork[i % featuredWork.length].color }}>{ch}</span>)}
       </p>

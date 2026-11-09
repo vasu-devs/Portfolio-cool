@@ -1,7 +1,7 @@
 import { Heatmap } from '../components/Heatmap';
 import { Mascot } from '../components/Mascot';
 import { Link } from 'react-router-dom';
-import { openSource, principles } from '../content';
+import { openSource, person, principles } from '../content';
 import { roleLink } from '../components/ProjectOverlay';
 import experience from '../data/experience.json';
 
@@ -12,7 +12,7 @@ export function AboutPage() {
         <div>
           <h1>About</h1>
           <p className="ab-lede">I'm Vasu, an AI and full-stack engineer based in India.</p>
-          <p>I build voice tools, desktop apps, and software for clients. Currently an AI Engineering intern at withlayer.ai. Outside work, I'm building JustHireMe, Svara, and Dreamer, and sharing what I learn through code and videos.</p>
+          <p>{person.about}</p>
         </div>
         <Mascot />
       </section>

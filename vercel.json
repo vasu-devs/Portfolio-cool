@@ -29,6 +29,18 @@
       "destination": "/new/index.html"
     },
     {
+      "source": "/new/about",
+      "destination": "/new/about/index.html"
+    },
+    {
+      "source": "/new/projects",
+      "destination": "/new/projects/index.html"
+    },
+    {
+      "source": "/new/projects/:slug",
+      "destination": "/new/projects/:slug/index.html"
+    },
+    {
       "source": "/new/:path*",
       "destination": "/new/index.html"
     }
