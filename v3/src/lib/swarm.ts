@@ -35,6 +35,30 @@ export function stopSwarm() {
   stopRun?.();
 }
 
+// The first build of a visit waits for one press: it starts the build and lets the browser play its sound.
+let gated = !swarmVisit;
+function gate() {
+  if (gated) return;
+  gated = true;
+  return new Promise<void>((go) => {
+    const g = document.createElement('div');
+    g.className = 'sw-gate';
+    g.innerHTML = '<button type="button">Build</button>';
+    document.body.append(g);
+    const key = (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); start(); } };
+    const start = () => {
+      for (const ev of ['wheel', 'touchmove']) removeEventListener(ev, start);
+      removeEventListener('keydown', key);
+      g.remove();
+      go();
+    };
+    g.querySelector('button')!.addEventListener('click', start);
+    // Scrolling is never blocked: it starts the build too (without sound, which needs a click or a key).
+    for (const ev of ['wheel', 'touchmove']) addEventListener(ev, start, { passive: true });
+    addEventListener('keydown', key);
+  });
+}
+
 export async function startSwarm(waitMs = 0) {
   if (running || !swarmSupported()) return;
   running = true;
@@ -42,6 +66,7 @@ export async function startSwarm(waitMs = 0) {
     const [{ runSwarm }] = await Promise.all([
       import('./swarm-engine'), // split out: most visitors never download it
       Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1500))]), // measure final text, not fallback fonts
+      gate(),
     ]);
     await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); // let GSAP settle the page first
     const run = runSwarm(waitMs);
