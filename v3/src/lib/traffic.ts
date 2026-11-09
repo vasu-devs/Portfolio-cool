@@ -1,4 +1,4 @@
-// Live visitor numbers from the site-wide counter (api/traffic.js, Upstash), shared with the paper portfolio at /:
+// Live visitor numbers from the site-wide counter (api/traffic.js, Upstash), shared with the earlier paper portfolio (/old3):
 // the same browser keys, so a visitor is never counted twice across the two designs.
 import { useSyncExternalStore } from 'react';
 

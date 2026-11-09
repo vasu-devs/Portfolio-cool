@@ -53,7 +53,7 @@ export default function App() {
     return () => { tl.progress(1); };
   }, [location]);
 
-  useEffect(() => swarmPage(shownPath.current), []); // the router's path (no /new prefix)
+  useEffect(() => swarmPage(shownPath.current), []); // the router's path (without the base path)
 
   useEffect(startTabMoods, []); // the tab's title is fixed (index.html); its icon changes mood
   useEffect(startSound, []);

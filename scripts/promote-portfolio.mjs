@@ -13,4 +13,9 @@ writeFileSync(new URL('index.html', output), paper);
 // Snapshot of the paper portfolio, kept reachable after / moves to the next design.
 mkdirSync(new URL('old2/', output), { recursive: true });
 writeFileSync(new URL('old2/index.html', output), paper.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://www.siddhvasudev.com/old2/" />').replace('</head>', '<meta name="robots" content="noindex,follow" /></head>'));
-console.log('Published paper portfolio at / and /old2/, preserved Bleach at /bleach/ and legacy React portfolio at /old/.');
+// The paper portfolio as it was live at / until v3 replaced it (Nov 2026); build-new.mjs then puts v3 at /.
+mkdirSync(new URL('old3/', output), { recursive: true });
+const old3 = paper.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://www.siddhvasudev.com/old3/" />').replace('</head>', '<meta name="robots" content="noindex,follow" /></head>');
+writeFileSync(new URL('old3/index.html', output), old3);
+writeFileSync(new URL('paper/index.html', output), old3); // its source copy at /paper/ must not claim / either
+console.log('Published the paper portfolio at /old2/ and /old3/, preserved Bleach at /bleach/ and the legacy React portfolio at /old/.');

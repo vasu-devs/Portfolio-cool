@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { play } from '../lib/sound';
 
-/** The site's absolute root URL ('/' locally, '/new/' on the live site), for links inside copied Markdown. */
+/** The site's absolute root URL ('/' locally and live), for links inside copied Markdown. */
 export const siteRoot = () => new URL(import.meta.env.BASE_URL, location.origin).href;
 
 /** Copies Markdown to the clipboard and says so. `text` runs on click, so nothing is built until it is needed. */

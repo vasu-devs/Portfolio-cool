@@ -66,6 +66,14 @@ function gate() {
   });
 }
 
+// The "click me" hand left on the BUILD button: a white pointing hand with the site's 2px ink outline, and six sparks
+// in the project colours that burst from its fingertip on every press (styles.css .sw-tapper).
+const HAND = '<svg width="36" height="36" viewBox="0 0 24 24" fill="#fff" stroke="#0d0d12" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+  + '<path d="M6 4a2 2 0 0 1 4 0v5a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L6 14.5z"/>'
+  + '<path d="M10 9v3M14 10v2.5M18 11v2" fill="none"/></svg>';
+const SPARKS = `<span class="sw-sparks">${['#ff5a1f', '#c6ff2e', '#ff4f9a', '#2bb8ff', '#ffc400', '#7c5cff']
+  .map((c, i) => `<b style="--c:${c};--a:${i * 60 - 150}deg"></b>`).join('')}</span>`;
+
 /** One agent flies in, drags out the button's box, types its word, then leaves. */
 function buildGate(g: HTMLElement, b: HTMLButtonElement) {
   const k = Math.floor(Math.random() * NAMES.length);
@@ -107,7 +115,17 @@ function buildGate(g: HTMLElement, b: HTMLButtonElement) {
   letters.forEach((l, i) => tl.add(() => { l.style.opacity = '1'; caretAt(i); play('key'); }, `+=${i ? 0.06 : 0.03}`));
   tl.add(() => { caret.classList.remove('on'); play('leave', { pan: 0.6, dur: 0.35 }); }, '+=0.15')
     .to(p, { x: () => innerWidth + 60, y: () => p.y - 120, duration: 0.4, ease: 'power2.in' }) // job done, it leaves
-    .add(() => sw.remove());
+    .add(() => {
+      sw.remove();
+      p.w = 0;
+      b.style.clipPath = ''; // the drag's reveal clip would cut off the hint's tag and the button's ring
+      // Then a small cursor stays on the button and keeps tapping it, so it reads as "click me".
+      const hint = document.createElement('i'); // not a <span>: the button's spans are its letters
+      hint.className = 'sw-tapper';
+      hint.innerHTML = `${HAND}${SPARKS}<span class="sw-tag" style="--c:var(--blue);--fg:#fff">Click</span>`;
+      b.append(hint);
+      b.classList.add('is-hinted');
+    });
   return tl;
 }
 
