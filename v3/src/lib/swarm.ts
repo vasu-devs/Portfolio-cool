@@ -97,16 +97,16 @@ function buildGate(g: HTMLElement, b: HTMLButtonElement) {
     caret.style.height = `${l.height * 0.7}px`;
   };
   draw();
-  const tl = gsap.timeline({ delay: 0.35, onUpdate: draw })
+  const tl = gsap.timeline({ delay: 0.2, onUpdate: draw })
     .add(() => play('arrive', { pan: -0.6, dur: 0.3 }))
-    .to(p, { x: () => box().left, y: () => box().top, duration: 0.6, ease: 'power3.out' })
+    .to(p, { x: () => box().left, y: () => box().top, duration: 0.4, ease: 'power3.out' })
     .add(() => { cur.classList.add('tap'); sel.classList.add('on'); play('tap'); play('draw', { dur: 0.35 }); })
-    .to(p, { x: () => box().right, y: () => box().bottom, w: () => box().width, h: () => box().height, duration: 0.45, ease: 'power2.inOut' })
+    .to(p, { x: () => box().right, y: () => box().bottom, w: () => box().width, h: () => box().height, duration: 0.3, ease: 'power2.inOut' })
     .add(() => { cur.classList.remove('tap'); sel.classList.remove('on'); b.style.clipPath = ''; caretAt(-1); caret.classList.add('on'); })
-    .to(p, { x: () => letters[0].getBoundingClientRect().left, y: () => box().bottom - 6, duration: 0.3, ease: 'power2.inOut' });
-  letters.forEach((l, i) => tl.add(() => { l.style.opacity = '1'; caretAt(i); play('key'); }, `+=${i ? 0.09 : 0.05}`));
-  tl.add(() => { caret.classList.remove('on'); play('leave', { pan: 0.6, dur: 0.35 }); }, '+=0.25')
-    .to(p, { x: () => innerWidth + 60, y: () => p.y - 120, duration: 0.55, ease: 'power2.in' }) // job done, it leaves
+    .to(p, { x: () => letters[0].getBoundingClientRect().left, y: () => box().bottom - 6, duration: 0.2, ease: 'power2.inOut' });
+  letters.forEach((l, i) => tl.add(() => { l.style.opacity = '1'; caretAt(i); play('key'); }, `+=${i ? 0.06 : 0.03}`));
+  tl.add(() => { caret.classList.remove('on'); play('leave', { pan: 0.6, dur: 0.35 }); }, '+=0.15')
+    .to(p, { x: () => innerWidth + 60, y: () => p.y - 120, duration: 0.4, ease: 'power2.in' }) // job done, it leaves
     .add(() => sw.remove());
   return tl;
 }
