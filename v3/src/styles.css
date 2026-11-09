@@ -81,9 +81,20 @@ h1, h2, h3, p { margin: 0; }
 .h-line { display: block; overflow: hidden; white-space: nowrap; }
 .h-line > span { display: inline-block; }
 .h-facts { grid-column: 2; grid-row: 2; align-self: start; margin: 2.5rem 0 0; border-top: 1px solid rgb(255 255 255 / 0.4); }
-.h-facts div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid rgb(255 255 255 / 0.4); }
-.h-facts dt { opacity: 0.7; }
-.h-facts dd { margin: 0; font-weight: 500; }
+.h-facts > div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid rgb(255 255 255 / 0.4); }
+.h-facts > div > dt { opacity: 0.7; }
+.h-facts > div > dd { margin: 0; font-weight: 500; }
+/* Visitors: the line opens a card with the full numbers on hover, focus or tap. */
+.h-visitors dd { position: relative; }
+.h-vis-btn { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; text-decoration: underline dotted rgb(255 255 255 / 0.6); text-underline-offset: 4px; cursor: help; }
+.h-vis-card { position: absolute; z-index: 5; top: calc(100% + 0.5rem); left: 0; width: 13.5rem; padding: 0.7rem 0.85rem; border-radius: 12px; background: #fff; color: var(--ink); box-shadow: 0 14px 36px rgb(13 13 18 / 0.28); font-weight: 400; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.25s var(--ease), transform 0.35s var(--ease), visibility 0.25s; }
+.h-visitors dd:hover .h-vis-card, .h-visitors dd:focus-within .h-vis-card { opacity: 1; visibility: visible; transform: none; }
+.h-vis-live { font-size: 0.72rem; }
+.h-vis-card dl { display: grid; margin: 0.45rem 0; }
+.h-vis-card dl div { display: flex; justify-content: space-between; align-items: baseline; padding: 0.3rem 0; border-top: 1px solid var(--line); }
+.h-vis-card dt { font-size: 0.8rem; color: var(--muted); }
+.h-vis-card dd { margin: 0; font: 500 0.85rem/1 var(--mono); }
+.h-vis-note { font-size: 0.66rem; line-height: 1.35; color: var(--muted); }
 .h-side { grid-column: 2; grid-row: 3; align-self: end; padding-bottom: var(--hero-gap); }
 .h-line-copy { margin-bottom: 1.5rem; font: 400 clamp(2rem, 3vw, 2.9rem)/0.95 var(--display); text-transform: uppercase; }
 .h-line-copy em { font-style: normal; color: #c6ff2e; }

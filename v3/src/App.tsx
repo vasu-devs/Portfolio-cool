@@ -15,6 +15,7 @@ import { lenis, useSmooth } from './lib/smooth';
 import { stopSwarm, swarmPage } from './lib/swarm';
 import { nextTabMood, startTabMoods } from './lib/tab-mood';
 import { startSound } from './lib/sound';
+import { startTraffic } from './lib/traffic';
 import { ScrollDot } from './components/ScrollDot';
 
 const titleFor = (path: string) =>
@@ -56,6 +57,7 @@ export default function App() {
 
   useEffect(startTabMoods, []); // the tab's title is fixed (index.html); its icon changes mood
   useEffect(startSound, []);
+  useEffect(startTraffic, []); // visitor counter: one view per load, a check-in every 30 s on any page
 
   return (
     <>

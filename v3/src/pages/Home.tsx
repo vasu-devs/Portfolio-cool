@@ -11,12 +11,16 @@ import experience from '../data/experience.json';
 import { roleLink } from '../components/ProjectOverlay';
 import { person } from '../content';
 import { asset } from '../lib/asset';
+import { useTraffic } from '../lib/traffic';
+
+const n = (x: number) => x.toLocaleString('en-US');
 
 gsap.registerPlugin(ScrollTrigger);
 
 
 export function Home() {
   const root = useRef<HTMLDivElement>(null);
+  const traffic = useTraffic(); // the site-wide counter, shared with the paper portfolio
 
   useGSAP(() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -44,6 +48,25 @@ export function Home() {
           <div><dt className="mono">Now</dt><dd>AI Engineering Intern at withlayer.ai</dd></div>
           <div><dt className="mono">Building</dt><dd>JustHireMe and Svara</dd></div>
           <div><dt className="mono">Based in</dt><dd>India, working your hours</dd></div>
+          {traffic && (
+            <div className="h-visitors"><dt className="mono">Visitors</dt><dd>
+              {/* Hover, focus or tap for the full numbers. */}
+              <button type="button" className="h-vis-btn" aria-describedby="h-vis-card">
+                {traffic.activeNow > 0 && <i className="h-dot" />}
+                {traffic.visitorNumber ? `You're #${n(traffic.visitorNumber)}` : `${n(traffic.totalViews)} views`}
+                {traffic.activeNow > 0 && ` · ${n(traffic.activeNow)} here now`}
+              </button>
+              <div className="h-vis-card" id="h-vis-card" role="tooltip" data-swarm-skip>
+                <p className="mono h-vis-live"><i className="h-dot" />{n(traffic.activeNow)} here now</p>
+                <dl>
+                  {traffic.visitorNumber && <div><dt>You</dt><dd>#{n(traffic.visitorNumber)}</dd></div>}
+                  <div><dt>Visitors</dt><dd>{n(traffic.uniqueVisitors)}</dd></div>
+                  <div><dt>Views</dt><dd>{n(traffic.totalViews)}</dd></div>
+                </dl>
+                <p className="h-vis-note">Per browser, since 26 Sep 2026 · live = last 90 s</p>
+              </div>
+            </dd></div>
+          )}
         </dl>
         <div className="h-side">
           <p className="h-line-copy">I build AI agents and voice AI that <em>actually ship.</em></p>
