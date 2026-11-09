@@ -16,6 +16,7 @@ export const person = {
     { label: 'X', url: 'https://x.com/vasu_devs' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/vasu-devs/' },
     { label: 'YouTube', url: 'https://www.youtube.com/@Vasu-Devs' },
+    { label: 'Instagram', url: 'https://www.instagram.com/vasu_._devs/' },
   ],
 };
 

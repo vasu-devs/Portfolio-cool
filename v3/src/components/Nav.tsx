@@ -1,13 +1,15 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { openAgent } from '../lib/agent';
 import { person } from '../content';
 import { asset } from '../lib/asset';
 import { setSound, soundOn } from '../lib/sound';
+import { lenis } from '../lib/smooth';
 
 export function Nav() {
   const [busy, setBusy] = useState(false);
   const [sound, setSoundState] = useState(soundOn);
+  const { pathname } = useLocation();
   useEffect(() => {
     const on = (e: Event) => setBusy((e as CustomEvent<boolean>).detail);
     window.addEventListener('agent:busy', on);
@@ -15,7 +17,8 @@ export function Nav() {
   }, []);
   return (
     <header className="nav">
-      <Link to="/" className="nav-mark">Vasu-Devs</Link>
+      {/* Already home: the route doesn't change, so glide back up to the hero instead. */}
+      <Link to="/" className="nav-mark" onClick={() => { if (pathname === '/') lenis ? lenis.scrollTo(0) : scrollTo({ top: 0, behavior: 'smooth' }); }}>Vasu-Devs</Link>
       <nav aria-label="Pages">
         <NavLink to="/projects">Projects</NavLink>
         <NavLink to="/about">About</NavLink>
