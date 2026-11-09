@@ -11,7 +11,8 @@ import { person } from '../src/content.ts';
 import type { Work } from '../src/data/work.ts';
 
 const ORIGIN = 'https://www.siddhvasudev.com';
-const IMAGE = `${ORIGIN}/social-card-v2.jpg`;
+// The link-preview card (public/og.png, from scripts/og-card.html): the hero's look at 1200 × 630.
+const IMAGE_ALT = 'Vasu-Devs: Vasudev Siddh, AI engineer. I build AI agents and voice AI that actually ship.';
 const clip = (s: string, n = 158) => (s.length <= n ? s : `${s.slice(0, s.lastIndexOf(' ', n - 1))}…`);
 type Page = { path: string; title: string; description: string; md: string; work?: Work };
 
@@ -59,9 +60,18 @@ export function seo(): Plugin {
           `<meta property="og:title" content="${esc(p.title)}" />`,
           `<meta property="og:description" content="${esc(p.description)}" />`,
           `<meta property="og:url" content="${url}" />`,
-          `<meta property="og:image" content="${IMAGE}" />`,
+          `<meta property="og:image" content="${root}og.png" />`,
+          `<meta property="og:image:type" content="image/png" />`,
+          `<meta property="og:image:width" content="1200" />`,
+          `<meta property="og:image:height" content="630" />`,
+          `<meta property="og:image:alt" content="${esc(IMAGE_ALT)}" />`,
           `<meta name="twitter:card" content="summary_large_image" />`,
           `<meta name="twitter:site" content="@vasu_devs" />`,
+          `<meta name="twitter:creator" content="@vasu_devs" />`,
+          `<meta name="twitter:title" content="${esc(p.title)}" />`,
+          `<meta name="twitter:description" content="${esc(p.description)}" />`,
+          `<meta name="twitter:image" content="${root}og.png" />`,
+          `<meta name="twitter:image:alt" content="${esc(IMAGE_ALT)}" />`,
           `<script type="application/ld+json">${ld}</script>`,
         ].join('\n    ');
         const nav = `<nav><a href="${base}">Home</a> · <a href="${base}projects">Projects</a> · <a href="${base}about">About</a> · <a href="${base}llms.txt">llms.txt</a></nav>`;

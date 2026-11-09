@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- The link-preview card (public/og.png, 1200 × 630) shown when the site is shared on X, LinkedIn, WhatsApp, Slack…
+     To regenerate: open this file in a browser at 1200 × 630 (device scale 1) and screenshot the page to public/og.png.
+     Same look as the home hero: the blue field, Tanker wordmark, mascot, lime accent and the project colours. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=tanker@400&display=block">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600&display=block">
+<style>
+  @font-face { font-family: 'Commit'; src: url('../public/fonts/commit-mono-400.otf'); }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body { position: relative; padding: 56px 64px; background: #2d4bff; color: #fff; font-family: 'General Sans', sans-serif; }
+  .meta { display: flex; align-items: center; gap: 18px; font: 400 24px/1.35 'Commit', monospace; }
+  .meta img { width: 72px; height: auto; }
+  .dot { display: inline-block; width: 13px; height: 13px; margin-right: 10px; border-radius: 50%; background: #c6ff2e; box-shadow: 0 0 0 6px rgb(198 255 46 / 0.25); vertical-align: 1px; }
+  .mark { position: absolute; left: 56px; bottom: 34px; font: 400 268px/0.8 'Tanker', sans-serif; text-transform: uppercase; }
+  .side { position: absolute; right: 64px; bottom: 120px; width: 470px; }
+  .line { font: 400 64px/0.95 'Tanker', sans-serif; text-transform: uppercase; }
+  .line em { font-style: normal; color: #c6ff2e; }
+  .url { position: absolute; right: 64px; bottom: 56px; font: 400 26px 'Commit', monospace; }
+  .bars { position: absolute; right: 64px; top: 64px; display: flex; gap: 10px; }
+  .bars i { width: 34px; height: 34px; border-radius: 9px; transform: rotate(-6deg); }
+</style>
+</head>
+<body>
+  <p class="meta"><img src="../public/img/mascot.webp" alt=""><span>Vasudev Siddh · AI engineer<br><span class="dot"></span>Open to freelance</span></p>
+  <div class="bars"><i style="background:#ff5a1f"></i><i style="background:#c6ff2e"></i><i style="background:#2bb8ff"></i><i style="background:#7c5cff"></i><i style="background:#ffc400"></i></div>
+  <p class="mark">Vasu<br>Devs</p>
+  <p class="side line">I build AI agents and voice AI that <em>actually ship.</em></p>
+  <p class="url">siddhvasudev.com</p>
+</body>
+</html>
