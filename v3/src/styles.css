@@ -376,6 +376,7 @@ html.swarming body { visibility: hidden; }
 .sw-gate { position: fixed; inset: 0; z-index: 98; display: grid; place-items: center; visibility: visible; }
 .sw-gate button { padding: 0.12em 0.45em 0.04em; border: 2px solid var(--blue); border-radius: 999px; background: none; color: var(--blue); font: 400 clamp(2.4rem, 6vw, 4.5rem)/1 var(--display); text-transform: uppercase; cursor: pointer; transition: background-color 0.25s var(--ease), color 0.25s var(--ease); }
 .sw-gate button:hover { background: var(--blue); color: #fff; }
+.sw-gate button span { opacity: 0; } /* typed in by the agent */
 .sw-cur, .sw-sel, .sw-caret { position: absolute; top: 0; left: 0; will-change: transform; }
 .sw-cur svg { display: block; filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.3)); }
 .sw-tag { position: absolute; left: 13px; top: 17px; padding: 2px 8px; border-radius: 999px; background: var(--c); color: var(--fg); font: 600 11px/1.45 var(--text); white-space: nowrap; box-shadow: 0 2px 6px rgb(0 0 0 / 0.2); }
