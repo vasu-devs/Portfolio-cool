@@ -5,14 +5,18 @@ import { bySlug, featuredWork, work, GROUPS } from '../data/work';
 import { lenis } from '../lib/smooth';
 import { ProjectBody } from './ProjectBody';
 import { ExperienceBody, ROLE_COLOR, roles } from './ExperienceBody';
+import { ResumeBody } from './ResumeBody';
 import { ScrollDot } from './ScrollDot';
 import { play } from '../lib/sound';
 import { projectMd, roleMd } from '../lib/markdown';
 import { CopyButton, siteRoot } from './CopyButton';
+import { asset } from '../lib/asset';
 
 /** Link targets that open a project (?p=slug) or a role (?x=id) over the current page, so it never reloads. */
 export const projectLink = (slug: string) => ({ search: `?p=${slug}` });
 export const roleLink = (id: number) => ({ search: `?x=${id}` });
+/** ?resume opens the résumé in the same sheet. */
+export const resumeLink = '?resume';
 
 type Item = { key: string; title: string; color: string };
 
@@ -23,6 +27,7 @@ export function ProjectOverlay() {
   const params = new URLSearchParams(search);
   const w = bySlug(params.get('p') ?? '');
   const role = !w ? roles.find((r) => String(r.id) === params.get('x')) : undefined;
+  const resume = !w && !role && params.has('resume');
   const param = w ? 'p' : 'x';
   const root = useRef<HTMLDivElement>(null);
   const sheet = useRef<HTMLDivElement>(null);
@@ -38,10 +43,10 @@ export function ProjectOverlay() {
   const pool: Item[] = w
     ? (w.featured ? featuredWork : work.filter((x) => x.group === w.group && (x.shown || x === w))).map((x) => ({ key: x.slug, title: x.title, color: x.color }))
     : role ? roles.map((r) => ({ key: String(r.id), title: r.company, color: ROLE_COLOR[r.id] })) : [];
-  const current = w?.slug ?? (role ? String(role.id) : null);
+  const current = w?.slug ?? (role ? String(role.id) : resume ? 'resume' : null);
   const i = pool.findIndex((x) => x.key === current);
   const go = (step: number, scrolled = false) => {
-    if (!current) return;
+    if (i < 0) return; // nothing open, or the résumé (it has no neighbours)
     const to = pool[(i + step + pool.length) % pool.length];
     // Scrolled into the next panel: it is already the new colour on screen. Arrows: blend from the old one.
     fromColor.current = scrolled ? to.color : pool[i].color;
@@ -126,27 +131,31 @@ export function ProjectOverlay() {
   });
 
   if (!current) return null;
-  const label = w ? (w.featured ? 'Selected work' : GROUPS.find((g) => g.id === w.group)!.label) : 'Experience';
+  const label = w ? (w.featured ? 'Selected work' : GROUPS.find((g) => g.id === w.group)!.label) : role ? 'Experience' : 'Résumé';
   const next = pool[(i + 1) % pool.length];
   return (
-    <div className="ov" ref={root} role="dialog" aria-modal="true" aria-label={pool[i].title}>
+    <div className="ov" ref={root} role="dialog" aria-modal="true" aria-label={pool[i]?.title ?? 'Résumé'}>
       <div className="ov-backdrop" onClick={close} />
       <div className="ov-sheet" ref={sheet}>
         <div className="ov-bar">
-          <span className="mono">{label} · {i + 1} / {pool.length}</span>
+          <span className="mono">{label}{i >= 0 && ` · ${i + 1} / ${pool.length}`}</span>
           <div className="ov-actions">
-            <CopyButton className="ov-copy" label="Copy" text={() => (w ? projectMd(w, siteRoot()) : roleMd(role!))} />
-            <button type="button" onClick={() => go(-1)} aria-label="Previous project">←</button>
-            <button type="button" onClick={() => go(1)} aria-label="Next project">→</button>
+            {resume ? <a className="ov-copy" href={asset('resume.pdf')} download="Vasudev-Siddh-Resume.pdf">Download PDF</a> : <>
+              <CopyButton className="ov-copy" label="Copy" text={() => (w ? projectMd(w, siteRoot()) : roleMd(role!))} />
+              <button type="button" onClick={() => go(-1)} aria-label="Previous project">←</button>
+              <button type="button" onClick={() => go(1)} aria-label="Next project">→</button>
+            </>}
             <button type="button" ref={closeBtn} onClick={close} aria-label="Close">✕</button>
           </div>
         </div>
         <div className="ov-scroll" ref={scroller} data-lenis-prevent>
-          {w ? <ProjectBody w={w} /> : <ExperienceBody r={role!} />}
-          <button type="button" className="ov-next" ref={nextEl} onClick={() => go(1)} style={{ ['--field' as string]: next.color }}>
-            <span className="mono">Next · keep scrolling</span>
-            <strong>{next.title}</strong>
-          </button>
+          {resume ? <ResumeBody /> : <>
+            {w ? <ProjectBody w={w} /> : <ExperienceBody r={role!} />}
+            <button type="button" className="ov-next" ref={nextEl} onClick={() => go(1)} style={{ ['--field' as string]: next.color }}>
+              <span className="mono">Next · keep scrolling</span>
+              <strong>{next.title}</strong>
+            </button>
+          </>}
         </div>
         <ScrollDot target={scroller} />
       </div>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { person } from '../content';
 import { lenis } from '../lib/smooth';
@@ -6,6 +7,7 @@ import { featuredWork } from '../data/work';
 import { startSwarm, swarmVisit } from '../lib/swarm';
 import { siteMd } from '../lib/markdown';
 import { CopyButton, siteRoot } from './CopyButton';
+import { resumeLink } from './ProjectOverlay';
 
 const WORD = 'Vasu-Devs';
 
@@ -48,7 +50,7 @@ export function Footer() {
           <div><dt className="mono">Email</dt><dd><a href={`mailto:${person.email}`}>{person.email}</a></dd></div>
           <div><dt className="mono">Elsewhere</dt><dd className="foot-links">
             {person.socials.map((s) => <a key={s.url} href={s.url} target="_blank" rel="noreferrer">{s.label} ↗</a>)}
-            <a href={person.resume}>Résumé ↗</a>
+            <Link to={resumeLink}>Résumé</Link>
           </dd></div>
         </dl>
       </div>

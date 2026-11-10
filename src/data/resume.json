@@ -1,7 +1,7 @@
 {
   "name": "Vasudev Siddh",
-  "headline": "AI & Full-Stack Engineer",
-  "location": "India",
+  "headline": "AI Engineer · Voice Agents & LLM Systems",
+  "location": "India (IST) · Remote, overlaps the UK/EU workday",
   "email": "siddhvasudev1402@gmail.com",
   "links": [
     {
@@ -17,25 +17,44 @@
       "url": "https://www.linkedin.com/in/vasu-devs/"
     }
   ],
-  "summary": "AI engineering intern who builds LLM, voice AI, and full-stack products with Python and TypeScript, from first prototype to tested release. Creator of JustHireMe, an open-source AI job-search app with 2,200+ GitHub stars.",
+  "summary": "AI engineer building production voice agents, LLM backends and search systems. Cut an AI assistant's time to first results from 72-122 s to under 10 s; created JustHireMe, an open-source job-search app with 2,200+ GitHub stars.",
   "experience": [
     {
       "role": "AI Engineering Intern",
       "company": "withlayer.ai",
       "dates": "Jun 2026 - Present",
       "bullets": [
-        "Use Python, TypeScript, React, Next.js, and WebRTC to build real-time voice AI, so users can hold natural, low-delay conversations with an AI assistant.",
-        "Add automated evaluations and regression tests so LLM changes are checked before they reach users; build data-access controls that limit who sees which data."
-      ]
+        "Made the AI agent honest about missing data: it never reports \"couldn't read\" as \"nothing there\".",
+        "Built default-deny permissions for agent data access; closed cross-tenant paths and a path-traversal bug.",
+        "Made the voice agent speak sooner by streaming speech sentence by sentence while the model is still generating.",
+        "Built on-device active-speaker detection and fixed audio aliasing in the native macOS app (Swift).",
+        "Moved production AI workflows off a third-party platform, proving parity with an LLM-as-judge evaluation."
+      ],
+      "tech": "TypeScript, Python, Swift, React, Next.js, PostgreSQL, WebRTC, LiveKit, Deepgram, Playwright"
     },
     {
-      "role": "AI & Full-Stack Engineer (Contract)",
-      "company": "Confidential client",
-      "dates": "2026 - Present",
+      "role": "Full-Stack AI Engineer (Contract)",
+      "company": "Confidential client (consumer-AI startup, UK)",
+      "dates": "May 2026 - Present",
       "bullets": [
-        "Use Python, FastAPI, MongoDB, and vector search to build AI search that finds relevant results from both text and images.",
-        "Set up automated tests and CI/CD with Docker and AWS, so every change is tested and deployed the same way."
-      ]
+        "Rebuilt the AI assistant backend in Python and FastAPI; its score on a 54-case evaluation rose from 32 to 52.",
+        "Cut time to first results in production from 72-122 s to under 10 s by profiling every stage.",
+        "Built visual search over 3.48M image vectors (~15-21 ms on one GPU); cut keyword search from 10.6 s to 53 ms.",
+        "Built the nightly data pipeline for 650k+ products; embeddings raised attribute coverage from 0% to 99.5%.",
+        "Ran AWS, CI/CD and iOS TestFlight releases; shipped the team's work behind 1,144 backend and 592 native tests."
+      ],
+      "tech": "Python, FastAPI, MongoDB, vector search, embeddings, Node.js, TypeScript, AWS, Docker, GitHub Actions, Swift"
+    },
+    {
+      "role": "Full-Stack Engineer (Freelance)",
+      "company": "Confidential clients",
+      "dates": "Mar 2026 - Jul 2026",
+      "bullets": [
+        "Built a multi-currency profit-and-loss platform solo in 18 days: 5 integrations, zero bug reports after handoff.",
+        "Cut its dashboard load time by over 95%; recovered 641 orphaned orders and 2,350 mis-attributed transactions.",
+        "Built a 24-module multi-tenant school platform (NestJS, PostgreSQL row-level security); 361 tests passing in CI."
+      ],
+      "tech": "Next.js, TypeScript, PostgreSQL, Prisma, NestJS, Vercel"
     }
   ],
   "projects": [
@@ -43,45 +62,52 @@
       "name": "JustHireMe",
       "label": "Creator / Open source",
       "url": "https://github.com/vasu-devs/JustHireMe",
-      "tech": "Tauri / Rust / React / Python / FastAPI",
+      "tech": "Tauri, Rust, React, Python, FastAPI, SQLite, LanceDB, Kuzu",
       "bullets": [
-        "Built an open-source desktop app with Python, FastAPI, React, and Rust that finds jobs, explains how well each one fits you, and drafts tailored applications; 2,200+ GitHub stars.",
-        "Ranked jobs with graph and vector search plus quality checks, with human review before any generated document is used."
+        "Built a desktop app that finds job leads, explains their fit and drafts tailored resumes, all on your own machine.",
+        "2,200+ GitHub stars and 365 forks after a 380K-view launch; 110 tagged releases."
+      ]
+    },
+    {
+      "name": "Svara",
+      "label": "Creator / Open source",
+      "url": "https://github.com/vasu-devs/Svara",
+      "tech": "Python, faster-whisper, Moonshine, CTranslate2, CUDA",
+      "bullets": [
+        "Built offline voice dictation for Windows and Linux: press a hotkey, speak, and text appears at your cursor.",
+        "First word in 54 ms at 5.56% word error rate on a Linux CPU, down from 290 ms and 8.33% on the previous engine."
       ]
     },
     {
       "name": "Odeon",
-      "label": "Solo build / Agent evaluation",
+      "label": "Solo build / Voice-agent evaluation",
       "url": "https://github.com/vasu-devs/Odeon",
-      "tech": "Python / FastAPI / WebSockets / React / SQLite",
+      "tech": "Python, FastAPI, WebSockets, LangChain, Groq, React, SQLite",
       "bullets": [
-        "Built a tool with Python, FastAPI, and React that tests an AI agent with difficult simulated conversations, has an LLM grade its behavior, and rewrites its prompt until the scores pass.",
-        "Streams each run live with a word-by-word diff of every prompt change, so it is easy to see what changed."
-      ]
-    },
-    {
-      "name": "Waldo",
-      "label": "Solo build / Multimodal RAG",
-      "url": "https://github.com/vasu-devs/Waldo",
-      "tech": "Python / LangGraph / Docling / Gemini / Qdrant",
-      "bullets": [
-        "Built a chat tool with Python, LangGraph, Gemini, and Qdrant that answers questions about PDFs, including their tables and figures, and shows the source figure with each answer.",
-        "Checks if retrieved content is relevant, retries with a rewritten question, and says it does not know rather than guessing."
+        "Built a voice-agent test bench: simulated hard callers, LLM-graded calls, and automatic prompt rewrites on failure."
       ]
     }
   ],
   "skills": [
     {
-      "label": "Languages & applications",
-      "text": "Python, TypeScript, JavaScript, SQL, React, Next.js, FastAPI, Node.js"
+      "label": "AI & LLM",
+      "text": "LLM agents, tool calling, retrieval-augmented generation (RAG), LLM evaluation (LLM-as-judge), embeddings, vector search, LangGraph, MCP, OpenAI and Anthropic APIs, machine learning"
     },
     {
-      "label": "AI & data",
-      "text": "Machine learning, large language models (LLMs), retrieval-augmented generation (RAG), LangGraph, embeddings, vector search, voice AI, PostgreSQL, MongoDB"
+      "label": "Voice",
+      "text": "LiveKit, WebRTC, SIP, Deepgram, voice activity detection (VAD), text-to-speech (TTS), faster-whisper"
     },
     {
-      "label": "Engineering",
-      "text": "Docker, AWS, GitHub Actions, CI/CD, automated testing, AI evaluations, Git, REST APIs"
+      "label": "Languages",
+      "text": "Python, TypeScript, JavaScript, SQL, Swift, Rust, C++ (CUDA)"
+    },
+    {
+      "label": "Backend & web",
+      "text": "FastAPI, Node.js, NestJS, Next.js, React, PostgreSQL, MongoDB, Redis, Prisma, REST APIs"
+    },
+    {
+      "label": "Infrastructure & testing",
+      "text": "AWS (ECS, Lambda, S3), Docker, GitHub Actions, CI/CD, Vercel, pytest, Vitest, Playwright"
     }
   ],
   "education": {
@@ -90,6 +116,6 @@
     "dates": "2023 - 2027 (expected)",
     "detail": "CGPA: 8.59"
   },
-  "recognition": "Smart India Hackathon 2025 semifinalist (PolySEE team). Oracle OCI AI Foundations Associate; NPTEL coursework in Deep Learning and Machine Learning. Open-source contributions to kana-dojo, animated icons, and free-programming-books.",
-  "updated": "September 2026"
+  "recognition": "Smart India Hackathon 2025 semifinalist: top 15 of 900+ teams. Oracle OCI AI Foundations Associate (98%). 8 merged open-source pull requests across 5 external repositories, including one in a 275k-star repository.",
+  "updated": "November 2026"
 }

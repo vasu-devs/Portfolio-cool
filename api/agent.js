@@ -2752,6 +2752,7 @@ Quickshell (QML), Hyprland (Lua), Luau, GLSL shaders, Node.js, systemd.`,
 
 // src/data/work.ts
 var FEATURED = [1, 11, 13, 88, 4];
+var INDEX = [...FEATURED, 9, 16, 14, 7, 18, 34, 3, 10, 12, 8, 15, 23, 29, 66, 67, 71, 74, 75, 21, 22];
 var SLUG = { 1: "justhireme", 11: "svara", 13: "odeon", 3: "fintech-pnl", 4: "visual-search", 9: "vaani", 14: "branchgpt", 15: "mapmyrepo", 58: "justhireme-ios", 88: "gpu-kernels" };
 var DIAGRAM = { 1: "justhireme", 11: "svara", 13: "odeon", 3: "fintech", 9: "vaani", 14: "branchgpt", 15: "mapmyrepo", 88: "gpukernels", 4: "visualsearch" };
 var COLOR = { 1: "#ff5a1f", 11: "#c6ff2e", 13: "#2bb8ff", 88: "#7c5cff", 4: "#ffc400" };
@@ -2785,16 +2786,19 @@ var work = projects_default.map((p, i) => {
     color: COLOR[p.id] ?? palette[i % palette.length],
     diagram: DIAGRAM[p.id],
     facts: FACTS[p.id],
-    featured: FEATURED.includes(p.id)
+    featured: FEATURED.includes(p.id),
+    shown: INDEX.includes(p.id)
   };
 });
 var featuredWork = FEATURED.map((id) => work.find((w) => w.id === id));
+var shownWork = INDEX.map((id) => work.find((w) => w.id === id));
 
 // src/content.ts
 var person = {
   name: "Vasudev Siddh",
   handle: "Vasu-Devs",
   intro: "I'm Vasu, an AI and full-stack engineer based in India. I build voice tools, desktop apps, and software for clients.",
+  about: "I build voice tools, desktop apps, and software for clients. Currently an AI Engineering intern at withlayer.ai. Outside work, I'm building JustHireMe, Svara, and Dreamer, and sharing what I learn through code and videos.",
   email: "siddhvasudev1402@gmail.com",
   call: "https://cal.com/vasu-devs",
   coffee: "https://buymeacoffee.com/vasu.devs",
@@ -2803,7 +2807,8 @@ var person = {
     { label: "GitHub", url: "https://github.com/vasu-devs" },
     { label: "X", url: "https://x.com/vasu_devs" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/vasu-devs/" },
-    { label: "YouTube", url: "https://www.youtube.com/@Vasu-Devs" }
+    { label: "YouTube", url: "https://www.youtube.com/@Vasu-Devs" },
+    { label: "Instagram", url: "https://www.instagram.com/vasu_._devs/" }
   ]
 };
 var openSource = {
@@ -2871,7 +2876,7 @@ var experience_default = [
   },
   {
     id: 2,
-    title: "Founding Engineer (Contract)",
+    title: "Full-Stack AI Engineer (Contract)",
     company: "Confidential client",
     display_date: "May 2026 - Present",
     summary: "I run engineering end to end for a venture-backed consumer-AI startup: the AI assistant backend, data acquisition and enrichment, retrieval and recommendations, AWS operations, CI/CD and iOS releases.",
@@ -2969,7 +2974,7 @@ var BASE = JSON.stringify({
 var SECTIONS = ["/", "/projects", "/about", ...work.filter((w) => w.featured).map((w) => `/projects/${w.slug}`)];
 var STOP = /* @__PURE__ */ new Set(["the", "and", "for", "what", "with", "does", "did", "his", "him", "vasu", "about", "how", "can", "are", "was", "has", "have", "you", "that", "this", "tell", "any", "who", "which", "from", "into", "built", "build", "work", "project", "projects"]);
 var words = (text) => text.toLowerCase().match(/[a-z0-9+#.]{3,}/g)?.filter((w) => !STOP.has(w)) ?? [];
-var INDEX = work.map((w) => ({
+var INDEX2 = work.map((w) => ({
   w,
   title: new Set(words(w.title)),
   tags: new Set(words([...w.skills, ...w.domains].join(" "))),
@@ -2977,7 +2982,7 @@ var INDEX = work.map((w) => ({
 }));
 function relevant(question, n = 3) {
   const q = words(question);
-  return INDEX.map(({ w, title, tags, body }) => ({ w, score: q.reduce((sum, t) => sum + (title.has(t) ? 4 : 0) + (tags.has(t) ? 2 : 0) + (body.has(t) ? 1 : 0), 0) + (w.featured ? 0.5 : 0) })).filter((r) => r.score >= 1).sort((a, b) => b.score - a.score).slice(0, n).map(({ w }) => ({ path: `/projects/${w.slug}`, title: w.title, role: w.role, status: w.status, summary: w.summary, did: w.did, facts: w.facts, skills: w.skills }));
+  return INDEX2.map(({ w, title, tags, body }) => ({ w, score: q.reduce((sum, t) => sum + (title.has(t) ? 4 : 0) + (tags.has(t) ? 2 : 0) + (body.has(t) ? 1 : 0), 0) + (w.featured ? 0.5 : 0) })).filter((r) => r.score >= 1).sort((a, b) => b.score - a.score).slice(0, n).map(({ w }) => ({ path: `/projects/${w.slug}`, title: w.title, role: w.role, status: w.status, summary: w.summary, did: w.did, facts: w.facts, skills: w.skills }));
 }
 var RULES = `You are the agent on Vasudev Siddh's portfolio website. Visitors are recruiters, founders and other engineers.
 Talk about Vasu in the third person. Be precise and brief: one or two short sentences, under 35 words. No filler, no greetings, no markdown.

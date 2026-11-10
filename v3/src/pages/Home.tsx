@@ -8,7 +8,7 @@ import { Heatmap } from '../components/Heatmap';
 import { swarmWillBuild } from '../lib/swarm';
 import { featuredWork } from '../data/work';
 import experience from '../data/experience.json';
-import { roleLink } from '../components/ProjectOverlay';
+import { resumeLink, roleLink } from '../components/ProjectOverlay';
 import { person } from '../content';
 import { asset } from '../lib/asset';
 import { useTraffic } from '../lib/traffic';
@@ -20,7 +20,7 @@ const CONTACTS = [
   { label: 'Email', icon: 'Email', url: `mailto:${person.email}`, handle: person.email },
   { label: 'Book a call', icon: 'Call', url: person.call, handle: 'cal.com/vasu-devs' },
   ...person.socials.map((x) => ({ label: x.label, icon: x.label, url: x.url, handle: x.url.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, '') })),
-  { label: 'Résumé', icon: 'Résumé', url: person.resume, handle: 'one page' },
+  { label: 'Résumé', icon: 'Résumé', url: resumeLink, handle: 'one page' },
 ].map((c, i) => ({ ...c, color: featuredWork[i % featuredWork.length].color, ext: c.url.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {} }));
 /** Escape closes a hero pop-over (they open on hover or focus). */
 const blurOnEscape = (e: KeyboardEvent) => { if (e.key === 'Escape') (document.activeElement as HTMLElement | null)?.blur(); };
@@ -55,7 +55,7 @@ export function Home() {
           <span className="h-card h-contact" id="h-contact" role="group" aria-label="Contact" data-swarm-skip>
             <b>Let’s talk</b>
             <span className="h-contact-lead">Freelance builds, AI engineering and full-stack roles.</span>
-            {CONTACTS.map((c) => <a key={c.url} href={c.url} {...c.ext} style={{ ['--c' as string]: c.color }}><i><Icon k={c.icon} /></i><span>{c.label}</span><em>{c.handle}</em></a>)}
+            {CONTACTS.map((c) => <Link key={c.url} to={c.url} {...c.ext} style={{ ['--c' as string]: c.color }}><i><Icon k={c.icon} /></i><span>{c.label}</span><em>{c.handle}</em></Link>)}
           </span>
         </span></p>
         <h1 className="h-stack" aria-label="Vasu-Devs">
@@ -65,7 +65,7 @@ export function Home() {
         <dl className="h-facts">
           <div><dt className="mono">Now</dt><dd>AI Engineering Intern at withlayer.ai</dd></div>
           <div><dt className="mono">Contact</dt><dd className="h-icons">
-            {CONTACTS.map((c) => <a key={c.url} href={c.url} {...c.ext} aria-label={c.label} data-tip={c.label} style={{ ['--c' as string]: c.color }}><Icon k={c.icon} size={22} /></a>)}
+            {CONTACTS.map((c) => <Link key={c.url} to={c.url} {...c.ext} aria-label={c.label} data-tip={c.label} style={{ ['--c' as string]: c.color }}><Icon k={c.icon} size={22} /></Link>)}
           </dd></div>
           <div><dt className="mono">Based in</dt><dd>India, working your hours</dd></div>
           {traffic && (
